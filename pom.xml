@@ -8,7 +8,14 @@
     <artifactId>Synthlab</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
+    <repositories>
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
+    </repositories>
+
+    <dependencies><!-- https://mvnrepository.com/artifact/com.jsyn/jsyn -->
         <dependency>
             <groupId>com.jsyn</groupId>
             <artifactId>jsyn</artifactId>
