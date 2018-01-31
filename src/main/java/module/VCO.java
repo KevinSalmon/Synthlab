@@ -1,5 +1,6 @@
 package module;
 
+import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.SquareOscillator;
@@ -11,6 +12,7 @@ public class VCO extends Circuit implements UnitSource{
     private final SquareOscillator sqrOsc;
     private final UnitOscillator currentOsc;
     public final UnitOutputPort output;
+    private UnitInputPort frequency;
     private Signal audioSignal;
 
 
@@ -19,8 +21,9 @@ public class VCO extends Circuit implements UnitSource{
         currentOsc = sqrOsc;
 
         addPort(output = sqrOsc.output, "output");
+        addPort(frequency = sqrOsc.frequency);
         audioSignal = new AudioSignal();
-        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getVolt()))); //1 kHz
+        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getFrequencyMin()))); //1 kHz
     }
 
 
