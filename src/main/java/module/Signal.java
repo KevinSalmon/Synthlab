@@ -20,11 +20,6 @@ public interface Signal {
      */
     void addFrequency(double frequency);
 
-    /**
-     * Change l'octave actuelle de i octave
-     * @param i le nombre d'octave à augmenter
-     */
-    void changeOctave(int i);
 
     /**
      * Récupère l'amplitude
@@ -49,4 +44,30 @@ public interface Signal {
      * @return la bande passante
      */
     int getBandWidth();
+
+    /**
+     * Récupère l'octave
+     * @return l'octave actuelle
+     */
+
+    int getOctave();
+
+    /**
+     * Change l'octave actuelle de i octave
+     * @param octave le nombre d'octave à augmenter
+     */
+    void setOctave(int octave);
+
+    /**
+     * Récupère le réglage fin
+     * @return le réglage fin
+     */
+    float getReglageFin();
+
+    /**
+     * Met à jour le réglage fin
+     * @param reglageFin le réglage à ajouter
+     */
+    void setReglageFin(float reglageFin);
+
 }

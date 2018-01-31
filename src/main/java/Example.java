@@ -23,8 +23,8 @@ public class Example {
         synth.add(myVco);
 
         // Connect all module together
-        myVco.output.connect( 0, myOut.input, 0 ); /* Left side */
-        myVco.output.connect( 0, myOut.input, 1 ); /* Right side */
+        myVco.getOutput().connect( 0, myOut.input, 0 ); /* Left side */
+        myVco.getOutput().connect( 0, myOut.input, 1 ); /* Right side */
 
         // Configure if necessary
         //myVco.frequency.set( 1000.0 );  // 1 kHz
@@ -35,7 +35,7 @@ public class Example {
             while(true) {
                 String str = c.nextLine();
                 if (str.charAt(0) == 'd') {
-                    myVco.IncreaseFrequency(0.1);
+                    myVco.IncreaseFrequency(0.1f);
                 }
                 if(str.charAt(0) == 'e'){
                     myVco.IncreaseOctave(1);

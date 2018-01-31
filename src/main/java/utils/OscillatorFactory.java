@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import com.jsyn.unitgen.SawtoothOscillator;
 import com.jsyn.unitgen.SquareOscillator;

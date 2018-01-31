@@ -47,16 +47,41 @@ public abstract class AbstractSignalTest {
      */
     @Test
      public void changeOctaveUp(){
-        signal.changeOctave(1);
-        Assert.assertEquals(" Frequency must double", 440*2, signal.getFrequencyMin());
+
+        for(int i=1; i < 3;i++){
+            signal.setOctave(1);
+            Assert.assertEquals(" Octave must be "+i, i, signal.getOctave());
+
+        }
     }
     /**
      * Vérifie la diminution de l'octave
      */
     @Test
     public void changeOctaveDown(){
-        signal.changeOctave(-1);
-        Assert.assertEquals(" Frequency must divided by 2", 440/2, signal.getFrequencyMin());
+        for(int i=1; i < 3;i++){
+            signal.setOctave(-1);
+            assertEquals(" Octave must be -"+(-i), -i, signal.getOctave());
+
+        }
+    }
+
+    /**
+     *  Vérifie le réglage fin
+     */
+
+    public void reglageFinTest(){
+        signal.setReglageFin(1);
+        assertEquals("Reglage fin must be 1", 1, signal.getReglageFin());
+        signal.setReglageFin(1);
+        assertEquals("Reglage fin must be 1", 1, signal.getReglageFin());
+        signal.setReglageFin(0);
+        assertEquals("Reglage fin must be 0", 0, signal.getReglageFin());
+        signal.setReglageFin(-1);
+        assertEquals("Reglage fin must be -1", -1, signal.getReglageFin());
+        signal.setReglageFin(-1);
+        assertEquals("Reglage fin must be -1", -1, signal.getReglageFin());
+
     }
 
 }

@@ -9,18 +9,24 @@ public abstract class AbstractSignal implements Signal {
     protected double amplitude;
     protected int frequencyMin;
     protected int frequencyMax;
+    protected int octave;
+    protected float reglageFin;
 
     public AbstractSignal(double volt, double amplitude, int frequency) {
         this.volt = volt;
         this.amplitude = amplitude;
         this.frequencyMin = frequency;
         this.frequencyMax = frequencyMin + BANDWIDTH;
+        this.octave = 0;
+        this.reglageFin = 0;
     }
     public AbstractSignal() {
         this.volt =0;
         this.amplitude=0.5;
         this.frequencyMin = 440;
         this.frequencyMax = frequencyMin + BANDWIDTH;
+        this.octave = 0;
+        this.reglageFin = 0;
     }
     @Override
     public double getVolt(){
@@ -48,8 +54,11 @@ public abstract class AbstractSignal implements Signal {
     }
 
     @Override
-    public void changeOctave(int i) {
-        this.frequencyMin = (int) (this.frequencyMin * Math.pow(2, i));
+    public void setOctave(int i) {
+        octave+=i;
+        if(octave < -3) octave = -3;
+        if(octave > 2) octave = 2;
+
 
     }
 
@@ -58,4 +67,21 @@ public abstract class AbstractSignal implements Signal {
         return BANDWIDTH;
     }
 
+    @Override
+    public int getOctave() {
+        return octave;
+    }
+
+    @Override
+    public float getReglageFin() {
+        return reglageFin;
+    }
+
+    @Override
+    public void setReglageFin(float reglageFin) {
+        if(this.reglageFin < -1) this.reglageFin = -1;
+        if(this.reglageFin > 1) this.reglageFin = 1;
+        else
+            this.reglageFin = reglageFin;
+    }
 }
