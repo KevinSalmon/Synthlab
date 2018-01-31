@@ -1,18 +1,23 @@
 package module;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class ModulationTest implements AbstractSignalTest {
+public class ModulationTest extends AbstractSignalTest {
 
-    Signal signal;
+    @Before
+    public void init(){
+        signal = new ModulationSignal();
+    }
+
 
     @Override
     @Test
     public void increaseUntilLimit() {
-        signal = new ModulationSignal();
 
         for (int i= 0; i <=10;i++){
             signal.addVoltage(1);
@@ -31,7 +36,6 @@ public class ModulationTest implements AbstractSignalTest {
     @Override
     @Test
     public void moreThanLimit() {
-        signal = new ModulationSignal();
         signal.addVoltage(10);
         assertEquals("Voltage max : 10",  10.0,signal.getVolt());
         signal.addVoltage(1);
@@ -42,7 +46,6 @@ public class ModulationTest implements AbstractSignalTest {
     @Override
     @Test
     public void lessThanLimit() {
-        signal = new ModulationSignal();
         signal.addVoltage(-10);
         assertEquals("Voltage max : -10", -10.0, signal.getVolt());
         signal.addVoltage(-1);
@@ -50,12 +53,5 @@ public class ModulationTest implements AbstractSignalTest {
 
     }
 
-    @Override
-    @Test
-    public void frequencyTest() {
-        signal = new ModulationSignal();
 
-        assertEquals("BandWith must be 22KHz", signal.getBandWidth(), (signal.getFrequencyMax() - signal.getFrequencyMin()));
-
-    }
 }

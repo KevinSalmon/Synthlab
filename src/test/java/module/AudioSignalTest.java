@@ -1,17 +1,23 @@
 package module;
 
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class AudioSignalTest implements AbstractSignalTest {
+import static junit.framework.TestCase.assertEquals;
 
-    private Signal signal;
+public class AudioSignalTest extends AbstractSignalTest {
+
+    @Before
+    public void init(){
+        signal = new AudioSignal(0, 0.5, 440);
+    }
 
 
     @Override
     @Test
     public void increaseUntilLimit() {
-        signal = new AudioSignal(0, 0.5, 440);
         int i = 0;
         for (; i <= 5; i++) {
             signal.addVoltage(1);
@@ -31,34 +37,29 @@ public class AudioSignalTest implements AbstractSignalTest {
     @Override
     @Test
     public void moreThanLimit(){
-        signal = new AudioSignal(4, 0.5, 440);
+
+        signal.addVoltage(5);
+        assertEquals("Equals 5 volt", 5.0, signal.getVolt());
 
         signal.addVoltage(1);
-        Assert.assertTrue("Equals 5 volt", signal.getVolt() == 5);
-
-        signal.addVoltage(1);
-        Assert.assertTrue("Equals 5 volt", signal.getVolt() == 5);
+        assertEquals("Equals 5 volt", 5.0, signal.getVolt());
 
     }
 
     @Override
     @Test
     public void lessThanLimit(){
-        signal = new AudioSignal(-4, 0.5, 440);
+
+
+        signal.addVoltage(-5);
+        assertEquals("Equals 5 volt", -5.0, signal.getVolt());
 
         signal.addVoltage(-1);
-        Assert.assertTrue("Equals 5 volt", signal.getVolt() == -5);
-
-        signal.addVoltage(-1);
-        Assert.assertTrue("Equals 5 volt", signal.getVolt() == -5);
+        assertEquals("Equals 5 volt",  -5.0, signal.getVolt());
 
     }
 
-    @Override
-    @Test
-    public void frequencyTest(){
-        signal = new AudioSignal(4, 0.5, 440);
-        Assert.assertTrue(signal.getFrequencyMin() == 440);
-        Assert.assertTrue((signal.getFrequencyMax() - signal.getFrequencyMin() == signal.getBandWidth()));
-    }
+
+
+
 }
