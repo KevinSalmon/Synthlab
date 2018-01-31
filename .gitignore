@@ -125,6 +125,6 @@ crashlytics-build.properties
 fabric.properties
 
 /target/
-/.idea/
+.idea/
 Synthlab.iml
 
