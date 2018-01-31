@@ -1,7 +1,9 @@
-import Module.VCO;
+import module.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
+
+import java.util.Scanner;
 
 public class Example {
 
@@ -28,6 +30,20 @@ public class Example {
         //myVco.frequency.set( 1000.0 );  // 1 kHz
 
         // Start at least the LineOut
+        Scanner c = new Scanner(System.in);
+        new Thread(()-> {
+            while(true) {
+                String str = c.nextLine();
+                if (str.charAt(0) == 'd') {
+                    myVco.IncreaseFrequency(0.1);
+                }
+                if(str.charAt(0) == 'e'){
+                    myVco.IncreaseOctave(1);
+                }
+
+            }
+        }).start();
         myOut.start();
+
     }
 }
