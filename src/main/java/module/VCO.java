@@ -33,16 +33,26 @@ public class VCO extends Circuit implements UnitSource, Module {
     }
 
     
-    public void IncreaseFrequency(float v){
+    public void increaseFrequency(float v){
         audioSignal.setReglageFin(v);
         sqrOsc.frequency.set((440) *(audioSignal.getOctave() + audioSignal.getReglageFin()));
 
     }
 
-    
-    public void IncreaseOctave(int amp) {
+    public void increaseOctave(int amp) {
         audioSignal.setOctave(amp);
         sqrOsc.frequency.set(440 *(audioSignal.getOctave() + audioSignal.getReglageFin()));
+    }
+
+    public void decreaseFrequency(float v){
+        audioSignal.setReglageFin(-v);
+        sqrOsc.frequency.set((440) /(audioSignal.getOctave() + audioSignal.getReglageFin()));
+
+    }
+
+    public void decreaseOctave(int amp) {
+        audioSignal.setOctave(-amp);
+        sqrOsc.frequency.set(440 /(audioSignal.getOctave() + audioSignal.getReglageFin()));
     }
 
     public SquareOscillator getSqrOsc() {
