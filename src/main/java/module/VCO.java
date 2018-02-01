@@ -87,7 +87,7 @@ public class VCO extends Circuit implements UnitSource, Module {
     }
 
     @Override
-    public Tuple<UnitPort, PortType> getOutputs(String name) {
+    public Tuple<UnitPort, PortType> getPort(String name) {
         if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
         return null;
     }
