@@ -12,12 +12,22 @@ public class IHMImpl extends Application {
     private Scene scene;
 
     public void start(Stage primaryStage) throws Exception {
+        /**
+         * Chargement du FXML
+         */
         FXMLLoader loader = new FXMLLoader();
         URL location = getClass().getResource("/mainFXML.fxml");
         Parent root = loader.load(location.openStream());
 
-        primaryStage.setTitle("Drag and Drop funny stuff");
+        /**
+         * Parametres de la fenetre
+         */
+        primaryStage.setTitle("SynthLab");
         primaryStage.setMaximized(true);
+
+        /**
+         * Affichage de la fenetre
+         */
         scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
