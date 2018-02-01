@@ -12,5 +12,5 @@ public interface Module {
      * @param name name du port à récupérer
      * @return Un tuple contenant le port demandé et son type. Renvoi null si le port n'existe pas.
      */
-    Tuple<UnitPort,PortType> getOutputs(String name);
+    Tuple<UnitPort,PortType> getPort(String name);
 }
