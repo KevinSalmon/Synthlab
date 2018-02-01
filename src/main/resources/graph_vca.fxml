@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Spinner layoutX="215.0" layoutY="125.0" />
+      <Circle layoutX="57.0" layoutY="200.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle layoutX="57.0" layoutY="322.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle layoutX="553.0" layoutY="224.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="42.0" layoutY="138.0" text="in" />
+      <Label layoutX="542.0" layoutY="176.0" text="out" />
+      <Label layoutX="39.0" layoutY="264.0" text="am" />
+   </children>
+</Pane>
