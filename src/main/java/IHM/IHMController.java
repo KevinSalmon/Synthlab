@@ -5,8 +5,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
@@ -14,7 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;
+import utils.FxmlFilesNames;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -34,6 +38,7 @@ public class IHMController implements Initializable {
     private Rectangle module1;
 
     private Rectangle draggedRectangle = new Rectangle();
+
 
     @FXML
     void closeApplication(ActionEvent event) {
@@ -121,5 +126,28 @@ public class IHMController implements Initializable {
         workspace.setOnDragDropped(de -> onDragDropped(de));
 
         hoverPanel.setOnDragOver(de -> onDragOver(de));
+
+
+        initModulesInModuleMenu();
+
+        addModule(workspace, FxmlFilesNames.MODULE_OUT, 250, 300);
+    }
+
+    private void initModulesInModuleMenu(){
+        addModule(moduleMenu, FxmlFilesNames.MODULE_OUT, 200, 0);
+    }
+
+    private void addModule(Pane pane, String FxmlModuleFileName, double x , double y){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(FxmlModuleFileName));
+        Pane modulePane = null;
+        try {
+            modulePane = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pane.getChildren().add(modulePane);
+        modulePane.setLayoutX(x);
+        modulePane.setLayoutY(y);
     }
 }

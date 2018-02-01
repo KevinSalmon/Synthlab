@@ -3,8 +3,11 @@ package IHM;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.FxmlFilesNames;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class IHMImpl extends Application {
@@ -13,7 +16,7 @@ public class IHMImpl extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        URL location = getClass().getResource("/mainFXML.fxml");
+        URL location = getClass().getResource(FxmlFilesNames.MAIN);
         Parent root = loader.load(location.openStream());
 
         primaryStage.setTitle("Drag and Drop funny stuff");
