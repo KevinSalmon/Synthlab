@@ -5,11 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VcaController implements Initializable {
+public class VcaController implements Initializable{
 
 
     @FXML
@@ -17,10 +18,14 @@ public class VcaController implements Initializable {
 
     @FXML
     Spinner<Integer> gainSelector;
+
+    @FXML
+    Circle in;
     
     private int minValue =0;
     private int initialValue = 0;
     private int maxValue = 100;
+    private boolean inputClicked;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -28,5 +33,13 @@ public class VcaController implements Initializable {
                 initialValue);
         gainSelector.setValueFactory(valueFactory);
         gainSelector.setEditable(true);
+        this.inputClicked = false;
+
+
+
     }
+
+
+
+
 }
