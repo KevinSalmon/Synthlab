@@ -1,20 +1,24 @@
 package IHM;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import controller.Obseurveur;
+import controller.SubjectOutput;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import module.Module;
 
 
-public class ModuleOut implements Initializable {
+public class ModuleOut implements Initializable, SubjectOutput{
+
+    private Module OutputModule;
 
 	@FXML
 	Pane pane_main;
@@ -37,6 +41,10 @@ public class ModuleOut implements Initializable {
 
 		btn_attenuateur.setValueFactory(valueFactory);
 		btn_attenuateur.setEditable(true);
+        obseurveurList = new ArrayList<>();
+
+        checkbox_mute.setOnAction(event -> notifyObseurveur());
+        //btn_attenuateur.setOnAction(event -> notifyObseurveur());
 	}
 
 	public int getMinValue() {
@@ -58,5 +66,38 @@ public class ModuleOut implements Initializable {
 	public int getInitialValue() {
 		return initialValue;
 	}
-	
+
+
+    private List<Obseurveur<SubjectOutput>> obseurveurList;
+
+    @Override
+    public boolean getMuteValue() {
+        return checkbox_mute.isSelected();
+    }
+
+    @Override
+    public double getDecibelValue() {
+        return btn_attenuateur.getValue();
+    }
+
+    @Override
+    public void register(Obseurveur o) {
+        if(o == null){
+            System.out.println("NULL");
+        }else{
+            obseurveurList.add(o);
+        }
+    }
+
+    @Override
+    public void remove(Obseurveur o) {
+
+    }
+
+    @Override
+    public void notifyObseurveur() {
+        for(Obseurveur<SubjectOutput> o : obseurveurList){
+            o.update(this);
+        }
+    }
 }

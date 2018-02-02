@@ -4,20 +4,27 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.*;
+import controller.Obseurveur;
+import controller.SubjectOutput;
 import filter.AttenuationFilter;
 import utils.Tuple;
 
-public class OutputModule extends Module {
+import java.util.ArrayList;
+import java.util.List;
+
+public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
     private UnitOutputPort input;
     private Boolean mute;
     private AttenuationFilter attenuationFilter;
     private LineOut lineOut;
+    private List<Obseurveur<SubjectOutput>> obseuveurOutputList;
 
     public OutputModule(Synthesizer synth) {
         this.input = null;
         this.mute = false;
         this.attenuationFilter = new AttenuationFilter();
         synth.add(this.lineOut = new LineOut());
+        obseuveurOutputList = new ArrayList<>();
     }
 
     public UnitOutputPort getInput() {
@@ -70,5 +77,13 @@ public class OutputModule extends Module {
             return new Tuple(getPortByName(name),PortType.INPUT);
         }
         return null;
+    }
+
+    @Override
+    public void update(SubjectOutput o) {
+
+        mute = o.getMuteValue();
+        attenuationFilter.setDecibelsAttenuation(o.getDecibelValue());
+        System.out.println(mute+" "+attenuationFilter);
     }
 }

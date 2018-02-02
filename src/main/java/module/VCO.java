@@ -7,9 +7,15 @@ import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
+import controller.Obseurveur;
+import controller.SubjectOutput;
+import controller.SubjectVCO;
 import utils.Tuple;
 
-public class VCO extends Module implements UnitSource {
+import java.util.ArrayList;
+import java.util.List;
+
+public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private SquareOscillator sqrOsc;
     private UnitOscillator currentOsc;
@@ -30,6 +36,7 @@ public class VCO extends Module implements UnitSource {
         addPort(input = currentOsc.frequency, "input");
         audioSignal = new AudioSignal(0.5, 440);
         currentOsc.frequency.set(audioSignal.getFrequency()); //1 kHz
+
     }
 
     @Override
@@ -163,5 +170,13 @@ public class VCO extends Module implements UnitSource {
 
     public double getReglageFin() {
         return reglageFin;
+    }
+
+    @Override
+    public void update(SubjectVCO o) {
+        octave = o.getOctaveValue();
+        reglageFin = o.getReglageFinValue();
+
+        System.out.println(octave+" "+reglageFin);
     }
 }

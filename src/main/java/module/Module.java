@@ -5,11 +5,12 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.Circuit;
+import controller.Subject;
 import utils.Tuple;
 
 import java.util.Map;
 
-public abstract class Module extends Circuit{
+public abstract class Module extends Circuit {
 
     /**
      * Récupère Le port identifié par name

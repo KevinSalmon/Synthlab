@@ -1,5 +1,7 @@
 package IHM;
 
+import controller.Controller;
+import controller.Subject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -34,7 +36,11 @@ public class IHMImpl extends Application {
         scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        c = new Controller(((IHMController)loader.getController()));
     }
+
+    private Controller c;
 
     public static void main(String[] args){
         launch(args);
