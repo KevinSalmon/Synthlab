@@ -2,6 +2,8 @@ import module.OutputModule;
 import module.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import utils.OscillatorType;
+
 import java.util.Scanner;
 
 public class Example {
@@ -45,6 +47,12 @@ public class Example {
                     }
                     else if(str.charAt(0) == 'a'){
                         myVco.decreaseOctave(1);
+                    }
+                    else if(str.charAt(0) == 't'){
+                        myVco.changeCurrentOsc(OscillatorType.TRIANGLE);
+                    }
+                    else if(str.charAt(0) == 's'){
+                        myVco.changeCurrentOsc(OscillatorType.SQUARE);
                     }
                     else if (str.charAt(0) == 'm') { // Mute
                         outModule.switchMute();

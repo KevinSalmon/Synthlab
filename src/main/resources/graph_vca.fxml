@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="353.0" style="-fx-background-color: #61F26E;" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="353.0" style="-fx-background-color: #61F26E;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.VcaController">
    <children>
-      <Spinner layoutX="101.0" layoutY="76.0" />
-      <Circle layoutX="43.0" layoutY="51.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="41.0" layoutY="146.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="313.0" layoutY="89.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Spinner fx:id="gainSelector" layoutX="101.0" layoutY="76.0" />
+      <Circle fx:id="in" layoutX="43.0" layoutY="51.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="am" layoutX="41.0" layoutY="146.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="out" layoutX="313.0" layoutY="89.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="34.0" text="in" />
       <Label layoutX="302.0" layoutY="43.0" text="out" />
       <Label layoutX="29.0" layoutY="94.0" text="am" />

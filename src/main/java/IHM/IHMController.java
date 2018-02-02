@@ -1,23 +1,17 @@
 package IHM;
 
-import com.jsyn.JSyn;
 import controller.Controller;
-import controller.Obseurveur;
-import controller.Subject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 import module.OutputModule;
 import utils.FxmlFilesNames;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,9 +33,17 @@ public class IHMController implements Initializable{
     private Pane moduleMenu;
 
     /**
+     * Constantes locales
+     */
+    private final int PADDING = 30;
+
+    /**
      * Variables locales
      */
     private Pane draggedModule;
+    private boolean spawning = false;
+    private double deltaX = 0;
+    private double deltaY = PADDING;
 
     /**
      * Valeur de l'attribut style du module avant son drag
@@ -96,6 +98,10 @@ public class IHMController implements Initializable{
         draggedModule.setOnDragDetected(de -> onDragDetected(de, draggedModule));
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
 
+        spawning = true;
+        deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
+        deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
+
         /**
          * Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
          * la fenetre
@@ -124,6 +130,10 @@ public class IHMController implements Initializable{
         draggedModule = source;
         currentModulesStyle = draggedModule.getStyle();
         draggedModule.setStyle(defaultSelectionStyle);
+
+        deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
+        deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
+
         mouseEvent.consume();
     }
 
@@ -144,17 +154,23 @@ public class IHMController implements Initializable{
 
 
         /**
-         * Instanciation du nouveau module
+         * Instanciation du nouveau module si il est au dessus du workspace
          */
-        Pane module = controller.createModule(fxml);
-        module.setLayoutX(draggedModule.getLayoutX());
-        module.setLayoutY(draggedModule.getLayoutY());
-        module.setOnDragDetected(de -> onDragDetected(de, module));
-        module.setOnDragDone(de -> onDragDone(de, module));
-        /**
-         * Ajout du nouveau module sur le workspace
-         */
-        workspace.getChildren().add(module);
+
+        if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
+            Pane module = controller.createModule(fxml);
+            module.setLayoutX(draggedModule.getLayoutX());
+            module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
+            module.setOnDragDetected(de -> onDragDetected(de, module));
+            module.setOnDragDone(de -> onDragDone(de, module));
+            spawning = false;
+
+            /**
+             * Ajout du nouveau module sur le workspace
+             */
+            workspace.getChildren().add(module);
+        }
+
         dragEvent.consume();
     }
 
@@ -198,8 +214,12 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
-        draggedModule.setLayoutX(dragEvent.getX());
-        draggedModule.setLayoutY(dragEvent.getY());
+        if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
+            draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
+        }
+        if(dragEvent.getSceneY() - deltaY > 0 && dragEvent.getSceneY() - deltaY < workspace.getScene().getHeight()){
+            draggedModule.setLayoutY(dragEvent.getSceneY() - deltaY);
+        }
         dragEvent.consume();
     }
 

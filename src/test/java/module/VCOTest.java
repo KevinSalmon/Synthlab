@@ -32,39 +32,47 @@ public class VCOTest {
         vco.increaseOctave(1);
 
         Assert.assertTrue("The octave should have increase by 1", vco.getOctave() == 1);
+        Assert.assertTrue("The frequency should have doubled", vco.getFrequency() == 880);
 
         vco.increaseOctave(150);
 
         Assert.assertTrue("The octave should have increase only by 2", vco.getOctave() == 3);
+        Assert.assertTrue("The frequency should have doubled 2 times", vco.getFrequency() == 3520);
 
         vco.decreaseOctave(1);
 
         Assert.assertTrue("The octave should have decrease by 1", vco.getOctave() == 2);
+        Assert.assertTrue("The frequency should have been halved", vco.getFrequency() == 1760);
 
         vco.decreaseOctave(150);
 
         Assert.assertTrue("The octave should have decrease only by 4", vco.getOctave() == -2);
+        Assert.assertTrue("The frequency should have been halved 4 times", vco.getFrequency() == 110);
     }
 
     @Test
     public void ReglageFinTest(){
-        Assert.assertTrue("The base octave should be 0", vco.getReglageFin() == 0);
+        Assert.assertTrue("The base tuning should be 0", vco.getReglageFin() == 0);
 
-        vco.increaseReglageFin(1);
+        vco.increaseReglageFin(0.1);
 
-        Assert.assertTrue("The octave should have increase by 1", vco.getReglageFin() == 1);
+        Assert.assertTrue("The tuning should have increase by 0.1", vco.getReglageFin() == 0.1);
+        Assert.assertTrue("The frequency should have slighty increased", vco.getFrequency() == (440 * Math.pow(2,0.1)));
 
         vco.increaseReglageFin(150);
 
-        Assert.assertTrue("The octave should have increase only by 2", vco.getReglageFin() == 3);
+        Assert.assertTrue("The tuning should have increase only by 0.9", vco.getReglageFin() == 1);
+        Assert.assertTrue("The frequency should have nearly doubled", vco.getFrequency() == 880);
 
-        vco.decreaseReglageFin(1);
+        vco.decreaseReglageFin(0.1);
 
-        Assert.assertTrue("The octave should have decrease by 1", vco.getReglageFin() == 2);
+        Assert.assertTrue("The tuning should have decrease by 0.1", vco.getReglageFin() == 0.9);
+        Assert.assertTrue("The frequency should have slighty decreased", vco.getFrequency() == (440 * Math.pow(2,0.9)));
 
         vco.decreaseReglageFin(150);
 
-        Assert.assertTrue("The octave should have decrease only by 4", vco.getReglageFin() == -2);
+        Assert.assertTrue("The tuning should have decrease only by 0.9", vco.getReglageFin() == 0);
+        Assert.assertTrue("The frequency should have returned to the base value", vco.getFrequency() == 440);
     }
 
 }

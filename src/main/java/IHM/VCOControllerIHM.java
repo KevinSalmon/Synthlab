@@ -16,16 +16,16 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
 
     @FXML
-    private Slider slider_octave;
+    private Slider octaveSlider;
 
     @FXML
-    private Slider slider_reglageFin;
+    private Slider reglageFinSlider;
 
     @FXML
-    private Slider slider_f0;
+    private Slider f0Slider;
 
     @FXML
-    private Slider slider_type;
+    private Slider typeOndeSlider;
 
     private List<Obseurveur<SubjectVCO>> obseuveurVCOputList;
 
@@ -35,18 +35,18 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        slider_octave.setOnInputMethodTextChanged(event -> notifyObseurveur());
-        slider_reglageFin.setOnInputMethodTextChanged(event -> notifyObseurveur());
+        octaveSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
+        reglageFinSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
     }
 
     @Override
     public int getOctaveValue() {
-        return new Double(slider_octave.getValue()).intValue();
+        return new Double(octaveSlider.getValue()).intValue();
     }
 
     @Override
     public double getReglageFinValue() {
-        return slider_reglageFin.getValue();
+        return reglageFinSlider.getValue();
     }
 
     @Override

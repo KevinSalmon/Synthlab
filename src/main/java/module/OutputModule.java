@@ -84,6 +84,5 @@ public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
 
         mute = o.getMuteValue();
         attenuationFilter.setDecibelsAttenuation(o.getDecibelValue());
-        System.out.println(mute+" "+attenuationFilter);
     }
 }

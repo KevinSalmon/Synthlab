@@ -1,26 +1,23 @@
 package module;
 
 import Signal.*;
-import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
-import controller.SubjectOutput;
 import controller.SubjectVCO;
+import utils.OscillatorFactory;
+import utils.OscillatorType;
 import utils.Tuple;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
-    private SquareOscillator sqrOsc;
+    private UnitOscillator sqrOsc;
+    private UnitOscillator triOsc;
+    private UnitOscillator sawOsc;
     private UnitOscillator currentOsc;
     private UnitOutputPort output;
-    private UnitInputPort input;
     private Signal audioSignal;
 
     private int octave;
@@ -29,14 +26,26 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
 
     public VCO() {
-        add(sqrOsc = new SquareOscillator());
-        currentOsc = sqrOsc;
+        add(sqrOsc = OscillatorFactory.createOscillator(OscillatorType.SQUARE));
+        add(triOsc = OscillatorFactory.createOscillator(OscillatorType.TRIANGLE));
+        add(sawOsc = OscillatorFactory.createOscillator(OscillatorType.SAWTOOTH));
+        currentOsc = sawOsc;
 
-        addPort(output = currentOsc.output, "output");
-        addPort(input = currentOsc.frequency, "input");
+        addPort(output = new UnitOutputPort(), "output");
         audioSignal = new AudioSignal(0.5, 440);
-        currentOsc.frequency.set(audioSignal.getFrequency()); //1 kHz
+        currentOsc.frequency.set(audioSignal.getFrequency());
+    }
 
+    @Override
+    public void generate(int start, int limit) {
+        super.generate(start, limit);
+
+        double[] out = output.getValues();
+        double[] osc = currentOsc.output.getValues();
+
+        for (int i = start; i < limit; i++) {
+            out[i] = osc[i];
+        }
     }
 
     @Override
@@ -61,7 +70,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      * Met à jour la fréquence du signal
      */
     private void updateFrequency() {
-        audioSignal.setFrequency(440.0 *(octave + reglageFin));
+        audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin));
         currentOsc.frequency.set(audioSignal.getFrequency());
     }
 
@@ -112,20 +121,35 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         modifyReglageFin(-r);
     }
 
-    public SquareOscillator getSqrOsc() {
-        return sqrOsc;
-    }
-
-    public void setSqrOsc(SquareOscillator sqrOsc) {
-        this.sqrOsc = sqrOsc;
-    }
-
+    /**
+     * Récupère l'oscillateur actuellement utilisé
+     * @return
+     */
     public UnitOscillator getCurrentOsc() {
         return currentOsc;
     }
 
-    public void setCurrentOsc(UnitOscillator currentOsc) {
-        this.currentOsc = currentOsc;
+    /**
+     * Change l'oscillateur utilisé
+     * @param type
+     */
+    public void changeCurrentOsc(OscillatorType type) {
+
+        double freq = currentOsc.frequency.getValue();
+        double amp = currentOsc.amplitude.getValue();
+
+        switch (type){
+            case SQUARE: currentOsc = sqrOsc;
+            break;
+            case TRIANGLE: currentOsc = triOsc;
+            break;
+            case SAWTOOTH: currentOsc = sawOsc;
+            break;
+        }
+
+        currentOsc.frequency.set(freq);
+        currentOsc.amplitude.set(amp);
+
     }
 
     
@@ -133,17 +157,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         this.output = output;
     }
 
-    
-    public UnitInputPort getInput() {
-        return input;
-    }
 
-    
-    public void setInput(UnitInputPort input) {
-        this.input = input;
-    }
-
-    
     public Signal getAudioSignal() {
         return audioSignal;
     }

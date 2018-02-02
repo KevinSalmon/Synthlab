@@ -9,10 +9,10 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ModulationTest extends AbstractSignalTest {
 
-//    @Before
-//    public void init(){
-//        signal = new ModulationSignal();
-//    }
+    @Before
+    public void init(){
+        signal = new ModulationSignal();
+    }
 //
 //
 //    @Override

@@ -9,10 +9,10 @@ import static junit.framework.TestCase.assertEquals;
 
 public class AudioSignalTest extends AbstractSignalTest {
 
-//    @Before
-//    public void init(){
-//        signal = new AudioSignal(0.5, 440);
-//    }
+    @Before
+    public void init(){
+        signal = new AudioSignal(0.5, 440);
+    }
 //
 //
 //    @Override
