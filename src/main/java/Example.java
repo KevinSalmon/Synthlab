@@ -35,13 +35,13 @@ public class Example {
                 String str = c.nextLine();
                 if(str.length()>0){
                     if (str.charAt(0) == 'd') {
-                        myVco.increaseFrequency(0.1f);
+                        myVco.increaseReglageFin(0.1);
                     }
                     else if(str.charAt(0) == 'e'){
                         myVco.increaseOctave(1);
                     }
                     else if(str.charAt(0) == 'q'){
-                        myVco.decreaseFrequency(0.1f);
+                        myVco.decreaseReglageFin(0.1);
                     }
                     else if(str.charAt(0) == 'a'){
                         myVco.decreaseOctave(1);

@@ -1,9 +1,9 @@
 package module;
 
+import Signal.*;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.Circuit;
 import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
@@ -17,15 +17,19 @@ public class VCO extends Module implements UnitSource {
     private UnitInputPort input;
     private Signal audioSignal;
 
+    private int octave;
+    private double reglageFin;
+
+
 
     public VCO() {
         add(sqrOsc = new SquareOscillator());
         currentOsc = sqrOsc;
 
-        addPort(output = sqrOsc.output, "output");
-        addPort(input = sqrOsc.frequency, "input");
-        audioSignal = new AudioSignal(1.5, 0.5, 440);
-        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin()))); //1 kHz
+        addPort(output = currentOsc.output, "output");
+        addPort(input = currentOsc.frequency, "input");
+        audioSignal = new AudioSignal(0.5, 440);
+        currentOsc.frequency.set(audioSignal.getFrequency()); //1 kHz
     }
 
     @Override
@@ -33,28 +37,72 @@ public class VCO extends Module implements UnitSource {
         return output;
     }
 
+    /**
+     * Modifie la valeur de l'octave de o
+     * @param o
+     */
+    public void modifyOctave(int o) {
+        octave += o;
 
-    public void increaseFrequency(float v){
-        audioSignal.setReglageFin(v);
-        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
+        if(octave < -2) octave = -2;
+        else if(octave > 3) octave = 3;
+
+        updateFrequency();
+    }
+
+    /**
+     * Met à jour la fréquence du signal
+     */
+    private void updateFrequency() {
+        audioSignal.setFrequency(440.0 *(octave + reglageFin));
+        currentOsc.frequency.set(audioSignal.getFrequency());
+    }
+
+    /**
+     * Augmente l'octave de o
+     * @param o
+     */
+    public void increaseOctave(int o) {
+        modifyOctave(o);
+    }
+
+    /**
+     * Diminue l'octave de o
+     * @param o
+     */
+    public void decreaseOctave(int o) {
+        modifyOctave(-o);
+    }
+
+    /**
+     * Modifie la valeur du réglage fin de r
+     * @param r
+     */
+    private void modifyReglageFin(double r) {
+        reglageFin += r;
+
+        if(reglageFin < 0) reglageFin = 0.0;
+        else if(reglageFin > 1) reglageFin = 1.0;
+
+        updateFrequency();
 
     }
 
-    
-    public void increaseOctave(int amp) {
-        audioSignal.setOctave(amp);
-        sqrOsc.frequency.set(440 * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
+    /**
+     * Augmente le réglage fin de r
+     * @param r
+     */
+    public void increaseReglageFin(double r) {
+        modifyReglageFin(r);
     }
 
-    public void decreaseFrequency(float v){
-        audioSignal.setReglageFin(-v);
-        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
 
-    }
-
-    public void decreaseOctave(int amp) {
-        audioSignal.setOctave(-amp);
-        sqrOsc.frequency.set(440 * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
+    /**
+     * Diminue le réglage fin de r
+     * @param r
+     */
+    public void decreaseReglageFin(double r) {
+        modifyReglageFin(-r);
     }
 
     public SquareOscillator getSqrOsc() {

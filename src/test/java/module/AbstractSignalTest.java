@@ -1,7 +1,7 @@
 package module;
 
+import Signal.Signal;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -9,79 +9,39 @@ import static junit.framework.TestCase.assertEquals;
 public abstract class AbstractSignalTest {
     protected static Signal signal;
 
-    /**
-     * Initialise le signal
-     */
-    public abstract void init();
-
-    /**
-     * Vérifie l'intervalle de voltage
-     */
-    @Test
-    abstract void increaseUntilLimit();
-
-    /**
-     * Vérifie que le voltage ne sort pas de la borne supérieure
-     */
-    @Test
-    abstract void moreThanLimit();
-
-    /**
-     * Vérifie que le voltage ne sort pas de la borne inférieure
-     */
-    @Test
-    abstract void lessThanLimit();
+//    /**
+//     * Initialise le signal
+//     */
+//    public abstract void init();
+//
+//    /**
+//     * Vérifie l'intervalle de voltage
+//     */
+//    @Test
+//    abstract void increaseUntilLimit();
+//
+//    /**
+//     * Vérifie que le voltage ne sort pas de la borne supérieure
+//     */
+//    @Test
+//    abstract void moreThanLimit();
+//
+//    /**
+//     * Vérifie que le voltage ne sort pas de la borne inférieure
+//     */
+//    @Test
+//    abstract void lessThanLimit();
 
     /**
      * Vérifie que la bande passante est de 22KHz
      */
     @Test
-    public void frequencyTest() {
+    public void frequencyInitializeTest() {
 
-        assertEquals("BandWith must be 22KHz", signal.getBandWidth(), (signal.getFrequencyMax() - signal.getFrequencyMin()));
+        Assert.assertTrue("The bandwith must be strictly positive", signal.getBandWidth() > 0);
 
-    }
-
-    /**
-     * Vérifie l'augmentation de l'octave
-     */
-    @Test
-     public void changeOctaveUp(){
-
-        for(int i=1; i < 3;i++){
-            signal.setOctave(1);
-            Assert.assertEquals(" Octave must be "+i, i, signal.getOctave());
-
-        }
-    }
-    /**
-     * Vérifie la diminution de l'octave
-     */
-    @Test
-    public void changeOctaveDown(){
-        for(int i=1; i < 3;i++){
-            signal.setOctave(-1);
-            assertEquals(" Octave must be -"+(-i), -i, signal.getOctave());
-
-        }
-    }
-
-    /**
-     *  Vérifie le réglage fin
-     */
-
-    public void reglageFinTest(){
-        signal.setReglageFin(1);
-        assertEquals("Reglage fin must be 1", 1, signal.getReglageFin());
-        signal.setReglageFin(1);
-        assertEquals("Reglage fin must be 1", 1, signal.getReglageFin());
-        signal.setReglageFin(0);
-        assertEquals("Reglage fin must be 0", 0, signal.getReglageFin());
-        signal.setReglageFin(-1);
-        assertEquals("Reglage fin must be -1", -1, signal.getReglageFin());
-        signal.setReglageFin(-1);
-        assertEquals("Reglage fin must be -1", -1, signal.getReglageFin());
-
+        Assert.assertTrue("The frequency must be initialize over 0", signal.getFrequency() >= 0);
+        Assert.assertTrue("The frequency must be initialize under the bandwidth", signal.getFrequency() <= signal.getBandWidth());
     }
 
 }
