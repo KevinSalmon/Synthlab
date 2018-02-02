@@ -3,11 +3,9 @@ package IHM;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.FxmlFilesNames;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class IHMImpl extends Application {
@@ -33,6 +31,7 @@ public class IHMImpl extends Application {
          */
         scene = new Scene(root);
         primaryStage.setScene(scene);
+
         primaryStage.show();
     }
 

@@ -5,21 +5,20 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="600.0" style="-fx-background-color: #99A6CC;">
+<Pane minHeight="0.0" minWidth="0.0" prefHeight="305.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
      <children>
-            <Slider layoutX="65.0" layoutY="18.0" max="3.0" min="-3.0" prefHeight="24.0" prefWidth="472.0" showTickLabels="true" showTickMarks="true" />
-            <RadioButton layoutY="11.0" mnemonicParsing="false" text="in" />
-            <RadioButton layoutX="534.0" layoutY="11.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" text="out" />
-            <Slider layoutX="65.0" layoutY="88.0" max="1.0" min="-1.0" prefHeight="24.0" prefWidth="471.0" showTickLabels="true" showTickMarks="true" />
-            <Slider layoutX="64.0" layoutY="185.0" max="10.0" min="-10.0" prefHeight="24.0" prefWidth="473.0" showTickLabels="true" showTickMarks="true" />
-            <Label layoutX="200.0" layoutY="9.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
-            <Label layoutX="200.0" layoutY="79.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
-            <Label layoutX="200.0" layoutY="176.0" text="F0" />
-            <Label layoutX="200.0" layoutY="295.0" text="Type onde " />
-            <Slider layoutX="69.0" layoutY="280.0" max="4.0" prefHeight="24.0" prefWidth="457.0" showTickMarks="true" value="3.0" />
-            <Label layoutX="81.0" layoutY="271.0" text="sinusoïdale" />
-            <Label layoutX="246.0" layoutY="271.0" text="carrée" />
-            <Label layoutX="367.0" layoutY="271.0" text="triangulaires" />
-            <Label layoutX="455.0" layoutY="271.0" text="Dents_de_scie " />
+            <Slider id="octaveSlider" blockIncrement="1.0" layoutX="32.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="-3.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <RadioButton layoutX="43.0" layoutY="259.0" mnemonicParsing="false" text="in" />
+            <RadioButton layoutX="215.0" layoutY="253.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" text="out" />
+            <Slider id="reglageFinSlider" blockIncrement="1.0" layoutX="32.0" layoutY="85.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
+            <Slider id="f0Slider" blockIncrement="1.0" layoutX="32.0" layoutY="138.0" majorTickUnit="9980.0" max="20000.0" min="20.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
+            <Label layoutX="28.0" layoutY="5.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
+            <Label layoutX="28.0" layoutY="66.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
+            <Label layoutX="32.0" layoutY="123.0" text="F0" />
+            <Label layoutX="28.0" layoutY="171.0" text="Type onde " />      
+            <Slider id="typeOndeSlider" blockIncrement="1.0" layoutX="32.0" layoutY="194.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickMarks="true" snapToTicks="true" />
+            <Label layoutX="19.0" layoutY="219.0" text="carrée" />
+            <Label layoutX="101.0" layoutY="219.0" text="triangulaires" />
+            <Label layoutX="201.0" layoutY="219.0" text="Dents de scie " />
      </children>
 </Pane>
