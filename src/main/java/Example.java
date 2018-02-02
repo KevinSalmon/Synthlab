@@ -1,8 +1,7 @@
+import module.OutputModule;
 import module.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import com.jsyn.unitgen.*;
-
 import java.util.Scanner;
 
 public class Example {
@@ -15,35 +14,50 @@ public class Example {
         synth.start();
 
         // Create at least a LineOut to get sound to speakers
-        LineOut myOut = new LineOut();
+        //LineOut myOut = new LineOut();
         VCO myVco = new VCO();
 
         // Add everything to the synthesizer
-        synth.add(myOut);
+        //synth.add(myOut);
         synth.add(myVco);
 
         // Connect all module together
-        myVco.getOutput().connect( 0, myOut.input, 0 ); /* Left side */
-        myVco.getOutput().connect( 0, myOut.input, 1 ); /* Right side */
+        //myVco.getOutput().connect( 0, myOut.input, 0 ); /* Left side */
+        //myVco.getOutput().connect( 0, myOut.input, 1 ); /* Right side */
 
-        // Configure if necessary
-        //myVco.frequency.set( 1000.0 );  // 1 kHz
+        OutputModule outModule = new OutputModule(synth);
+        outModule.setInput(myVco.getOutput());
 
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
         new Thread(()-> {
             while(true) {
                 String str = c.nextLine();
-                if (str.charAt(0) == 'd') {
-                    myVco.IncreaseFrequency(0.1f);
+                if(str.length()>0){
+                    if (str.charAt(0) == 'd') {
+                        myVco.increaseFrequency(0.1f);
+                    }
+                    else if(str.charAt(0) == 'e'){
+                        myVco.increaseOctave(1);
+                    }
+                    else if(str.charAt(0) == 'q'){
+                        myVco.decreaseFrequency(0.1f);
+                    }
+                    else if(str.charAt(0) == 'a'){
+                        myVco.decreaseOctave(1);
+                    }
+                    else if (str.charAt(0) == 'm') { // Mute
+                        outModule.switchMute();
+                    }
+                    else if (str.charAt(0) == '+') { // dB +
+                        outModule.changeDecibelsAttenuation(1.0);
+                    }
+                    else if (str.charAt(0) == '-') { // dB -
+                        outModule.changeDecibelsAttenuation(-1.0);
+                    }
                 }
-                if(str.charAt(0) == 'e'){
-                    myVco.IncreaseOctave(1);
-                }
-
             }
         }).start();
-        myOut.start();
-
+        //myOut.start();
     }
 }

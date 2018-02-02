@@ -3,12 +3,17 @@ package IHM;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import utils.FxmlFilesNames;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,6 +46,7 @@ public class IHMController implements Initializable {
      * Fonction appelee lors du clic sur File -> Close
      * @param event
      */
+
     @FXML
     void closeApplication(ActionEvent event) {
         Platform.exit();
@@ -219,5 +225,28 @@ public class IHMController implements Initializable {
          * depuis le menu
          */
         hoverPanel.setOnDragOver(de -> onDragOver(de));
+
+
+        initModulesInModuleMenu();
+
+        addModule(workspace, FxmlFilesNames.MODULE_OUT, 250, 300);
+    }
+
+    private void initModulesInModuleMenu(){
+        addModule(moduleMenu, FxmlFilesNames.MODULE_OUT, 200, 0);
+    }
+
+    private void addModule(Pane pane, String FxmlModuleFileName, double x , double y){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(FxmlModuleFileName));
+        Pane modulePane = null;
+        try {
+            modulePane = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pane.getChildren().add(modulePane);
+        modulePane.setLayoutX(x);
+        modulePane.setLayoutY(y);
     }
 }
