@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import utils.FxmlFilesNames;
@@ -34,13 +33,19 @@ public class IHMController implements Initializable {
     @FXML
     private Pane moduleMenu;
 
-    @FXML
-    private Rectangle module1;
-
     /**
      * Variables locales
      */
-    private Rectangle draggedRectangle = new Rectangle();
+    private Pane draggedModule;
+
+    /**
+     * Valeur de l'attribut style du module avant son drag
+     */
+    private String currentModulesStyle;
+    /**
+     * Valeur de l'attribut Style à appliqué à un module qui est dragged
+     */
+    private String defaultSelectionStyle = "-fx-background-color:#1FDE28";
 
     /**
      * Fonction appelee lors du clic sur File -> Close
@@ -64,27 +69,31 @@ public class IHMController implements Initializable {
      * selectionne
      * @param mouseEvent
      * @param source, module a instancier sur le plan de travail
+     * @param fxml nom du fxml du module à instancier
      */
-    private void onSpawnDragDetected(MouseEvent mouseEvent, Rectangle source) {
+    private void onSpawnDragDetected(MouseEvent mouseEvent, Pane source, String fxml) {
         /**
          * Variables indispensables pour le Drag&Drop
          */
         Dragboard dragBoard = source.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
-        content.putString("Creation du rectangle");
+        content.putString("Creation du module");
         dragBoard.setContent(content);
 
         /**
          * Instanciantion du nouveau module
          */
-        draggedRectangle = new Rectangle(source.getX(), source.getY(), source.getWidth(), source.getHeight());
-        draggedRectangle.setFill(Color.GREEN);
+        draggedModule = createModule(fxml);
+        draggedModule.setLayoutX(source.getLayoutX());
+        draggedModule.setLayoutY(source.getLayoutY());
+        draggedModule.setOnDragDetected(de -> onDragDetected(de, draggedModule));
+        draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
 
         /**
          * Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
          * la fenetre
          */
-        hoverPanel.getChildren().add(draggedRectangle);
+        hoverPanel.getChildren().add(draggedModule);
         mouseEvent.consume();
     }
 
@@ -93,7 +102,7 @@ public class IHMController implements Initializable {
      * @param mouseEvent
      * @param source, module a deplacer
      */
-    private void onDragDetected(MouseEvent mouseEvent, Rectangle source) {
+    private void onDragDetected(MouseEvent mouseEvent, Pane source) {
         /**
          * Variables indispensables pour le Drag&Drop
          */
@@ -105,8 +114,9 @@ public class IHMController implements Initializable {
         /**
          * Le module est deja sur le plan de travail, on deplace donc l'instance
          */
-        draggedRectangle = source;
-        draggedRectangle.setFill(Color.GREEN);
+        draggedModule = source;
+        currentModulesStyle = draggedModule.getStyle();
+        draggedModule.setStyle(defaultSelectionStyle);
         mouseEvent.consume();
     }
 
@@ -114,32 +124,30 @@ public class IHMController implements Initializable {
      * Fin du Drag&Drop depuis le menu des modules, ajout du nouveau module dans le plan de travail
      * @param dragEvent
      * @param source
+     * @param fxml nom du fxml du module à instancier
      */
-    private void onSpawnDragDone(DragEvent dragEvent, Rectangle source) {
+    private void onSpawnDragDone(DragEvent dragEvent, Pane source, String fxml) {
         dragEvent.getDragboard().clear();
-        draggedRectangle.setFill(Color.BLACK);
+        draggedModule.setStyle(currentModulesStyle);
 
         /**
          * Suppression du module sur le panel de Drag&drop
          */
-        hoverPanel.getChildren().remove(draggedRectangle);
+        hoverPanel.getChildren().remove(draggedModule);
+
 
         /**
          * Instanciation du nouveau module
          */
-        Rectangle r = new Rectangle(draggedRectangle.getX(),
-                draggedRectangle.getY()-moduleMenu.getHeight(),
-                draggedRectangle.getWidth(),
-                draggedRectangle.getHeight());
-
-        r.setOnDragDetected(de -> onDragDetected(de, r));
-        r.setOnDragDone(de -> onDragDone(de, r));
-        r.setFill(Color.BLACK);
-
+        Pane module = createModule(fxml);
+        module.setLayoutX(draggedModule.getLayoutX());
+        module.setLayoutY(draggedModule.getLayoutY());
+        module.setOnDragDetected(de -> onDragDetected(de, module));
+        module.setOnDragDone(de -> onDragDone(de, module));
         /**
          * Ajout du nouveau module sur le workspace
          */
-        workspace.getChildren().add(r);
+        workspace.getChildren().add(module);
         dragEvent.consume();
     }
 
@@ -148,9 +156,9 @@ public class IHMController implements Initializable {
      * @param dragEvent
      * @param source
      */
-    private void onDragDone(DragEvent dragEvent, Rectangle source) {
+    private void onDragDone(DragEvent dragEvent, Pane source) {
         dragEvent.getDragboard().clear();
-        draggedRectangle.setFill(Color.BLACK);
+        draggedModule.setStyle(currentModulesStyle);
         dragEvent.consume();
     }
 
@@ -183,8 +191,8 @@ public class IHMController implements Initializable {
         /**
          * Deplacement du module
          */
-        draggedRectangle.setX(dragEvent.getX());
-        draggedRectangle.setY(dragEvent.getY());
+        draggedModule.setLayoutX(dragEvent.getX());
+        draggedModule.setLayoutY(dragEvent.getY());
         dragEvent.consume();
     }
 
@@ -205,13 +213,6 @@ public class IHMController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         /**
-         * Ajout des fonctions de Drag&Drop des modules
-         */
-        module1.setOnDragDetected(de -> onSpawnDragDetected(de, module1));
-        module1.setOnDragDone(de -> onSpawnDragDone(de, module1));
-
-
-        /**
          * Ajout des fonctions de Drag&Drop du plan de travail
          */
         workspace.setOnDragEntered(de -> onDragEntered(de));
@@ -229,14 +230,30 @@ public class IHMController implements Initializable {
 
         initModulesInModuleMenu();
 
-        addModule(workspace, FxmlFilesNames.MODULE_OUT, 250, 300);
+        /**
+         * Ajout par défaut d'un module de sortie au workspace
+         */
+        Pane out = createModule(FxmlFilesNames.MODULE_OUT);
+        workspace.getChildren().add(out);
+        out.setLayoutX(250);
+        out.setLayoutY(300);
+        out.setOnDragDetected(de -> onDragDetected(de, out));
+        out.setOnDragDone(de -> onDragDone(de, out));
     }
 
+    /**
+     * Ajout des modules au menu
+     */
     private void initModulesInModuleMenu(){
-        addModule(moduleMenu, FxmlFilesNames.MODULE_OUT, 200, 0);
+        addModuleToMenu(FxmlFilesNames.MODULE_OUT, 0, 0);
     }
 
-    private void addModule(Pane pane, String FxmlModuleFileName, double x , double y){
+    /**
+     * Création d'un module en chargeant le fxml associé
+     * @param FxmlModuleFileName nom du fxml du module à ajouter
+     * @return module
+     */
+    private Pane createModule(String FxmlModuleFileName){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(FxmlModuleFileName));
         Pane modulePane = null;
@@ -245,8 +262,24 @@ public class IHMController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pane.getChildren().add(modulePane);
+
+        return modulePane;
+    }
+
+    /**
+     * Ajouter un module dans le Pane du menu et ajout des event drag&drop au module
+     * @param fxmlModuleFileName nom du fxml du module à ajouter
+     * @param x
+     * @param y
+     */
+    private void addModuleToMenu(String fxmlModuleFileName, double x , double y){
+        Pane modulePane;
+        modulePane = createModule(fxmlModuleFileName);
+        moduleMenu.getChildren().add(modulePane);
         modulePane.setLayoutX(x);
         modulePane.setLayoutY(y);
+
+        modulePane.setOnDragDetected(de -> onSpawnDragDetected(de, modulePane, fxmlModuleFileName));
+        modulePane.setOnDragDone(de -> onSpawnDragDone(de, modulePane, fxmlModuleFileName));
     }
 }
