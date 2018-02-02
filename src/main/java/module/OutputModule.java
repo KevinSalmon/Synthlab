@@ -7,7 +7,7 @@ import com.jsyn.unitgen.*;
 import filter.AttenuationFilter;
 import utils.Tuple;
 
-public class OutputModule extends Circuit implements Module {
+public class OutputModule extends Module {
     private UnitOutputPort input;
     private Boolean mute;
     private AttenuationFilter attenuationFilter;
