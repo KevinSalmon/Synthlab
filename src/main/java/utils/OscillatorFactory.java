@@ -15,7 +15,7 @@ public class OscillatorFactory {
      * @param oscillatorType
      * @return le nouvel oscillateur
      */
-    public static UnitOscillator changeOscillator(OscillatorType oscillatorType){
+    public static UnitOscillator createOscillator(OscillatorType oscillatorType){
 
         switch (oscillatorType){
             case SQUARE: return new SquareOscillator();
