@@ -30,7 +30,7 @@ public class Example {
 
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
-        /*new Thread(()-> {
+        new Thread(()-> {
             while(true) {
                 String str = c.nextLine();
                 if(str.length()>0){
@@ -57,7 +57,7 @@ public class Example {
                     }
                 }
             }
-        }).start();*/
+        }).start();
         //myOut.start();
     }
 }
