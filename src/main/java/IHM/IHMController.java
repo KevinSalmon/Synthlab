@@ -97,6 +97,7 @@ public class IHMController implements Initializable{
         draggedModule.setLayoutY(source.getLayoutY());
         draggedModule.setOnDragDetected(de -> onDragDetected(de, draggedModule));
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
+        draggedModule.setStyle(defaultSelectionStyle);
 
         spawning = true;
         deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
@@ -282,28 +283,9 @@ public class IHMController implements Initializable{
      * Ajout des modules au menu
      */
     private void initModulesInModuleMenu(){
-        addModuleToMenu(FxmlFilesNames.MODULE_OUT, 353, 0);
         addModuleToMenu(FxmlFilesNames.VCA, 0, 0);
-        addModuleToMenu(FxmlFilesNames.VCO, 732, 0);
+        addModuleToMenu(FxmlFilesNames.VCO, 353, 0);
     }
-
-    /**
-     * Création d'un module en chargeant le fxml associé
-     * @param fxmlModuleFileName nom du fxml du module à ajouter
-     * @return module
-     */
-    /*private Pane createModule(String fxmlModuleFileName){
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(fxmlModuleFileName));
-        Pane modulePane = null;
-        try {
-            modulePane = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return modulePane;
-    }*/
 
     /**
      * Ajouter un module dans le Pane du menu et ajout des event drag&drop au module
