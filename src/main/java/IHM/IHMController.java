@@ -245,7 +245,9 @@ public class IHMController implements Initializable {
      * Ajout des modules au menu
      */
     private void initModulesInModuleMenu(){
-        addModuleToMenu(FxmlFilesNames.MODULE_OUT, 0, 0);
+        addModuleToMenu(FxmlFilesNames.MODULE_OUT, 353, 0);
+        addModuleToMenu(FxmlFilesNames.VCA, 0, 0);
+        addModuleToMenu(FxmlFilesNames.VCO, 732, 0);
     }
 
     /**
