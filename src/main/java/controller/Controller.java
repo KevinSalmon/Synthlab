@@ -1,7 +1,6 @@
 package controller;
 
 import IHM.IHMController;
-import IHM.VCOControllerIHM;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
@@ -16,11 +15,25 @@ import java.util.List;
 
 import static com.jsyn.JSyn.createSynthesizer;
 
+/**
+ * Controlleur principal de l'application
+ */
 public class Controller {
+
     List<Module> modules;
+    /**
+     * controlleur de l'ihm principale
+     */
     IHMController ihmController;
+    /**
+     * Synthétiseur de l'appli
+     */
     Synthesizer synth;
 
+    /**
+     *
+     * @param ihmController principal de l'appli
+     */
     public Controller(IHMController ihmController){
         synth = createSynthesizer();
         modules = new ArrayList<>();
@@ -35,7 +48,11 @@ public class Controller {
         modules.add(module);
     }
 
-
+    /**
+     * Créer un module en le chargeant grâce au nom de son fxml
+     * @param fxmlModuleFileName nom du fichier fxml à charger
+     * @return Pane graphique du module
+     */
     private Pane createModuleWithoutEvent(String fxmlModuleFileName){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(fxmlModuleFileName));

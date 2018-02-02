@@ -287,23 +287,6 @@ public class IHMController implements Initializable{
         addModuleToMenu(FxmlFilesNames.VCO, 732, 0);
     }
 
-    /**
-     * Création d'un module en chargeant le fxml associé
-     * @param fxmlModuleFileName nom du fxml du module à ajouter
-     * @return module
-     */
-    /*private Pane createModule(String fxmlModuleFileName){
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(fxmlModuleFileName));
-        Pane modulePane = null;
-        try {
-            modulePane = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return modulePane;
-    }*/
 
     /**
      * Ajouter un module dans le Pane du menu et ajout des event drag&drop au module
