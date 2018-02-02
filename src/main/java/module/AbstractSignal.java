@@ -54,12 +54,15 @@ public abstract class AbstractSignal implements Signal {
     }
 
     @Override
-    public void setOctave(int i) {
-        octave+=i;
+    public void addOctave(int i) {
+        setOctave(octave+i);
+    }
+
+    @Override
+    public void setOctave(int octave) {
+        this.octave = octave;
         if(octave < -3) octave = -3;
         if(octave > 2) octave = 2;
-
-
     }
 
     @Override
@@ -79,9 +82,8 @@ public abstract class AbstractSignal implements Signal {
 
     @Override
     public void setReglageFin(float reglageFin) {
+        this.reglageFin = reglageFin;
         if(this.reglageFin < -1) this.reglageFin = -1;
         if(this.reglageFin > 1) this.reglageFin = 1;
-        else
-            this.reglageFin = reglageFin;
     }
 }
