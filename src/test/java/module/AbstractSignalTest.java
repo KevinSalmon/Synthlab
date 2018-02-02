@@ -9,11 +9,11 @@ import static junit.framework.TestCase.assertEquals;
 public abstract class AbstractSignalTest {
     protected static Signal signal;
 
-//    /**
-//     * Initialise le signal
-//     */
-//    public abstract void init();
-//
+    /**
+     * Initialise le signal
+     */
+    public abstract void init();
+
 //    /**
 //     * Vérifie l'intervalle de voltage
 //     */
