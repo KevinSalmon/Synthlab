@@ -3,38 +3,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <TabPane prefHeight="251.0" prefWidth="600.0" style="-fx-background-color: #99A6CC;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text=" ">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="600.0">
-                     <children>
-                        <Slider layoutX="65.0" layoutY="18.0" max="3.0" min="-3.0" prefHeight="24.0" prefWidth="472.0" showTickLabels="true" showTickMarks="true" />
-                        <RadioButton layoutY="11.0" mnemonicParsing="false" text="in" />
-                        <RadioButton layoutX="534.0" layoutY="11.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" text="out" />
-                        <Slider layoutX="65.0" layoutY="88.0" max="1.0" min="-1.0" prefHeight="24.0" prefWidth="471.0" showTickLabels="true" showTickMarks="true" />
-                        <Slider layoutX="64.0" layoutY="185.0" max="10.0" min="-10.0" prefHeight="24.0" prefWidth="473.0" showTickLabels="true" showTickMarks="true" />
-                        <Label layoutX="200.0" layoutY="9.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
-                        <Label layoutX="200.0" layoutY="79.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
-                        <Label layoutX="200.0" layoutY="176.0" text="F0" />
-                        <Label layoutX="200.0" layoutY="295.0" text="Type onde " />
-                        <Slider layoutX="69.0" layoutY="280.0" max="4.0" prefHeight="24.0" prefWidth="457.0" showTickMarks="true" value="3.0" />
-                        <Label layoutX="81.0" layoutY="271.0" text="sinusoïdale" />
-                        <Label layoutX="246.0" layoutY="271.0" text="carrée" />
-                        <Label layoutX="367.0" layoutY="271.0" text="triangulaires" />
-                        <Label layoutX="455.0" layoutY="271.0" text="Dents_de_scie " />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </center>
-</BorderPane>
+<Pane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="600.0" style="-fx-background-color: #99A6CC;">
+     <children>
+            <Slider layoutX="65.0" layoutY="18.0" max="3.0" min="-3.0" prefHeight="24.0" prefWidth="472.0" showTickLabels="true" showTickMarks="true" />
+            <RadioButton layoutY="11.0" mnemonicParsing="false" text="in" />
+            <RadioButton layoutX="534.0" layoutY="11.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" text="out" />
+            <Slider layoutX="65.0" layoutY="88.0" max="1.0" min="-1.0" prefHeight="24.0" prefWidth="471.0" showTickLabels="true" showTickMarks="true" />
+            <Slider layoutX="64.0" layoutY="185.0" max="10.0" min="-10.0" prefHeight="24.0" prefWidth="473.0" showTickLabels="true" showTickMarks="true" />
+            <Label layoutX="200.0" layoutY="9.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
+            <Label layoutX="200.0" layoutY="79.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
+            <Label layoutX="200.0" layoutY="176.0" text="F0" />
+            <Label layoutX="200.0" layoutY="295.0" text="Type onde " />
+            <Slider layoutX="69.0" layoutY="280.0" max="4.0" prefHeight="24.0" prefWidth="457.0" showTickMarks="true" value="3.0" />
+            <Label layoutX="81.0" layoutY="271.0" text="sinusoïdale" />
+            <Label layoutX="246.0" layoutY="271.0" text="carrée" />
+            <Label layoutX="367.0" layoutY="271.0" text="triangulaires" />
+            <Label layoutX="455.0" layoutY="271.0" text="Dents_de_scie " />
+     </children>
+</Pane>
