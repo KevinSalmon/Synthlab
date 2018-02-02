@@ -152,4 +152,16 @@ public class VCO extends Module implements UnitSource {
         if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
     }
+
+    public double getFrequency(){
+        return this.currentOsc.frequency.getValue();
+    }
+
+    public int getOctave() {
+        return octave;
+    }
+
+    public double getReglageFin() {
+        return reglageFin;
+    }
 }
