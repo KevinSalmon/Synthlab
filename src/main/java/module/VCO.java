@@ -9,7 +9,7 @@ import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import utils.Tuple;
 
-public class VCO extends Circuit implements UnitSource, Module {
+public class VCO extends Module implements UnitSource {
 
     private SquareOscillator sqrOsc;
     private UnitOscillator currentOsc;
@@ -23,6 +23,7 @@ public class VCO extends Circuit implements UnitSource, Module {
         currentOsc = sqrOsc;
 
         addPort(output = sqrOsc.output, "output");
+        addPort(input = sqrOsc.frequency, "input");
         audioSignal = new AudioSignal(1.5, 0.5, 440);
         sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin()))); //1 kHz
     }
@@ -41,7 +42,7 @@ public class VCO extends Circuit implements UnitSource, Module {
 
     
     public void IncreaseOctave(int amp) {
-        audioSignal.addOctave(amp);
+        audioSignal.setOctave(amp);
         sqrOsc.frequency.set(440 *(audioSignal.getOctave() + audioSignal.getReglageFin()));
     }
 
@@ -89,6 +90,7 @@ public class VCO extends Circuit implements UnitSource, Module {
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
+        if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
     }
 }
