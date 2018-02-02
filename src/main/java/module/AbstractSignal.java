@@ -1,5 +1,7 @@
 package module;
 
+import java.util.logging.Logger;
+
 /**
  * Classe abstraite d'un signal
  */
@@ -53,16 +55,16 @@ public abstract class AbstractSignal implements Signal {
         this.frequencyMin += frequency;
     }
 
-    @Override
+    //@Override
     public void addOctave(int i) {
         setOctave(octave+i);
     }
 
     @Override
     public void setOctave(int octave) {
-        this.octave = octave;
-        if(octave < -3) octave = -3;
-        if(octave > 2) octave = 2;
+        this.octave += octave;
+        if(this.octave < -3) this.octave = -3;
+        if(this.octave > 2) this.octave = 2;
     }
 
     @Override
@@ -82,7 +84,7 @@ public abstract class AbstractSignal implements Signal {
 
     @Override
     public void setReglageFin(float reglageFin) {
-        this.reglageFin = reglageFin;
+        this.reglageFin += reglageFin;
         if(this.reglageFin < -1) this.reglageFin = -1;
         if(this.reglageFin > 1) this.reglageFin = 1;
     }

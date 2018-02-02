@@ -36,25 +36,25 @@ public class VCO extends Module implements UnitSource {
 
     public void increaseFrequency(float v){
         audioSignal.setReglageFin(v);
-        sqrOsc.frequency.set((440) *(audioSignal.getOctave() + audioSignal.getReglageFin()));
+        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
 
     }
 
     
     public void increaseOctave(int amp) {
         audioSignal.setOctave(amp);
-        sqrOsc.frequency.set(440 *(audioSignal.getOctave() + audioSignal.getReglageFin()));
+        sqrOsc.frequency.set(440 * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
     }
 
     public void decreaseFrequency(float v){
         audioSignal.setReglageFin(-v);
-        sqrOsc.frequency.set((440) /(audioSignal.getOctave() + audioSignal.getReglageFin()));
+        sqrOsc.frequency.set((440) * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
 
     }
 
     public void decreaseOctave(int amp) {
         audioSignal.setOctave(-amp);
-        sqrOsc.frequency.set(440 /(audioSignal.getOctave() + audioSignal.getReglageFin()));
+        sqrOsc.frequency.set(440 * Math.pow(2, (audioSignal.getOctave() + audioSignal.getReglageFin())));
     }
 
     public SquareOscillator getSqrOsc() {
