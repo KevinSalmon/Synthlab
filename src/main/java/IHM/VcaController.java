@@ -10,6 +10,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import module.PortType;
 import utils.CableManager;
 
 import java.net.URL;
@@ -46,47 +47,13 @@ public class VcaController implements Initializable{
         gainSelector.setEditable(true);
         this.inputClicked = false;
         cableManager = CableManager.getInstance();
-        DoubleProperty xValue = new SimpleDoubleProperty();
-        xValue.bind(in.getParent().layoutXProperty());
-        xValue.addListener((observable, oldValue, newValue) ->
-                cableManager.updateInputX(in)
+        cableManager.addListener(in, PortType.INPUT, pane);
+        cableManager.addListener(out, PortType.OUTPUT, pane);
+        cableManager = CableManager.getInstance();
 
-        );
-        DoubleProperty yValue = new SimpleDoubleProperty();
-        yValue.bind(in.getParent().layoutYProperty());
-        yValue.addListener((observable, oldValue, newValue) ->
-                cableManager.updateInputY(in)
 
-        );
-        in.setOnMouseClicked(event -> {
-            try {
-                Line line = cableManager.setInput(in);
-                ((Pane) pane.getParent()).getChildren().add(line);
-                line.toFront();
-                Logger.getGlobal().info("line added");
-            } catch (OutputException e) {
-                e.printStackTrace();
-            }
-        });
 
-        DoubleProperty xValueOut = new SimpleDoubleProperty();
-        xValueOut.bind(out.getParent().layoutXProperty());
-        xValueOut.addListener((observable, oldValue, newValue) ->
-                {
-                    cableManager.updateOutputX(out);
-                 }
 
-        );
-        DoubleProperty yValueOut = new SimpleDoubleProperty();
-        yValueOut.bind(out.getParent().layoutYProperty());
-        yValueOut.addListener((observable, oldValue, newValue) ->{
-                    cableManager.updateOutputY(out);
-
-                }
-
-        );
-
-        out.setOnMouseClicked(event -> cableManager.setOutput(out));
 
 
     }

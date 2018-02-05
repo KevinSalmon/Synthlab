@@ -1,12 +1,17 @@
 package utils;
 
 import Exceptions.OutputException;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import module.PortType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Singleton which manages the creation and updates of cables
@@ -20,7 +25,7 @@ public class CableManager {
     protected static volatile CableManager instance = null;
 
     protected CableManager(){
-        cables = new ArrayList<Cable>();
+        cables = new ArrayList<>();
     }
 
 
@@ -120,5 +125,51 @@ public class CableManager {
                 return;
             }
         }
+    }
+
+    public void addListener(Circle port, PortType type, Pane pane){
+        Logger.getGlobal().info("ajout de listener : "+ type.getType());
+
+        DoubleProperty xValue = new SimpleDoubleProperty();
+        xValue.bind(port.getParent().layoutXProperty());
+        DoubleProperty yValue = new SimpleDoubleProperty();
+        yValue.bind(port.getParent().layoutYProperty());
+
+        if(type.equals(PortType.INPUT)) {
+            xValue.addListener((observable, oldValue, newValue) -> instance.updateInputX(port)
+
+            );
+            yValue.addListener((observable, oldValue, newValue) -> instance.updateInputY(port)
+
+            );
+            port.setOnMouseClicked(event -> {
+                try {
+                    Line line = instance.setInput(port);
+                    ((Pane) pane.getParent()).getChildren().add(line);
+                    line.toFront();
+                    Logger.getGlobal().info("line added");
+                } catch (OutputException e) {
+                    e.printStackTrace();
+                }
+            });
+
+        }
+        else if(type.equals(PortType.OUTPUT)){
+            DoubleProperty xValueOut = new SimpleDoubleProperty();
+            DoubleProperty yValueOut = new SimpleDoubleProperty();
+            xValueOut.bind(port.getParent().layoutXProperty());
+            xValueOut.addListener((observable, oldValue, newValue) -> instance.updateOutputX(port)
+
+            );
+            yValueOut.bind(port.getParent().layoutYProperty());
+            yValueOut.addListener((observable, oldValue, newValue) -> instance.updateOutputY(port)
+
+            );
+
+            port.setOnMouseClicked(event -> {
+                instance.setOutput(port);
+            });
+        }
+
     }
 }

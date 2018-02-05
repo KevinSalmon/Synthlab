@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
+import javafx.scene.shape.Line;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -190,6 +191,8 @@ public class IHMController implements Initializable{
 
         draggedModule.setStyle(currentModulesStyle);
         dragEvent.consume();
+        draggedModule.toBack();
+
     }
 
     /**
@@ -329,7 +332,7 @@ public class IHMController implements Initializable{
             /**
              * Evite que le module se compare avec lui-meme
              */
-            if(moduleToCheck != module){
+            if(!(moduleToCheck instanceof Line) && moduleToCheck != module){
 
                 /**
                  * Verifie l'intersection de deux modules
