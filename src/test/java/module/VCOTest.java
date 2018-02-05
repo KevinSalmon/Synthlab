@@ -31,7 +31,7 @@ public class VCOTest {
 
     @Test
     public void FrequencyTest(){
-        Assert.assertTrue("The base frequency should be 440Hz", vco.getFrequency() == 440.0);
+        Assert.assertTrue("The base frequency should be 1000Hz", vco.getFrequency() == 1000.0);
     }
 
     @Test
