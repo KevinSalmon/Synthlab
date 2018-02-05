@@ -28,7 +28,7 @@ public class OscillatorFactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void OscillatorExcecption(){
+    public void OscillatorException(){
         oscillatorFactory.createOscillator(OscillatorType.valueOf("erreur"));
     }
 }

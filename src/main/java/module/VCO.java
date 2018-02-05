@@ -193,5 +193,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     public void update(SubjectVCO o) {
         octave = o.getOctaveValue();
         reglageFin = o.getReglageFinValue();
+        audioSignal.setFrequency(o.getFrequency());
+        changeCurrentOsc(o.getOscillatorType());
     }
 }
