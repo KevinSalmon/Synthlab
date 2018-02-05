@@ -1,6 +1,9 @@
 package module;
 
+import com.jsyn.JSyn;
+import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.UnitOscillator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +12,13 @@ public class VCOTest {
     public static VCO vco;
 
     @Before
-    public void init(){vco = new VCO();}
+    public void init(){
+        Synthesizer synth = JSyn.createSynthesizer();
+        synth.start();
+
+        vco = new VCO();
+        synth.add(vco);
+    }
 
     @Test
     public void OutputTest(){
@@ -73,6 +82,16 @@ public class VCOTest {
 
         Assert.assertTrue("The tuning should have decrease only by 0.9", vco.getReglageFin() == 0);
         Assert.assertTrue("The frequency should have returned to the base value", vco.getFrequency() == 440);
+    }
+
+    @Test
+    public void outputTest(){
+        UnitOscillator osc = vco.getCurrentOsc();
+        UnitOutputPort output = vco.getOutput();
+
+        for (int i = 0; i < 100; i++) {
+            Assert.assertEquals("The output is not equals to the current oscillator output",osc.output.get(),output.get(),0.0);
+        }
     }
 
 }

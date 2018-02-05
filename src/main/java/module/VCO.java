@@ -178,7 +178,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     }
 
     public double getFrequency(){
-        return this.currentOsc.frequency.getValue();
+        return this.currentOsc.frequency.get();
     }
 
     public int getOctave() {
