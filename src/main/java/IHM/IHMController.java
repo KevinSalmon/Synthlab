@@ -6,9 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Node;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
+import module.Module;
+import module.OutputModule;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -40,6 +43,7 @@ public class IHMController implements Initializable{
      * Variables locales
      */
     private Pane draggedModule;
+    private boolean spawning = false;
     private double deltaX = 0;
     private double deltaY = padding;
 
@@ -97,6 +101,7 @@ public class IHMController implements Initializable{
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
         draggedModule.setStyle(defaultSelectionStyle);
 
+        spawning = true;
         deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
         deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
 
@@ -128,6 +133,7 @@ public class IHMController implements Initializable{
         draggedModule = source;
         currentModulesStyle = draggedModule.getStyle();
         draggedModule.setStyle(defaultSelectionStyle);
+        draggedModule.toFront();
 
         deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
         deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
@@ -160,10 +166,13 @@ public class IHMController implements Initializable{
             module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
+            spawning = false;
 
             /**
              * Ajout du nouveau module sur le workspace
              */
+            checkCollisionOnWorkspace(module);
+
             workspace.getChildren().add(module);
         }
 
@@ -177,6 +186,9 @@ public class IHMController implements Initializable{
      */
     public void onDragDone(DragEvent dragEvent, Pane source) {
         dragEvent.getDragboard().clear();
+
+        checkCollisionOnWorkspace(draggedModule);
+
         draggedModule.setStyle(currentModulesStyle);
         dragEvent.consume();
     }
@@ -295,6 +307,22 @@ public class IHMController implements Initializable{
 
         modulePane.setOnDragDetected(de -> onSpawnDragDetected(de, modulePane, fxmlModuleFileName));
         modulePane.setOnDragDone(de -> onSpawnDragDone(de, fxmlModuleFileName));
+    }
+
+    /**
+     * Verifie les collisions entre les modules sur le workspace lors d'un
+     * Drag&Drop, et corrige la position le cas echeant
+     * @param module deplace lors du Drag&Drop
+     */
+    private void checkCollisionOnWorkspace(Pane module) {
+        for (Node moduleToCheck : workspace.getChildren()) {
+            if(moduleToCheck != module){
+                if(moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())){
+                    System.out.println("ça chevauche maggle");
+
+                }
+            }
+        }
     }
 
     public Controller getController() {
