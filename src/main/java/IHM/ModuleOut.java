@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import controller.Obseurveur;
 import controller.SubjectOutput;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
@@ -14,6 +15,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import module.Module;
+
+import javax.swing.event.ChangeEvent;
 
 
 public class ModuleOut implements Initializable, SubjectOutput{
@@ -42,7 +45,9 @@ public class ModuleOut implements Initializable, SubjectOutput{
         obseurveurList = new ArrayList<>();
 
         checkbox_mute.setOnAction(event -> notifyObseurveur());
-        //btn_attenuateur.setOnAction(event -> notifyObseurveur());
+        btn_attenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
+        btn_attenuateur.setOnKeyReleased(e ->notifyObseurveur());
+        btn_attenuateur.setOnMouseClicked(e -> notifyObseurveur());
 	}
 
 	public int getMinValue() {

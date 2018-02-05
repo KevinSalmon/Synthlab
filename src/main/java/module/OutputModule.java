@@ -69,7 +69,7 @@ public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
 
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
-        if(name.equals("input")) {
+        if("input".equals(name)) {
             return new Tuple(getPortByName(name),PortType.INPUT);
         }
         return null;
@@ -77,7 +77,6 @@ public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
 
     @Override
     public void update(SubjectOutput o) {
-
         mute = o.getMuteValue();
         attenuationFilter.setDecibelsAttenuation(o.getDecibelValue());
     }
