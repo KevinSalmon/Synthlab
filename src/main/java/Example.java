@@ -1,4 +1,6 @@
+import com.jsyn.unitgen.LineOut;
 import module.OutputModule;
+import module.VCA;
 import module.VCO;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
@@ -9,26 +11,19 @@ import java.util.Scanner;
 public class Example {
 
 
-    public static void main(String[] args){
-
-        // Create and start Synthesizer
+    public static void main(String[] args) {
         Synthesizer synth = JSyn.createSynthesizer();
         synth.start();
 
-        // Create at least a LineOut to get sound to speakers
-        //LineOut myOut = new LineOut();
         VCO myVco = new VCO();
-
-        // Add everything to the synthesizer
-        //synth.add(myOut);
         synth.add(myVco);
 
-        // Connect all module together
-        //myVco.getOutput().connect( 0, myOut.input, 0 ); /* Left side */
-        //myVco.getOutput().connect( 0, myOut.input, 1 ); /* Right side */
+        VCA vca = new VCA();
+        synth.add(vca);
+        myVco.getOutput().connect(0, vca.getInput(), 0);
 
         OutputModule outModule = new OutputModule(synth);
-        outModule.setInput(myVco.getOutput());
+        vca.getOutput().connect( 0, outModule.getInput(), 0 );
 
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
@@ -66,6 +61,6 @@ public class Example {
                 }
             }
         }).start();
-        //myOut.start();
     }
 }
+

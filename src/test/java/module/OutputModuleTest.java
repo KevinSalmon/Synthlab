@@ -16,21 +16,8 @@ public class OutputModuleTest {
 
     // Input
     @Test
-    public void defaultInputConnectionTest() {
-        assertNull(outputModule.getInput());
-    }
-
-    @Test
-    public void setInputTest() {
-        UnitOutputPort myPort = new UnitOutputPort();
-        outputModule.setInput(myPort);
-        assertEquals(myPort, outputModule.getInput());
-    }
-
-    @Test
-    public void setNullInputTest() {
-        outputModule.setInput(null);
-        assertNull(outputModule.getInput());
+    public void defaultInputTest() {
+        assertNotNull(outputModule.getInput());
     }
 
     // Mute
