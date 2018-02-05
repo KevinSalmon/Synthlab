@@ -6,12 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
-import module.Module;
-import module.OutputModule;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -171,9 +170,9 @@ public class IHMController implements Initializable{
             /**
              * Ajout du nouveau module sur le workspace
              */
-            checkCollisionOnWorkspace(module);
-
             workspace.getChildren().add(module);
+
+            checkCollisionOnWorkspace(module);
         }
 
         dragEvent.consume();
@@ -315,11 +314,137 @@ public class IHMController implements Initializable{
      * @param module deplace lors du Drag&Drop
      */
     private void checkCollisionOnWorkspace(Pane module) {
-        for (Node moduleToCheck : workspace.getChildren()) {
-            if(moduleToCheck != module){
-                if(moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())){
-                    System.out.println("ça chevauche maggle");
+        boolean goRight;
+        double rightDelta;
+        boolean goLeft;
+        double leftDelta;
+        boolean goTop;
+        double topDelta;
+        boolean goBottom;
+        double bottomDelta;
 
+        boolean deplacementDone;
+
+        for (Node moduleToCheck : workspace.getChildren()) {
+            /**
+             * Evite que le module se compare avec lui-meme
+             */
+            if(moduleToCheck != module){
+
+                /**
+                 * Verifie l'intersection de deux modules
+                 */
+                if(moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())){
+
+                    /**
+                     * Recuperation des centres des deux modules qui se chevauchent
+                     */
+                    Point2D moduleCenter = new Point2D(
+                            module.getLayoutX()+module.getWidth()/2,
+                            module.getLayoutY()+module.getHeight()/2);
+
+                    Pane moduleToCheckPane = (Pane) moduleToCheck;
+                    Point2D moduleToCheckCenter = new Point2D(
+                            moduleToCheckPane.getLayoutX()+moduleToCheckPane.getWidth()/2,
+                            moduleToCheckPane.getLayoutY()+(moduleToCheckPane.getHeight()/2));
+
+                    /**
+                     * Reinitialisation des variables
+                     */
+                    goBottom = false;
+                    goTop = false;
+                    goRight = false;
+                    goLeft = false;
+                    deplacementDone = false;
+
+                    /**
+                     * Calcule la position relative en X pour savoir vers quel cote aller
+                     */
+                    if(moduleCenter.getX() > moduleToCheckCenter.getX()){
+                        goRight = true;
+                    }else{
+                        goLeft = true;
+                    }
+                    rightDelta = moduleCenter.getX() - moduleToCheckCenter.getX();
+                    leftDelta = moduleToCheckCenter.getX() - moduleCenter.getX();
+
+                    /**
+                     * Calcule la position relative en Y pour savoir vers quel cote aller
+                     */
+                    if(moduleCenter.getY() > moduleToCheckCenter.getY()){
+                        goBottom = true;
+                    }else{
+                        goTop = true;
+                    }
+                    bottomDelta = moduleCenter.getY() - moduleToCheckCenter.getY();
+                    topDelta = moduleToCheckCenter.getY() - moduleCenter.getY();
+
+                    /**
+                     * Choix de la direction parmi les deux restantes selon l'ecart en X et Y
+                     */
+                    if(goRight && goTop){
+                        if(rightDelta > topDelta){
+                            goTop = false;
+                        }else{
+                            goRight = false;
+                        }
+                    }else if(goRight && goBottom){
+                        if(rightDelta > bottomDelta){
+                            goBottom = false;
+                        }else{
+                            goRight = false;
+                        }
+                    }else if(goLeft && goTop){
+                        if(leftDelta > topDelta){
+                            goTop = false;
+                        }else{
+                            goLeft = false;
+                        }
+                    }else if(goLeft && goBottom){
+                        if(leftDelta > bottomDelta){
+                            goBottom = false;
+                        }else{
+                            goLeft = false;
+                        }
+                    }
+
+                    while(!deplacementDone){
+                        /**
+                         * Deplacement du module vers le bon cote
+                         */
+                        if(goRight){
+                            module.setLayoutX(moduleToCheckPane.getLayoutX()+moduleToCheckPane.getWidth());
+                            deplacementDone = true;
+                        }else if(goLeft){
+                            double newX = moduleToCheckPane.getLayoutX()-module.getWidth();
+                            /**
+                             * Verifie que la nouvelle position se situe bien sur le workspace
+                             */
+                            if(newX < 0){
+                                goLeft = false;
+                                goRight = true;
+                            }else{
+                                module.setLayoutX(newX);
+                                deplacementDone = true;
+                            }
+
+                        }else if(goTop){
+                            double newY = moduleToCheckPane.getLayoutY()-module.getHeight();
+                            /**
+                             * Verifie que la nouvelle position se situe bien sur le workspace
+                             */
+                            if(newY < 0){
+                                goTop = false;
+                                goBottom = true;
+                            }else{
+                                module.setLayoutY(newY);
+                                deplacementDone = true;
+                            }
+                        }else if(goBottom){
+                            module.setLayoutY(moduleToCheckPane.getLayoutY()+moduleToCheckPane.getHeight());
+                            deplacementDone = true;
+                        }
+                    }
                 }
             }
         }
