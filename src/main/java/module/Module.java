@@ -5,10 +5,10 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.Circuit;
-import controller.Subject;
 import utils.Tuple;
 
-import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class Module extends Circuit {
 
@@ -19,6 +19,7 @@ public abstract class Module extends Circuit {
      */
      abstract Tuple<UnitPort,PortType> getPort(String name);
 
+    private static final Logger Log = Logger.getLogger( Module.class.getName() );
 
     public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
@@ -27,7 +28,7 @@ public abstract class Module extends Circuit {
         if(portsSource.getRight().equals(PortType.OUTPUT)
                 && portsDest.getRight().equals(PortType.INPUT)){
             ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());
-            System.out.println((((UnitOutputPort) portsSource.getLeft()).isConnected()));
+            Log.log(Level.INFO, "IsConnected :"+(((UnitOutputPort) portsSource.getLeft()).isConnected()));
         } else throw new PortTypeException("Incompatible ports type : "+namePortSource+" must be an output and "+namePortDest+" must be an input");
     }
 }

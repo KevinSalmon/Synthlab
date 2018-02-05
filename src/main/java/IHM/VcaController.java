@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 
 public class VcaController implements Initializable{
 
-
     @FXML
     Pane pane;
 
@@ -38,8 +37,4 @@ public class VcaController implements Initializable{
 
 
     }
-
-
-
-
 }

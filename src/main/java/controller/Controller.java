@@ -12,6 +12,7 @@ import utils.FxmlFilesNames;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.jsyn.JSyn.createSynthesizer;
 
@@ -30,6 +31,8 @@ public class Controller {
      */
     Synthesizer synth;
 
+    private static final Logger Log = Logger.getLogger( Controller.class.getName() );
+
     /**
      *
      * @param ihmController principal de l'appli
@@ -37,7 +40,6 @@ public class Controller {
     public Controller(IHMController ihmController){
         synth = createSynthesizer();
         modules = new ArrayList<>();
-        //synth.start();
         this.ihmController = ihmController;
 
         ihmController.setController(this);
@@ -60,7 +62,7 @@ public class Controller {
         try {
             modulePane = fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.severe(e.toString());
         }
 
         switch (fxmlModuleFileName){
@@ -75,6 +77,8 @@ public class Controller {
             case FxmlFilesNames.VCO:
                 VCO vco = new VCO();
                 ((Subject)fxmlLoader.getController()).register(vco);
+                break;
+            default:
                 break;
         }
 

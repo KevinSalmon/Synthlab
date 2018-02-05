@@ -2,9 +2,8 @@ package controller;
 
 /**
  * Subject entre la partie graphique d'un module et son implémentation
- * @param <T> est une interface dérivant de Subject et qui est dédiée à un type de module
  */
-public interface Subject<T> {
+public interface Subject {
     /**
      * Permet à l'obseurveur o de s'abonner à ce Subject
      * @param o

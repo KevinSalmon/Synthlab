@@ -9,4 +9,6 @@ public class FxmlFilesNames {
     public static final String VCO = "/graph_vco.fxml";
 
     public static final String VCA = "/graph_vca.fxml";
+
+    private FxmlFilesNames(){}
 }

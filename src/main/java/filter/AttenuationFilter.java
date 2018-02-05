@@ -27,8 +27,4 @@ public class AttenuationFilter extends UnitFilter {
         return this.decibels;
         //return AudioMath.amplitudeToDecibels(this.voltAttenuation); // Pour -42 db, retourne 41.999999...
     }
-
-    /*public double getVoltageAttenuation() {
-        return this.voltAttenuation;
-    }*/
 }

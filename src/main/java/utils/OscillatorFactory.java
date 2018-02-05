@@ -25,4 +25,6 @@ public class OscillatorFactory {
         }
 
     }
+
+    private OscillatorFactory(){}
 }

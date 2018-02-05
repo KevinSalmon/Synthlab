@@ -6,13 +6,13 @@ public interface Signal {
      * Ajoute une fréquence à la fréquence existante
      * @param frequency la fréquence à ajouter
      */
-    void ModifyFrequency(double frequency);
+    void modifyFrequency(double frequency);
 
     /**
      * Ajoute une amplitude à l'amplitude existante
      * @param amplitude l'amplitude à ajouter
      */
-    void ModifyAmplitude(double amplitude);
+    void modifyAmplitude(double amplitude);
 
     /**
      * Met à jour la fréquence

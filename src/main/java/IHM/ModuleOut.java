@@ -18,8 +18,6 @@ import module.Module;
 
 public class ModuleOut implements Initializable, SubjectOutput{
 
-    private Module OutputModule;
-
 	@FXML
 	Pane pane_main;
 
@@ -82,9 +80,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 
     @Override
     public void register(Obseurveur o) {
-        if(o == null){
-            System.out.println("NULL");
-        }else{
+        if(o != null){
             obseurveurList.add(o);
         }
     }

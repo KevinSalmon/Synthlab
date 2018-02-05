@@ -3,7 +3,7 @@ package controller;
 /**
  * Subject pour le module VCO
  */
-public interface SubjectVCO extends Subject<SubjectOutput>{
+public interface SubjectVCO extends Subject {
     /**
      * retourne la valeur de l'octave dans l'ihm
      * @return

@@ -23,12 +23,15 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private int octave;
     private double reglageFin;
 
-
-
     public VCO() {
-        add(sqrOsc = OscillatorFactory.createOscillator(OscillatorType.SQUARE));
-        add(triOsc = OscillatorFactory.createOscillator(OscillatorType.TRIANGLE));
-        add(sawOsc = OscillatorFactory.createOscillator(OscillatorType.SAWTOOTH));
+        sqrOsc = OscillatorFactory.createOscillator(OscillatorType.SQUARE);
+        triOsc = OscillatorFactory.createOscillator(OscillatorType.TRIANGLE);
+        sawOsc = OscillatorFactory.createOscillator(OscillatorType.SAWTOOTH);
+
+        add(sqrOsc);
+        add(triOsc);
+        add(sawOsc);
+
         currentOsc = sawOsc;
 
         addPort(output = new UnitOutputPort(), "output");
@@ -190,7 +193,5 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     public void update(SubjectVCO o) {
         octave = o.getOctaveValue();
         reglageFin = o.getReglageFinValue();
-
-        System.out.println(octave+" "+reglageFin);
     }
 }

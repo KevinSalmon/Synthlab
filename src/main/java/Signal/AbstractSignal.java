@@ -18,12 +18,12 @@ public abstract class AbstractSignal implements Signal {
     }
 
     @Override
-    public void ModifyFrequency(double frequency) {
+    public void modifyFrequency(double frequency) {
         setFrequency(this.frequency+frequency);
     }
 
     @Override
-    public void ModifyAmplitude(double amplitude) {
+    public void modifyAmplitude(double amplitude) {
         setAmplitude(this.amplitude+amplitude);
     }
 

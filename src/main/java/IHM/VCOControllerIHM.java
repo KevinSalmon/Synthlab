@@ -1,7 +1,6 @@
 package IHM;
 
 import controller.Obseurveur;
-import controller.SubjectOutput;
 import controller.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

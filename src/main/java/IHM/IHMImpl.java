@@ -1,7 +1,6 @@
 package IHM;
 
 import controller.Controller;
-import controller.Subject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;

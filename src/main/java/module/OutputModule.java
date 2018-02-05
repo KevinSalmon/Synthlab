@@ -9,22 +9,18 @@ import controller.SubjectOutput;
 import filter.AttenuationFilter;
 import utils.Tuple;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
     private UnitOutputPort input;
     private Boolean mute;
     private AttenuationFilter attenuationFilter;
     private LineOut lineOut;
-    private List<Obseurveur<SubjectOutput>> obseuveurOutputList;
 
     public OutputModule(Synthesizer synth) {
         this.input = null;
         this.mute = false;
         this.attenuationFilter = new AttenuationFilter();
-        synth.add(this.lineOut = new LineOut());
-        obseuveurOutputList = new ArrayList<>();
+        this.lineOut = new LineOut();
+        synth.add(lineOut);
     }
 
     public UnitOutputPort getInput() {
