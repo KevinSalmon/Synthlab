@@ -24,6 +24,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private double reglageFin;
 
     public VCO() {
+
+        //Crée les différents oscillateurs
         sqrOsc = OscillatorFactory.createOscillator(OscillatorType.SQUARE);
         triOsc = OscillatorFactory.createOscillator(OscillatorType.TRIANGLE);
         sawOsc = OscillatorFactory.createOscillator(OscillatorType.SAWTOOTH);
@@ -34,7 +36,10 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         currentOsc = sawOsc;
 
+        //Crée le port de sortie
         addPort(output = new UnitOutputPort(), "output");
+
+        //Initialise le signal audio
         audioSignal = new AudioSignal(0.5, 440);
         currentOsc.frequency.set(audioSignal.getFrequency());
     }
@@ -43,12 +48,13 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     public void generate(int start, int limit) {
         super.generate(start, limit);
 
+        //Récupère les adresses des valeurs des sorties du port de sortie
+        // et de la sortie de l'oscillateur courant
         double[] out = output.getValues();
         double[] osc = currentOsc.output.getValues();
 
-        for (int i = start; i < limit; i++) {
-            out[i] = osc[i];
-        }
+        // Relie l'oscillateur courant à la sortie du VCO en copiant les données
+        System.arraycopy(osc, start, out, start, limit - start);
     }
 
     @Override
@@ -74,7 +80,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      */
     private void updateFrequency() {
         audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin));
-        currentOsc.frequency.set(audioSignal.getFrequency());
+        currentOsc.frequency.set(audioSignal.getFrequency()); //Actualise l'oscillateur courant
     }
 
     /**
@@ -138,9 +144,12 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      */
     public void changeCurrentOsc(OscillatorType type) {
 
+        //Récupère la valeur de fréquence et d'amplitude de l'oscillateur courant
+        //TODO remplacer par AudioSignal si on décide de l'utiliser
         double freq = currentOsc.frequency.getValue();
         double amp = currentOsc.amplitude.getValue();
 
+        //Change l'oscillateur courant
         switch (type){
             case SQUARE: currentOsc = sqrOsc;
             break;
@@ -150,6 +159,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             break;
         }
 
+        //Met à jour fréquence et amplitude
         currentOsc.frequency.set(freq);
         currentOsc.amplitude.set(amp);
 
@@ -173,7 +183,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
-        if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
+        // TODO Ajouter port de modulation de fréquence
+        // if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
     }
 
