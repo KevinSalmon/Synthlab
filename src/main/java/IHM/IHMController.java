@@ -284,8 +284,6 @@ public class IHMController implements Initializable{
         out.setOnDragDone(de -> onDragDone(de, out));
     }
 
-    private OutputModule mo ;
-
     /**
      * Ajout des modules au menu
      */
