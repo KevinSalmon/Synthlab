@@ -19,7 +19,7 @@
                    <Label layoutX="28.0" layoutY="66.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
                    <Label layoutX="32.0" layoutY="123.0" text="F0" />
                    <Label layoutX="28.0" layoutY="171.0" text="Type onde " />
-                   <Slider id="typeOndeSlider" blockIncrement="1.0" layoutX="32.0" layoutY="194.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickMarks="true" snapToTicks="true" />
+                   <Slider fx:id="typeOndeSlider" blockIncrement="1.0" layoutX="32.0" layoutY="194.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickMarks="true" snapToTicks="true" />
                    <Label layoutX="19.0" layoutY="219.0" text="carrée" />
                    <Label layoutX="101.0" layoutY="219.0" text="triangulaires" />
                    <Label layoutX="201.0" layoutY="219.0" text="Dents de scie " />

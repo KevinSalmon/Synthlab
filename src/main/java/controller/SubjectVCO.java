@@ -1,5 +1,7 @@
 package controller;
 
+import utils.OscillatorType;
+
 /**
  * Subject pour le module VCO
  */
@@ -15,4 +17,8 @@ public interface SubjectVCO extends Subject {
      * @return
      */
     double getReglageFinValue();
+
+    double getFrequency();
+
+    OscillatorType getOscillatorType();
 }
