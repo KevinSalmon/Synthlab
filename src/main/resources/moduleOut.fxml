@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane id="pane_main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="379.0" style="-fx-background-color: #474ACE; -fx-border-color: #990066;" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.ModuleOut">
+<Pane fx:id="pane_main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="379.0" style="-fx-background-color: #474ACE; -fx-border-color: #990066;" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.ModuleOut">
    <children>
       <CheckBox fx:id="checkbox_mute" id="checkbox_mute" layoutX="103.0" layoutY="14.0" mnemonicParsing="false" text="Mute" />
       <Spinner id="btn_attenuateur" fx:id="btn_attenuateur" layoutX="103.0" layoutY="57.0" />

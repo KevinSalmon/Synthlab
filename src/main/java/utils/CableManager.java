@@ -7,7 +7,6 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Singleton which manages the creation and updates of cables
@@ -39,13 +38,10 @@ public class CableManager {
      */
     public void setOutput(Circle point2D){
         for(Cable c : cables){
-            System.err.println("Deja pris");
             if(c.getOutput().equals(point2D)) return;
         }
         currentCable = new Cable();
         currentCable.setOutput(point2D);
-        Logger.getGlobal().info("Output set");
-        Logger.getGlobal().info("x "+point2D.centerXProperty().get() + " y "+point2D.getLayoutY());
     }
 
     /**

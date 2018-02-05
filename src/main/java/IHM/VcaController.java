@@ -26,12 +26,17 @@ public class VcaController implements Initializable{
 
     @FXML
     Circle in;
+
+
+    @FXML
+    Circle out;
     
     private int minValue =0;
     private int initialValue = 0;
     private int maxValue = 100;
     private boolean inputClicked;
     private CableManager cableManager;
+    private Line line;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,11 +62,31 @@ public class VcaController implements Initializable{
             try {
                 Line line = cableManager.setInput(in);
                 ((Pane) pane.getParent()).getChildren().add(line);
+                line.toFront();
                 Logger.getGlobal().info("line added");
             } catch (OutputException e) {
                 e.printStackTrace();
             }
         });
+
+        DoubleProperty xValueOut = new SimpleDoubleProperty();
+        xValueOut.bind(out.getParent().layoutXProperty());
+        xValueOut.addListener((observable, oldValue, newValue) ->
+                {
+                    cableManager.updateOutputX(out);
+                 }
+
+        );
+        DoubleProperty yValueOut = new SimpleDoubleProperty();
+        yValueOut.bind(out.getParent().layoutYProperty());
+        yValueOut.addListener((observable, oldValue, newValue) ->{
+                    cableManager.updateOutputY(out);
+
+                }
+
+        );
+
+        out.setOnMouseClicked(event -> cableManager.setOutput(out));
 
 
     }

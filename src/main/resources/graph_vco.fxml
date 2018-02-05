@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 
-
-<BorderPane fx:id="border" style="-fx-background-color: #99A6CC;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.VCOControllerIHM">
-       <Pane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;">
+<Pane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.VCOControllerIHM">
             <children>
                    <Slider fx:id="octaveSlider" blockIncrement="1.0" layoutX="32.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="-3.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                   <RadioButton layoutX="43.0" layoutY="259.0" mnemonicParsing="false" text="in" />
-                   <RadioButton layoutX="215.0" layoutY="253.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" text="out" />
                    <Slider fx:id="reglageFinSlider" blockIncrement="1.0" layoutX="32.0" layoutY="85.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
                    <Slider fx:id="f0Slider" blockIncrement="1.0" layoutX="32.0" layoutY="138.0" majorTickUnit="9980.0" max="20000.0" min="20.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
                    <Label layoutX="28.0" layoutY="5.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
@@ -23,6 +18,9 @@
                    <Label layoutX="19.0" layoutY="219.0" text="carrée" />
                    <Label layoutX="101.0" layoutY="219.0" text="triangulaires" />
                    <Label layoutX="201.0" layoutY="219.0" text="Dents de scie " />
+      <Circle id="out" fx:id="out" fill="Black" layoutX="225.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in" fx:id="in" fill="Black" layoutX="48.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="74.0" layoutY="253.0" text="in" />
+      <Label layoutX="251.0" layoutY="253.0" text="out" />
             </children>
        </Pane>
-</BorderPane>
