@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import controller.Obseurveur;
 import controller.SubjectOutput;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +16,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import module.Module;
+import utils.CableManager;
 
 import javax.swing.event.ChangeEvent;
 
@@ -30,9 +34,13 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	@FXML
 	CheckBox checkbox_mute;
 
+	@FXML
+	Circle draw_input;
+
 	final int initialValue = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
+	private CableManager cableManager;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +51,20 @@ public class ModuleOut implements Initializable, SubjectOutput{
 		btn_attenuateur.setValueFactory(valueFactory);
 		btn_attenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
+        cableManager = CableManager.getInstance();
+		DoubleProperty xValue = new SimpleDoubleProperty();
+		xValue.bind(draw_input.getParent().layoutXProperty());
+		xValue.addListener((observable, oldValue, newValue) ->
+				cableManager.updateOutputX(draw_input)
 
+		);
+		DoubleProperty yValue = new SimpleDoubleProperty();
+		yValue.bind(draw_input.getParent().layoutYProperty());
+		yValue.addListener((observable, oldValue, newValue) ->
+				cableManager.updateOutputY(draw_input)
+
+		);
+		draw_input.setOnMouseClicked(event -> cableManager.setOutput(draw_input));
         checkbox_mute.setOnAction(event -> notifyObseurveur());
         btn_attenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
         btn_attenuateur.setOnKeyReleased(e ->notifyObseurveur());
