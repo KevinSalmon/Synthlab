@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {
+    private final String INPUT = "input";
+
     private UnitInputPort input;
     private UnitOutputPort output;
     private Boolean mute;
@@ -21,8 +23,8 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     private List<Obseurveur<SubjectOutput>> obseuveurOutputList;
 
     public OutputModule(Synthesizer synth) {
-        this.input = new UnitInputPort("input");
-        addPort(this.input, "input");
+        this.input = new UnitInputPort(INPUT);
+        addPort(this.input, INPUT);
         this.output = new UnitOutputPort("output");
         addPort(this.output, "output");
         this.mute = false;
@@ -67,7 +69,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
 
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
-        if("input".equals(name)) {
+        if(INPUT.equals(name)) {
             return new Tuple(getPortByName(name),PortType.INPUT);
         }
         return null;

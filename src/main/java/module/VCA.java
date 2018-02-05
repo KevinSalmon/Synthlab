@@ -9,7 +9,8 @@ import filter.AttenuationFilter;
 import utils.Tuple;
 import Signal.Signal;
 
-public class VCA extends Module implements UnitSource{
+public class VCA extends Module implements UnitSource {
+    private final String INPUT = "input";
 
     private UnitInputPort input; // Signal d'entrée
     private UnitInputPort am; // Entrée : Modulation d'amplitude
@@ -27,8 +28,8 @@ public class VCA extends Module implements UnitSource{
      */
 
     public VCA() {
-        this.input = new UnitInputPort("input");
-        addPort(this.input, "input");
+        this.input = new UnitInputPort(INPUT);
+        addPort(this.input, INPUT);
         this.am = new UnitInputPort("am");
         addPort(this.am, "am");
         this.output = new UnitOutputPort();
@@ -92,7 +93,7 @@ public class VCA extends Module implements UnitSource{
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
         if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
-        if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
+        if(name.equals(INPUT)) return new Tuple(getPortByName(name),PortType.INPUT);
         if(name == "am") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
     }

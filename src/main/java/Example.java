@@ -28,35 +28,25 @@ public class Example {
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
         new Thread(()-> {
-            while(true) {
+            Boolean exit = false;
+            while(!exit) {
                 String str = c.nextLine();
                 if(str.length()>0){
-                    if (str.charAt(0) == 'd') {
-                        myVco.increaseReglageFin(0.1);
-                    }
-                    else if(str.charAt(0) == 'e'){
-                        myVco.increaseOctave(1);
-                    }
-                    else if(str.charAt(0) == 'q'){
-                        myVco.decreaseReglageFin(0.1);
-                    }
-                    else if(str.charAt(0) == 'a'){
-                        myVco.decreaseOctave(1);
-                    }
-                    else if(str.charAt(0) == 't'){
-                        myVco.changeCurrentOsc(OscillatorType.TRIANGLE);
-                    }
-                    else if(str.charAt(0) == 's'){
-                        myVco.changeCurrentOsc(OscillatorType.SQUARE);
-                    }
-                    else if (str.charAt(0) == 'm') { // Mute
-                        outModule.switchMute();
-                    }
-                    else if (str.charAt(0) == '+') { // dB +
-                        outModule.changeDecibelsAttenuation(1.0);
-                    }
-                    else if (str.charAt(0) == '-') { // dB -
-                        outModule.changeDecibelsAttenuation(-1.0);
+                    switch (str.charAt(0)) {
+                        case 'd': myVco.increaseReglageFin(0.1); break;
+                        case 'e': myVco.increaseOctave(1); break;
+                        case 'q': myVco.decreaseReglageFin(0.1); break;
+                        case 'a': myVco.decreaseOctave(1); break;
+                        case 't': myVco.changeCurrentOsc(OscillatorType.TRIANGLE); break;
+                        case 's': myVco.changeCurrentOsc(OscillatorType.SQUARE); break;
+                        case 'm': outModule.switchMute(); break;
+                        case '+': outModule.changeDecibelsAttenuation(1.0); break;
+                        case '-': outModule.changeDecibelsAttenuation(-1.0); break;
+                        case '0':
+                            exit = true;
+                            System.exit(0);
+                            break;
+                        default: break;
                     }
                 }
             }
