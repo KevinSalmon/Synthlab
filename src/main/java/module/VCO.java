@@ -38,9 +38,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         //Crée le port de sortie
         addPort(output = new UnitOutputPort(), "output");
-
-        //Initialise le signal audio
-        audioSignal = new AudioSignal(0.5, 440);
+        audioSignal = new AudioSignal(0.5, 1000);
         currentOsc.frequency.set(audioSignal.getFrequency());
     }
 
