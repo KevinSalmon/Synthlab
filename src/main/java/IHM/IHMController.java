@@ -287,8 +287,8 @@ public class IHMController implements Initializable{
      * Ajout des modules au menu
      */
     private void initModulesInModuleMenu(){
-        addModuleToMenu(FxmlFilesNames.VCA, 0, 0);
-        addModuleToMenu(FxmlFilesNames.VCO, 353, 0);
+        addModuleToMenu(FxmlFilesNames.VCA, FxmlFilesNames.MINIATURE_VCA,0, 0);
+        addModuleToMenu(FxmlFilesNames.VCO, FxmlFilesNames.MINIATURE_VCO,100, 0);
     }
 
     /**
@@ -297,15 +297,13 @@ public class IHMController implements Initializable{
      * @param x
      * @param y
      */
-    private void addModuleToMenu(String fxmlModuleFileName, double x , double y){
-        Pane modulePane;
-        modulePane = controller.createModule(fxmlModuleFileName);
-        moduleMenu.getChildren().add(modulePane);
-        modulePane.setLayoutX(x);
-        modulePane.setLayoutY(y);
-
-        modulePane.setOnDragDetected(de -> onSpawnDragDetected(de, modulePane, fxmlModuleFileName));
-        modulePane.setOnDragDone(de -> onSpawnDragDone(de, fxmlModuleFileName));
+    private void addModuleToMenu(String fxmlModuleFileName, String miniature, double x , double y){
+        Pane miniaturePane = controller.createMiniature(miniature);
+        moduleMenu.getChildren().add(miniaturePane);
+        miniaturePane.setLayoutX(x);
+        miniaturePane.setLayoutY(y);
+        miniaturePane.setOnDragDetected(de -> onSpawnDragDetected(de, miniaturePane, fxmlModuleFileName));
+        miniaturePane.setOnDragDone(de -> onSpawnDragDone(de, fxmlModuleFileName));
     }
 
     /**

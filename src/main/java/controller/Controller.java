@@ -96,4 +96,20 @@ public class Controller {
         m.setOnDragDone(de -> ihmController.onDragDone(de, m));
         return m;
     }
+
+    public Pane createMiniature(String fxmlMiniatureFileName){
+        return loadFxml(fxmlMiniatureFileName);
+    }
+
+    private Pane loadFxml(String fileName){
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(fileName));
+        Pane pane = null;
+        try {
+            pane = fxmlLoader.load();
+        } catch (IOException e) {
+            Log.severe(e.toString());
+        }
+        return pane;
+    }
 }

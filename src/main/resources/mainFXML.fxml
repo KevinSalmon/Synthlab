@@ -31,7 +31,7 @@
     </top>
     <center>
         <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0" prefHeight="1080.0" prefWidth="1920.0">
-            <SplitPane fx:id="SplitFrame" dividerPositions="0.2" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0">
+            <SplitPane fx:id="SplitFrame" dividerPositions="0.0640074211502783" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0">
                 <items>
                     <Pane fx:id="moduleMenu" minHeight="0.0" minWidth="0.0" />
 
