@@ -8,8 +8,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import module.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
 
@@ -20,6 +22,8 @@ import java.util.ResourceBundle;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO {
 
+    @FXML
+    private Pane border;
 
     @FXML
     private Slider octaveSlider;
@@ -54,42 +58,9 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
         reglageFinSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         CableManager cableManager = CableManager.getInstance();
+        cableManager.addListener(in, PortType.INPUT, border);
+        cableManager.addListener(out, PortType.OUTPUT, border);
 
-        DoubleProperty xValue = new SimpleDoubleProperty();
-        xValue.bind(in.getParent().layoutXProperty());
-        xValue.addListener((observable, oldValue, newValue) -> cableManager.updateInputX(in));
-
-        DoubleProperty yValue = new SimpleDoubleProperty();
-        yValue.bind(in.getParent().layoutYProperty());
-        yValue.addListener((observable, oldValue, newValue) -> cableManager.updateInputY(in));
-        in.setOnMouseClicked(event -> {
-            try {
-                line = cableManager.setInput(in);
-                line.toFront();
-            } catch (OutputException e) {
-                e.printStackTrace();
-            }
-        });
-
-        DoubleProperty xValueOut = new SimpleDoubleProperty();
-        xValueOut.bind(out.getParent().layoutXProperty());
-        xValueOut.addListener((observable, oldValue, newValue) ->{
-            cableManager.updateOutputX(out);
-            //line.toFront();
-
-                }
-
-        );
-        DoubleProperty yValueOut = new SimpleDoubleProperty();
-        yValueOut.bind(out.getParent().layoutYProperty());
-        yValueOut.addListener((observable, oldValue, newValue) ->{
-            cableManager.updateOutputY(out);
-            //line.toFront();
-
-                }
-
-        );
-        out.setOnMouseClicked(event -> cableManager.setOutput(out));
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
 

@@ -21,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.Module;
+import module.PortType;
 import utils.CableManager;
 
 import javax.swing.event.ChangeEvent;
@@ -57,24 +58,8 @@ public class ModuleOut implements Initializable, SubjectOutput{
 		btn_attenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
 		cableManager = CableManager.getInstance();
+		cableManager.addListener(draw_input, PortType.INPUT, pane_main);
 
-		DoubleProperty xValue = new SimpleDoubleProperty();
-		xValue.bind(draw_input.getParent().layoutXProperty());
-		xValue.addListener((observable, oldValue, newValue) -> cableManager.updateInputX(draw_input));
-
-		DoubleProperty yValue = new SimpleDoubleProperty();
-		yValue.bind(draw_input.getParent().layoutYProperty());
-		yValue.addListener((observable, oldValue, newValue) -> cableManager.updateInputY(draw_input));
-		draw_input.setOnMouseClicked(event -> {
-			try {
-				line = cableManager.setInput(draw_input);
-				((Pane) pane_main.getParent()).getChildren().add(line);
-				line.toFront();
-				Logger.getGlobal().info("line added");
-			} catch (OutputException e) {
-				e.printStackTrace();
-			}
-		});
         checkbox_mute.setOnAction(event -> notifyObseurveur());
         btn_attenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
         btn_attenuateur.setOnKeyReleased(e ->notifyObseurveur());
