@@ -44,20 +44,17 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        octaveSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
+        octaveSlider.setOnMouseMoved(e -> notifyObseurveur());
 
-
-
-
-        reglageFinSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
+        reglageFinSlider.setOnMouseMoved(event -> notifyObseurveur());
 
-        typeOndeSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
+        typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
     }
 
     private OscillatorType getOscillatorType(double index){
@@ -82,9 +79,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     public double getReglageFinValue() {
         return reglageFinSlider.getValue();
     }
-
-    @Override
-    public double getFrequency() { return 440.0; }
 
     @Override
     public OscillatorType getOscillatorType() {

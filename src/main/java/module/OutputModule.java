@@ -9,8 +9,6 @@ import controller.Obseurveur;
 import controller.SubjectOutput;
 import filter.AttenuationFilter;
 import utils.Tuple;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {
 
@@ -19,7 +17,6 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     private Boolean mute;
     private AttenuationFilter attenuationFilter;
     private LineOut lineOut;
-    private List<Obseurveur<SubjectOutput>> obseuveurOutputList;
 
     public OutputModule(Synthesizer synth) {
         this.input = new UnitInputPort(PortType.INPUT.getType());
@@ -27,7 +24,6 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
         this.output = new UnitOutputPort("output");
         addPort(this.output, "output");
         this.mute = false;
-        this.obseuveurOutputList = new ArrayList<>();
 
         this.attenuationFilter = new AttenuationFilter();
         this.attenuationFilter.input = this.input;
@@ -65,6 +61,10 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
         lineOut.setEnabled(this.mute);
         this.mute = !this.mute;
     }
+    public void setMute(boolean val){
+        this.mute = val;
+        lineOut.setEnabled(!this.mute);
+    }
 
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
@@ -82,7 +82,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
 
     @Override
     public void update(SubjectOutput o) {
-        mute = o.getMuteValue();
+        setMute(o.getMuteValue());
         attenuationFilter.setDecibelsAttenuation(o.getDecibelValue());
     }
 
