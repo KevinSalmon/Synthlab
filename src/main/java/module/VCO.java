@@ -1,5 +1,6 @@
 package module;
 
+import com.jsyn.ports.UnitInputPort;
 import signal.*;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
@@ -17,6 +18,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private UnitOscillator triOsc;
     private UnitOscillator sawOsc;
     private UnitOscillator currentOsc;
+    private UnitInputPort fm;
     private UnitOutputPort output;
     private Signal audioSignal;
     private final int f0 = 440;
@@ -35,23 +37,34 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         add(triOsc);
         add(sawOsc);
 
-        currentOsc = sawOsc;
+        currentOsc = triOsc;
 
         //Crée le port de sortie
         output = new UnitOutputPort(PortType.OUTPUT.getType());
         addPort(output);
+        fm = new UnitInputPort(PortType.INPUT.getType());
+        addPort(fm);
         audioSignal = new AudioSignal(0.5, f0);
         currentOsc.frequency.set(audioSignal.getFrequency());
+        currentOsc.amplitude.set(audioSignal.getAmplitude());
     }
 
     @Override
     public void generate(int start, int limit) {
-        super.generate(start, limit);
 
         //Récupère les adresses des valeurs des sorties du port de sortie
         // et de la sortie de l'oscillateur courant
+        double[] fm = this.fm.getValues();
         double[] out = output.getValues();
         double[] osc = currentOsc.output.getValues();
+        double[] freq = currentOsc.frequency.getValues();
+
+        //Calcul la fréquence
+        for (int i = start; i < limit; i++) {
+            freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*fm[i]));
+        }
+
+        super.generate(start, limit);
 
         // Relie l'oscillateur courant à la sortie du VCO en copiant les données
         System.arraycopy(osc, start, out, start, limit - start);
@@ -74,7 +87,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         octave = o;
 
-        if(octave < -2) octave = -2;
+        if(octave < -9) octave = -9;
         else if(octave > 3) octave = 3;
 
         updateFrequency();
@@ -222,5 +235,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public Module getReference() {
         return this;
+    }
+
+    public UnitInputPort getInput() {
+        return fm;
     }
 }
