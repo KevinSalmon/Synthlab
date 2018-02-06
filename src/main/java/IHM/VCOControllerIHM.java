@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import module.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
@@ -27,9 +26,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @FXML
     private Slider reglageFinSlider;
-
-    @FXML
-    private Slider f0Slider;
 
     @FXML
     private Slider typeOndeSlider;
@@ -60,10 +56,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
 
-        f0Slider.setOnInputMethodTextChanged(event -> notifyObseurveur());
-        f0Slider.setOnKeyReleased(e ->notifyObseurveur());
-        f0Slider.setOnMouseClicked(e -> notifyObseurveur());
-
         typeOndeSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
@@ -93,9 +85,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     }
 
     @Override
-    public double getFrequency() {
-        return f0Slider.getValue();
-    }
+    public double getFrequency() { return 440.0; }
 
     @Override
     public OscillatorType getOscillatorType() {

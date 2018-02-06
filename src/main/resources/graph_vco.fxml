@@ -5,22 +5,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.VCOControllerIHM">
-            <children>
-                   <Slider fx:id="octaveSlider" blockIncrement="1.0" layoutX="32.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="-3.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                   <Slider fx:id="reglageFinSlider" blockIncrement="1.0" layoutX="32.0" layoutY="85.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
-                   <Slider fx:id="f0Slider" blockIncrement="1.0" layoutX="32.0" layoutY="138.0" majorTickUnit="9980.0" max="20000.0" min="20.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
-                   <Label layoutX="28.0" layoutY="5.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
-                   <Label layoutX="28.0" layoutY="66.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
-                   <Label layoutX="32.0" layoutY="123.0" text="F0" />
-                   <Label layoutX="28.0" layoutY="171.0" text="Type onde " />
-                   <Slider fx:id="typeOndeSlider" blockIncrement="1.0" layoutX="32.0" layoutY="194.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickMarks="true" snapToTicks="true" />
-                   <Label layoutX="19.0" layoutY="219.0" text="carrée" />
-                   <Label layoutX="101.0" layoutY="219.0" text="triangulaires" />
-                   <Label layoutX="201.0" layoutY="219.0" text="Dents de scie " />
-      <Circle id="out" fx:id="out" fill="Black" layoutX="225.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="in" fx:id="in" fill="Black" layoutX="48.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="74.0" layoutY="253.0" text="in" />
-      <Label layoutX="251.0" layoutY="253.0" text="out" />
-            </children>
-       </Pane>
+<Pane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.VCOControllerIHM">
+    <children>
+        <Slider fx:id="octaveSlider" blockIncrement="1.0" layoutX="32.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="-3.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+        <Slider fx:id="reglageFinSlider" blockIncrement="1.0" layoutX="32.0" layoutY="85.0" majorTickUnit="1.0" max="1.0" min="-1.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" />
+        <Label layoutX="28.0" layoutY="5.0" prefHeight="18.0" prefWidth="103.0" text="octave" />
+        <Label layoutX="28.0" layoutY="66.0" prefHeight="18.0" prefWidth="91.0" text="Réglage Fin" />
+        <Label layoutX="28.0" layoutY="124.0" text="Type onde " />
+        <Slider fx:id="typeOndeSlider" blockIncrement="1.0" layoutX="32.0" layoutY="143.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickMarks="true" snapToTicks="true" />
+        <Label layoutX="22.0" layoutY="165.0" text="carrée" />
+        <Label layoutX="104.0" layoutY="165.0" text="triangulaires" />
+        <Label layoutX="204.0" layoutY="165.0" text="Dents de scie " />
+        <Circle id="out" fx:id="out" fill="Black" layoutX="226.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle id="in" fx:id="in" fill="Black" layoutX="49.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="80.0" layoutY="202.0" text="fm" />
+        <Label layoutX="255.0" layoutY="202.0" text="out" />
+    </children>
+</Pane>

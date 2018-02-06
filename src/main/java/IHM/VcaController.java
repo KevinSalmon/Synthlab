@@ -28,9 +28,9 @@ public class VcaController implements Initializable{
     @FXML
     Circle out;
     
-    private int minValue =0;
+    private int minValue = -5;
     private int initialValue = 0;
-    private int maxValue = 100;
+    private int maxValue = 5;
     private boolean inputClicked;
     private CableManager cableManager;
     private Line line;
