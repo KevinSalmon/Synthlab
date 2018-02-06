@@ -26,9 +26,6 @@ public class IHMController implements Initializable{
     @FXML
     private Pane workspace;
 
-    /*
-
-     */
     @FXML
     private Pane hoverPanel;
 
@@ -203,7 +200,6 @@ public class IHMController implements Initializable{
      */
     public void onDragDone(DragEvent dragEvent, Pane source) {
         dragEvent.getDragboard().clear();
-        draggedModule.setStyle(currentModulesStyle);
 
         boolean collision = true;
         while(collision) {
@@ -214,6 +210,7 @@ public class IHMController implements Initializable{
 
         dragEvent.consume();
         draggedModule.toBack();
+        draggedModule.setStyle(currentModulesStyle);
 
     }
 
@@ -314,6 +311,7 @@ public class IHMController implements Initializable{
     private void initModulesInModuleMenu(){
         addModuleToMenu(FxmlFilesNames.VCA, FxmlFilesNames.MINIATURE_VCA,0, 0);
         addModuleToMenu(FxmlFilesNames.VCO, FxmlFilesNames.MINIATURE_VCO,100, 0);
+        addModuleToMenu(FxmlFilesNames.REP, FxmlFilesNames.MINIATURE_REP,200, 0);
     }
 
     /**
@@ -359,7 +357,6 @@ public class IHMController implements Initializable{
     private void handleCollisionOnWorkspace(Pane module, Node moduleInCollision) {
         boolean goRight;
         double rightDelta;
-        boolean goBottom;
         double bottomDelta;
 
         /**
@@ -377,7 +374,6 @@ public class IHMController implements Initializable{
         /**
          * Reinitialisation des variables
          */
-        goBottom = false;
         goRight = false;
 
         /**
@@ -395,8 +391,6 @@ public class IHMController implements Initializable{
          */
         if (Math.abs(rightDelta) > Math.abs(bottomDelta)) {
             goRight = true;
-        }else {
-            goBottom = true;
         }
 
         /**

@@ -78,6 +78,8 @@ public class Controller {
                 VCO vco = new VCO();
                 ((Subject)fxmlLoader.getController()).register(vco);
                 break;
+            case FxmlFilesNames.REP:
+                break;
             default:
                 break;
         }
