@@ -6,6 +6,8 @@ import controller.Obseurveur;
 import controller.SubjectOutput;
 import org.junit.Before;
 import org.junit.Test;
+import utils.PortType;
+
 import static junit.framework.TestCase.*;
 
 public class OutputModuleTest {

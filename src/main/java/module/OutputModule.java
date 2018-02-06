@@ -8,6 +8,7 @@ import com.jsyn.unitgen.*;
 import controller.Obseurveur;
 import controller.SubjectOutput;
 import filter.AttenuationFilter;
+import utils.PortType;
 import utils.Tuple;
 
 public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {

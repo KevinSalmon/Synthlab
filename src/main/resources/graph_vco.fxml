@@ -17,7 +17,7 @@
         <Label layoutX="104.0" layoutY="165.0" text="triangulaires" />
         <Label layoutX="204.0" layoutY="165.0" text="Dents de scie " />
         <Circle id="out" fx:id="out" fill="Black" layoutX="226.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Circle id="in" fx:id="in" fill="Black" layoutX="49.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle id="fm" fx:id="fm" fill="Black" layoutX="49.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
         <Label layoutX="80.0" layoutY="202.0" text="fm" />
         <Label layoutX="255.0" layoutY="202.0" text="out" />
     </children>

@@ -3,10 +3,10 @@ package module;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.unitgen.UnitOscillator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.PortType;
 
 public class VCATest {
     public static VCA vca;

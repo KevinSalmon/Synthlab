@@ -4,12 +4,9 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import controller.Obseurveur;
-import controller.Subject;
 import javafx.scene.chart.XYChart;
+import utils.PortType;
 import utils.Tuple;
-
-import java.util.List;
 
 public class Oscilloscope extends Module {
 

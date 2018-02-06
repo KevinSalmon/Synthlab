@@ -8,7 +8,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import module.PortType;
+import utils.PortType;
 import utils.CableManager;
 
 import java.net.URL;

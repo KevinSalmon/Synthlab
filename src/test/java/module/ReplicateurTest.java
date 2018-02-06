@@ -7,6 +7,7 @@ import com.jsyn.ports.UnitOutputPort;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.PortType;
 
 public class ReplicateurTest {
 

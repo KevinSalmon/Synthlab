@@ -5,6 +5,7 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import controller.Obseurveur;
 import controller.SubjectReplicateur;
+import utils.PortType;
 import utils.Tuple;
 
 public class Replicateur extends Module implements Obseurveur<SubjectReplicateur> {

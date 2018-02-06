@@ -7,6 +7,7 @@ import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCA;
 import filter.AttenuationFilter;
+import utils.PortType;
 import utils.Tuple;
 import signal.Signal;
 

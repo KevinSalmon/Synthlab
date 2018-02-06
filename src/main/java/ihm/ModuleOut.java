@@ -14,7 +14,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import module.PortType;
+import utils.PortType;
 import utils.CableManager;
 
 public class ModuleOut implements Initializable, SubjectOutput{

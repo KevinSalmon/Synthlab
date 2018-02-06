@@ -2,12 +2,11 @@ package IHM;
 
 import controller.Obseurveur;
 import controller.SubjectReplicateur;
-import controller.SubjectVCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import module.PortType;
+import utils.PortType;
 import utils.CableManager;
 
 import java.net.URL;

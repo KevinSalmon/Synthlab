@@ -1,4 +1,4 @@
-package module;
+package utils;
 
 public enum PortType {
     OUTPUT ("output"),
@@ -10,8 +10,8 @@ public enum PortType {
     INPUT2 ("input2"),
     INPUT3 ("input3"),
     INPUT4 ("input4"),
-    AM("am"),
-    FM ("fm");
+    AM ("inputam"),
+    FM ("inputfm");
 
 
     private String type = "";

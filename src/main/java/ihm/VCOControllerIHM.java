@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import module.PortType;
+import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
 
@@ -31,7 +31,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     private Slider typeOndeSlider;
 
     @FXML
-    private Circle in;
+    private Circle fm;
 
     @FXML
     private Circle out;
@@ -90,7 +90,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         if(o != null){
             obseuveurVCOputList.add(o);
             CableManager cableManager = CableManager.getInstance();
-            cableManager.addListener(in, o.getReference(), PortType.INPUT, border);
+            cableManager.addListener(fm, o.getReference(), PortType.FM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
         }
     }

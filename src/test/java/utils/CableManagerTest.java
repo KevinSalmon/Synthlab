@@ -7,7 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.OutputModule;
-import module.PortType;
 import module.VCA;
 import org.junit.Assert;
 import org.junit.Test;

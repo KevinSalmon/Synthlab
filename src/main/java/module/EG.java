@@ -5,6 +5,7 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.EnvelopeDAHDSR;
 import com.jsyn.unitgen.UnitSource;
+import utils.PortType;
 import utils.Tuple;
 
 public class EG extends Module implements UnitSource{

@@ -10,7 +10,10 @@ import controller.Obseurveur;
 import controller.SubjectVCO;
 import utils.OscillatorFactory;
 import utils.OscillatorType;
+import utils.PortType;
 import utils.Tuple;
+
+import javax.sound.sampled.Port;
 
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
@@ -42,7 +45,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         //Crée le port de sortie
         output = new UnitOutputPort(PortType.OUTPUT.getType());
         addPort(output);
-        fm = new UnitInputPort(PortType.INPUT.getType());
+        fm = new UnitInputPort(PortType.FM.getType());
         addPort(fm);
         audioSignal = new AudioSignal(0.5, f0);
         currentOsc.frequency.set(audioSignal.getFrequency());
@@ -207,6 +210,11 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         if(PortType.OUTPUT.getType().equals(name)){
             Tuple t = new Tuple(getPortByName(name),PortType.OUTPUT);
             return new Tuple(getPortByName(name),PortType.OUTPUT);
+        }
+        if(PortType.FM.getType().equals(name)){
+
+            Tuple t = new Tuple(getPortByName(name),PortType.FM);
+            return new Tuple(getPortByName(name),PortType.FM);
         }
         // TODO Ajouter port de modulation de fréquence
         // if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
