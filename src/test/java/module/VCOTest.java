@@ -90,6 +90,7 @@ public class VCOTest {
         UnitOutputPort output = vco.getOutput();
 
         for (int i = 0; i < 100; i++) {
+            vco.generate();
             Assert.assertEquals("The output is not equals to the current oscillator output",osc.output.get(),output.get(),0.0);
         }
     }
