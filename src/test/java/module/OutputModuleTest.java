@@ -17,11 +17,14 @@ public class OutputModuleTest {
 
     @Before
     public void setUp(){
-        vco = new VCO();
         synth = JSyn.createSynthesizer();
         synth.start();
-        synth.add(vco);
+
         outputModule = new OutputModule(synth);
+
+        vco = new VCO();
+        vco.getOutput().connect(outputModule.getInput());
+        synth.add(vco);
     }
 
     @Test
@@ -64,6 +67,34 @@ public class OutputModuleTest {
         outputModule.switchMute();
         outputModule.switchMute();
         assertFalse(outputModule.getMute());
+    }
+
+    @Test
+    public void signalMuteTest() {
+        outputModule.setMute(true);
+        for (int i = 0; i < 1000; i++) {
+            outputModule.generate();
+            vco.generate();
+
+            double[] values = outputModule.getOutputTest().getValues();
+            for (int j = 0; j < values.length; j++) {
+                assertEquals(values[j], 0.0);
+            }
+        }
+    }
+
+    @Test
+    public void signalDefaultTest() {
+        for (int i = 0; i < 1000; i++) {
+            vco.generate();
+            outputModule.generate();
+
+            double[] outModule = outputModule.getOutputTest().getValues();
+            double[] vcoModule = vco.getOutput().getValues();
+            for (int j = 0; j < outModule.length; j++) {
+                assertEquals(vcoModule[j], outModule[j]);
+            }
+        }
     }
 
     // Attenuation
