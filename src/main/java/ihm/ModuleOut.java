@@ -1,4 +1,4 @@
-package IHM;
+package ihm;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import module.PortType;
 import utils.CableManager;
 

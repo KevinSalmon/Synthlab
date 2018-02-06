@@ -1,5 +1,4 @@
-import Signal.ModulationSignal;
-import com.jsyn.unitgen.LineOut;
+import signal.ModulationSignal;
 import module.OutputModule;
 import module.VCA;
 import module.VCO;
@@ -40,7 +39,6 @@ public class Example {
             Boolean exit = false;
             Double ampl = 1.0;
             while(!exit) {
-               // System.out.println("V : " + am.getVolt() + " / a0 : " + vca.getA0() + "/ Db : " +  vca.getDecibelsAttenuation());
                 String str = c.nextLine();
                 if(str.length()>0){
                     switch (str.charAt(0)) {

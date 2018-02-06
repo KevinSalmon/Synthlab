@@ -1,7 +1,7 @@
 package utils;
 
-import Exceptions.OutputException;
-import Exceptions.PortTypeException;
+import exceptions.OutputException;
+import exceptions.PortTypeException;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;

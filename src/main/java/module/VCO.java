@@ -1,6 +1,6 @@
 package module;
 
-import Signal.*;
+import signal.*;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.UnitOscillator;
@@ -10,8 +10,6 @@ import controller.SubjectVCO;
 import utils.OscillatorFactory;
 import utils.OscillatorType;
 import utils.Tuple;
-
-import java.util.logging.Logger;
 
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 

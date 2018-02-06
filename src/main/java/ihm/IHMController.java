@@ -1,4 +1,4 @@
-package IHM;
+package ihm;
 
 import controller.Controller;
 import javafx.application.Platform;

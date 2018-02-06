@@ -1,9 +1,7 @@
 package module;
 
-import Signal.AudioSignal;
-import org.junit.Assert;
+import signal.AudioSignal;
 import org.junit.Before;
-import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 

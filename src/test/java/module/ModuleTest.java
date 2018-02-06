@@ -1,6 +1,6 @@
 package module;
 
-import Exceptions.PortTypeException;
+import exceptions.PortTypeException;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;

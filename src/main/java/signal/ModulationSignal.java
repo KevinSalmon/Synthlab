@@ -1,4 +1,4 @@
-package Signal;
+package signal;
 
 /**
  * Signal de modulation

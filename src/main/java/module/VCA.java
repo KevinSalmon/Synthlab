@@ -8,7 +8,7 @@ import controller.Obseurveur;
 import controller.SubjectVCA;
 import filter.AttenuationFilter;
 import utils.Tuple;
-import Signal.Signal;
+import signal.Signal;
 
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée

@@ -1,4 +1,4 @@
-package IHM;
+package ihm;
 
 import controller.Obseurveur;
 import controller.SubjectVCO;

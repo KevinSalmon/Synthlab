@@ -58,7 +58,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
                 <configuration>
-                    <mainClass>IHM.IHMImpl</mainClass>
+                    <mainClass>ihm.IHMImpl</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,14 +1,10 @@
 package utils;
 
-import Exceptions.PortTypeException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import javafx.geometry.Point2D;
+import exceptions.PortTypeException;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.Module;
-import module.OutputModule;
 import module.PortType;
-import module.VCO;
 
 import java.util.logging.Logger;
 
