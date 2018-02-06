@@ -8,6 +8,7 @@ import com.jsyn.ports.UnitPort;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.PortType;
 import utils.Tuple;
 
 public class ReplicateurTest {
