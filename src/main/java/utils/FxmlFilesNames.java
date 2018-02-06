@@ -16,6 +16,8 @@ public class FxmlFilesNames {
 
     public static final String MINIATURE_REP = "/rep_miniature.fxml";
 
+    public static final String MINIATURE_OSCILLOSCOPE = "/oscilloscope_miniature.fxml";
+
     /**
      * Modules
      */
@@ -27,6 +29,7 @@ public class FxmlFilesNames {
 
     public static final String REP = "/graph_rep.fxml";
 
+    public static final String OSCILLOSCOPE = "/graph_oscilloscope.fxml";
 
     private FxmlFilesNames(){}
 }
