@@ -49,6 +49,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
         obseurveurList = new ArrayList<>();
 
         checkboxMute.setOnAction(event -> notifyObseurveur());
+        checkboxMute.setSelected(false);
         btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
         btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
         btnAttenuateur.setOnMouseClicked(e -> notifyObseurveur());
@@ -93,6 +94,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
             obseurveurList.add(o);
 			cableManager = CableManager.getInstance();
 			cableManager.addListener(drawInput, o.getReference(), PortType.INPUT, paneMain);
+            o.update(this);
         }
     }
 
