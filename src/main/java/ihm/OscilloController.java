@@ -1,20 +1,11 @@
-package IHM;
+package ihm;
 
-import Exceptions.OutputException;
-import controller.Obseurveur;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import module.Module;
 import module.Oscilloscope;
-import utils.CableManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
