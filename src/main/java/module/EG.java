@@ -11,9 +11,9 @@ public class EG extends Module implements UnitSource{
 
     private final EnvelopeDAHDSR envelope;
 
-    public UnitOutputPort out;
+    private UnitOutputPort out;
 
-    public UnitInputPort gate;
+    private UnitInputPort gate;
 
     private double attack;
     private double decay;
