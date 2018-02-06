@@ -33,7 +33,11 @@ public class IHMImpl extends Application {
         scene = new Scene(root);
         primaryStage.setScene(scene);
 
+        primaryStage.setOnCloseRequest(eh -> System.exit(0));
+
         primaryStage.show();
+
+        Controller c = new Controller(loader.getController());
 
     }
 
