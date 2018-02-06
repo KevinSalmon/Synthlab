@@ -1,11 +1,16 @@
 package utils;
 
 import Exceptions.OutputException;
+import Exceptions.PortTypeException;
+import com.jsyn.JSyn;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import module.OutputModule;
+import module.VCA;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 
@@ -40,18 +45,20 @@ public class CableManagerTest extends  CableManager{
      * @throws OutputException must not happen
      */
     @Test
-    public void setOutputInputTest() throws OutputException {
+    public void setOutputInputTest() throws OutputException, PortTypeException {
+        VCA vca = new VCA();
+        OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
         Pane pane = new Pane();
         out.setLayoutX(0.0);
         out.setLayoutY(0.0);
         pane.getChildren().add(out);
-        this.setOutput(out);
+        this.setOutput(out, vca);
         assertEquals("Outputs are equals", out, this.currentCable.getOutput());
         pane.getChildren().add(in);
         in.setLayoutX(1.0);
         in.setLayoutY(1.0);
         Cable cableActual = this.currentCable;
-        this.setInput(in);
+        this.setInput(in, outputModule);
         assertEquals("Inputs are equals", in, cableActual.getInput());
         Assert.assertNotNull(cableActual.getLine());
         assertEquals("Start line must equals in", cableActual.getInput().getLayoutX(), cableActual.getLine().getStartX(), 0.1);
@@ -61,17 +68,6 @@ public class CableManagerTest extends  CableManager{
         assertEquals("size list must be 1", 1, this.cables.size());
     }
 
-    /**
-     * Test if the user choose an input before an output
-     * @throws OutputException
-     */
-    @Test(expected = OutputException.class)
-    public void setInputExceptionTest() throws OutputException {
-        in = new Circle();
-        in.setLayoutX(1.0);
-        in.setLayoutY(1.0);
-        this.setInput(in);
-     }
 
     /**
      * Test the update of a point
