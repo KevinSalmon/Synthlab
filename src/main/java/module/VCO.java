@@ -208,16 +208,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)){
-            Tuple t = new Tuple(getPortByName(name),PortType.OUTPUT);
-            return new Tuple(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        if(PortType.FM.getType().equals(name)){
-
-            Tuple t = new Tuple(getPortByName(name),PortType.FM);
-            return new Tuple(getPortByName(name),PortType.FM);
-        }
-        // TODO Ajouter port de modulation de fréquence
-        // if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
+        else if(PortType.FM.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
     }
 

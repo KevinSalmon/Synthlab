@@ -7,6 +7,8 @@ import com.jsyn.unitgen.UnitOscillator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import utils.OscillatorType;
+import utils.PortType;
 
 public class VCOTest {
     public static VCO vco;
@@ -85,14 +87,31 @@ public class VCOTest {
     }
 
     @Test
-    public void outputTest(){
-        UnitOscillator osc = vco.getCurrentOsc();
+    public void ResultatTest(){
+        UnitOutputPort osc = vco.getCurrentOsc().getOutput();
         UnitOutputPort output = vco.getOutput();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             vco.generate();
-            Assert.assertEquals("The output is not equals to the current oscillator output",osc.output.get(),output.get(),0.0);
+            for (int j = 0; j < output.getValues().length; j++) {
+                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j],output.getValues()[j],0.0);
+            }
         }
+    }
+
+    @Test
+    public void OscillatorTest(){
+        vco.changeCurrentOsc(OscillatorType.TRIANGLE);
+        UnitOscillator osc = vco.getCurrentOsc();
+        vco.changeCurrentOsc(OscillatorType.TRIANGLE);
+        Assert.assertEquals("The socillator shouldn't have change",osc, vco.getCurrentOsc());
+        vco.changeCurrentOsc(OscillatorType.SAWTOOTH);
+        Assert.assertNotEquals("The socillator should have change",osc, vco.getCurrentOsc());
+    }
+
+    @Test
+    public void GetPortTest(){
+        Assert.assertEquals("Should get the output port", vco.getPort(PortType.OUTPUT.getType()).getLeft(), vco.getOutput());
     }
 
 }
