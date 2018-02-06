@@ -9,10 +9,10 @@ import utils.Tuple;
 
 public class Replicateur extends Module implements Obseurveur<SubjectReplicateur> {
 
-    public UnitInputPort in;
-    public UnitOutputPort out1;
-    public UnitOutputPort out2;
-    public UnitOutputPort out3;
+    private UnitInputPort in;
+    private UnitOutputPort out1;
+    private UnitOutputPort out2;
+    private UnitOutputPort out3;
 
     public Replicateur(){
         this.in = new UnitInputPort(PortType.INPUT.getType());
@@ -68,5 +68,37 @@ public class Replicateur extends Module implements Obseurveur<SubjectReplicateur
     @Override
     public Module getReference() {
         return this;
+    }
+
+    public UnitInputPort getIn() {
+        return in;
+    }
+
+    public void setIn(UnitInputPort in) {
+        this.in = in;
+    }
+
+    public UnitOutputPort getOut1() {
+        return out1;
+    }
+
+    public void setOut1(UnitOutputPort out1) {
+        this.out1 = out1;
+    }
+
+    public UnitOutputPort getOut2() {
+        return out2;
+    }
+
+    public void setOut2(UnitOutputPort out2) {
+        this.out2 = out2;
+    }
+
+    public UnitOutputPort getOut3() {
+        return out3;
+    }
+
+    public void setOut3(UnitOutputPort out3) {
+        this.out3 = out3;
     }
 }

@@ -81,9 +81,6 @@ public class Controller {
                 break;
             case FxmlFilesNames.REP:
                 Replicateur rep = new Replicateur();
-                System.out.println("loader " + fxmlLoader);
-                System.out.println("loader.getcontroller " + fxmlLoader.getController());
-                System.out.println("rep " + rep);
                 ((Subject)fxmlLoader.getController()).register(rep);
                 synth.add(rep);
                 break;
