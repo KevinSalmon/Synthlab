@@ -4,11 +4,14 @@ package Signal;
  * Classe abstraite d'un signal
  */
 public abstract class AbstractSignal implements Signal {
-    protected static final int  BANDWIDTH = 22000;
+    protected static final int BANDWIDTH = 22000;
     protected double amplitude;
     protected double frequency;
+    protected double minVolt;
+    protected double maxVolt;
 
     public AbstractSignal(double amplitude, int frequency) {
+        // TODO: Contrôler que l'amplitude et frequency sont ok
         this.amplitude = amplitude;
         this.frequency = frequency;
     }
@@ -54,5 +57,16 @@ public abstract class AbstractSignal implements Signal {
     @Override
     public int getBandWidth(){
         return BANDWIDTH;
+    }
+
+    @Override
+    public void setVoltRange(double min, double max) {
+        this.minVolt = min;
+        this.maxVolt = max;
+    }
+
+    @Override
+    public double getVolt() {
+        return ((this.maxVolt - this.minVolt) / 2) * this.amplitude;
     }
 }

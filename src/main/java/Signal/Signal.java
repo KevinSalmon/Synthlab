@@ -44,4 +44,7 @@ public interface Signal {
      */
     int getBandWidth();
 
+    void setVoltRange(double min, double max);
+
+    double getVolt();
 }
