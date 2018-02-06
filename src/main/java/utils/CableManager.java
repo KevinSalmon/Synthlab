@@ -1,12 +1,15 @@
 package utils;
 
 import Exceptions.OutputException;
+import Exceptions.PortTypeException;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import module.Module;
 import module.PortType;
 
 import java.util.ArrayList;
@@ -21,6 +24,8 @@ public class CableManager {
     protected List<Cable> cables;
 
     protected Cable currentCable;
+
+    protected Line line;
 
     protected static volatile CableManager instance = null;
 
@@ -41,12 +46,13 @@ public class CableManager {
      * Set the output point of the cable
      * @param point2D the output
      */
-    public void setOutput(Circle point2D){
+    public void setOutput(Circle point2D, Module moduleOut){
         for(Cable c : cables){
             if(c.getOutput().equals(point2D)) return;
         }
         currentCable = new Cable();
         currentCable.setOutput(point2D);
+        currentCable.setModuleOut(moduleOut);
     }
 
     /**
@@ -55,33 +61,41 @@ public class CableManager {
      * @return the line created
      * @throws OutputException when the user chooses the input first
      */
-    public Line setInput(Circle point2D) throws OutputException {
-        if(currentCable == null) throw new OutputException("Must choose a output first");
-        else {
+    public void setInput(Circle point2D, Module moduleIn) {
+            for(Cable c : cables){
+                if(c.getInput().equals(point2D)) return;
+            }
             currentCable.setInput(point2D);
-            Line line = new Line();
+            line = new Line();
             Point2D in = currentCable.getInput().getParent().localToParent(currentCable.getInput().getLayoutX(), currentCable.getInput().getLayoutY());
             Point2D out = currentCable.getOutput().getParent().localToParent(currentCable.getOutput().getLayoutX(), currentCable.getOutput().getLayoutY());
             line.setStartX(in.getX());
             line.setStartY(in.getY());
             line.setEndX(out.getX());
+
+        try {
             line.setEndY(out.getY());
             currentCable.setLine(line);
             cables.add(currentCable);
-            currentCable = null;
-            return line;
+            currentCable.setModuleIn(moduleIn);
+            currentCable.connect();
+        } catch (PortTypeException e) {
+            Logger.getGlobal().severe(e.getMessage()
+            );
         }
+        currentCable = null;
+
     }
 
 
     /**
      * Update the  x output
-     * @param draw_input the output
+     * @param output the output
      */
-    public void updateOutputX(Circle draw_input) {
+    public void updateOutputX(Circle output) {
         for(Cable c : cables){
-            if(c.getOutput().equals(draw_input)) {
-                c.getLine().setEndX(draw_input.getParent().localToParent(draw_input.getLayoutX(), draw_input.getLayoutY()).getX());
+            if(c.getOutput().equals(output)) {
+                c.getLine().setEndX(output.getParent().localToParent(output.getLayoutX(), output.getLayoutY()).getX());
                 return;
             }
         }
@@ -90,12 +104,12 @@ public class CableManager {
 
     /**
      * Update the y output
-     * @param draw_input the output
+     * @param output the output
      */
-    public void updateOutputY(Circle draw_input) {
+    public void updateOutputY(Circle output) {
         for(Cable c : cables){
-            if(c.getOutput().equals(draw_input)) {
-                c.getLine().setEndY(draw_input.getParent().localToParent(draw_input.getLayoutX(), draw_input.getLayoutY()).getY());
+            if(c.getOutput().equals(output)) {
+                c.getLine().setEndY(output.getParent().localToParent(output.getLayoutX(), output.getLayoutY()).getY());
                 return;
             }
         }
@@ -127,48 +141,33 @@ public class CableManager {
         }
     }
 
-    public void addListener(Circle port, PortType type, Pane pane){
-        Logger.getGlobal().info("ajout de listener : "+ type.getType());
+    /**
+     * Add a listener to a module
+     * @param port the port to listen
+     * @param type the type of the port
+     * @param pane the pane
+     */
+    public void addListener(Circle port, Module module, PortType type, Pane pane){
 
-        DoubleProperty xValue = new SimpleDoubleProperty();
-        xValue.bind(port.getParent().layoutXProperty());
-        DoubleProperty yValue = new SimpleDoubleProperty();
-        yValue.bind(port.getParent().layoutYProperty());
 
         if(type.equals(PortType.INPUT)) {
-            xValue.addListener((observable, oldValue, newValue) -> instance.updateInputX(port)
-
-            );
-            yValue.addListener((observable, oldValue, newValue) -> instance.updateInputY(port)
-
-            );
+            port.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> instance.updateInputX(port));
+            port.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> instance.updateInputY(port));
             port.setOnMouseClicked(event -> {
-                try {
-                    Line line = instance.setInput(port);
-                    ((Pane) pane.getParent()).getChildren().add(line);
-                    line.toFront();
-                    Logger.getGlobal().info("line added");
-                } catch (OutputException e) {
-                    e.printStackTrace();
+                if(currentCable != null) {
+                    instance.setInput(port, module);
+                    if(line != null) {
+                        ((Pane) pane.getParent()).getChildren().add(line);
+                        line.toFront();
+                    }
                 }
             });
 
         }
         else if(type.equals(PortType.OUTPUT)){
-            DoubleProperty xValueOut = new SimpleDoubleProperty();
-            DoubleProperty yValueOut = new SimpleDoubleProperty();
-            xValueOut.bind(port.getParent().layoutXProperty());
-            xValueOut.addListener((observable, oldValue, newValue) -> instance.updateOutputX(port)
-
-            );
-            yValueOut.bind(port.getParent().layoutYProperty());
-            yValueOut.addListener((observable, oldValue, newValue) -> instance.updateOutputY(port)
-
-            );
-
-            port.setOnMouseClicked(event -> {
-                instance.setOutput(port);
-            });
+            port.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputX(port));
+            port.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputY(port));
+            port.setOnMouseClicked(event -> instance.setOutput(port, module));
         }
 
     }

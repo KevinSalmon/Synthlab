@@ -2,7 +2,8 @@ package module;
 
 public enum PortType {
     OUTPUT ("output"),
-    INPUT ("input");
+    INPUT ("input"),
+    AM("am");
 
 
     private String type = "";

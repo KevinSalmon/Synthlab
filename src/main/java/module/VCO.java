@@ -11,6 +11,8 @@ import utils.OscillatorFactory;
 import utils.OscillatorType;
 import utils.Tuple;
 
+import java.util.logging.Logger;
+
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private UnitOscillator sqrOsc;
@@ -37,7 +39,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         currentOsc = sawOsc;
 
         //Crée le port de sortie
-        addPort(output = new UnitOutputPort(), "output");
+        addPort(output = new UnitOutputPort(), PortType.OUTPUT.getType());
         audioSignal = new AudioSignal(0.5, 1000);
         currentOsc.frequency.set(audioSignal.getFrequency());
     }
@@ -180,7 +182,14 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
-        if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
+        Logger.getGlobal().info("name : "+name);
+        Logger.getGlobal().info("output "+ PortType.OUTPUT.getType());
+        if(PortType.OUTPUT.getType().equals(name)){
+            Tuple t = new Tuple(getPortByName(name),PortType.OUTPUT);
+            Logger.getGlobal().info(" tuple : "+t.getLeft() +
+                    " "+t.getRight());
+            return new Tuple(getPortByName(name),PortType.OUTPUT);
+        }
         // TODO Ajouter port de modulation de fréquence
         // if(name == "input") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
@@ -204,5 +213,10 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         reglageFin = o.getReglageFinValue();
         audioSignal.setFrequency(o.getFrequency());
         changeCurrentOsc(o.getOscillatorType());
+    }
+
+    @Override
+    public Module getReference() {
+        return this;
     }
 }

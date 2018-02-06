@@ -5,11 +5,13 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
+import controller.Obseurveur;
+import controller.SubjectVCA;
 import filter.AttenuationFilter;
 import utils.Tuple;
 import Signal.Signal;
 
-public class VCA extends Module implements UnitSource {
+public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private final String INPUT = "input";
 
     private UnitInputPort input; // Signal d'entrée
@@ -92,10 +94,20 @@ public class VCA extends Module implements UnitSource {
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
-        if(name.equals(INPUT)) return new Tuple(getPortByName(name),PortType.INPUT);
-        if(name == "am") return new Tuple(getPortByName(name),PortType.INPUT);
+        if(PortType.OUTPUT.getType().equals(name)) return new Tuple(getPortByName(name),PortType.OUTPUT);
+        if(PortType.INPUT.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
+        if(PortType.AM.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
+    }
+
+    @Override
+    public void update(SubjectVCA o) {
+        attenuationFilter.setDecibelsAttenuation(o.getDecibel());
+    }
+
+    @Override
+    public Module getReference() {
+        return this;
     }
 }
 

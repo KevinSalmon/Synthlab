@@ -36,6 +36,8 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
 
+	private CableManager cableManager;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Value factory.
@@ -45,10 +47,6 @@ public class ModuleOut implements Initializable, SubjectOutput{
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
-
-		CableManager cableManager;
-		cableManager = CableManager.getInstance();
-		cableManager.addListener(drawInput, PortType.INPUT, paneMain);
 
         checkboxMute.setOnAction(event -> notifyObseurveur());
         btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
@@ -93,6 +91,8 @@ public class ModuleOut implements Initializable, SubjectOutput{
     public void register(Obseurveur o) {
         if(o != null){
             obseurveurList.add(o);
+			cableManager = CableManager.getInstance();
+			cableManager.addListener(drawInput, o.getReference(), PortType.INPUT, paneMain);
         }
     }
 

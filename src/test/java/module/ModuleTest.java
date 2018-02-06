@@ -1,6 +1,8 @@
 package module;
 
 import Exceptions.PortTypeException;
+import com.jsyn.JSyn;
+import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import org.junit.Assert;
@@ -12,29 +14,26 @@ public class ModuleTest {
 
     @Test
     public void connectModulesTest() throws PortTypeException {
-        //TODO remplacer vco2 par un module avec un autre module en input
-//        VCO vco1 = new VCO();
-//        VCO vco2 = new VCO();
-//
-//        vco1.setOutput(new UnitOutputPort("output"));
-//        vco2.setInput(new UnitInputPort("input"));
-//
-//        vco1.connect(vco2, PortType.OUTPUT.getType(), PortType.INPUT.getType());
-//
-//        Assert.assertTrue("UnitPort must be connected", ((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
-//        Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) vco2.getPortByName(PortType.INPUT.getType())).isConnected());
+        VCO vco1 = new VCO();
+        Synthesizer synth = JSyn.createSynthesizer();
+        OutputModule outputModule = new OutputModule(synth);
+
+        vco1.setOutput(new UnitOutputPort("output"));
+
+        vco1.connect(outputModule, PortType.OUTPUT.getType(), PortType.INPUT.getType());
+
+        Assert.assertTrue("UnitPort must be connected", ((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
+        Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());
     }
 
 
-//    @Test(expected = PortTypeException.class)
-//    public void connectModuleExceptionTest() throws PortTypeException {
-        //TODO remplacer vco2 par un module avec un autre module en input
-//        VCO vco1 = new VCO();
-//        VCO vco2 = new VCO();
-//
-//        vco1.setOutput(new UnitOutputPort(("output")));
-//        vco2.setInput(new UnitInputPort("input"));
-//
-//        vco2.connect(vco1, PortType.INPUT.getType(), PortType.OUTPUT.getType());
-//    }
+    @Test(expected = PortTypeException.class)
+    public void connectModuleExceptionTest() throws PortTypeException {
+        VCO vco1 = new VCO();
+        OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
+
+        vco1.setOutput(new UnitOutputPort(("output")));
+
+        outputModule.connect(vco1, PortType.INPUT.getType(), PortType.OUTPUT.getType());
+    }
 }

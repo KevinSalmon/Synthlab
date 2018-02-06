@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import module.Module;
 import module.OutputModule;
+import module.VCA;
 import module.VCO;
 import utils.FxmlFilesNames;
 
@@ -44,6 +45,7 @@ public class Controller {
 
         ihmController.setController(this);
         ihmController.init();
+        synth.start();
     }
 
     public void addModule(Module module){
@@ -71,12 +73,14 @@ public class Controller {
                 ((Subject)fxmlLoader.getController()).register(outputModule);
                 break;
             case FxmlFilesNames.VCA:
-//                VCA vca = new VCA();
-                //((Subject)fxmlLoader.getController()).register(vca);
+                VCA vca = new VCA();
+                ((Subject)fxmlLoader.getController()).register(vca);
+                synth.add(vca);
                 break;
             case FxmlFilesNames.VCO:
                 VCO vco = new VCO();
                 ((Subject)fxmlLoader.getController()).register(vco);
+                synth.add(vco);
                 break;
             case FxmlFilesNames.REP:
                 break;
@@ -113,5 +117,9 @@ public class Controller {
             Log.severe(e.toString());
         }
         return pane;
+    }
+
+    public void close() {
+        synth.stop();
     }
 }

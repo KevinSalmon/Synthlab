@@ -48,11 +48,10 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
 
-        reglageFinSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
-        CableManager cableManager = CableManager.getInstance();
-        cableManager.addListener(in, PortType.INPUT, border);
-        cableManager.addListener(out, PortType.OUTPUT, border);
 
+
+
+        reglageFinSlider.setOnInputMethodTextChanged(event -> notifyObseurveur());
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
 
@@ -96,6 +95,9 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     public void register(Obseurveur o) {
         if(o != null){
             obseuveurVCOputList.add(o);
+            CableManager cableManager = CableManager.getInstance();
+            cableManager.addListener(in, o.getReference(), PortType.INPUT, border);
+            cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
         }
     }
 

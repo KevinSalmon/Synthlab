@@ -61,6 +61,7 @@ public class IHMController implements Initializable{
     @FXML
     void closeApplication(ActionEvent event) {
         Platform.exit();
+        controller.close();
     }
 
     /**
