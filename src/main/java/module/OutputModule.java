@@ -78,14 +78,16 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     @Override
     public void generate(int start, int limit) {
         super.generate(start, limit);
-        this.attenuationFilter.generate(start, limit);
 
-        /*if(this.mute) { // S'il y a besoin de réellement passer le son en muet et non pas désactivé lineOut
+        if(this.mute) {
             double[] outputs = output.getValues();
             for(int i = start; i < limit; i++) {
                 outputs[i] = 0.0;
             }
-        }*/
+        }
+        else {
+            this.attenuationFilter.generate(start, limit);
+        }
     }
 
     @Override
@@ -105,6 +107,14 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     @Override
     public UnitOutputPort getOutput() {
         return null;
+    }
+
+    /**
+     * Pour test uniquement
+     * @return
+     */
+    public UnitOutputPort getOutputTest() {
+        return this.output;
     }
 }
 
