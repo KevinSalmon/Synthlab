@@ -31,17 +31,15 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	@FXML
 	Circle drawInput;
 
-	final static int initialValue = 0;
+	final static int INITIAL_VALUE = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
-
-	private CableManager cableManager;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Value factory.
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
-				initialValue);
+				INITIAL_VALUE);
 
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
@@ -71,7 +69,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	}
 
 	public int getInitialValue() {
-		return initialValue;
+		return INITIAL_VALUE;
 	}
 
 
@@ -91,6 +89,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
     public void register(Obseurveur o) {
         if(o != null){
             obseurveurList.add(o);
+			CableManager cableManager;
 			cableManager = CableManager.getInstance();
 			cableManager.addListener(drawInput, o.getReference(), PortType.INPUT, paneMain);
             o.update(this);

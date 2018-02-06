@@ -32,7 +32,6 @@ public class VcaController implements Initializable, SubjectVCA {
     private int minValue = -5;
     private int initialValue = 0;
     private int maxValue = 5;
-    private boolean inputClicked;
     private CableManager cableManager;
     private Obseurveur<SubjectVCA> vcaObseurveur;
 
@@ -42,7 +41,6 @@ public class VcaController implements Initializable, SubjectVCA {
                 initialValue);
         gainSelector.setValueFactory(valueFactory);
         gainSelector.setEditable(true);
-        this.inputClicked = false;
         cableManager = CableManager.getInstance();
 
 
@@ -70,6 +68,9 @@ public class VcaController implements Initializable, SubjectVCA {
 
     @Override
     public void remove(Obseurveur o) {
+        if(o != null){
+            vcaObseurveur = null;
+        }
 
     }
 
