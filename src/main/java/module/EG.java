@@ -30,8 +30,11 @@ public class EG extends Module implements UnitSource{
         sustain = 0.5;
         release = 0.3;
 
-        addPort(out = envelope.output, PortType.OUTPUT.getType());
-        addPort(gate = envelope.input, PortType.INPUT.getType());
+        out = envelope.output;
+        addPort(out, PortType.OUTPUT.getType());
+
+        gate = envelope.input;
+        addPort(gate, PortType.INPUT.getType());
     }
 
     public double getAttack() {

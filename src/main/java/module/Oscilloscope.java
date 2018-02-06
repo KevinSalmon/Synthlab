@@ -4,25 +4,21 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.UnitSink;
 import controller.Obseurveur;
 import controller.Subject;
-import controller.SubjectVCO;
 import javafx.scene.chart.XYChart;
 import utils.Tuple;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Oscilloscope extends Module {
 
-    private static int TMAX = 10 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
+    private static final int TMAX = 10 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
 
-    private List<Obseurveur<Subject>> obseuveurList;
+//    private List<Obseurveur<Subject>> obseuveurList;
 
-    private int tBlock;
-    private int numBlock;
+//    private int tBlock;
+//    private int numBlock;
     private int t;
 
     private XYChart.Series<Integer,Double> screen;
@@ -33,8 +29,8 @@ public class Oscilloscope extends Module {
     public Oscilloscope() {
 
         t = 0;
-        tBlock = 0;
-        numBlock = 0;
+//        tBlock = 0;
+//        numBlock = 0;
 
         screen = new XYChart.Series<>();
 
@@ -43,10 +39,12 @@ public class Oscilloscope extends Module {
         }
 
         //Crée le port de sortie
-        addPort(in = new UnitInputPort("in"), "in");
+        in = new UnitInputPort("in");
+        addPort(in, "in");
 
         //Crée le port de sortie
-        addPort(out = new UnitOutputPort(), "out");
+        out = new UnitOutputPort();
+        addPort(out, "out");
     }
 
     @Override
