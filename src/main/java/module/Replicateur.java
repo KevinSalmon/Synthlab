@@ -59,12 +59,10 @@ public class Replicateur extends Module implements Obseurveur<SubjectReplicateur
      * Getters et Setters
      */
 
-    public UnitInputPort getInput() {
-        return in;
-    }
-
     @Override
-    public void update(SubjectReplicateur o) { }
+    public void update(SubjectReplicateur o) {
+        //Methode inutilisee
+    }
 
     @Override
     public Module getReference() {

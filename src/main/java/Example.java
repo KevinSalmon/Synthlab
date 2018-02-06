@@ -37,7 +37,7 @@ public class Example {
 
         Replicateur rep = new Replicateur();
         synth.add(rep);
-        vca.getOutput().connect(0, rep.getInput(), 0);
+        vca.getOutput().connect(0, rep.getIn(), 0);
 
         OutputModule outModule = new OutputModule(synth);
         rep.getOut1().connect( 0, outModule.getInput(), 0 );
