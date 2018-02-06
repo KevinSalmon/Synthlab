@@ -1,4 +1,4 @@
-package IHM;
+package ihm;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import module.PortType;
 import utils.CableManager;
 
@@ -32,23 +31,22 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	@FXML
 	Circle drawInput;
 
-	final static int initialValue = 0;
+	final static int INITIAL_VALUE = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
-
-	private CableManager cableManager;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// Value factory.
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
-				initialValue);
+				INITIAL_VALUE);
 
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
 
         checkboxMute.setOnAction(event -> notifyObseurveur());
+        checkboxMute.setSelected(false);
         btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
         btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
         btnAttenuateur.setOnMouseClicked(e -> notifyObseurveur());
@@ -71,7 +69,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	}
 
 	public int getInitialValue() {
-		return initialValue;
+		return INITIAL_VALUE;
 	}
 
 
@@ -91,8 +89,10 @@ public class ModuleOut implements Initializable, SubjectOutput{
     public void register(Obseurveur o) {
         if(o != null){
             obseurveurList.add(o);
+			CableManager cableManager;
 			cableManager = CableManager.getInstance();
 			cableManager.addListener(drawInput, o.getReference(), PortType.INPUT, paneMain);
+            o.update(this);
         }
     }
 

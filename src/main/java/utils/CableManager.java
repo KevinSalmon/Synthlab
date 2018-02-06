@@ -1,10 +1,7 @@
 package utils;
 
-import Exceptions.OutputException;
-import Exceptions.PortTypeException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import exceptions.OutputException;
+import exceptions.PortTypeException;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;

@@ -1,9 +1,7 @@
 package module;
 
-import Signal.ModulationSignal;
-import org.junit.Assert;
+import signal.ModulationSignal;
 import org.junit.Before;
-import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 

@@ -1,6 +1,6 @@
 package controller;
 
-import IHM.IHMController;
+import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;

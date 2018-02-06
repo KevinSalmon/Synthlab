@@ -1,4 +1,4 @@
-package Signal;
+package signal;
 
 /**
  * Classe abstraite d'un signal

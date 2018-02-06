@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class OutputException extends Exception {
     public OutputException(String message) {

@@ -18,7 +18,5 @@ public interface SubjectVCO extends Subject {
      */
     double getReglageFinValue();
 
-    double getFrequency();
-
     OscillatorType getOscillatorType();
 }

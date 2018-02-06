@@ -1,6 +1,6 @@
 package module;
 
-import Signal.Signal;
+import signal.Signal;
 import org.junit.Assert;
 import org.junit.Test;
 

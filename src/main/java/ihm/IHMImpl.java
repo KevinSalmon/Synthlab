@@ -1,4 +1,4 @@
-package IHM;
+package ihm;
 
 import controller.Controller;
 import javafx.application.Application;
@@ -35,8 +35,6 @@ public class IHMImpl extends Application {
 
         primaryStage.show();
 
-        Controller c;
-        c = new Controller(loader.getController());
     }
 
     public static void main(String[] args){
