@@ -21,8 +21,8 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     public OutputModule(Synthesizer synth) {
         this.input = new UnitInputPort(PortType.INPUT.getType());
         addPort(this.input, PortType.INPUT.getType());
-        this.output = new UnitOutputPort("output");
-        addPort(this.output, "output");
+        this.output = new UnitOutputPort(PortType.OUTPUT.getType());
+        addPort(this.output, PortType.OUTPUT.getType());
         this.mute = false;
 
         this.attenuationFilter = new AttenuationFilter();
@@ -78,12 +78,19 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     public void generate(int start, int limit) {
         super.generate(start, limit);
         this.attenuationFilter.generate(start, limit);
+
+        /*if(this.mute) { // S'il y a besoin de réellement passer le son en muet et non pas désactivé lineOut
+            double[] outputs = output.getValues();
+            for(int i = start; i < limit; i++) {
+                outputs[i] = 0.0;
+            }
+        }*/
     }
 
     @Override
     public void update(SubjectOutput o) {
-        setMute(o.getMuteValue());
-        attenuationFilter.setDecibelsAttenuation(o.getDecibelValue());
+        this.setMute(o.getMuteValue());
+        this.setDecibelsAttenuation(o.getDecibelValue());
     }
 
     @Override
@@ -91,6 +98,9 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
         return this;
     }
 
+    /**
+     * @return Null car pas de sortie
+     */
     @Override
     public UnitOutputPort getOutput() {
         return null;
