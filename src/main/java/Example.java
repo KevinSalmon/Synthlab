@@ -1,5 +1,7 @@
 import signal.ModulationSignal;
+import com.jsyn.unitgen.LineOut;
 import module.OutputModule;
+import module.Replicateur;
 import module.VCA;
 import module.VCO;
 import com.jsyn.JSyn;
@@ -22,15 +24,18 @@ public class Example {
 
         myVco.getOutput().connect(0, vca.getInput(), 0);
 
-
         ModulationSignal am = new ModulationSignal(1.0, 1);
         am.setVoltRange(-5.0, 5.0);
         vca.setAm(am);
 
+        Replicateur rep = new Replicateur();
+        synth.add(rep);
+        vca.getOutput().connect(0, rep.getInput(), 0);
 
         OutputModule outModule = new OutputModule(synth);
-        vca.getOutput().connect( 0, outModule.getInput(), 0 );
-
+        rep.out1.connect( 0, outModule.getInput(), 0 );
+        //rep.output2.connect( 0, outModule.getInput(), 0 );
+        //rep.output3.connect( 0, outModule.getInput(), 0 );
 
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
@@ -39,6 +44,7 @@ public class Example {
             Boolean exit = false;
             Double ampl = 1.0;
             while(!exit) {
+               // System.out.println("V : " + am.getVolt() + " / a0 : " + vca.getA0() + "/ Db : " +  vca.getDecibelsAttenuation());
                 String str = c.nextLine();
                 if(str.length()>0){
                     switch (str.charAt(0)) {

@@ -43,13 +43,15 @@ public class CableManager {
      * Set the output point of the cable
      * @param point2D the output
      */
-    public void setOutput(Circle point2D, Module moduleOut){
+    public void setOutput(Circle point2D, Module moduleOut, String name){
         for(Cable c : cables){
             if(c.getOutput().equals(point2D)) return;
         }
         currentCable = new Cable();
         currentCable.setOutput(point2D);
         currentCable.setModuleOut(moduleOut);
+        currentCable.setOutputName(name);
+        Logger.getGlobal().info("je suis passé par ici");
     }
 
     /**
@@ -58,11 +60,13 @@ public class CableManager {
      * @return the line created
      * @throws OutputException when the user chooses the input first
      */
-    public void setInput(Circle point2D, Module moduleIn) {
+    public void setInput(Circle point2D, Module moduleIn, String name) {
             for(Cable c : cables){
                 if(c.getInput().equals(point2D)) return;
             }
+            Logger.getGlobal().info("je repasserai par la ");
             currentCable.setInput(point2D);
+            currentCable.setInputName(name);
             line = new Line();
             Point2D in = currentCable.getInput().getParent().localToParent(currentCable.getInput().getLayoutX(), currentCable.getInput().getLayoutY());
             Point2D out = currentCable.getOutput().getParent().localToParent(currentCable.getOutput().getLayoutX(), currentCable.getOutput().getLayoutY());
@@ -147,12 +151,12 @@ public class CableManager {
     public void addListener(Circle port, Module module, PortType type, Pane pane){
 
 
-        if(type.equals(PortType.INPUT)) {
+        if(type.getType().contains(PortType.INPUT.getType())) {
             port.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> instance.updateInputX(port));
             port.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> instance.updateInputY(port));
             port.setOnMouseClicked(event -> {
                 if(currentCable != null) {
-                    instance.setInput(port, module);
+                    instance.setInput(port, module, type.getType());
                     if(line != null) {
                         ((Pane) pane.getParent()).getChildren().add(line);
                         line.toFront();
@@ -161,10 +165,10 @@ public class CableManager {
             });
 
         }
-        else if(type.equals(PortType.OUTPUT)){
+        else if(type.getType().contains(PortType.OUTPUT.getType())){
             port.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputX(port));
             port.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputY(port));
-            port.setOnMouseClicked(event -> instance.setOutput(port, module));
+            port.setOnMouseClicked(event -> instance.setOutput(port, module, type.getType()));
         }
 
     }

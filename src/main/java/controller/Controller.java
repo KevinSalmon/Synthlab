@@ -4,10 +4,7 @@ import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
-import module.Module;
-import module.OutputModule;
-import module.VCA;
-import module.VCO;
+import module.*;
 import utils.FxmlFilesNames;
 
 import java.io.IOException;
@@ -83,6 +80,12 @@ public class Controller {
                 synth.add(vco);
                 break;
             case FxmlFilesNames.REP:
+                Replicateur rep = new Replicateur();
+                System.out.println("loader " + fxmlLoader);
+                System.out.println("loader.getcontroller " + fxmlLoader.getController());
+                System.out.println("rep " + rep);
+                ((Subject)fxmlLoader.getController()).register(rep);
+                synth.add(rep);
                 break;
             default:
                 break;

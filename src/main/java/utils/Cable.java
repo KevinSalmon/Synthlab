@@ -4,11 +4,13 @@ import exceptions.PortTypeException;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.Module;
-import module.PortType;
 
 import java.util.logging.Logger;
 
 public class Cable {
+
+    private String outputName;
+    private String inputName;
 
     private Circle output;
     
@@ -19,6 +21,22 @@ public class Cable {
     private Module moduleIn;
 
     private Module moduleOut;
+
+    public String getOutputName() {
+        return outputName;
+    }
+
+    public void setOutputName(String outputName) {
+        this.outputName = outputName;
+    }
+
+    public String getInputName() {
+        return inputName;
+    }
+
+    public void setInputName(String inputName) {
+        this.inputName = inputName;
+    }
 
     public void setOutput(Circle output) {
         this.output = output;
@@ -61,7 +79,10 @@ public class Cable {
     }
 
     public void connect() throws PortTypeException {
-       moduleOut.connect(moduleIn, PortType.OUTPUT.getType(), PortType.INPUT.getType());
+        Logger.getGlobal().info("moduleOut "+outputName+ " moduleIn "+inputName);
+        moduleOut.connect(moduleIn, outputName, inputName);
+//        ((VCO) moduleOut).getOutput().connect(((OutputModule) moduleIn).getInput());
+
 
     }
 }
