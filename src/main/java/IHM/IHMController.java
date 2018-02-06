@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
@@ -43,10 +44,8 @@ public class IHMController implements Initializable{
      * Variables locales
      */
     private Pane draggedModule;
-    private boolean spawning = false;
     private double deltaX = 0;
     private double deltaY = padding;
-    private String lastDirection = "";
 
     /**
      * Valeur de l'attribut style du module avant son drag
@@ -72,7 +71,21 @@ public class IHMController implements Initializable{
      * @param event
      */
     @FXML
-    void showAboutScene(ActionEvent event) { }
+    void showAboutScene(ActionEvent event) {
+        String aboutText = "Application SynthLab\n\n" +
+                "Projet de M2 IL\n\n" +
+                "Réalisé par le Groupe A composé de :\n" +
+                "Aurélien ANNE\n" +
+                "Marie COISNARD-SIMON\n" +
+                "Nicolas FORTUN\n" +
+                "Julien LAURENT\n" +
+                "Ahmed NOMANE\n" +
+                "Kevin SALMON";
+        Alert about = new Alert(Alert.AlertType.INFORMATION, aboutText);
+        about.setTitle("A propos");
+        about.setHeaderText("A propos de l'application");
+        about.show();
+    }
 
     private Controller controller;
 
@@ -102,7 +115,6 @@ public class IHMController implements Initializable{
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
         draggedModule.setStyle(defaultSelectionStyle);
 
-        spawning = true;
         deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
         deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
 
@@ -167,14 +179,18 @@ public class IHMController implements Initializable{
             module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
-            spawning = false;
 
             /**
              * Ajout du nouveau module sur le workspace
              */
             workspace.getChildren().add(module);
 
-            //handleCollisionOnWorkspace(module);
+            boolean collision = true;
+            while(collision) {
+                if(checkNoCollisionInWorkspace(module)){
+                    collision = false;
+                }
+            }
         }
 
         dragEvent.consume();
@@ -323,17 +339,13 @@ public class IHMController implements Initializable{
     private boolean checkNoCollisionInWorkspace(Pane module) {
         for (Node moduleToCheck : workspace.getChildren()) {
             /**
-             * Evite que le module se compare avec lui-meme
+             * Evite que le module se compare avec lui-meme et
+             * verifie l'intersection de deux modules
              */
-            if (!(moduleToCheck instanceof Line) && moduleToCheck != module) {
-
-                /**
-                 * Verifie l'intersection de deux modules
-                 */
-                if (moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())) {
-                    handleCollisionOnWorkspace(module, moduleToCheck);
-                    return false;
-                }
+            if (!(moduleToCheck instanceof Line) && moduleToCheck != module &&
+                    moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())) {
+                handleCollisionOnWorkspace(module, moduleToCheck);
+                return false;
             }
         }
         return true;
@@ -392,7 +404,7 @@ public class IHMController implements Initializable{
          */
         if (goRight) {
             module.setLayoutX(moduleInCollisionCenter.getLayoutX() + moduleInCollisionCenter.getWidth() + 2);
-        } else if (goBottom) {
+        } else { //goBottom
             module.setLayoutY(moduleInCollisionCenter.getLayoutY() + moduleInCollisionCenter.getHeight() + 2);
         }
 

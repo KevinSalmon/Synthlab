@@ -1,10 +1,7 @@
 package IHM;
 
-import Exceptions.OutputException;
 import controller.Obseurveur;
 import controller.SubjectVCO;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -44,7 +41,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     private Circle out;
 
     private List<Obseurveur<SubjectVCO>> obseuveurVCOputList;
-    private Line line;
 
     public VCOControllerIHM(){
         obseuveurVCOputList = new ArrayList<>();

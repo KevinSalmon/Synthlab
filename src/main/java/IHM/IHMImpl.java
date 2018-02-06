@@ -11,9 +11,9 @@ import java.net.URL;
 
 public class IHMImpl extends Application {
 
-    private Scene scene;
-
     public void start(Stage primaryStage) throws Exception {
+        Scene scene;
+
         /**
          * Chargement du FXML
          */
@@ -35,10 +35,9 @@ public class IHMImpl extends Application {
 
         primaryStage.show();
 
-        c = new Controller(((IHMController)loader.getController()));
+        Controller c;
+        c = new Controller(loader.getController());
     }
-
-    private Controller c;
 
     public static void main(String[] args){
         launch(args);

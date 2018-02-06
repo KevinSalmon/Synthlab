@@ -4,14 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-import Exceptions.OutputException;
 import controller.Obseurveur;
 import controller.SubjectOutput;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
@@ -20,33 +15,26 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import module.Module;
 import module.PortType;
 import utils.CableManager;
-
-import javax.swing.event.ChangeEvent;
-
 
 public class ModuleOut implements Initializable, SubjectOutput{
 
 	@FXML
-	Pane pane_main;
+	Pane paneMain;
 
 	@FXML
-	Spinner<Integer> btn_attenuateur;
+	Spinner<Integer> btnAttenuateur;
 	
 	@FXML
-	CheckBox checkbox_mute;
+	CheckBox checkboxMute;
 
 	@FXML
-	Circle draw_input;
+	Circle drawInput;
 
-	private Line line;
-
-	final int initialValue = 0;
+	final static int initialValue = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
-	private CableManager cableManager;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -54,16 +42,18 @@ public class ModuleOut implements Initializable, SubjectOutput{
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
 				initialValue);
 
-		btn_attenuateur.setValueFactory(valueFactory);
-		btn_attenuateur.setEditable(true);
+		btnAttenuateur.setValueFactory(valueFactory);
+		btnAttenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
-		cableManager = CableManager.getInstance();
-		cableManager.addListener(draw_input, PortType.INPUT, pane_main);
 
-        checkbox_mute.setOnAction(event -> notifyObseurveur());
-        btn_attenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
-        btn_attenuateur.setOnKeyReleased(e ->notifyObseurveur());
-        btn_attenuateur.setOnMouseClicked(e -> notifyObseurveur());
+		CableManager cableManager;
+		cableManager = CableManager.getInstance();
+		cableManager.addListener(drawInput, PortType.INPUT, paneMain);
+
+        checkboxMute.setOnAction(event -> notifyObseurveur());
+        btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
+        btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
+        btnAttenuateur.setOnMouseClicked(e -> notifyObseurveur());
 	}
 
 	public int getMinValue() {
@@ -91,12 +81,12 @@ public class ModuleOut implements Initializable, SubjectOutput{
 
     @Override
     public boolean getMuteValue() {
-        return checkbox_mute.isSelected();
+        return checkboxMute.isSelected();
     }
 
     @Override
     public double getDecibelValue() {
-        return btn_attenuateur.getValue();
+        return btnAttenuateur.getValue();
     }
 
     @Override
@@ -108,7 +98,9 @@ public class ModuleOut implements Initializable, SubjectOutput{
 
     @Override
     public void remove(Obseurveur o) {
-
+		if(o != null){
+			obseurveurList.remove(o);
+		}
     }
 
     @Override

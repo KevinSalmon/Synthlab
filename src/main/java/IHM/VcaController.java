@@ -1,8 +1,5 @@
 package IHM;
 
-import Exceptions.OutputException;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
@@ -15,7 +12,6 @@ import utils.CableManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class VcaController implements Initializable{
 
