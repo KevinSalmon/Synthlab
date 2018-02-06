@@ -67,7 +67,12 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      * @param o
      */
     public void modifyOctave(int o) {
-        octave += o;
+        setOctave(octave + o);
+
+    }
+    public void setOctave(int o){
+
+        octave = o;
 
         if(octave < -2) octave = -2;
         else if(octave > 3) octave = 3;
@@ -104,7 +109,11 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      * @param r
      */
     private void modifyReglageFin(double r) {
-        reglageFin += r;
+        setReglageFin(reglageFin + r);
+    }
+
+    public void setReglageFin(double r){
+        reglageFin = r;
 
         if(reglageFin < 0) reglageFin = 0.0;
         else if(reglageFin > 1) reglageFin = 1.0;
