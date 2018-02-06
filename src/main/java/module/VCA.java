@@ -3,99 +3,89 @@ package module;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import filter.AttenuationFilter;
 import utils.Tuple;
 import Signal.Signal;
 
 public class VCA extends Module implements UnitSource {
-    private final String INPUT = "input";
-
-    private UnitInputPort input; // Signal d'entrée
-    private UnitInputPort am; // Entrée : Modulation d'amplitude
-    private UnitOutputPort output;
-    private UnitOscillator currentOsc;
+    private UnitInputPort in; // Signal d'entrée
+    private Signal am; // Entrée : Modulation d'amplitude
+    private UnitOutputPort out; // Sortie de signal
+    private Double a0 = 0.0; // Gain de base a0 réglé en façade obtenu lorsque am = 5V
     private AttenuationFilter attenuationFilter;
-    private Signal audioSignal;
-
-    /*
-        TODO
-        une entrée de signal nommée in
-        une entrée de modulation d’amplitude nommée am
-        une sortie de signal nommée out
-        un réglage manuel en façade du gain de base a0, obtenu lorsque am = 5V
-     */
 
     public VCA() {
-        this.input = new UnitInputPort(INPUT);
-        addPort(this.input, INPUT);
-        this.am = new UnitInputPort("am");
-        addPort(this.am, "am");
-        this.output = new UnitOutputPort();
-        addPort(this.output, "output");
+        this.in = new UnitInputPort(PortType.INPUT.toString());
+        addPort(this.in, PortType.INPUT.toString());
+        this.out = new UnitOutputPort();
+        addPort(this.out, PortType.OUTPUT.toString());
 
         this.attenuationFilter = new AttenuationFilter();
-        this.attenuationFilter.input = this.input;
-        this.attenuationFilter.output = this.output;
+        this.attenuationFilter.input = this.in;
+        this.attenuationFilter.output = this.out;
     }
-
-    /**
-     * Getters et Setters
-     */
 
     public UnitInputPort getInput() {
-        return input;
+        return in;
     }
 
-    public UnitInputPort getAm() {
+    public Signal getAm() {
         return am;
     }
 
-    public void setAm(UnitInputPort am) {
+    public void setAm(Signal am) {
         this.am = am;
     }
 
-    public UnitOscillator getCurrentOsc() {
-        return currentOsc;
+    public Double getA0() {
+        return a0;
     }
 
-    public void setCurrentOsc(UnitOscillator currentOsc) {
-        this.currentOsc = currentOsc;
-    }
-
-    public Signal getAudioSignal() {
-        return audioSignal;
-    }
-
-    public void setAudioSignal(Signal audioSignal) {
-        this.audioSignal = audioSignal;
+    public void setA0(Double a0) {
+        this.a0 = a0;
     }
 
     @Override
     public UnitOutputPort getOutput() {
-        return this.output;
+        return this.out;
     }
 
     @Override
     public void generate(int start, int limit) {
         super.generate(start, limit);
 
-        /* TODO
-        lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
-        lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
-        lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
-        lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
-        */
-        this.attenuationFilter.generate(start, limit);
+        double[] inputs = in.getValues();
+        double[] outputs = out.getValues();
+
+        if (am == null || am.getAmplitude() == 0.0) {
+            // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
+            for (int i = start; i < limit; i++) {
+                outputs[i] = 0.0;
+            }
+        }
+        else if (this.am.getVolt() == 5.0 && a0 == 0.0) {
+            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
+            System.arraycopy(inputs, start, outputs, start, limit);
+        }
+        else {
+            // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
+            // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
+            this.attenuationFilter.setDecibelsAttenuation(this.am.getVolt() * 12/* * a0*/); // TODO am pour 5 V
+            this.attenuationFilter.generate(start, limit);
+        }
     }
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
         if(name == "output") return new Tuple(getPortByName(name),PortType.OUTPUT);
-        if(name.equals(INPUT)) return new Tuple(getPortByName(name),PortType.INPUT);
+        if(name.equals(PortType.INPUT.toString())) return new Tuple(getPortByName(name),PortType.INPUT);
         if(name == "am") return new Tuple(getPortByName(name),PortType.INPUT);
         return null;
+    }
+
+    public double getDecibelsAttenuation() { // Pour le débug, à supprimer
+        return this.attenuationFilter.getDecibelsAttenuation();
     }
 }
 
