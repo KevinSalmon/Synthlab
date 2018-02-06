@@ -10,7 +10,6 @@ import module.OutputModule;
 import module.VCA;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 
