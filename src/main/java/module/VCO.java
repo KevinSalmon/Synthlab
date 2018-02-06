@@ -87,7 +87,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         octave = o;
 
-        if(octave < -9) octave = -9;
+        if(octave < -2) octave = -2;
         else if(octave > 3) octave = 3;
 
         updateFrequency();

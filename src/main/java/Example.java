@@ -19,6 +19,13 @@ public class Example {
         VCO myVco = new VCO();
         synth.add(myVco);
 
+        VCO vco2 = new VCO();
+        synth.add(vco2);
+
+        vco2.setOctave(-100);
+        System.out.println(vco2.getFrequency());
+        vco2.getOutput().connect(myVco.getInput());
+
         VCA vca = new VCA();
         synth.add(vca);
 
