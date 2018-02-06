@@ -1,5 +1,3 @@
-import com.jsyn.unitgen.FilterLowPass;
-import module.VCFLP;
 import signal.ModulationSignal;
 import com.jsyn.unitgen.LineOut;
 import module.OutputModule;
@@ -31,25 +29,18 @@ public class Example {
         VCA vca = new VCA();
         synth.add(vca);
 
-        FilterLowPass filterLowPass = new FilterLowPass();
-        synth.add(filterLowPass);
-
         myVco.getOutput().connect(0, vca.getInput(), 0);
 
         ModulationSignal am = new ModulationSignal(1.0, 1);
         am.setVoltRange(-5.0, 5.0);
         vca.setAm(am);
-//
-//        Replicateur rep = new Replicateur();
-//        synth.add(rep);
-        vca.getOutput().connect(0, filterLowPass.input, 0);
+
+        Replicateur rep = new Replicateur();
+        synth.add(rep);
+        vca.getOutput().connect(0, rep.getInput(), 0);
 
         OutputModule outModule = new OutputModule(synth);
-        filterLowPass.output.connect(0, outModule.getInput(), 0);
-        filterLowPass.frequency.set(440);
-        filterLowPass.Q.set(300);
-
-//        rep.getOut1().connect( 0, outModule.getInput(), 0 );
+        rep.getOut1().connect( 0, outModule.getInput(), 0 );
         //rep.output2.connect( 0, outModule.getInput(), 0 );
         //rep.output3.connect( 0, outModule.getInput(), 0 );
 
@@ -60,6 +51,7 @@ public class Example {
             Boolean exit = false;
             Double ampl = 1.0;
             while(!exit) {
+                // System.out.println("V : " + am.getVolt() + " / a0 : " + vca.getA0() + "/ Db : " +  vca.getDecibelsAttenuation());
                 String str = c.nextLine();
                 if(str.length()>0){
                     switch (str.charAt(0)) {
@@ -70,8 +62,6 @@ public class Example {
                         case 'a': myVco.decreaseOctave(1); break;
                         case 't': myVco.changeCurrentOsc(OscillatorType.TRIANGLE); break;
                         case 's': myVco.changeCurrentOsc(OscillatorType.SQUARE); break;
-                        case 'u': filterLowPass.frequency.set(filterLowPass.frequency.get()-10); filterLowPass.updateCoefficients();break;
-                        case 'o': filterLowPass.frequency.set(filterLowPass.frequency.get()+10); filterLowPass.updateCoefficients();break;
 
                         // VCA
                         case '*': ampl=ampl+0.1; am.setAmplitude(ampl); break;
