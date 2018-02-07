@@ -70,8 +70,8 @@ public class Example {
                         //VCFLP
                         case 'u': vcflp.increaseFrequency(); break;
                         case 'i': vcflp.decreaseFrequency(); break;
-                        case 'o': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() + 1);
-                        case 'p': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() - 1);
+                        case 'o': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() + 1); break;
+                        case 'p': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() - 1); break;
                         // VCA
                         case '*': ampl=ampl+0.01; am.setAmplitude(ampl); break;
                         case '9': ampl=ampl-0.01; am.setAmplitude(ampl); break;
