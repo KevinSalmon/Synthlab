@@ -165,4 +165,17 @@ public class VCFLPTest {
         assertEquals( freq / 2, vcflp.getFilterLowPass().frequency.get());
     }
 
+    @Test
+    public void increaseResonanceTest(){
+        Double q =vcflp.getFilterLowPass().Q.get();
+        vcflp.increaseResonance(1);
+        assertEquals(q+1, vcflp.getFilterLowPass().Q.get());
+    }
+    @Test
+    public void decreaseResonanceTest(){
+        Double q =vcflp.getFilterLowPass().Q.get();
+        vcflp.decreaseResonance(1);
+        assertEquals( q-1, vcflp.getFilterLowPass().Q.get());
+    }
+
 }
