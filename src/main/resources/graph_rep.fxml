@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="191.0" style="-fx-background-color: #FFFF6B;" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.ReplicateurController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="191.0" style="-fx-background-color: #FFFF6B;" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.ReplicateurController">
    <children>
        <Label layoutX="37.0" layoutY="88.0" text="in" />
        <Circle fx:id="in" layoutX="45.0" layoutY="132.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
