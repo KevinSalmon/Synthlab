@@ -11,17 +11,17 @@ public abstract class AbstractSignal implements Signal {
     protected double maxVolt;
 
     public AbstractSignal(double amplitude, int frequency, double minVolt, double maxVolt) {
-        // TODO: Contrôler que l'amplitude et frequency sont ok
+        // TODO: Contrôler que l'amplitude et frequency sont ok, minVolt < maxVolt
         this.amplitude = amplitude;
         this.frequency = frequency;
         this.minVolt = minVolt;
         this.maxVolt = maxVolt;
     }
-    public AbstractSignal() {
+    public AbstractSignal(double minVolt, double maxVolt) {
         this.amplitude=0.5;
         this.frequency = 440;
-        this.minVolt = -5;
-        this.maxVolt = 5;
+        this.minVolt = minVolt;
+        this.maxVolt = maxVolt;
     }
 
     @Override

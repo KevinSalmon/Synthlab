@@ -31,7 +31,7 @@ public class Example {
 
         myVco.getOutput().connect(0, vca.getInput(), 0);
 
-        ModulationSignal am = new ModulationSignal(1.0, 1, -5.0, 5.0);
+        ModulationSignal am = new ModulationSignal(1.0, 1);
         vca.setAm(am);
 
         Replicateur rep = new Replicateur();
