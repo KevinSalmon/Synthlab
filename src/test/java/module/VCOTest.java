@@ -7,6 +7,7 @@ import com.jsyn.unitgen.UnitOscillator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import signal.AudioSignal;
 import utils.OscillatorType;
 import utils.PortType;
 
@@ -111,7 +112,42 @@ public class VCOTest {
 
     @Test
     public void GetPortTest(){
-        Assert.assertEquals("Should get the output port", vco.getPort(PortType.OUTPUT.getType()).getLeft(), vco.getOutput());
+        Assert.assertEquals("Should get the output port", vco.getOutput(), vco.getPort(PortType.OUTPUT.getType()).getLeft());
+        Assert.assertEquals("Should get the input port", vco.getInput(), vco.getPort(PortType.FM.getType()).getLeft());
+
+        Assert.assertNull("Should get null", vco.getPort("port_qui_n'existe_pas"));
+    }
+
+    @Test
+    public void GetterSetterTest(){
+
+        //Octave
+        vco.setOctave(3);
+        Assert.assertEquals("Octave should be 3",3, vco.getOctave(),0);
+        vco.setOctave(6);
+        Assert.assertEquals("Octave should be 3",3, vco.getOctave(),0);
+        vco.setOctave(-1);
+        Assert.assertEquals("Octave should be -1",-1, vco.getOctave(),0);
+        vco.setOctave(-10);
+        Assert.assertEquals("Octave should be -2",-2, vco.getOctave(),0);
+
+        //ReglageFin
+        vco.setReglageFin(0.2);
+        Assert.assertEquals("Tuning should be 0.2",0.2, vco.getReglageFin(),0);
+        vco.setReglageFin(6);
+        Assert.assertEquals("Tuning should be 1",1, vco.getReglageFin(),0);
+        vco.setReglageFin(-0.5);
+        Assert.assertEquals("Tuning should be 0",0, vco.getReglageFin(),0);
+
+        //Output
+        UnitOutputPort to = new UnitOutputPort();
+        vco.setOutput(to);
+        Assert.assertEquals("The output we get should be the output we set", to, vco.getOutput());
+
+        //AudioSignal
+        AudioSignal as = new AudioSignal();
+        vco.setAudioSignal(as);
+        Assert.assertEquals("The signal we get should be the signal we set", as, vco.getAudioSignal());
     }
 
 }

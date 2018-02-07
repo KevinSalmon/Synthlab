@@ -1,19 +1,18 @@
 package module;
 
 import com.jsyn.ports.UnitInputPort;
-import signal.*;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCO;
+import signal.AudioSignal;
+import signal.Signal;
 import utils.OscillatorFactory;
 import utils.OscillatorType;
 import utils.PortType;
 import utils.Tuple;
-
-import javax.sound.sampled.Port;
 
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
@@ -24,7 +23,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private UnitInputPort fm;
     private UnitOutputPort output;
     private Signal audioSignal;
-    private final int f0 = 440;
+    private static final int f0 = 440;
 
     private int octave;
     private double reglageFin;
@@ -57,14 +56,14 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         //Récupère les adresses des valeurs des sorties du port de sortie
         // et de la sortie de l'oscillateur courant
-        double[] fm = this.fm.getValues();
+        double[] mod = this.fm.getValues();
         double[] out = output.getValues();
         double[] osc = currentOsc.output.getValues();
         double[] freq = currentOsc.frequency.getValues();
 
         //Calcul la fréquence
         for (int i = start; i < limit; i++) {
-            freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*fm[i]));
+            freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*mod[i]));
         }
 
         super.generate(start, limit);
