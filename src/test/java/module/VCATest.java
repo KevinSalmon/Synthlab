@@ -3,6 +3,9 @@ package module;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
+import controller.Obseurveur;
+import controller.SubjectOutput;
+import controller.SubjectVCA;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +74,25 @@ public class VCATest {
 
     // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
     @Test
-    public void AmNullOutputTest() {
+    public void amNullOutputTest() {
+        assertEquals(null, vca.getAm());
+
+        for (int i = 0; i < 1000; i++) {
+            vca.generate();
+            vco.generate();
+
+            double[] values = vca.getOutput().getValues();
+            for (int j = 0; j < values.length; j++) {
+                assertEquals(values[j], 0.0);
+            }
+        }
+    }
+
+    @Test
+    public void am0OutputTest() {
+        vca.setAm(new ModulationSignal(0.0, 1));
+        assertEquals(0.0, vca.getAm().getAmplitude());
+
         for (int i = 0; i < 1000; i++) {
             vca.generate();
             vco.generate();
@@ -89,6 +110,8 @@ public class VCATest {
         Signal am = new ModulationSignal(0.5, 1);
         vca.setAm(am);
         vca.setA0(0.0);
+        assertEquals(5.0, vca.getAm().getVolt());
+        assertEquals(0.0, vca.getA0());
 
         for (int i = 0; i < 1000; i++) {
             vco.generate();
@@ -108,6 +131,8 @@ public class VCATest {
         Signal am = new ModulationSignal(0.9, 1);
         vca.setAm(am);
         vca.setA0(0.0);
+        assertEquals(9.0, vca.getAm().getVolt());
+        assertEquals(0.0, vca.getA0());
 
         for (int i = 0; i < 1000; i++) {
             vco.generate();
@@ -170,5 +195,29 @@ public class VCATest {
 
             amplitude = amplitude - 0.1;
         }
+    }
+
+
+    /**
+     * Update
+     */
+    class SubjectVCATest implements SubjectVCA {
+        private double decibels;
+
+        public SubjectVCATest(double decibels) {
+            this.decibels = decibels;
+        }
+
+        @Override public Double getDecibel() { return this.decibels;  }
+        @Override public void register(Obseurveur o) { }
+        @Override public void remove(Obseurveur o) { }
+        @Override public void notifyObseurveur() {  }
+    }
+
+    @Test
+    public void updateTest() {
+        SubjectVCA sub = new SubjectVCATest(-3.6);
+        vca.update(sub);
+        assertEquals(-3.6, vca.getDecibelsAttenuation());
     }
 }

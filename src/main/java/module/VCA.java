@@ -105,7 +105,7 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         return this;
     }
 
-    public double getDecibelsAttenuation() { // Pour le débug, à supprimer
+    public double getDecibelsAttenuation() { // Pour le débug
         return this.attenuationFilter.getDecibelsAttenuation();
     }
 }
