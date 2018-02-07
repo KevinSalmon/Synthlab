@@ -5,8 +5,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.Module;
 
-import java.util.logging.Logger;
-
 public class Cable {
 
     private String outputName;
