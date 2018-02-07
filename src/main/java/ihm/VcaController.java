@@ -26,6 +26,9 @@ public class VcaController implements Initializable, SubjectVCA {
     Circle in;
 
     @FXML
+    Circle am;
+
+    @FXML
     Circle out;
     
     private double minValue = Double.MIN_EXPONENT;
@@ -65,6 +68,7 @@ public class VcaController implements Initializable, SubjectVCA {
         if( o != null){
             vcaObseurveur = o;
             cableManager.addListener(in, vcaObseurveur.getReference(), PortType.INPUT, pane);
+            cableManager.addListener(am, vcaObseurveur.getReference(), PortType.AM, pane);
             cableManager.addListener(out, vcaObseurveur.getReference(), PortType.OUTPUT, pane);
 
         }
