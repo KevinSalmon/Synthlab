@@ -121,4 +121,12 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
         return signal;
     }
 
+    public void increaseFrequency() {
+        this.filterLowPass.frequency.set(this.filterLowPass.frequency.get() *2);
+
+    }
+    public void decreaseFrequency() {
+        this.filterLowPass.frequency.set(this.filterLowPass.frequency.get() /2);
+
+    }
 }

@@ -152,4 +152,17 @@ public class VCFLPTest {
         assertEquals(vcflp, vcflp.getReference());
     }
 
+    @Test
+    public void increaseFreqTest(){
+        Double freq =vcflp.getFilterLowPass().frequency.get();
+        vcflp.increaseFrequency();
+        assertEquals(2 * freq, vcflp.getFilterLowPass().frequency.get());
+    }
+    @Test
+    public void decreaseFreqTest(){
+        Double freq =vcflp.getFilterLowPass().frequency.get();
+        vcflp.increaseFrequency();
+        assertEquals( freq / 2, vcflp.getFilterLowPass().frequency.get());
+    }
+
 }
