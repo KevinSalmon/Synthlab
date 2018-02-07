@@ -29,8 +29,6 @@ public class Example {
 
 //        myVco.getOutput().connect(0, vca.getInput(), 0);
 
-        ModulationSignal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
 
         VCFLP vcflp = new VCFLP();
         synth.add(vcflp);
@@ -73,8 +71,6 @@ public class Example {
                         case 'o': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() + 1); break;
                         case 'p': vcflp.getFilterLowPass().Q.set(vcflp.getFilterLowPass().Q.get() - 1); break;
                         // VCA
-                        case '*': ampl=ampl+0.01; am.setAmplitude(ampl); break;
-                        case '9': ampl=ampl-0.01; am.setAmplitude(ampl); break;
                         case '/': a0++; vca.setA0(a0); break;
                         case '8': a0--; vca.setA0(a0); break;
 
