@@ -180,6 +180,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             break;
             case SAWTOOTH: currentOsc = sawOsc;
             break;
+
+            default: throw new IllegalArgumentException("Oscillator not found");
         }
 
         //Met à jour fréquence et amplitude

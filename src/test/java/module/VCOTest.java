@@ -16,6 +16,8 @@ import signal.AudioSignal;
 import utils.OscillatorType;
 import utils.PortType;
 
+import java.util.Arrays;
+
 public class VCOTest {
     public static VCO vco;
 
@@ -209,4 +211,9 @@ public class VCOTest {
         Assert.assertTrue("The oscillator should be a square one",vco.getCurrentOsc() instanceof SquareOscillator);
     }
 
+
+    @Test(expected = NullPointerException.class)
+    public void OscillatorException(){
+        vco.changeCurrentOsc(null);
+    }
 }

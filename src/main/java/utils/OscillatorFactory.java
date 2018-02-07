@@ -21,7 +21,7 @@ public class OscillatorFactory {
             case SQUARE: return new SquareOscillator();
             case SAWTOOTH: return new SawtoothOscillator();
             case TRIANGLE:return new TriangleOscillator();
-            default: throw new IllegalArgumentException("Oscilloscope not found");
+            default: throw new IllegalArgumentException("Oscillator not found");
         }
 
     }
