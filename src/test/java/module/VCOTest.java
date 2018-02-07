@@ -7,6 +7,8 @@ import com.jsyn.unitgen.SawtoothOscillator;
 import com.jsyn.unitgen.SquareOscillator;
 import com.jsyn.unitgen.TriangleOscillator;
 import com.jsyn.unitgen.UnitOscillator;
+import controller.Obseurveur;
+import controller.SubjectVCO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -161,6 +163,50 @@ public class VCOTest {
 
         //Reference
         Assert.assertEquals("Should get the VCO itself", vco, vco.getReference());
+    }
+
+    @Test
+    public void UpdateTest(){
+        SubjectVCO subject = new SubjectVCO() {
+            Obseurveur o;
+
+            @Override
+            public int getOctaveValue() {
+                return 1;
+            }
+
+            @Override
+            public double getReglageFinValue() {
+                return 0.346;
+            }
+
+            @Override
+            public OscillatorType getOscillatorType() {
+                return OscillatorType.SQUARE;
+            }
+
+            @Override
+            public void register(Obseurveur o) {
+                this.o = o;
+            }
+
+            @Override
+            public void remove(Obseurveur o) {
+
+            }
+
+            @Override
+            public void notifyObseurveur() {
+                o.update(this);
+            }
+        };
+
+        subject.register(vco);
+        subject.notifyObseurveur();
+
+        Assert.assertEquals("Tuning should be 0.346",0.346, vco.getReglageFin(),0);
+        Assert.assertEquals("Octave should be 1",1, vco.getOctave(),0);
+        Assert.assertTrue("The oscillator should be a square one",vco.getCurrentOsc() instanceof SquareOscillator);
     }
 
 }
