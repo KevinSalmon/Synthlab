@@ -60,8 +60,8 @@ public class Replicateur extends Module implements Obseurveur<SubjectReplicateur
      */
 
     @Override
-    public void update(SubjectReplicateur o) {
-        //Methode inutilisee
+    public void update(SubjectReplicateur o) throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Methode inutilisee");
     }
 
     @Override
