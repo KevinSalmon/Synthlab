@@ -161,7 +161,7 @@ public class VCFLPTest {
     @Test
     public void decreaseFreqTest(){
         Double freq =vcflp.getFilterLowPass().frequency.get();
-        vcflp.increaseFrequency();
+        vcflp.decreaseFrequency();
         assertEquals( freq / 2, vcflp.getFilterLowPass().frequency.get());
     }
 
