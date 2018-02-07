@@ -210,7 +210,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         if(PortType.OUTPUT.getType().equals(name)){
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
+        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.FM);
         return null;
     }
 
