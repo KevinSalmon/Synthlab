@@ -17,12 +17,13 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitOutputPort out; // Sortie de signal
     private Double a0 = 0.0; // Gain de base a0 réglé en façade obtenu lorsque am = 5V
     private AttenuationFilter attenuationFilter;
+    private Double initialVoltage;
 
     public VCA() {
-        this.in = new UnitInputPort(PortType.INPUT.toString());
-        addPort(this.in, PortType.INPUT.toString());
+        this.in = new UnitInputPort(PortType.INPUT.getType());
+        addPort(this.in, PortType.INPUT.getType());
         this.out = new UnitOutputPort();
-        addPort(this.out, PortType.OUTPUT.toString());
+        addPort(this.out, PortType.OUTPUT.getType());
 
         this.attenuationFilter = new AttenuationFilter();
         this.attenuationFilter.input = this.in;
@@ -43,6 +44,7 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
 
     public void setAm(Signal am) {
         this.am = am;
+        this.initialVoltage = this.am.getVolt();
     }
 
     public Double getA0() {
@@ -78,7 +80,9 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         else {
             // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
             // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
-            this.attenuationFilter.setDecibelsAttenuation(this.am.getVolt() * 12/* * a0*/); // TODO am pour 5 V
+
+            // Pour le réglage du gain a0 sur le VCA, ce réglage est appliqué uniquement lorsque am = 5V et ignoré si am < 5V
+            this.attenuationFilter.setDecibelsAttenuation((this.am.getVolt() - this.initialVoltage) * 12/* * a0*/); // TODO am pour 5 V
             this.attenuationFilter.generate(start, limit);
         }
     }
