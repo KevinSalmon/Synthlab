@@ -5,10 +5,12 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.EnvelopeDAHDSR;
 import com.jsyn.unitgen.UnitSource;
+import controller.Obseurveur;
+import controller.SubjectEG;
 import utils.PortType;
 import utils.Tuple;
 
-public class EG extends Module implements UnitSource{
+public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
 
     private final EnvelopeDAHDSR envelope;
 
@@ -92,6 +94,10 @@ public class EG extends Module implements UnitSource{
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
+        if(PortType.OUTPUT.getType().equals(name)){
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
+        }
+        else if(PortType.INPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 
@@ -102,5 +108,18 @@ public class EG extends Module implements UnitSource{
 
     public UnitInputPort getInput() {
         return gate;
+    }
+
+    @Override
+    public void update(SubjectEG o) {
+        setAttack(o.getAttackValue());
+        setDecay(o.getDecayValue());
+        setSustain(o.getSustainValue());
+        setRelease(o.getReleaseValue());
+    }
+
+    @Override
+    public Module getReference() {
+        return this;
     }
 }
