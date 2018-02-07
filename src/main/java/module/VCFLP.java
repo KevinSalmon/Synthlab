@@ -4,7 +4,6 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.FilterLowPass;
-import com.jsyn.unitgen.UnitFilter;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCFLP;
@@ -92,14 +91,14 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
     @Override
     public void generate(){
         super.generate();
-        double[] in = filterLowPass.input.getValues();
-        double[] out = filterLowPass.output.getValues();
+        double[] inValues = filterLowPass.input.getValues();
+        double[] outValues = filterLowPass.output.getValues();
         if(filterLowPass.frequency.get() == Double.MAX_VALUE){
-            System.arraycopy(in, 0, out, 0, out.length);
+            System.arraycopy(inValues, 0, outValues, 0, outValues.length);
         }
         else if(filterLowPass.frequency.get() == 0.0){
-            for(int i=0;i < out.length; i ++){
-                out[i] = 0.0;
+            for(int i=0;i < outValues.length; i ++){
+                outValues[i] = 0.0;
             }
         }
         else{
@@ -120,10 +119,6 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
 
     public Signal getSignal() {
         return signal;
-    }
-
-    public void setSignal(Signal signal) {
-        this.signal = signal;
     }
 
 }

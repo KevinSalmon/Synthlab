@@ -4,8 +4,10 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import controller.Obseurveur;
 import controller.SubjectVCFLP;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import signal.Signal;
 import utils.PortType;
 
 import static junit.framework.TestCase.assertEquals;
@@ -107,7 +109,7 @@ public class VCFLPTest {
         assertEquals("output port and returned port are not equals", vcflp.getOutput(), vcflp.getPort(PortType.OUTPUT.getType()).getLeft());
         assertEquals( "input port and returned port are not equals", vcflp.getInput(), vcflp.getPort(PortType.INPUT.getType()).getLeft());
         assertEquals("fm port and returned port are not equals", vcflp.getFm(), vcflp.getPort(PortType.FM.getType()).getLeft());
-
+        Assert.assertNull(vcflp.getPort("NULL"));
     }
 
     /**
@@ -144,4 +146,10 @@ public class VCFLPTest {
         vcflp.update(o);
         assertEquals("Frequency must be at 220.0", 220.0, vcflp.getFilterLowPass().frequency.get());
     }
+
+    @Test
+    public void referenceTest(){
+        assertEquals(vcflp, vcflp.getReference());
+    }
+
 }
