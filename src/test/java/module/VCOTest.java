@@ -3,6 +3,9 @@ package module;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.SawtoothOscillator;
+import com.jsyn.unitgen.SquareOscillator;
+import com.jsyn.unitgen.TriangleOscillator;
 import com.jsyn.unitgen.UnitOscillator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -105,9 +108,16 @@ public class VCOTest {
         vco.changeCurrentOsc(OscillatorType.TRIANGLE);
         UnitOscillator osc = vco.getCurrentOsc();
         vco.changeCurrentOsc(OscillatorType.TRIANGLE);
-        Assert.assertEquals("The socillator shouldn't have change",osc, vco.getCurrentOsc());
+        Assert.assertEquals("The oscillator shouldn't have change",osc, vco.getCurrentOsc());
         vco.changeCurrentOsc(OscillatorType.SAWTOOTH);
-        Assert.assertNotEquals("The socillator should have change",osc, vco.getCurrentOsc());
+        Assert.assertNotEquals("The oscillator should have change",osc, vco.getCurrentOsc());
+
+        vco.changeCurrentOsc(OscillatorType.SAWTOOTH);
+        Assert.assertTrue("The oscillator should be a sawtooth one",vco.getCurrentOsc() instanceof SawtoothOscillator);
+        vco.changeCurrentOsc(OscillatorType.TRIANGLE);
+        Assert.assertTrue("The oscillator should be a triangle one",vco.getCurrentOsc() instanceof TriangleOscillator);
+        vco.changeCurrentOsc(OscillatorType.SQUARE);
+        Assert.assertTrue("The oscillator should be a square one",vco.getCurrentOsc() instanceof SquareOscillator);
     }
 
     @Test
@@ -148,6 +158,9 @@ public class VCOTest {
         AudioSignal as = new AudioSignal();
         vco.setAudioSignal(as);
         Assert.assertEquals("The signal we get should be the signal we set", as, vco.getAudioSignal());
+
+        //Reference
+        Assert.assertEquals("Should get the VCO itself", vco, vco.getReference());
     }
 
 }

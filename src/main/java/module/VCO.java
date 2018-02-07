@@ -23,7 +23,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private UnitInputPort fm;
     private UnitOutputPort output;
     private Signal audioSignal;
-    private static final int f0 = 440;
+    private static final int F0 = 440;
 
     private int octave;
     private double reglageFin;
@@ -46,7 +46,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         addPort(output);
         fm = new UnitInputPort(PortType.FM.getType());
         addPort(fm);
-        audioSignal = new AudioSignal(0.5, f0);
+        audioSignal = new AudioSignal(0.5, F0);
         currentOsc.frequency.set(audioSignal.getFrequency());
         currentOsc.amplitude.set(audioSignal.getAmplitude());
     }
@@ -169,7 +169,6 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     public void changeCurrentOsc(OscillatorType type) {
 
         //Récupère la valeur de fréquence et d'amplitude de l'oscillateur courant
-        //TODO remplacer par AudioSignal si on décide de l'utiliser
         double freq = currentOsc.frequency.getValue();
         double amp = currentOsc.amplitude.getValue();
 
@@ -209,7 +208,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         if(PortType.OUTPUT.getType().equals(name)){
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
+        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 
