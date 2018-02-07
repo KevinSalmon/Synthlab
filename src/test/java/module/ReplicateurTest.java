@@ -4,10 +4,12 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
-import com.jsyn.ports.UnitPort;
+import java.util.logging.Logger;
+import ihm.ReplicateurController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import utils.PortType;
 import utils.Tuple;
 
@@ -182,4 +184,11 @@ public class ReplicateurTest {
 
         Assert.assertNull("getPort(\"\") is not null", rep.getPort(""));
     }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void updateTest(){
+        ReplicateurController replicateurController = new ReplicateurController();
+        rep.update(replicateurController);
+    }
+
 }
