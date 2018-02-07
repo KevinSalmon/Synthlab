@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import controller.Obseurveur;
 import controller.SubjectOutput;
@@ -31,7 +32,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	@FXML
 	Circle drawInput;
 
-	static final int INITIAL_VALUE = 0;
+	final static int INITIAL_VALUE = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
 
@@ -39,7 +40,9 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	public void initialize(URL location, ResourceBundle resources) {
 		SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
 				new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
-				INITIAL_VALUE, 20);
+				INITIAL_VALUE);
+
+		valueFactory.amountToStepByProperty().setValue(20);
 
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
