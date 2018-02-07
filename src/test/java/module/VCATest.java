@@ -18,7 +18,7 @@ import static junit.framework.TestCase.*;
 public class VCATest {
     public static VCA vca;
     public static VCO vco;
-    public static ConstantGenerator constGen;
+    //public static ConstantGenerator constGen;
 
     @Before
     public void init(){
@@ -28,10 +28,8 @@ public class VCATest {
         vca = new VCA();
         synth.add(vca);
 
-        constGen = new ConstantGenerator();
-        synth.add(constGen);
-
-        vco.getOutput().connect(vca.getInput());
+        /*constGen = new ConstantGenerator();
+        synth.add(constGen);*/
 
         vco = new VCO();
         vco.getOutput().connect(vca.getInput());
