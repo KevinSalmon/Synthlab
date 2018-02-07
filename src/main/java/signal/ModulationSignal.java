@@ -5,13 +5,12 @@ package signal;
  */
 public class ModulationSignal extends AbstractSignal{
 
-
-    public ModulationSignal(double amplitude, int frequency, double minVolt, double maxVolt){
-        super( amplitude, frequency, minVolt, maxVolt);
+    public ModulationSignal(double amplitude, int frequency){
+        super( amplitude, frequency, -10, 10);
     }
 
     public ModulationSignal(){
-        super();
+        super(-10, 10);
     }
 
 

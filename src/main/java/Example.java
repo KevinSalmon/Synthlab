@@ -9,6 +9,7 @@ import com.jsyn.Synthesizer;
 import utils.OscillatorType;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Example {
 
@@ -23,7 +24,7 @@ public class Example {
         synth.add(vco2);
 
         vco2.setOctave(-100);
-        System.out.println(vco2.getFrequency());
+        Logger.getGlobal().info("vco2.frequency : " +vco2.getFrequency());
         vco2.getOutput().connect(myVco.getInput());
 
         VCA vca = new VCA();
@@ -31,7 +32,7 @@ public class Example {
 
         myVco.getOutput().connect(0, vca.getInput(), 0);
 
-        ModulationSignal am = new ModulationSignal(1.0, 1, -5.0, 5.0);
+        ModulationSignal am = new ModulationSignal(0.5, 1);
         vca.setAm(am);
 
         Replicateur rep = new Replicateur();
@@ -39,7 +40,8 @@ public class Example {
         vca.getOutput().connect(0, rep.getIn(), 0);
 
         OutputModule outModule = new OutputModule(synth);
-        rep.getOut1().connect( 0, outModule.getInput(), 0 );
+        vca.getOutput().connect(0, outModule.getInput() , 0);
+        //rep.getOut1().connect( 0, outModule.getInput(), 0 );
         //rep.output2.connect( 0, outModule.getInput(), 0 );
         //rep.output3.connect( 0, outModule.getInput(), 0 );
 
@@ -48,9 +50,9 @@ public class Example {
 
         new Thread(()-> {
             Boolean exit = false;
-            Double ampl = 1.0;
+            Double ampl = 0.5;
+            Double a0 = 0.0;
             while(!exit) {
-                // System.out.println("V : " + am.getVolt() + " / a0 : " + vca.getA0() + "/ Db : " +  vca.getDecibelsAttenuation());
                 String str = c.nextLine();
                 if(str.length()>0){
                     switch (str.charAt(0)) {
@@ -63,12 +65,10 @@ public class Example {
                         case 's': myVco.changeCurrentOsc(OscillatorType.SQUARE); break;
 
                         // VCA
-                        case '*': ampl=ampl+0.1; am.setAmplitude(ampl); break;
-                        case '9': ampl=ampl-0.1; am.setAmplitude(ampl); break;
-                        case '/': vca.setA0(5.0); break;
-                        case '8': vca.setA0(0.0); break;
-                        case '5': vca.setA0(-5.0); break;
-                        case '2': vca.setA0(-10.0); break;
+                        case '*': ampl=ampl+0.01; am.setAmplitude(ampl); break;
+                        case '9': ampl=ampl-0.01; am.setAmplitude(ampl); break;
+                        case '/': a0++; vca.setA0(a0); break;
+                        case '8': a0--; vca.setA0(a0); break;
 
                         // Output module
                         case 'm': outModule.switchMute(); break;

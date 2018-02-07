@@ -5,8 +5,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import module.Module;
 
-import java.util.logging.Logger;
-
 public class Cable {
 
     private String outputName;
@@ -79,10 +77,6 @@ public class Cable {
     }
 
     public void connect() throws PortTypeException {
-        Logger.getGlobal().info("moduleOut "+outputName+ " moduleIn "+inputName);
         moduleOut.connect(moduleIn, outputName, inputName);
-//        ((VCO) moduleOut).getOutput().connect(((OutputModule) moduleIn).getInput());
-
-
     }
 }

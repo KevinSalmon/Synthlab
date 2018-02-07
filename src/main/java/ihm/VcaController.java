@@ -25,29 +25,34 @@ public class VcaController implements Initializable, SubjectVCA {
     @FXML
     Circle in;
 
-
     @FXML
     Circle out;
     
-    private int minValue = -5;
-    private int initialValue = 0;
-    private int maxValue = 5;
+    private double minValue = Double.MIN_EXPONENT;
+    private double initialValue = 0.0;
+    private double maxValue = 0.0;
     private CableManager cableManager;
     private Obseurveur<SubjectVCA> vcaObseurveur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue, maxValue,
-                initialValue);
+        SpinnerValueFactory.DoubleSpinnerValueFactory valueFactory =
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(minValue, maxValue,
+                        initialValue,20);
+
         gainSelector.setValueFactory(valueFactory);
         gainSelector.setEditable(true);
         cableManager = CableManager.getInstance();
 
+        gainSelector.setOnInputMethodTextChanged(event -> notifyObseurveur());
+        gainSelector.setOnKeyReleased(e ->notifyObseurveur());
+        gainSelector.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
+    }
 
-
-
-
-
+    private void onClickAttenuateur(SpinnerValueFactory.DoubleSpinnerValueFactory f){
+        double newStep = (Math.abs(f.getValue())/10)+1;
+        f.amountToStepByProperty().setValue(newStep);
+        notifyObseurveur();
     }
 
     @Override
@@ -71,12 +76,10 @@ public class VcaController implements Initializable, SubjectVCA {
         if(o != null){
             vcaObseurveur = null;
         }
-
     }
 
     @Override
     public void notifyObseurveur() {
         vcaObseurveur.update(this);
-
     }
 }
