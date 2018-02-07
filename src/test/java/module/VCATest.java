@@ -67,6 +67,36 @@ public class VCATest {
         Assert.assertTrue("The output should not have any connection from now", !output.isConnected());
     }
 
+    @Test
+    public void a05VOutputTest() {
+        Signal am = new ModulationSignal(0.5, 1);
+        vca.setAm(am);
+        vca.setA0(6.0);
+
+        assertEquals(5.0, vca.getAm().getVolt());
+        assertEquals(6.0, vca.getA0());
+
+        vco.generate();
+        vca.generate();
+
+        assertEquals(6.0, vca.getDecibelsAttenuation());
+    }
+
+    @Test
+    public void a04VOutputTest() {
+        Signal am = new ModulationSignal(0.4, 1);
+        vca.setAm(am);
+        vca.setA0(6.0);
+
+        assertEquals(4.0, vca.getAm().getVolt());
+        assertEquals(6.0, vca.getA0());
+
+        vco.generate();
+        vca.generate();
+
+        assertEquals(0.0, vca.getDecibelsAttenuation());
+    }
+
 
     /****************
      * US

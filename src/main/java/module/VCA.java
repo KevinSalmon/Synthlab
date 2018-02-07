@@ -81,8 +81,12 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
             // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
             // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
 
-            // Pour le réglage du gain a0 sur le VCA, ce réglage est appliqué uniquement lorsque am = 5V et ignoré si am < 5V
-            this.attenuationFilter.setDecibelsAttenuation((this.am.getVolt() - this.initialVoltage) * 12/* * a0*/); // TODO am pour 5 V
+            double decibels = (this.am.getVolt() - this.initialVoltage) * 12;
+            if (am.getVolt() == 5.0) { // Réglage manuel en façade du gain de base a0, obtenu uniquement lorsque am = 5V
+                decibels = decibels + a0;
+            }
+
+            this.attenuationFilter.setDecibelsAttenuation(decibels);
             this.attenuationFilter.generate(start, limit);
         }
     }
