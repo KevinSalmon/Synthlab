@@ -79,7 +79,7 @@ public class ReplicateurTest {
                     vco.getOutput().getValue() == rep.getOut1().getValue());
             Assert.assertTrue("The other module output values are not the same as the output2 values",
                     vco.getOutput().getValue() == rep.getOut2().getValue());
-            Assert.assertTrue("The other module output values are not the same as the output2 values",
+            Assert.assertTrue("The other module output values are not the same as the output3 values",
                     vco.getOutput().getValue() == rep.getOut3().getValue());
 
         }
@@ -96,7 +96,7 @@ public class ReplicateurTest {
                     rep.getIn().getValue() == rep.getOut1().getValue());
             Assert.assertTrue("The input values are not the same as the output2 values",
                     rep.getIn().getValue() == rep.getOut2().getValue());
-            Assert.assertTrue("The input values are not the same as the output2 values",
+            Assert.assertTrue("The input values are not the same as the output3 values",
                     rep.getIn().getValue() == rep.getOut3().getValue());
 
         }
@@ -118,21 +118,21 @@ public class ReplicateurTest {
     public void getOut1Test(){
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         rep.setOut1(newOut);
-        Assert.assertTrue("getIn does not return the input", rep.getOut1().equals(newOut));
+        Assert.assertTrue("getOut1 does not return the out1", rep.getOut1().equals(newOut));
     }
 
     @Test
     public void getOut2Test(){
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         rep.setOut2(newOut);
-        Assert.assertTrue("getIn does not return the input", rep.getOut2().equals(newOut));
+        Assert.assertTrue("getOut2 does not return the out2", rep.getOut2().equals(newOut));
     }
 
     @Test
     public void getOut3Test(){
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         rep.setOut3(newOut);
-        Assert.assertTrue("getIn does not return the input", rep.getOut3().equals(newOut));
+        Assert.assertTrue("getOut3 does not return the out3", rep.getOut3().equals(newOut));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ReplicateurTest {
         UnitOutputPort previousOut2 = rep.getOut2();
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         rep.setOut2(newOut);
-        Assert.assertTrue("setOut2 does not set the output1", !rep.getOut2().equals(previousOut2));
+        Assert.assertTrue("setOut2 does not set the output2", !rep.getOut2().equals(previousOut2));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class ReplicateurTest {
         UnitOutputPort previousOut3 = rep.getOut3();
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         rep.setOut3(newOut);
-        Assert.assertTrue("setOut3 does not set the output1", !rep.getOut3().equals(previousOut3));
+        Assert.assertTrue("setOut3 does not set the output3", !rep.getOut3().equals(previousOut3));
     }
 
     @Test
@@ -190,5 +190,4 @@ public class ReplicateurTest {
         ReplicateurController replicateurController = new ReplicateurController();
         rep.update(replicateurController);
     }
-
 }
