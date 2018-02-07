@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import controller.Obseurveur;
 import controller.SubjectOutput;
@@ -37,19 +38,29 @@ public class ModuleOut implements Initializable, SubjectOutput{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Value factory.
-		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
+		SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
+				new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
 				INITIAL_VALUE);
+
+		valueFactory.amountToStepByProperty().setValue(20);
 
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
         obseurveurList = new ArrayList<>();
 
+		checkboxMute.setSelected(false);
         checkboxMute.setOnAction(event -> notifyObseurveur());
-        checkboxMute.setSelected(false);
+
         btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
         btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
-        btnAttenuateur.setOnMouseClicked(e -> notifyObseurveur());
+        btnAttenuateur.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
+
+	}
+
+	private void onClickAttenuateur(SpinnerValueFactory.IntegerSpinnerValueFactory f){
+		int newStep = (Math.abs(f.getValue())/10)+1;
+		f.amountToStepByProperty().setValue(newStep);
+		notifyObseurveur();
 	}
 
 	public int getMinValue() {
