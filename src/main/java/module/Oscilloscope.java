@@ -12,8 +12,6 @@ public class Oscilloscope extends Module {
 
     private static final int TMAX = 10 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
 
-//    private List<Obseurveur<Subject>> obseuveurList;
-
 //    private int tBlock;
 //    private int numBlock;
     private int t;

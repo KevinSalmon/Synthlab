@@ -9,6 +9,7 @@ import com.jsyn.Synthesizer;
 import utils.OscillatorType;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Example {
 
@@ -23,7 +24,7 @@ public class Example {
         synth.add(vco2);
 
         vco2.setOctave(-100);
-        System.out.println(vco2.getFrequency());
+        Logger.getGlobal().info("vco2.frequency : " +vco2.getFrequency());
         vco2.getOutput().connect(myVco.getInput());
 
         VCA vca = new VCA();

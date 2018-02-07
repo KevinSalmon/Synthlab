@@ -79,10 +79,6 @@ public class Cable {
     }
 
     public void connect() throws PortTypeException {
-        Logger.getGlobal().info("moduleOut "+outputName+ " moduleIn "+inputName);
         moduleOut.connect(moduleIn, outputName, inputName);
-//        ((VCO) moduleOut).getOutput().connect(((OutputModule) moduleIn).getInput());
-
-
     }
 }
