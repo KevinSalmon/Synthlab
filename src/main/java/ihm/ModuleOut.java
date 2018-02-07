@@ -1,22 +1,21 @@
 package ihm;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
-
 import controller.Obseurveur;
 import controller.SubjectOutput;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import utils.PortType;
 import utils.CableManager;
+import utils.PortType;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ModuleOut implements Initializable, SubjectOutput{
 
@@ -32,7 +31,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	@FXML
 	Circle drawInput;
 
-	final static int INITIAL_VALUE = 0;
+	static final int INITIAL_VALUE = 0;
 	int minValue = Integer.MIN_VALUE;
 	int maxValue = 12;
 

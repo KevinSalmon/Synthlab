@@ -35,14 +35,14 @@ public class IHMController implements Initializable{
     /**
      * Constantes locales
      */
-    private final int padding = 30;
+    private static final int PADDING = 30;
 
     /**
      * Variables locales
      */
     private Pane draggedModule;
     private double deltaX = 0;
-    private double deltaY = padding;
+    private double deltaY = PADDING;
 
     /**
      * Valeur de l'attribut style du module avant son drag
@@ -270,7 +270,7 @@ public class IHMController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //Initialisation non-nécessaire
     }
 
     /**
@@ -280,17 +280,17 @@ public class IHMController implements Initializable{
         /**
          * Ajout des fonctions de Drag&Drop du plan de travail
          */
-        workspace.setOnDragEntered(de -> onDragEntered(de));
-        workspace.setOnDragExited(de -> onDragExited(de));
+        workspace.setOnDragEntered(this::onDragEntered);
+        workspace.setOnDragExited(this::onDragExited);
 
-        workspace.setOnDragOver(de -> onDragOver(de));
-        workspace.setOnDragDropped(de -> onDragDropped(de));
+        workspace.setOnDragOver(this::onDragOver);
+        workspace.setOnDragDropped(this::onDragDropped);
 
         /**
          * Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
          * depuis le menu
          */
-        hoverPanel.setOnDragOver(de -> onDragOver(de));
+        hoverPanel.setOnDragOver(this::onDragOver);
 
 
         initModulesInModuleMenu();

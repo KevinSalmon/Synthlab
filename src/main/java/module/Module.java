@@ -31,9 +31,9 @@ public abstract class Module extends Circuit {
 
             ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());
 
-            Log.log(Level.INFO, "IsConnected :"+(((UnitOutputPort) portsSource.getLeft()).isConnected()));
+            Log.log(Level.INFO, () -> "IsConnected :"+(((UnitOutputPort) portsSource.getLeft()).isConnected()));
 
-            Logger.getGlobal().info("port dest : "+ ((UnitInputPort) portsDest.getLeft()).isConnected());
+            Logger.getGlobal().info(() -> "port dest : "+ ((UnitInputPort) portsDest.getLeft()).isConnected());
         } else throw new PortTypeException("Incompatible ports type : "+namePortSource+" must be an output and "+namePortDest+" must be an input");
     }
 }
