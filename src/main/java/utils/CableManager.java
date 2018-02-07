@@ -96,7 +96,7 @@ public class CableManager {
         for(Cable c : cables){
             if(c.getOutput().equals(output)) {
                 c.getLine().setEndX(output.getParent().localToParent(output.getLayoutX(), output.getLayoutY()).getX());
-                return;
+                break;
             }
         }
 
@@ -110,7 +110,7 @@ public class CableManager {
         for(Cable c : cables){
             if(c.getOutput().equals(output)) {
                 c.getLine().setEndY(output.getParent().localToParent(output.getLayoutX(), output.getLayoutY()).getY());
-                return;
+                break;
             }
         }
     }
@@ -123,7 +123,7 @@ public class CableManager {
         for(Cable c : cables){
             if(c.getInput().equals(in)) {
                 c.getLine().setStartX(in.getParent().localToParent(in.getLayoutX(), in.getLayoutY()).getX());
-                return;
+                break;
             }
         }
     }
@@ -136,7 +136,7 @@ public class CableManager {
         for(Cable c : cables){
             if(c.getInput().equals(in)) {
                 c.getLine().setStartY(in.getParent().localToParent(in.getLayoutX(), in.getLayoutY()).getY());
-                return;
+                break;
             }
         }
     }
