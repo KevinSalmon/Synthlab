@@ -247,6 +247,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         setOctave(o.getOctaveValue());
         setReglageFin(o.getReglageFinValue());
         changeCurrentOsc(o.getOscillatorType());
+        setLFO(o.isLFOActive());
     }
 
     @Override
