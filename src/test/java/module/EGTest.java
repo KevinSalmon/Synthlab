@@ -13,10 +13,10 @@ import utils.PortType;
 
 public class EGTest {
     public static EG eg;
-
+    Synthesizer synth;
     @Before
     public void init(){
-        Synthesizer synth = JSyn.createSynthesizer();
+        synth = JSyn.createSynthesizer();
         synth.start();
 
         eg = new EG();
@@ -68,6 +68,23 @@ public class EGTest {
 
         //Reference
         Assert.assertEquals("Should get the EG itself", eg, eg.getReference());
+    }
+
+    @Test
+    public void TestVolt(){
+        VCO vco = new VCO();
+        synth.add(vco);
+
+        vco.getOutput().connect(eg.getInput());
+
+
+        for(int i = 0; i < 1000 ; i++){
+            vco.generate();
+            double[] outValues = eg.getInput().getValues();
+            for (int j = 0; j < outValues.length; j++) {
+                Assert.assertEquals("Voltage must be between -5 and +5", 0, outValues[j]*12,5);
+            }
+        }
     }
 
     @Test
