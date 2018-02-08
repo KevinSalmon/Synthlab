@@ -4,6 +4,7 @@ import controller.Obseurveur;
 import controller.SubjectVCFLP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -13,7 +14,7 @@ import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPController implements Initializable, SubjectVCFLP{
+public class VCFLPController extends SuperController implements Initializable, SubjectVCFLP{
 
     @FXML
     Circle fm;
@@ -33,6 +34,9 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
     @FXML
     Pane pane;
 
+    @FXML
+    Button delete;
+
     private Obseurveur<SubjectVCFLP> vcflpObseurveur;
 
     @Override
@@ -46,6 +50,9 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
         resonance.setOnMouseClicked(e -> notifyObseurveur());
         resonance.setOnMouseMoved(event -> notifyObseurveur());
 
+        delete.setOnMouseClicked(eh -> {
+            removeComponent(vcflpObseurveur, pane);
+        });
     }
 
 
