@@ -69,14 +69,14 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
             this.initialVoltage = voltage;
         }
 
-        if (am == null || voltage == 0.0) {
+        if (this.amIsEmpty(ams)) {
             // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
             for (int i = start; i < limit; i++) {
                 outputs[i] = 0.0;
             }
         }
         else if (voltage == 5.0 && a0 == 0.0) {
-            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée*/
+            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
             System.arraycopy(inputs, start, outputs, start, limit);
             this.attenuationFilter.setDecibelsAttenuation(0.0);
         }
@@ -92,6 +92,15 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
             this.attenuationFilter.setDecibelsAttenuation(decibels);
             this.attenuationFilter.generate(start, limit);
         }
+    }
+
+    private boolean amIsEmpty(double[] amValues) {
+        for (double i : amValues) {
+            if (i != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

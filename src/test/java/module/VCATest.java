@@ -4,21 +4,17 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
 import controller.Obseurveur;
-import controller.SubjectOutput;
 import controller.SubjectVCA;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import signal.ModulationSignal;
-import signal.Signal;
 import utils.PortType;
-
 import static junit.framework.TestCase.*;
 
 public class VCATest {
     public static VCA vca;
     public static VCO vco;
-    //public static ConstantGenerator constGen;
+    public static ConstantGenerator constGen;
 
     @Before
     public void init(){
@@ -28,8 +24,8 @@ public class VCATest {
         vca = new VCA();
         synth.add(vca);
 
-        /*constGen = new ConstantGenerator();
-        synth.add(constGen);*/
+        constGen = new ConstantGenerator();
+        constGen.getOutput().connect(vca.getAm());
 
         vco = new VCO();
         vco.getOutput().connect(vca.getInput());
@@ -64,15 +60,21 @@ public class VCATest {
         Assert.assertTrue("The output should not have any connection from now", !output.isConnected());
     }
 
-    /*@Test
+
+    /****************
+     * US
+     ***************/
+
+    // a0 peut être modifié uniquement lorsque am = 5V
+    @Test
     public void a05VOutputTest() {
-        Signal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
+        constGen.setVoltage(5.0);
         vca.setA0(6.0);
 
-        assertEquals(5.0, vca.getAm().getVolt());
+        assertEquals(5.0, constGen.getVoltage());
         assertEquals(6.0, vca.getA0());
 
+        constGen.generate();
         vco.generate();
         vca.generate();
 
@@ -81,23 +83,18 @@ public class VCATest {
 
     @Test
     public void a04VOutputTest() {
-        Signal am = new ModulationSignal(0.4, 1);
-        vca.setAm(am);
+        constGen.setVoltage(4.0);
         vca.setA0(6.0);
 
-        assertEquals(4.0, vca.getAm().getVolt());
+        assertEquals(4.0, constGen.getVoltage());
         assertEquals(6.0, vca.getA0());
 
+        constGen.generate();
         vco.generate();
         vca.generate();
 
         assertEquals(0.0, vca.getDecibelsAttenuation());
-    }*/
-
-
-    /****************
-     * US
-     ***************/
+    }
 
     // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
     @Test
@@ -113,16 +110,31 @@ public class VCATest {
         }
     }
 
+    @Test
+    public void am0OutputTest() {
+        for (int i = 0; i < 1000; i++) {
+            constGen.generate();
+            vca.generate();
+            vco.generate();
+
+            double[] values = vca.getOutput().getValues();
+            for (int j = 0; j < values.length; j++) {
+                assertEquals(values[j], 0.0);
+            }
+        }
+    }
+
     // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
-    /*@Test
+    @Test
     public void am5Va00dbOutputTest() {
-        Signal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
+        constGen.setVoltage(5.0);
         vca.setA0(0.0);
-        assertEquals(5.0, vca.getAm().getVolt());
+
+        assertEquals(5.0, constGen.getVoltage());
         assertEquals(0.0, vca.getA0());
 
         for (int i = 0; i < 1000; i++) {
+            constGen.generate();
             vco.generate();
             vca.generate();
 
@@ -133,22 +145,24 @@ public class VCATest {
                 assertEquals(vcoOut[j], vcaOut[j]);
             }
         }
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void am5Va00dbWrongOutputTest() {
-        Signal am = new ModulationSignal(0.9, 1);
-        vca.setAm(am);
+        constGen.setVoltage(4.9);
         vca.setA0(0.0);
-        assertEquals(9.0, vca.getAm().getVolt());
+
+        assertEquals(4.9, constGen.getVoltage());
         assertEquals(0.0, vca.getA0());
 
         for (int i = 0; i < 1000; i++) {
+            constGen.generate();
             vco.generate();
             vca.generate();
 
-            double[] vcoOut = vco.getOutput().getValues();
             double[] vcaOut = vca.getOutput().getValues();
+            double[] vcoOut = vco.getOutput().getValues();
+
             for (int j = 0; j < vcaOut.length; j++) {
                 assertNotSame(vcoOut[j], vcaOut[j]);
             }
@@ -158,53 +172,50 @@ public class VCATest {
     // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
     @Test
     public void defaultAttenuationOutputTest() {
-        Signal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
+        constGen.setVoltage(5.0);
         vca.setA0(0.0);
 
+        assertEquals(5.0, constGen.getVoltage());
+        assertEquals(0.0, vca.getA0());
         assertEquals(0.0, vca.getDecibelsAttenuation());
     }
 
     @Test
     public void increase1Vp12dbOutputTest() {
-        Signal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
         vca.setA0(0.0);
 
-        double amplitude = 0.5;
-
+        double amplitude = 5.0;
         for (int i = 0; i < 5; i++) {
-            am.setAmplitude(amplitude);
+            constGen.setVoltage(amplitude);
 
+            constGen.generate();
             vco.generate();
             vca.generate();
 
-            assertEquals((12.0 * i), vca.getDecibelsAttenuation(), 0.001);
+            assertEquals((12.0 * i), vca.getDecibelsAttenuation());
 
-            amplitude = amplitude + 0.1;
+            amplitude++;
         }
     }
 
     // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
     @Test
     public void decrease1Vm12dbOutputTest() {
-        Signal am = new ModulationSignal(0.5, 1);
-        vca.setAm(am);
         vca.setA0(0.0);
 
-        double amplitude = 0.5;
-
+        double amplitude = 5.0;
         for (int i = 0; i < 5; i++) {
-            am.setAmplitude(amplitude);
+            constGen.setVoltage(amplitude);
 
+            constGen.generate();
             vco.generate();
             vca.generate();
 
-            assertEquals((-12.0 * i), vca.getDecibelsAttenuation(), 0.001);
+            assertEquals((-12.0 * i), vca.getDecibelsAttenuation(), 0.0);
 
-            amplitude = amplitude - 0.1;
+            amplitude--;
         }
-    }*/
+    }
 
 
     /**
