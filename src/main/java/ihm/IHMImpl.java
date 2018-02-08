@@ -37,7 +37,8 @@ public class IHMImpl extends Application {
 
         primaryStage.show();
 
-        new Controller(loader.getController());
+        Controller controller = Controller.getInstance();
+        controller.setIhmController(loader.getController());
     }
 
     public static void main(String[] args){

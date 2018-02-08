@@ -169,6 +169,9 @@ public class CableManager {
             port.getParent().layoutYProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputY(port));
             port.setOnMouseClicked(event -> instance.setOutput(port, module, type.getType()));
         }
+    }
 
+    public List<Cable> getCables() {
+        return cables;
     }
 }

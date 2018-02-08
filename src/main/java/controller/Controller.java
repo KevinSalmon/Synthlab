@@ -29,13 +29,24 @@ public class Controller {
      */
     Synthesizer synth;
 
+    private static volatile Controller instance;
+
     private static final Logger Log = Logger.getLogger( Controller.class.getName() );
+
+    /**
+     *
+     */
+    protected Controller(){
+        synth = createSynthesizer();
+        modules = new ArrayList<>();
+        synth.start();
+    }
 
     /**
      *
      * @param ihmController principal de l'appli
      */
-    public Controller(IHMController ihmController){
+    protected Controller(IHMController ihmController){
         synth = createSynthesizer();
         modules = new ArrayList<>();
         this.ihmController = ihmController;
@@ -43,6 +54,13 @@ public class Controller {
         ihmController.setController(this);
         ihmController.init();
         synth.start();
+    }
+
+    public static Controller getInstance(){
+        synchronized (Controller.class){
+            if(instance == null) instance = new Controller();
+            return instance;
+        }
     }
 
     public void addModule(Module module){
@@ -121,5 +139,21 @@ public class Controller {
 
     public void close() {
         synth.stop();
+    }
+
+    public Synthesizer getSynth() {
+        return synth;
+    }
+
+    public IHMController getIhmController() {
+        return ihmController;
+    }
+
+    public void setIhmController(IHMController ihmController) {
+        if(ihmController != null){
+            this.ihmController = ihmController;
+            this.ihmController.setController(this);
+            this.ihmController.init();
+        }
     }
 }
