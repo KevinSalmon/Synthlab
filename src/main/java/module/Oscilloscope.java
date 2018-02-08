@@ -12,20 +12,16 @@ public class Oscilloscope extends Module {
 
     private static final int TMAX = 10 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
 
-//    private int tBlock;
-//    private int numBlock;
     private int t;
 
     private XYChart.Series<Integer,Double> screen;
 
-    UnitInputPort in;
-    UnitOutputPort out;
+    private UnitInputPort in;
+    private UnitOutputPort out;
 
     public Oscilloscope() {
 
         t = 0;
-//        tBlock = 0;
-//        numBlock = 0;
 
         screen = new XYChart.Series<>();
 
@@ -46,13 +42,13 @@ public class Oscilloscope extends Module {
     public void generate(int start, int limit) {
         super.generate(start, limit);
 
-        double[] in = this.in.getValues();
-        double[] out = this.out.getValues();
+        double[] inValues = this.in.getValues();
+        double[] outValues = this.out.getValues();
 
         for (int j = start; j < limit; j++) {
-            screen.getData().get(j).setYValue(in[j]*12);
+            screen.getData().get(j).setYValue(inValues[j]*12);
 
-            out[j]=in[j];
+            outValues[j]=inValues[j];
 
             t++;
             if(t>=TMAX)t=0;

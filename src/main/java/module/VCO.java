@@ -115,7 +115,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             audioSignal.setFrequency(LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN));
         }
         else {audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin ));}
-//        audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin));
+
         currentOsc.frequency.set(audioSignal.getFrequency()); //Actualise l'oscillateur courant
     }
 
