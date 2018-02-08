@@ -146,7 +146,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     public void setReglageFin(double r){
         reglageFin = r;
 
-        if(reglageFin < 0) reglageFin = 0.0;
+        if(reglageFin < -1) reglageFin = -1.0;
         else if(reglageFin > 1) reglageFin = 1.0;
 
         updateFrequency();
