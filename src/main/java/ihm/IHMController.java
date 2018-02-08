@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
@@ -57,11 +58,29 @@ public class IHMController implements Initializable{
      * Fonction appelee lors du clic sur File -> Close
      * @param event
      */
-
     @FXML
     void closeApplication(ActionEvent event) {
         Platform.exit();
         controller.close();
+    }
+
+    /**
+     * Fonction appelee lors du clic sur Workspace -> Clean
+     * @param event
+     */
+    @FXML
+    void cleanWorkspace(ActionEvent event){
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setHeaderText("Voulez-vous vraiment nettoyer le workspace ?");
+        confirm.setTitle("Nettoyage du workspace");
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                controller.close();
+                workspace.getChildren().clear();
+                init(false);
+                controller.getSynth().start();
+            }
+        });
     }
 
     /**
@@ -276,24 +295,25 @@ public class IHMController implements Initializable{
     /**
      * Initialisation du controller
      */
-    public void init() {
-        /**
-         * Ajout des fonctions de Drag&Drop du plan de travail
-         */
-        workspace.setOnDragEntered(this::onDragEntered);
-        workspace.setOnDragExited(this::onDragExited);
+    public void init(boolean initModuleMenu) {
+        if (initModuleMenu) {
+            /**
+             * Ajout des fonctions de Drag&Drop du plan de travail
+             */
+            workspace.setOnDragEntered(this::onDragEntered);
+            workspace.setOnDragExited(this::onDragExited);
 
-        workspace.setOnDragOver(this::onDragOver);
-        workspace.setOnDragDropped(this::onDragDropped);
+            workspace.setOnDragOver(this::onDragOver);
+            workspace.setOnDragDropped(this::onDragDropped);
 
-        /**
-         * Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
-         * depuis le menu
-         */
-        hoverPanel.setOnDragOver(this::onDragOver);
+            /**
+             * Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
+             * depuis le menu
+             */
+            hoverPanel.setOnDragOver(this::onDragOver);
 
-
-        initModulesInModuleMenu();
+            initModulesInModuleMenu();
+        }
 
         /**
          * Ajout par défaut d'un module de sortie au workspace

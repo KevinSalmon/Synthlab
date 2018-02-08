@@ -52,7 +52,7 @@ public class Controller {
         this.ihmController = ihmController;
 
         ihmController.setController(this);
-        ihmController.init();
+        ihmController.init(true);
         synth.start();
     }
 
@@ -159,7 +159,7 @@ public class Controller {
         if(ihmController != null){
             this.ihmController = ihmController;
             this.ihmController.setController(this);
-            this.ihmController.init();
+            this.ihmController.init(true);
         }
     }
 }

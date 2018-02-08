@@ -51,7 +51,7 @@ public class VCFLPController extends SuperController implements Initializable, S
         resonance.setOnMouseMoved(event -> notifyObseurveur());
 
         delete.setOnMouseClicked(eh -> {
-            removeComponent(vcflpObseurveur, pane);
+            removeWithConfirmPopup(vcflpObseurveur, pane);
         });
     }
 

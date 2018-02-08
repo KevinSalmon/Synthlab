@@ -62,7 +62,7 @@ public class ReplicateurController extends SuperController implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         delete.setOnMouseClicked(eh -> {
-            removeComponent(replicateurObseurveur, pane);
+            removeWithConfirmPopup(replicateurObseurveur, pane);
         });
     }
 }

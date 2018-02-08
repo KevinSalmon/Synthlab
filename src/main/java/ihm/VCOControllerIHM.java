@@ -13,8 +13,6 @@ import utils.CableManager;
 import utils.OscillatorType;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class VCOControllerIHM extends SuperController implements Initializable, SubjectVCO {
@@ -57,7 +55,7 @@ public class VCOControllerIHM extends SuperController implements Initializable, 
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
 
         delete.setOnMouseClicked(eh -> {
-            removeComponent(obseuveurVCO, border);
+            removeWithConfirmPopup(obseuveurVCO, border);
         });
     }
 

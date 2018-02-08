@@ -56,7 +56,7 @@ public class VcaController extends SuperController implements Initializable, Sub
         gainSelector.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
 
         delete.setOnMouseClicked(eh -> {
-            removeComponent(vcaObseurveur, pane);
+            removeWithConfirmPopup(vcaObseurveur, pane);
         });
     }
 
