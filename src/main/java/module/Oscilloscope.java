@@ -4,17 +4,19 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import javafx.scene.chart.XYChart;
+import controller.Obseurveur;
+import controller.SubjectOscillo;
 import utils.PortType;
 import utils.Tuple;
 
-public class Oscilloscope extends Module {
+public class Oscilloscope extends Module implements Obseurveur<SubjectOscillo> {
 
-    private static final int TMAX = 10 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
+    public static final int TMAX = 100 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
 
     private int t;
 
-    private XYChart.Series<Integer,Double> screen;
+    private double[] screen;
+
 
     private UnitInputPort in;
     private UnitOutputPort out;
@@ -23,19 +25,19 @@ public class Oscilloscope extends Module {
 
         t = 0;
 
-        screen = new XYChart.Series<>();
+        screen = new double[TMAX];
 
         for (int i = 0; i < TMAX; i++) {
-            screen.getData().add(new XYChart.Data(i, 0));
+            screen[i] = 0;
         }
 
         //Crée le port de sortie
-        in = new UnitInputPort("in");
-        addPort(in, "in");
+        in = new UnitInputPort(PortType.INPUT.getType());
+        addPort(in, PortType.INPUT.getType());
 
         //Crée le port de sortie
         out = new UnitOutputPort();
-        addPort(out, "out");
+        addPort(out, PortType.OUTPUT.getType());
     }
 
     @Override
@@ -46,19 +48,20 @@ public class Oscilloscope extends Module {
         double[] outValues = this.out.getValues();
 
         for (int j = start; j < limit; j++) {
-            screen.getData().get(j).setYValue(inValues[j]*12);
+            screen[t] = inValues[j]*12;
 
             outValues[j]=inValues[j];
 
             t++;
             if(t>=TMAX)t=0;
+
         }
     }
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(name.equals("out")) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
-        if(name.equals("in")) return new Tuple<>(getPortByName(name),PortType.INPUT);
+        if(PortType.OUTPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
+        if(PortType.INPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 
@@ -70,7 +73,17 @@ public class Oscilloscope extends Module {
         return in;
     }
 
-    public XYChart.Series<Integer, Double> getScreen() {
+    public double[] getScreen() {
         return screen;
+    }
+
+    @Override
+    public void update(SubjectOscillo o) {
+        o.receiveSeries(screen);
+    }
+
+    @Override
+    public Module getReference() {
+        return this;
     }
 }

@@ -46,7 +46,7 @@ public class Controller {
      *
      * @param ihmController principal de l'appli
      */
-    protected Controller(IHMController ihmController){
+    public Controller(IHMController ihmController){
         synth = createSynthesizer();
         modules = new ArrayList<>();
         this.ihmController = ihmController;
@@ -107,6 +107,11 @@ public class Controller {
                 VCFLP vcflp = new VCFLP();
                 ((Subject) fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
+
+            case FxmlFilesNames.OSCILLOSCOPE:
+                Oscilloscope osc = new Oscilloscope();
+                ((Subject)fxmlLoader.getController()).register(osc);
+                synth.add(osc);
                 break;
 
             case FxmlFilesNames.EG:
