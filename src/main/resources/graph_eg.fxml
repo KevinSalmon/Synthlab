@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle layoutX="140.0" layoutY="344.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle layoutX="432.0" layoutY="344.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="134.0" layoutY="316.0" text="in" />
+      <Label layoutX="421.0" layoutY="316.0" text="out" />
+      <Label layoutX="14.0" layoutY="6.0" text="EG" />
+      <Slider layoutX="140.0" layoutY="200.0" majorTickUnit="5.0" max="20000.0" prefHeight="38.0" prefWidth="281.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Slider layoutX="140.0" layoutY="256.0" majorTickUnit="5.0" max="20000.0" prefHeight="38.0" prefWidth="281.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Slider layoutX="140.0" layoutY="134.0" majorTickUnit="5.0" max="20000.0" prefHeight="38.0" prefWidth="281.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Slider layoutX="140.0" layoutY="77.0" majorTickUnit="5.0" max="0.0" prefHeight="38.0" prefWidth="281.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Label layoutX="146.0" layoutY="61.0" text="Attack" />
+      <Label layoutX="140.0" layoutY="172.0" text="Sustain" />
+      <Label layoutX="144.0" layoutY="238.0" text="Release" />
+      <Label layoutX="144.0" layoutY="115.0" text="Decay" />
+   </children>
+</Pane>

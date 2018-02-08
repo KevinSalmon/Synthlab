@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+<Pane centerShape="false" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" scaleShape="false" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle layoutX="51.0" layoutY="163.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="42.0" layoutY="135.0" text="fm" />
+      <Label layoutX="45.0" layoutY="226.0" text="in" />
+      <Label layoutX="14.0" layoutY="6.0" text="VCF" />
+      <Circle layoutX="51.0" layoutY="255.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle layoutX="470.0" layoutY="255.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="459.0" layoutY="226.0" text="out" />
+      <Slider layoutX="130.0" layoutY="192.0" majorTickUnit="5.0" max="20000.0" prefHeight="38.0" prefWidth="281.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Label layoutX="130.0" layoutY="175.0" text="f0" />
+      <Slider layoutX="130.0" layoutY="143.0" prefHeight="15.0" prefWidth="281.0" />
+      <Label layoutX="130.0" layoutY="127.0" text="Résonance" />
+   </children>
+</Pane>
