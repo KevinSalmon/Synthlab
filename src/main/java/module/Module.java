@@ -24,7 +24,7 @@ public abstract class Module extends Circuit {
         if(portsSource.getRight().getType().contains(PortType.OUTPUT.getType())
                 && portsDest.getRight().getType().contains(PortType.INPUT.getType())){
 
-            ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());
+           ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());
 
         } else throw new PortTypeException("Incompatible ports type : "+namePortSource+" must be an output and "+namePortDest+" must be an input");
     }

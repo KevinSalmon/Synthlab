@@ -140,6 +140,7 @@ public class IHMController implements Initializable{
         draggedModule.setLayoutY(source.getLayoutY());
         draggedModule.setOnDragDetected(de -> onDragDetected(de, draggedModule));
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
+        currentModulesStyle = draggedModule.getStyle();
         draggedModule.setStyle(defaultSelectionStyle);
 
         deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
@@ -201,12 +202,12 @@ public class IHMController implements Initializable{
          */
 
         if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
-            Pane module = controller.createModule(fxml);
+            Pane module = draggedModule;//controller.createModule(fxml);
             module.setLayoutX(draggedModule.getLayoutX());
             module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
-
+            module.setStyle(currentModulesStyle);
             /**
              * Ajout du nouveau module sur le workspace
              */
@@ -353,6 +354,8 @@ public class IHMController implements Initializable{
         addModuleToMenu(FxmlFilesNames.VCO, FxmlFilesNames.MINIATURE_VCO,100, 0);
         addModuleToMenu(FxmlFilesNames.REP, FxmlFilesNames.MINIATURE_REP,200, 0);
         addModuleToMenu(FxmlFilesNames.VCFLP, FxmlFilesNames.MINIATURE_VCFLP,300, 0);
+        addModuleToMenu(FxmlFilesNames.OSCILLOSCOPE, FxmlFilesNames.MINIATURE_OSCILLOSCOPE, 400, 0);
+
     }
 
     /**
