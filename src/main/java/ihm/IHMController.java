@@ -46,7 +46,7 @@ public class IHMController implements Initializable{
     /**
      * Constantes locales
      */
-    private static final int PADDING = 30;
+    private static final int PADDING = 44;
 
     /**
      * Variables locales
@@ -308,11 +308,6 @@ public class IHMController implements Initializable{
      */
     public void init(boolean initModuleMenu) {
         if (initModuleMenu) {
-            Rectangle2D window = Screen.getPrimary().getVisualBounds();
-
-            splitPane.setPrefWidth(window.getWidth());
-            splitPane.setPrefHeight(window.getHeight()-30);
-
             scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             scrollPane.setPannable(true);
@@ -325,6 +320,7 @@ public class IHMController implements Initializable{
 
             workspace.setOnDragOver(this::onDragOver);
             workspace.setOnDragDropped(this::onDragDropped);
+
 
             /**
              * Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
@@ -454,5 +450,14 @@ public class IHMController implements Initializable{
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public void onRezize(Number width, Number height) {
+        if(width != null) {
+            splitPane.setPrefWidth(Double.parseDouble(width.toString()));
+        }
+        else if(height != null) {
+            splitPane.setPrefHeight(Double.parseDouble(height.toString())-PADDING);
+        }
     }
 }

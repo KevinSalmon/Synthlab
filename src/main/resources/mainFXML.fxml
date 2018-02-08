@@ -32,14 +32,12 @@
     </top>
     <center>
         <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0">
-            <SplitPane fx:id="splitPane" dividerPositions="0.0640074211502783" orientation="VERTICAL" prefHeight="720.0" prefWidth="1080.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.1" orientation="VERTICAL" prefHeight="720.0" prefWidth="1280.0">
                 <items>
-                    <Pane fx:id="moduleMenu" minHeight="0.0" minWidth="0.0" />
+                    <Pane fx:id="moduleMenu" prefHeight="44.0" minHeight="44.0" maxHeight="44.0" />
 
                     <ScrollPane fx:id="scrollPane">
-                        <content>
-                            <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
-                        </content>
+                        <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
                     </ScrollPane>
                 </items>
             </SplitPane>

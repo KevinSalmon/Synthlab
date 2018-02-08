@@ -3,6 +3,7 @@ package controller;
 import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import module.*;
 import utils.FxmlFilesNames;
@@ -172,5 +173,10 @@ public class Controller {
             this.ihmController.setController(this);
             this.ihmController.init(true);
         }
+    }
+
+    public void setScene(Scene scene) {
+        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> ihmController.onRezize(newSceneWidth, null));
+        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> ihmController.onRezize(null, newSceneHeight));
     }
 }

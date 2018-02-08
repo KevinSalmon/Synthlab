@@ -26,7 +26,8 @@ public class IHMImpl extends Application {
          */
         primaryStage.setTitle("SynthLab");
         primaryStage.setMaximized(true);
-
+        primaryStage.setMinHeight(120.0);
+        primaryStage.setMinWidth(50.0);
         /**
          * Affichage de la fenetre
          */
@@ -38,6 +39,7 @@ public class IHMImpl extends Application {
         primaryStage.show();
 
         Controller controller = Controller.getInstance();
+        controller.setScene(scene);
         controller.setIhmController(loader.getController());
     }
 
