@@ -5,6 +5,7 @@ import controller.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -38,6 +39,9 @@ public class VCOControllerIHM extends SuperController implements Initializable, 
     @FXML
     private Button delete;
 
+    @FXML
+    private RadioButton LFO;
+
     private Obseurveur<SubjectVCO> obseuveurVCO;
 
     @Override
@@ -54,9 +58,9 @@ public class VCOControllerIHM extends SuperController implements Initializable, 
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
 
-        delete.setOnMouseClicked(eh -> {
-            removeWithConfirmPopup(obseuveurVCO, border);
-        });
+        LFO.setOnMouseClicked(eh -> obseuveurVCO.update(this));
+
+        delete.setOnMouseClicked(eh -> removeWithConfirmPopup(obseuveurVCO, border));
     }
 
     private OscillatorType getOscillatorType(double index){
@@ -86,6 +90,9 @@ public class VCOControllerIHM extends SuperController implements Initializable, 
     public OscillatorType getOscillatorType() {
        return getOscillatorType(typeOndeSlider.getValue());
     }
+
+    @Override
+    public boolean isLFOActive() { return LFO.isSelected(); }
 
     @Override
     public void register(Obseurveur o) {

@@ -19,4 +19,6 @@ public interface SubjectVCO extends Subject {
     double getReglageFinValue();
 
     OscillatorType getOscillatorType();
+
+    boolean isLFOActive();
 }

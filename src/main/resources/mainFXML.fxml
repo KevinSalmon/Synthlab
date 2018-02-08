@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.IHMController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -30,12 +31,16 @@
         </MenuBar>
     </top>
     <center>
-        <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0" prefHeight="1080.0" prefWidth="1920.0">
-            <SplitPane fx:id="SplitFrame" dividerPositions="0.0640074211502783" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0">
+        <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.0640074211502783" orientation="VERTICAL" prefHeight="720.0" prefWidth="1080.0">
                 <items>
                     <Pane fx:id="moduleMenu" minHeight="0.0" minWidth="0.0" />
 
-                    <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
+                    <ScrollPane fx:id="scrollPane">
+                        <content>
+                            <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
+                        </content>
+                    </ScrollPane>
                 </items>
             </SplitPane>
         </Pane>

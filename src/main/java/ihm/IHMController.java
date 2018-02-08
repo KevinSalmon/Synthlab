@@ -7,13 +7,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -29,6 +33,12 @@ public class IHMController implements Initializable{
 
     @FXML
     private Pane hoverPanel;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private Pane moduleMenu;
@@ -266,7 +276,7 @@ public class IHMController implements Initializable{
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
-        if(dragEvent.getSceneY() - deltaY > 0 && dragEvent.getSceneY() - deltaY < workspace.getScene().getHeight()){
+        if(dragEvent.getSceneY() - deltaY > 0 && dragEvent.getSceneY() - deltaY < workspace.getHeight()){
             draggedModule.setLayoutY(dragEvent.getSceneY() - deltaY);
         }
         dragEvent.consume();
@@ -297,6 +307,15 @@ public class IHMController implements Initializable{
      */
     public void init(boolean initModuleMenu) {
         if (initModuleMenu) {
+            Rectangle2D window = Screen.getPrimary().getVisualBounds();
+
+            splitPane.setPrefWidth(window.getWidth());
+            splitPane.setPrefHeight(window.getHeight()-30);
+
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollPane.setPannable(true);
+
             /**
              * Ajout des fonctions de Drag&Drop du plan de travail
              */

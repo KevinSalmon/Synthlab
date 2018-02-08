@@ -205,6 +205,9 @@ public class VCOTest {
             }
 
             @Override
+            public boolean isLFOActive() { return false; }
+
+            @Override
             public void register(Obseurveur o) {
                 this.o = o;
             }
