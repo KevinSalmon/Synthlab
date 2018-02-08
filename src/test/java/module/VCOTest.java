@@ -89,8 +89,8 @@ public class VCOTest {
 
         vco.decreaseReglageFin(150);
 
-        Assert.assertTrue("The tuning should have decrease only by 0.9", vco.getReglageFin() == -1);
-        Assert.assertTrue("The frequency should have returned to the base value", vco.getFrequency() == 220);
+        Assert.assertTrue("The tuning should have decrease only by 1.9", vco.getReglageFin() == -1);
+        Assert.assertTrue("The frequency should have been halved", vco.getFrequency() == 220);
     }
 
     @Test
@@ -161,7 +161,7 @@ public class VCOTest {
         vco.setReglageFin(6);
         Assert.assertEquals("Tuning should be 1",1, vco.getReglageFin(),0);
         vco.setReglageFin(-0.5);
-        Assert.assertEquals("Tuning should be 0",-0.5, vco.getReglageFin(),0);
+        Assert.assertEquals("Tuning should be -0.5",-0.5, vco.getReglageFin(),0);
 
         //Output
         UnitOutputPort to = new UnitOutputPort();
