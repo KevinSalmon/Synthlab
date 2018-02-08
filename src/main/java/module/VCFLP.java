@@ -131,4 +131,8 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
     public double getFrequency() {
         return filterLowPass.frequency.get();
     }
+
+    public void setResonance(double resonance) {
+        this.filterLowPass.Q.set(resonance);
+    }
 }

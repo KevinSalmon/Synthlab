@@ -156,15 +156,35 @@ public class VCFLPTest {
         assertEquals("Frequency must be at 220.0", 220.0, vcflp.getFrequency());
     }
 
+    /**
+     * Test if the reference works
+     */
     @Test
     public void referenceTest(){
         assertEquals(vcflp, vcflp.getReference());
     }
 
+    /**
+     * Test the update of the resonance
+     */
     @Test
     public void updateResonanceTest(){
         SubjectVCFLPTest subjectVCFLPTest = new SubjectVCFLPTest();
         subjectVCFLPTest.setResonance(4.0);
+        vcflp.update(subjectVCFLPTest);
+
+        assertEquals(subjectVCFLPTest.getResonance(), vcflp.getResonance());
+    }
+
+    /**
+     * Test when the resonance passed is the same as the resonance set
+     */
+    @Test
+    public void updateResonanceWithoutChangesTest(){
+        SubjectVCFLPTest subjectVCFLPTest = new SubjectVCFLPTest();
+        double res = 4.0;
+        vcflp.setResonance(res);
+        subjectVCFLPTest.setResonance(res);
         vcflp.update(subjectVCFLPTest);
 
         assertEquals(subjectVCFLPTest.getResonance(), vcflp.getResonance());
