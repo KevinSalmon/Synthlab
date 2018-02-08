@@ -108,6 +108,7 @@ public class Controller {
                 VCFLP vcflp = new VCFLP();
                 ((Subject) fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
+                break;
 
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();
