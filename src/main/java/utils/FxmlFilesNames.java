@@ -20,6 +20,8 @@ public class FxmlFilesNames {
 
     public static final String MINIATURE_VCFLP = "/vcf_miniature.fxml";
 
+    public static final String MINIATURE_EG = "/eg_miniature.fxml";
+
     /**
      * Modules
      */
@@ -34,6 +36,8 @@ public class FxmlFilesNames {
     public static final String OSCILLOSCOPE = "/graph_oscilloscope.fxml";
 
     public static final String VCFLP = "/graph_vcf.fxml";
+
+    public static final String EG = "/graph_eg.fxml";
 
     private FxmlFilesNames(){}
 }
