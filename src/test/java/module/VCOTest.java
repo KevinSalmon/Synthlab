@@ -104,6 +104,15 @@ public class VCOTest {
                 Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j],output.getValues()[j],0.0);
             }
         }
+
+        vco.switchLFO();
+
+        for (int i = 0; i < 10000; i++) {
+            vco.generate();
+            for (int j = 0; j < output.getValues().length; j++) {
+                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j],output.getValues()[j],0.0);
+            }
+        }
     }
 
     @Test
@@ -172,6 +181,8 @@ public class VCOTest {
         //Reference
         Assert.assertEquals("Should get the VCO itself", vco, vco.getReference());
     }
+
+
 
     @Test
     public void UpdateTest(){
