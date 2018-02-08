@@ -108,6 +108,12 @@ public class Controller {
                 ((Subject) fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
                 break;
+
+            case FxmlFilesNames.EG:
+                EG eg = new EG();
+                ((Subject) fxmlLoader.getController()).register(eg);
+                synth.add(eg);
+                break;
             default:
                 break;
         }

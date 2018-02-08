@@ -353,6 +353,7 @@ public class IHMController implements Initializable{
         addModuleToMenu(FxmlFilesNames.VCO, FxmlFilesNames.MINIATURE_VCO,100, 0);
         addModuleToMenu(FxmlFilesNames.REP, FxmlFilesNames.MINIATURE_REP,200, 0);
         addModuleToMenu(FxmlFilesNames.VCFLP, FxmlFilesNames.MINIATURE_VCFLP,300, 0);
+        addModuleToMenu(FxmlFilesNames.EG, FxmlFilesNames.MINIATURE_EG,400, 0);
     }
 
     /**

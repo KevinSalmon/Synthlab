@@ -42,6 +42,11 @@ public class Example {
         eg.setRelease(100);
         eg.setSustain(100);
 
+//        vco2.switchLFO();
+//        vco2.getOutput().connect(vca.getAm());
+//        myVco.getOutput().connect(vca.getInput());
+//        vca.getOutput().connect(eg.getInput());
+
         OutputModule outModule = new OutputModule(synth);
         vca.getOutput().connect(0, outModule.getInput() , 0);
         //rep.getOut1().connect( 0, outModule.getInput(), 0 );
