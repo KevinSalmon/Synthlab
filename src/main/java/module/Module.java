@@ -1,14 +1,12 @@
 package module;
 
-import exceptions.PortTypeException;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.Circuit;
+import exceptions.PortTypeException;
 import utils.PortType;
 import utils.Tuple;
-
-import java.util.logging.Logger;
 
 public abstract class Module extends Circuit {
 
@@ -19,10 +17,10 @@ public abstract class Module extends Circuit {
      */
      abstract Tuple<UnitPort, PortType> getPort(String name);
 
+
     public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
         Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
-        Logger.getGlobal().info("input "+portsDest.getLeft());
         if(portsSource.getRight().getType().contains(PortType.OUTPUT.getType())
                 && portsDest.getRight().getType().contains(PortType.INPUT.getType())){
 

@@ -31,6 +31,16 @@ public class ModuleTest {
         VCO vco1 = new VCO();
         OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
 
+        vco1.setOutput(new UnitOutputPort(("input")));
+
+        outputModule.connect(vco1, PortType.INPUT.getType(), PortType.INPUT.getType());
+    }
+
+    @Test(expected = PortTypeException.class)
+    public void connectModuleExceptionOtherTest() throws PortTypeException {
+        VCO vco1 = new VCO();
+        OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
+
         vco1.setOutput(new UnitOutputPort(("output")));
 
         outputModule.connect(vco1, PortType.INPUT.getType(), PortType.OUTPUT.getType());
