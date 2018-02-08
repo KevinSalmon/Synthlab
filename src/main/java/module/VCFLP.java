@@ -12,9 +12,6 @@ import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
-import java.util.Arrays;
-import java.util.logging.Logger;
-
 
 public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP>{
 
@@ -103,9 +100,6 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
         return filterLowPass;
     }
 
-    public Signal getSignal() {
-        return signal;
-    }
 
     public Double getResonance(){
         return filterLowPass.Q.get();

@@ -167,5 +167,10 @@ public class VCFLPTest {
         assertEquals(subjectVCFLPTest.getResonance(), vcflp.getResonance());
     }
 
+    @Test
+    public void frequencyTest(){
+        assertEquals(vcflp.getFrequency(), vcflp.getFilterLowPass().frequency.get());
+    }
+
 
 }
