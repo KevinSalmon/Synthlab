@@ -4,6 +4,7 @@ import controller.Obseurveur;
 import controller.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class VCOControllerIHM implements Initializable, SubjectVCO {
+public class VCOControllerIHM extends SuperController implements Initializable, SubjectVCO {
 
     @FXML
     private Pane border;
@@ -36,11 +37,10 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     @FXML
     private Circle out;
 
-    private List<Obseurveur<SubjectVCO>> obseuveurVCOputList;
+    @FXML
+    private Button delete;
 
-    public VCOControllerIHM(){
-        obseuveurVCOputList = new ArrayList<>();
-    }
+    private Obseurveur<SubjectVCO> obseuveurVCO;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,6 +55,10 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
+
+        delete.setOnMouseClicked(eh -> {
+            removeComponent(obseuveurVCO, border);
+        });
     }
 
     private OscillatorType getOscillatorType(double index){
@@ -88,7 +92,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     @Override
     public void register(Obseurveur o) {
         if(o != null){
-            obseuveurVCOputList.add(o);
+            obseuveurVCO = o;
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.FM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
@@ -97,13 +101,11 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @Override
     public void remove(Obseurveur o) {
-        obseuveurVCOputList.remove(o);
+        if(o != null) obseuveurVCO=null;
     }
 
     @Override
     public void notifyObseurveur() {
-        for(Obseurveur<SubjectVCO> o : obseuveurVCOputList){
-            o.update(this);
-        }
+        obseuveurVCO.update(this);
     }
 }

@@ -79,4 +79,7 @@ public class Cable {
     public void connect() throws PortTypeException {
         moduleOut.connect(moduleIn, outputName, inputName);
     }
+    public void disconnect() {
+        moduleOut.disconnect(moduleIn, outputName, inputName);
+    }
 }

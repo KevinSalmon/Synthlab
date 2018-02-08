@@ -50,7 +50,6 @@ public class CableManager {
         currentCable.setOutput(point2D);
         currentCable.setModuleOut(moduleOut);
         currentCable.setOutputName(name);
-        Logger.getGlobal().info("je suis passé par ici");
     }
 
     /**
@@ -63,7 +62,6 @@ public class CableManager {
             for(Cable c : cables){
                 if(c.getInput().equals(point2D)) return;
             }
-            Logger.getGlobal().info("je repasserai par la ");
             currentCable.setInput(point2D);
             currentCable.setInputName(name);
             line = new Line();

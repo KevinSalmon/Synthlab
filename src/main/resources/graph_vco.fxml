@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.control.Button?>
 <Pane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="300.0" style="-fx-background-color: #99A6CC;" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VCOControllerIHM">
     <children>
         <Slider fx:id="octaveSlider" blockIncrement="1.0" layoutX="32.0" layoutY="28.0" majorTickUnit="1.0" max="3.0" min="-3.0" minorTickCount="0" prefHeight="24.0" prefWidth="237.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
@@ -20,5 +21,7 @@
         <Circle id="fm" fx:id="fm" fill="Black" layoutX="49.0" layoutY="210.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
         <Label layoutX="80.0" layoutY="202.0" text="fm" />
         <Label layoutX="255.0" layoutY="202.0" text="out" />
+
+        <Button fx:id="delete" layoutX="274.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED"/>
     </children>
 </Pane>

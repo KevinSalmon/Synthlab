@@ -36,4 +36,12 @@ public abstract class Module extends Circuit {
             Logger.getGlobal().info(() -> "port dest : "+ ((UnitInputPort) portsDest.getLeft()).isConnected());
         } else throw new PortTypeException("Incompatible ports type : "+namePortSource+" must be an output and "+namePortDest+" must be an input");
     }
+
+    public void disconnect(Module dest, String namePortSource, String namePortDest) {
+        Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
+        Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
+
+        ((UnitOutputPort) portsSource.getLeft()).disconnect((UnitInputPort) portsDest.getLeft());
+
+    }
 }

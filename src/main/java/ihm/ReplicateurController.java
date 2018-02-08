@@ -1,28 +1,19 @@
 package ihm;
 
-import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectReplicateur;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import utils.Cable;
-import utils.FxmlFilesNames;
 import utils.PortType;
 import utils.CableManager;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-public class ReplicateurController implements Initializable, SubjectReplicateur{
+public class ReplicateurController extends SuperController implements Initializable, SubjectReplicateur{
 
     @FXML
     private Pane pane;
@@ -71,25 +62,7 @@ public class ReplicateurController implements Initializable, SubjectReplicateur{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         delete.setOnMouseClicked(eh -> {
-            List<Cable> cables = cableManager.getCables();
-
-            List<Node> workspaceChildren = ((Pane)pane.getParent()).getChildren();
-
-            for (int i=0; i < cables.size(); i++) {
-                Cable cable = cables.get(i);
-                if(cable.getModuleIn().equals(replicateurObseurveur) ||
-                        cable.getModuleOut().equals(replicateurObseurveur)){
-
-                    workspaceChildren.remove(cable.getLine());
-                    cables.remove(i);
-                    i--;
-                }
-            }
-
-            Controller controller = Controller.getInstance();
-            controller.getSynth().remove(replicateurObseurveur.getReference());
-
-            workspaceChildren.remove(pane);
+            removeComponent(replicateurObseurveur, pane);
         });
     }
 }

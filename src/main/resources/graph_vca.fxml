@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.control.Button?>
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="353.0" style="-fx-background-color: #61F26E;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VcaController">
    <children>
       <Label layoutX="105.0" layoutY="55" text="Attenuateur" />
@@ -15,5 +16,7 @@
       <Label layoutX="35.0" layoutY="5.0" text="in" />
       <Label layoutX="305.0" layoutY="47.0" text="out" />
       <Label layoutX="30.0" layoutY="97.0" text="am" />
+
+      <Button fx:id="delete" layoutX="327.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED"/>
    </children>
 </Pane>

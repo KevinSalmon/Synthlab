@@ -4,6 +4,7 @@ import controller.Obseurveur;
 import controller.SubjectVCA;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,7 @@ import utils.CableManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VcaController implements Initializable, SubjectVCA {
+public class VcaController extends SuperController implements Initializable, SubjectVCA {
 
     @FXML
     Pane pane;
@@ -30,6 +31,9 @@ public class VcaController implements Initializable, SubjectVCA {
 
     @FXML
     Circle out;
+
+    @FXML
+    Button delete;
     
     private double minValue = Double.MIN_EXPONENT;
     private double initialValue = 0.0;
@@ -50,6 +54,10 @@ public class VcaController implements Initializable, SubjectVCA {
         gainSelector.setOnInputMethodTextChanged(event -> notifyObseurveur());
         gainSelector.setOnKeyReleased(e ->notifyObseurveur());
         gainSelector.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
+
+        delete.setOnMouseClicked(eh -> {
+            removeComponent(vcaObseurveur, pane);
+        });
     }
 
     private void onClickAttenuateur(SpinnerValueFactory.DoubleSpinnerValueFactory f){
