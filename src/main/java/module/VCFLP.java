@@ -80,6 +80,9 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
             filterLowPass.updateCoefficients();
             freq = Math.pow(2, signal.getVolt()) * filterLowPass.frequency.get();
         }
+        if(o.getResonance() != filterLowPass.Q.get()){
+            filterLowPass.Q.set(o.getResonance());
+        }
     }
 
     /**
@@ -121,20 +124,11 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
         return signal;
     }
 
-    public void increaseFrequency() {
-        this.filterLowPass.frequency.set(this.filterLowPass.frequency.get() *2);
-
-    }
-    public void decreaseFrequency() {
-        this.filterLowPass.frequency.set(this.filterLowPass.frequency.get() /2);
-
+    public Double getResonance(){
+        return filterLowPass.Q.get();
     }
 
-    public void increaseResonance(int i) {
-        this.filterLowPass.Q.set(this.filterLowPass.Q.get() + i);
-    }
-
-    public void decreaseResonance(int i){
-        this.filterLowPass.Q.set(this.filterLowPass.Q.get() - i);
+    public double getFrequency() {
+        return filterLowPass.frequency.get();
     }
 }

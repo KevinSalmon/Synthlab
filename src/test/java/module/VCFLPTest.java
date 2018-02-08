@@ -22,9 +22,18 @@ public class VCFLPTest {
      */
     private class SubjectVCFLPTest implements SubjectVCFLP{
         private double frequency;
+        private double resonance;
         @Override
         public double getFrequency() {
             return frequency;
+        }
+
+        @Override
+        public double getResonance() {
+            return resonance;
+        }
+        public void setResonance(Double res){
+            this.resonance = res;
         }
 
 
@@ -97,7 +106,7 @@ public class VCFLPTest {
         vcflp.getFilterLowPass().frequency.set(440.0);
         vcflp.generate();
 
-        assertEquals(vcflp.getFilterLowPass().frequency.get(), Math.pow(2,vcflp.getSignal().getVolt())* 440);
+        assertEquals(vcflp.getFrequency(), Math.pow(2,vcflp.getSignal().getVolt())* 440);
 
     }
 
@@ -120,7 +129,7 @@ public class VCFLPTest {
         SubjectVCFLPTest o = new SubjectVCFLPTest();
         o.setFrequency(0.0);
         vcflp.update(o);
-        assertEquals("Frequency must be at 0", 0.0, vcflp.getFilterLowPass().frequency.get());
+        assertEquals("Frequency must be at 0", 0.0, vcflp.getFrequency());
     }
 
     /**
@@ -132,7 +141,7 @@ public class VCFLPTest {
         o.setFrequency(Double.MAX_VALUE);
         assertEquals(Double.MAX_VALUE, o.getFrequency());
         vcflp.update(o);
-        assertEquals("Frequency must be at Double.Max_Value", Double.MAX_VALUE, vcflp.getFilterLowPass().frequency.get());
+        assertEquals("Frequency must be at Double.Max_Value", Double.MAX_VALUE, vcflp.getFrequency());
     }
 
     /**
@@ -144,7 +153,7 @@ public class VCFLPTest {
         o.setFrequency(220.0);
         assertEquals( 220.0, o.getFrequency());
         vcflp.update(o);
-        assertEquals("Frequency must be at 220.0", 220.0, vcflp.getFilterLowPass().frequency.get());
+        assertEquals("Frequency must be at 220.0", 220.0, vcflp.getFrequency());
     }
 
     @Test
@@ -153,29 +162,13 @@ public class VCFLPTest {
     }
 
     @Test
-    public void increaseFreqTest(){
-        Double freq =vcflp.getFilterLowPass().frequency.get();
-        vcflp.increaseFrequency();
-        assertEquals(2 * freq, vcflp.getFilterLowPass().frequency.get());
-    }
-    @Test
-    public void decreaseFreqTest(){
-        Double freq =vcflp.getFilterLowPass().frequency.get();
-        vcflp.decreaseFrequency();
-        assertEquals( freq / 2, vcflp.getFilterLowPass().frequency.get());
+    public void updateResonanceTest(){
+        SubjectVCFLPTest subjectVCFLPTest = new SubjectVCFLPTest();
+        subjectVCFLPTest.setResonance(4.0);
+        vcflp.update(subjectVCFLPTest);
+
+        assertEquals(subjectVCFLPTest.getResonance(), vcflp.getResonance());
     }
 
-    @Test
-    public void increaseResonanceTest(){
-        Double q =vcflp.getFilterLowPass().Q.get();
-        vcflp.increaseResonance(1);
-        assertEquals(q+1, vcflp.getFilterLowPass().Q.get());
-    }
-    @Test
-    public void decreaseResonanceTest(){
-        Double q =vcflp.getFilterLowPass().Q.get();
-        vcflp.decreaseResonance(1);
-        assertEquals( q-1, vcflp.getFilterLowPass().Q.get());
-    }
 
 }

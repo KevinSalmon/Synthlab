@@ -102,6 +102,12 @@ public class Controller {
                 ((Subject)fxmlLoader.getController()).register(rep);
                 synth.add(rep);
                 break;
+
+            case FxmlFilesNames.VCFLP:
+                VCFLP vcflp = new VCFLP();
+                ((Subject) fxmlLoader.getController()).register(vcflp);
+                synth.add(vcflp);
+                break;
             default:
                 break;
         }
