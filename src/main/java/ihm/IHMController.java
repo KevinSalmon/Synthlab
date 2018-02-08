@@ -274,6 +274,9 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
+
+        // TODO: Corriger le décalage de la souris lorsque l'on ramènne un modules qui était en bas à droite
+        // Piste : Rajouter les valeurs de scrollPane.getViewportBounds() ci-dessous
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
