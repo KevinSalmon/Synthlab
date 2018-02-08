@@ -16,8 +16,6 @@ import signal.AudioSignal;
 import utils.OscillatorType;
 import utils.PortType;
 
-import java.util.Arrays;
-
 public class VCOTest {
     public static VCO vco;
 
@@ -50,12 +48,13 @@ public class VCOTest {
 
         vco.increaseOctave(1);
 
+
         Assert.assertTrue("The octave should have increase by 1", vco.getOctave() == 1);
         Assert.assertTrue("The frequency should have doubled", vco.getFrequency() == 880);
 
-        vco.increaseOctave(150);
+        vco.increaseOctave(2*VCO.getOctaveMax()-VCO.getOctaveMin());
 
-        Assert.assertTrue("The octave should have increase only by 2", vco.getOctave() == 3);
+        Assert.assertTrue("The octave should be at max", vco.getOctave() == VCO.getOctaveMax());
         Assert.assertTrue("The frequency should have doubled 2 times", vco.getFrequency() == 3520);
 
         vco.decreaseOctave(1);
@@ -165,6 +164,11 @@ public class VCOTest {
         vco.setAudioSignal(as);
         Assert.assertEquals("The signal we get should be the signal we set", as, vco.getAudioSignal());
 
+        //LFO
+        Assert.assertFalse("LFO should not be activate", vco.isLFO());
+        vco.setLFO(true);
+        Assert.assertTrue("LFO should be activate", vco.isLFO());
+
         //Reference
         Assert.assertEquals("Should get the VCO itself", vco, vco.getReference());
     }
@@ -213,6 +217,14 @@ public class VCOTest {
         Assert.assertTrue("The oscillator should be a square one",vco.getCurrentOsc() instanceof SquareOscillator);
     }
 
+    @Test
+    public void LFOTest() {
+        Assert.assertEquals("The frequency should be at 440", 440, vco.getFrequency(),0);
+        vco.switchLFO();
+        Assert.assertEquals("The frequency should be at 0.1", 0.1, vco.getFrequency(),0);
+        vco.setReglageFin(0.5);
+        Assert.assertEquals("The frequency should be at 10", 10, vco.getFrequency(),0.1);
+    }
 
     @Test(expected = NullPointerException.class)
     public void OscillatorException(){

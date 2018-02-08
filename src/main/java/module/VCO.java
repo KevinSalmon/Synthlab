@@ -23,7 +23,14 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private UnitInputPort fm;
     private UnitOutputPort output;
     private Signal audioSignal;
+
     private static final int F0 = 440;
+    private static final int OCTAVE_MAX = 3;
+    private static final int OCTAVE_MIN = -2;
+    private static final double LFO_MAX = 20;
+    private static final double LFO_MIN = 0.1;
+
+    private boolean lfo;
 
     private int octave;
     private double reglageFin;
@@ -40,6 +47,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         add(sawOsc);
 
         currentOsc = triOsc;
+
+        lfo = false;
 
         //Crée le port de sortie
         output = new UnitOutputPort(PortType.OUTPUT.getType());
@@ -63,7 +72,10 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         //Calcul la fréquence
         for (int i = start; i < limit; i++) {
-            freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*mod[i]));
+            if(lfo){
+                freq[i] = LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN);
+            }
+            else {freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*mod[i]));}
         }
 
         super.generate(start, limit);
@@ -89,8 +101,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         octave = o;
 
-        if(octave < -2) octave = -2;
-        else if(octave > 3) octave = 3;
+        if(octave < OCTAVE_MIN) octave = OCTAVE_MIN;
+        else if(octave > OCTAVE_MAX) octave = OCTAVE_MAX;
 
         updateFrequency();
     }
@@ -99,7 +111,11 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      * Met à jour la fréquence du signal
      */
     private void updateFrequency() {
-        audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin));
+        if(lfo){
+            audioSignal.setFrequency(LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN));
+        }
+        else {audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin ));}
+//        audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin));
         currentOsc.frequency.set(audioSignal.getFrequency()); //Actualise l'oscillateur courant
     }
 
@@ -240,5 +256,34 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     public UnitInputPort getInput() {
         return fm;
+    }
+
+    public boolean isLFO() {
+        return lfo;
+    }
+
+    public void setLFO(boolean lfo) {
+        this.lfo = lfo;
+        updateFrequency();
+    }
+
+    public void switchLFO(){
+        setLFO(!isLFO());
+    }
+
+    public static int getOctaveMax() {
+        return OCTAVE_MAX;
+    }
+
+    public static int getOctaveMin() {
+        return OCTAVE_MIN;
+    }
+
+    public static double getLfoMax() {
+        return LFO_MAX;
+    }
+
+    public static double getLfoMin() {
+        return LFO_MIN;
     }
 }
