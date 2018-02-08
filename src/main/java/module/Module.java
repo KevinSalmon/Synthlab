@@ -30,10 +30,13 @@ public abstract class Module extends Circuit {
     }
 
     public void disconnect(Module dest, String namePortSource, String namePortDest) {
-        Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
-        Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
+        if(dest != null){
+            Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
+            Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
 
-        ((UnitOutputPort) portsSource.getLeft()).disconnect((UnitInputPort) portsDest.getLeft());
+            if(namePortSource != null && namePortDest != null)
+                ((UnitOutputPort) portsSource.getLeft()).disconnect((UnitInputPort) portsDest.getLeft());
 
+        }
     }
 }
