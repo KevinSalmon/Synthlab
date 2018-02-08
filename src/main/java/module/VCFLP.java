@@ -12,6 +12,9 @@ import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.Arrays;
+import java.util.logging.Logger;
+
 
 public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP>{
 
@@ -20,7 +23,7 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
     private UnitInputPort in;
     private UnitOutputPort out;
     private Signal signal;
-    private double freq;
+    private double f0;
 
 
     public VCFLP(){
@@ -29,16 +32,15 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
         this.out = new UnitOutputPort(PortType.OUTPUT.getType());
         this.filterLowPass = new FilterLowPass();
         this.fm = new UnitInputPort(PortType.FM.getType());
-        this.filterLowPass.frequency = this.fm;
         this.filterLowPass.input = this.in;
         this.filterLowPass.output = this.out;
-        addPort(this.in, PortType.INPUT.getType());
-        addPort(this.out, PortType.OUTPUT.getType());
-        addPort(this.fm, PortType.FM.getType());
         this.signal = new ModulationSignal();
         this.filterLowPass.frequency.set(Math.pow(2, signal.getVolt()) * signal.getFrequency());
+        addPort(this.fm);
+        addPort(this.in);
+        addPort(this.out);
         add(filterLowPass);
-        this.freq = this.filterLowPass.frequency.get();
+        f0 = 0;
     }
 
 
@@ -46,18 +48,18 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(name.equals(PortType.OUTPUT.getType())) return new Tuple<>(getPortByName(name), PortType.OUTPUT);
-        if(name.equals(PortType.INPUT.getType())) return new Tuple<>(getPortByName(name), PortType.INPUT);
-        if(name.equals(PortType.FM.getType())) return new Tuple<>(getPortByName(name), PortType.FM);
+        if(name.equals(PortType.OUTPUT.getType())) return new Tuple<>(out, PortType.OUTPUT);
+        if(name.equals(PortType.INPUT.getType())) return new Tuple<>(in, PortType.INPUT);
+        if(name.equals(PortType.FM.getType())) return new Tuple<>(fm, PortType.FM);
         return null;
     }
 
     @Override
     public UnitOutputPort getOutput() {
-        return this.out;
+        return out;
     }
 
-    public UnitInputPort getInput() { return this.in;}
+    public UnitInputPort getInput() { return in;}
 
     public UnitInputPort getFm() {
         return this.fm;
@@ -69,17 +71,7 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
      */
     @Override
     public void update(SubjectVCFLP o) {
-        if(o.getFrequency() == 0){
-            filterLowPass.frequency.set(0);
-        }
-        else if(o.getFrequency() == Double.MAX_VALUE){
-            filterLowPass.frequency.set(Double.MAX_VALUE);
-        }
-        else {
-            filterLowPass.frequency.set(o.getFrequency());
-            filterLowPass.updateCoefficients();
-            freq = Math.pow(2, signal.getVolt()) * filterLowPass.frequency.get();
-        }
+        f0 = o.getFrequency();
         if(o.getResonance() != filterLowPass.Q.get()){
             filterLowPass.Q.set(o.getResonance());
         }
@@ -92,23 +84,14 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
      * doublé ou divisé par deux sinon
      */
     @Override
-    public void generate(){
-        super.generate();
-        double[] inValues = filterLowPass.input.getValues();
-        double[] outValues = filterLowPass.output.getValues();
-        if(filterLowPass.frequency.get() == Double.MAX_VALUE){
-            System.arraycopy(inValues, 0, outValues, 0, outValues.length);
-        }
-        else if(filterLowPass.frequency.get() == 0.0){
-            for(int i=0;i < outValues.length; i ++){
-                outValues[i] = 0.0;
-            }
-        }
-        else{
-            filterLowPass.frequency.set(freq);
-        }
+    public void generate(int start, int limit){
+        super.generate(start, limit);
+        double [] freqValues = filterLowPass.frequency.getValues();
+        double [] fmValues = fm.getValues();
+        for(int i = start; i < limit; i++){
+            freqValues[i] = Math.pow(2, f0 + fmValues[i]) * signal.getFrequency();
 
-
+        }
     }
 
     @Override

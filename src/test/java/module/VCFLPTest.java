@@ -97,18 +97,7 @@ public class VCFLPTest {
         }
 
     }
-
-    /**
-     * Test when the VCFLP frequency is neither null nor zero
-     */
-    @Test
-    public void VCFLPGenerationFrequencyOtherTest(){
-        vcflp.getFilterLowPass().frequency.set(440.0);
-        vcflp.generate();
-
-        assertEquals(vcflp.getFrequency(), Math.pow(2,vcflp.getSignal().getVolt())* 440);
-
-    }
+    
 
     /**
      * Test the retrieve of a port
@@ -121,40 +110,28 @@ public class VCFLPTest {
         Assert.assertNull(vcflp.getPort("NULL"));
     }
 
-    /**
-     * Test the update with a 0 frequency from the subject
-     */
-    @Test
-    public void updateZeroFrequencyTest(){
-        SubjectVCFLPTest o = new SubjectVCFLPTest();
-        o.setFrequency(0.0);
-        vcflp.update(o);
-        assertEquals("Frequency must be at 0", 0.0, vcflp.getFrequency());
-    }
+
 
     /**
-     * Test the update with a infinite frequency from the subject
+     * Test the update with a frequency from the subject
      */
     @Test
-    public void updateMaxValueFrequencyTest(){
+    public void updateFrequencyTest(){
+        VCO vco = new VCO();
+        vco.getOutput().connect(vcflp.getInput());
+        double [] outputVCF = vcflp.getOutput().getValues();
+        double [] outputVCO = vco.getOutput().getValues();
         SubjectVCFLPTest o = new SubjectVCFLPTest();
-        o.setFrequency(Double.MAX_VALUE);
-        assertEquals(Double.MAX_VALUE, o.getFrequency());
+        o.setFrequency(5.0);
+        assertEquals(5.0, o.getFrequency());
         vcflp.update(o);
-        assertEquals("Frequency must be at Double.Max_Value", Double.MAX_VALUE, vcflp.getFrequency());
+        vcflp.generate();
+        for(int i = 0; i < outputVCF.length;i++) assertEquals(outputVCF[i], outputVCO[i]);
+
+//        assertEquals("Frequency must be at Double.Max_Value", Double.MAX_VALUE, vcflp.getFrequency());
     }
 
-    /**
-     * Test when the Subject frequency is neither null nor zero
-     */
-    @Test
-    public void updateWhateverFrequencyTest(){
-        SubjectVCFLPTest o = new SubjectVCFLPTest();
-        o.setFrequency(220.0);
-        assertEquals( 220.0, o.getFrequency());
-        vcflp.update(o);
-        assertEquals("Frequency must be at 220.0", 220.0, vcflp.getFrequency());
-    }
+
 
     /**
      * Test if the reference works

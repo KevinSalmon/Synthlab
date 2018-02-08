@@ -13,9 +13,11 @@
       <Circle fx:id="in" layoutX="26.0" layoutY="129.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="out" layoutX="280.0" layoutY="70.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="269.0" layoutY="41.0" text="out" />
-      <Slider fx:id="f0" layoutX="51.0" layoutY="69.0" majorTickUnit="1000.0" max="20000.0" prefHeight="38.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-      <Label layoutX="123.0" layoutY="53.0" text="f0" />
-      <Slider fx:id="resonance" blockIncrement="1.0" layoutX="51.0" layoutY="38.0" max="10.0" prefHeight="15.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" />
+
+      <Slider fx:id="f0" layoutX="45.0" layoutY="85.0" majorTickUnit="1" min="-5" max="5" prefHeight="38.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Label layoutX="123.0" layoutY="70.0" text="f0" />
+
+      <Slider fx:id="resonance" layoutX="45.0" layoutY="38.0" majorTickUnit="2" minorTickCount="0" max="10.0" prefHeight="15.0" prefWidth="217.0" value="1.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="94.0" layoutY="22.0" text="Résonance" />
    </children>
 </Pane>
