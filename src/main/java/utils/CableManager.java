@@ -160,7 +160,6 @@ public class CableManager {
                     }
                 }
             });
-
         }
         else if(type.getType().contains(PortType.OUTPUT.getType())){
             port.getParent().layoutXProperty().addListener((observable, oldValue, newValue) -> instance.updateOutputX(port));

@@ -6,7 +6,6 @@ import com.jsyn.Synthesizer;
 import utils.OscillatorType;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class Example {
 
@@ -20,33 +19,36 @@ public class Example {
         VCO vco2 = new VCO();
         synth.add(vco2);
 
-//        vco2.setOctave(-100);
-        Logger.getGlobal().info("vco2.frequency : " +vco2.getFrequency());
-        vco2.getOutput().connect(myVco.getInput());
-
         VCA vca = new VCA();
         synth.add(vca);
 
-//        myVco.getOutput().connect(0, vca.getInput(), 0);
+        Replicateur rep = new Replicateur();
+        synth.add(rep);
+
+        EG eg = new EG();
+        synth.add(eg);
 
 
-        VCFLP vcflp = new VCFLP();
-        synth.add(vcflp);
-//        vca.getOutput().connect(vcflp.getInput());
-          myVco.getOutput().connect(vcflp.getInput());
-//
-//        Replicateur rep = new Replicateur();
-//        synth.add(rep);
-//        vca.getOutput().connect(0, rep.getIn(), 0);
+        vco2.setLFO(true);
+        vco2.setReglageFin(1/20.0);
+        vco2.changeCurrentOsc(OscillatorType.SAWTOOTH);
+        vco2.getOutput().connect(rep.getIn());
+        rep.getOut1().connect(myVco.getInput());
+        myVco.getOutput().connect(vca.getInput());
+        rep.getOut2().connect(eg.getInput());
+        eg.getOutput().connect(vca.getAm());
+        eg.setAttack(100);
+        eg.setDecay(100);
+        eg.setRelease(100);
+        eg.setSustain(100);
+
         OutputModule outModule = new OutputModule(synth);
-        vcflp.getOutput().connect(outModule.getInput());
-//        vca.getOutput().connect(0, outModule.getInput() , 0);
+        vca.getOutput().connect(0, outModule.getInput() , 0);
         //rep.getOut1().connect( 0, outModule.getInput(), 0 );
         //rep.output2.connect( 0, outModule.getInput(), 0 );
         //rep.output3.connect( 0, outModule.getInput(), 0 );
 
         // Start at least the LineOut
-        System.out.println(vcflp.getFilterLowPass().Q.get());
         Scanner c = new Scanner(System.in);
 
         new Thread(()-> {
@@ -65,12 +67,9 @@ public class Example {
                         case 't': myVco.changeCurrentOsc(OscillatorType.TRIANGLE); break;
                         case 's': myVco.changeCurrentOsc(OscillatorType.SQUARE); break;
 
-                        //VCFLP
-//                        case 'u': vcflp.increaseFrequency(); break;
-//                        case 'i': vcflp.decreaseFrequency(); break;
-//                        case 'o': vcflp.increaseResonance(1); break;
-//                        case 'p': vcflp.decreaseResonance(1); break;
                         // VCA
+//                        case '*': ampl=ampl+0.01; am.setAmplitude(ampl); break;
+//                        case '9': ampl=ampl-0.01; am.setAmplitude(ampl); break;
                         case '/': a0++; vca.setA0(a0); break;
                         case '8': a0--; vca.setA0(a0); break;
 
