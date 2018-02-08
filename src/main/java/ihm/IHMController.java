@@ -336,8 +336,8 @@ public class IHMController implements Initializable{
          */
         Pane out = controller.createModule(FxmlFilesNames.MODULE_OUT);
         workspace.getChildren().add(out);
-        out.setLayoutX(250);
-        out.setLayoutY(300);
+        out.setLayoutX(splitPane.getWidth()- 350);
+        out.setLayoutY(70);
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
     }
@@ -351,7 +351,7 @@ public class IHMController implements Initializable{
         addModuleToMenu(FxmlFilesNames.REP, FxmlFilesNames.MINIATURE_REP,200, 0);
         addModuleToMenu(FxmlFilesNames.VCFLP, FxmlFilesNames.MINIATURE_VCFLP,300, 0);
         addModuleToMenu(FxmlFilesNames.OSCILLOSCOPE, FxmlFilesNames.MINIATURE_OSCILLOSCOPE, 400, 0);
-        addModuleToMenu(FxmlFilesNames.EG, FxmlFilesNames.MINIATURE_EG,400, 0);
+        addModuleToMenu(FxmlFilesNames.EG, FxmlFilesNames.MINIATURE_EG,500, 0);
     }
 
     /**
