@@ -11,8 +11,6 @@ import utils.PortType;
 
 public class ModuleTest {
 
-
-
     @Test
     public void connectModulesTest() throws PortTypeException {
         VCO vco1 = new VCO();
@@ -36,5 +34,24 @@ public class ModuleTest {
         vco1.setOutput(new UnitOutputPort(("output")));
 
         outputModule.connect(vco1, PortType.INPUT.getType(), PortType.OUTPUT.getType());
+    }
+
+    @Test
+    public void disconnectModulesTest() throws PortTypeException {
+        VCO vco1 = new VCO();
+        Synthesizer synth = JSyn.createSynthesizer();
+        OutputModule outputModule = new OutputModule(synth);
+
+        vco1.setOutput(new UnitOutputPort("output"));
+
+        vco1.connect(outputModule, PortType.OUTPUT.getType(), PortType.INPUT.getType());
+
+        Assert.assertTrue("UnitPort must be connected", ((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
+        Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());
+
+        vco1.disconnect(outputModule, PortType.OUTPUT.getType(), PortType.INPUT.getType());
+
+        Assert.assertTrue("UnitPort must be disconnected", !((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
+        Assert.assertTrue("UnitPort must be disconnected", !((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());
     }
 }
