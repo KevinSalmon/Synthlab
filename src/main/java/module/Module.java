@@ -8,7 +8,6 @@ import com.jsyn.unitgen.Circuit;
 import utils.PortType;
 import utils.Tuple;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class Module extends Circuit {
@@ -19,8 +18,6 @@ public abstract class Module extends Circuit {
      * @return Un tuple contenant le port demandé et son type. Renvoie null si le port n'existe pas.
      */
      abstract Tuple<UnitPort, PortType> getPort(String name);
-
-    private static final Logger Log = Logger.getLogger( Module.class.getName() );
 
     public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);

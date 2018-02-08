@@ -1,6 +1,6 @@
+package example;
+
 import module.*;
-import signal.ModulationSignal;
-import com.jsyn.unitgen.LineOut;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import utils.OscillatorType;
