@@ -7,15 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.QuadCurve;
 import utils.FxmlFilesNames;
 import java.awt.*;
+
+import utils.SkinNames;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,6 +41,9 @@ public class IHMController implements Initializable{
 
     @FXML
     private Pane moduleMenu;
+
+    @FXML
+    private Menu menuSkin;
 
     /**
      * Constantes locales
@@ -355,6 +361,12 @@ public class IHMController implements Initializable{
         out.setLayoutY(screenSize.getHeight() - 280);
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
+
+        MenuItem itemSkin1 = new MenuItem();
+        itemSkin1.setText(SkinNames.skinMoche);
+        menuSkin.getItems().add(itemSkin1);
+
+        itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.skinMoche));
     }
 
     /**

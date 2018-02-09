@@ -24,6 +24,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#cleanWorkspace" text="Clean" />
                     </items>
                 </Menu>
+                <Menu fx:id="menuSkin" mnemonicParsing="false" text="Skin">
+                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#showAboutScene" text="About" />

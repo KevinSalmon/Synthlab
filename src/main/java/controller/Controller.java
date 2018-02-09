@@ -12,6 +12,7 @@ import module.*;
 import utils.Cable;
 import utils.CableManager;
 import utils.FxmlFilesNames;
+import utils.SkinNames;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class Controller {
     private static volatile Controller instance;
 
     private static final Logger Log = Logger.getLogger( Controller.class.getName() );
+
+    private Scene scene;
 
     /**
      *
@@ -181,8 +184,11 @@ public class Controller {
     }
 
     public void setScene(Scene scene) {
+        this.scene = scene;
+        scene.getRoot().setId("root_id");
         scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> ihmController.onRezize(newSceneWidth, null));
         scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> ihmController.onRezize(null, newSceneHeight));
+        setSkin(SkinNames.skinMoche);
     }
 
     /**
@@ -228,5 +234,20 @@ public class Controller {
         controller.getSynth().remove(observeur.getReference());
 
         workspaceChildren.remove(pane);
+    }
+
+    public void setSkin(String skinName){
+        Logger.getGlobal().info(""+this.getClass().getResource("/style/scene_skinBase.css"));
+
+        String stylePath = "";
+        switch (skinName){
+            case SkinNames.skinMoche:
+                stylePath = "/style/scene_skinBase.css";
+                break;
+            default:
+                break;
+        }
+        scene.getStylesheets().addAll(this.getClass().getResource(stylePath).toExternalForm());
+
     }
 }
