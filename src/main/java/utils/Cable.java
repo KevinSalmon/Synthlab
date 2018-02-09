@@ -102,6 +102,8 @@ public class Cable {
                 CableManager.getInstance().getCables().remove(this);
                 Pane node = (Pane) curve.getParent();
                 node.getChildren().removeAll(curve);
+                input.setFill(Color.BLACK);
+                output.setFill(Color.BLACK);
             }
         });
     }
