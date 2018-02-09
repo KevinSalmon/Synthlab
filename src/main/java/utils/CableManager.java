@@ -34,8 +34,8 @@ public class CableManager {
     public static CableManager getInstance() {
         synchronized (CableManager.class){
             if(instance == null) instance = new CableManager();
-            return instance;
         }
+        return CableManager.instance;
     }
 
 

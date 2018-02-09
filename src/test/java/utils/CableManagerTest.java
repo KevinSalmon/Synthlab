@@ -40,6 +40,7 @@ public class CableManagerTest extends  CableManager{
         Assert.assertTrue(this.instance == CableManager.getInstance());
     }
 
+
     /**
      * Test the creation of a curve
      * @throws OutputException must not happen
