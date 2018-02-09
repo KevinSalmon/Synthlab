@@ -1,5 +1,7 @@
 package controller;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +16,7 @@ import utils.CableManager;
 import utils.FxmlFilesNames;
 import utils.SkinNames;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -265,26 +264,23 @@ public class Controller {
     public void saveWorkspace(Pane workspace){
         CableManager cableManager = CableManager.getInstance();
 
-        Set<Module> modules = new HashSet<>();
+        Collection<Module> modulesToSave = new HashSet<>();
 
         for (Cable cable : cableManager.getCables() ) {
 
-            modules.add(cable.getModuleIn());
-            modules.add(cable.getModuleOut());
+            modulesToSave.add(cable.getModuleIn());
+            modulesToSave.add(cable.getModuleOut());
         }
 
-        PrintStream out = null;
+
+        //TODO : Gerer l'enregistrement dans un fichier
+        /*ObjectMapper mapper = new ObjectMapper();
+
         try {
-            out = new PrintStream(new FileOutputStream("HashSet.txt"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Iterator hashSetIterator = modules.iterator();
-        if(out != null){
-            while(hashSetIterator.hasNext()){
-                out.println(hashSetIterator.next());
-            }
-        }
+            mapper.writeValue(new File("result.json"), modulesToSave);
+        } catch (IOException e) {
+            Logger.getGlobal().severe(e.getMessage());
+        }*/
     }
 
     /**

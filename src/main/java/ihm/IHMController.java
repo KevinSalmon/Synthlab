@@ -222,7 +222,7 @@ public class IHMController implements Initializable{
          */
 
         if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
-            Pane module = draggedModule;//controller.createModule(fxml);
+            Pane module = draggedModule;
             module.setLayoutX(draggedModule.getLayoutX());
             module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
             module.setOnDragDetected(de -> onDragDetected(de, module));
