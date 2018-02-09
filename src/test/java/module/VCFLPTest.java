@@ -128,7 +128,6 @@ public class VCFLPTest {
         vcflp.generate();
         for(int i = 0; i < outputVCF.length;i++) assertEquals(outputVCF[i], outputVCO[i]);
 
-//        assertEquals("Frequency must be at Double.Max_Value", Double.MAX_VALUE, vcflp.getFrequency());
     }
 
 

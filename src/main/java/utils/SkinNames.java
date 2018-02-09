@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Classe permettant de retourner les noms et fichier CSS des différents skins de l'application
+ */
 public class SkinNames {
 
     public static final String SKIN_MOCHE_NAME = "skin moche";
