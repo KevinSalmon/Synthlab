@@ -20,6 +20,4 @@ public interface Subject {
      * Notifie tous les obseurveur abonnés à ce Subject
      */
     void notifyObseurveur();
-
-//    void setSkin(String skinName);
 }

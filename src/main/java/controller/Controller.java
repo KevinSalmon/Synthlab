@@ -190,7 +190,7 @@ public class Controller {
         scene.getRoot().setId("root_id");
         scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> ihmController.onRezize(newSceneWidth, null));
         scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> ihmController.onRezize(null, newSceneHeight));
-        setSkin(SkinNames.skinMocheName);
+        setSkin(SkinNames.SKIN_MOCHE_NAME);
     }
 
     /**
@@ -243,11 +243,11 @@ public class Controller {
 
         String stylePath = "";
         switch (skinName){
-            case SkinNames.skinMocheName:
-                stylePath = SkinNames.skinMocheFile;
+            case SkinNames.SKIN_MOCHE_NAME:
+                stylePath = SkinNames.SKIN_MOCHE_FILE;
                 break;
-            case SkinNames.skinMetal:
-                stylePath = SkinNames.skinMetalFile;
+            case SkinNames.SKIN_METAL:
+                stylePath = SkinNames.SKIN_METAL_FILE;
                 break;
             default:
                 break;
