@@ -78,7 +78,7 @@ public class VCATest {
         vco.generate();
         vca.generate();
 
-        assertEquals(6.0, vca.getDecibelsAttenuation());
+        assertEquals(0.0, vca.getDecibelsAttenuation());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class VCATest {
         vco.generate();
         vca.generate();
 
-        assertEquals(0.0, vca.getDecibelsAttenuation());
+        assertEquals(-12.0, vca.getDecibelsAttenuation());
     }
 
     // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
@@ -105,7 +105,7 @@ public class VCATest {
 
             double[] values = vca.getOutput().getValues();
             for (int j = 0; j < values.length; j++) {
-                assertEquals(values[j], 0.0);
+                assertEquals(values[j], 0.0,0.0);
             }
         }
     }
@@ -119,7 +119,7 @@ public class VCATest {
 
             double[] values = vca.getOutput().getValues();
             for (int j = 0; j < values.length; j++) {
-                assertEquals(values[j], 0.0);
+                assertEquals(values[j], 0.0,0.0);
             }
         }
     }

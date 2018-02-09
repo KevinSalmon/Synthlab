@@ -10,6 +10,8 @@ import filter.AttenuationFilter;
 import utils.PortType;
 import utils.Tuple;
 
+import static jdk.nashorn.internal.objects.Global.Infinity;
+
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée
     private UnitInputPort am; // Entrée : Modulation d'amplitude
@@ -65,33 +67,33 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         double[] outputs = out.getValues();
         double voltage = ams[0] * 12;
 
-        if (this.initialVoltage == null) {
-            this.initialVoltage = voltage;
-        }
+//        if (this.initialVoltage == null) {
+//            this.initialVoltage = voltage;
+//        }
+//
+//        if (this.amIsEmpty(ams)) {
+//            // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
+//            for (int i = start; i < limit; i++) {
+//                outputs[i] = 0.0;
+//            }
+//        }
+//        else if (voltage == 5.0 && a0 == 0.0) {
+//            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
+//            System.arraycopy(inputs, start, outputs, start, limit);
+//            this.attenuationFilter.setDecibelsAttenuation(0.0);
+//        }
+//        else {
+//            // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
+//            // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
+//
+//            double decibels = (voltage - this.initialVoltage) * 12;
+//            if (voltage == 5.0) { // Réglage manuel en façade du gain de base a0, obtenu uniquement lorsque am = 5V
+//                decibels = decibels + a0;
+//            }
 
-        if (this.amIsEmpty(ams)) {
-            // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
-            for (int i = start; i < limit; i++) {
-                outputs[i] = 0.0;
-            }
-        }
-        else if (voltage == 5.0 && a0 == 0.0) {
-            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
-            System.arraycopy(inputs, start, outputs, start, limit);
-            this.attenuationFilter.setDecibelsAttenuation(0.0);
-        }
-        else {
-            // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
-            // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
-
-            double decibels = (voltage - this.initialVoltage) * 12;
-            if (voltage == 5.0) { // Réglage manuel en façade du gain de base a0, obtenu uniquement lorsque am = 5V
-                decibels = decibels + a0;
-            }
-
-            this.attenuationFilter.setDecibelsAttenuation(decibels);
+            this.attenuationFilter.setDecibelsAttenuation(voltage==0?-Infinity:(Math.abs(voltage)-5)*12);
             this.attenuationFilter.generate(start, limit);
-        }
+//        }
     }
 
     private boolean amIsEmpty(double[] amValues) {
