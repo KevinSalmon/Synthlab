@@ -14,9 +14,11 @@ import utils.CableManager;
 import utils.FxmlFilesNames;
 import utils.SkinNames;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintStream;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static com.jsyn.JSyn.createSynthesizer;
@@ -248,6 +250,41 @@ public class Controller {
                 break;
         }
         scene.getStylesheets().addAll(this.getClass().getResource(stylePath).toExternalForm());
+    }
+
+    /**
+     * Sauvegarde du workspace
+     * @param workspace
+     */
+    public void saveWorkspace(Pane workspace){
+        CableManager cableManager = CableManager.getInstance();
+
+        Set<Module> modules = new HashSet<>();
+
+        for (Cable cable : cableManager.getCables() ) {
+
+            modules.add(cable.getModuleIn());
+            modules.add(cable.getModuleOut());
+        }
+
+        PrintStream out = null;
+        try {
+            out = new PrintStream(new FileOutputStream("HashSet.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Iterator hashSetIterator = modules.iterator();
+        if(out != null){
+            while(hashSetIterator.hasNext()){
+                out.println(hashSetIterator.next());
+            }
+        }
+    }
+
+    /**
+     * Chargement du workspace
+     */
+    public void loadWorkspace(){
 
     }
 }

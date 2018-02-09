@@ -82,7 +82,7 @@ public class IHMController implements Initializable{
      */
     @FXML
     void saveWorkspace(ActionEvent event){
-
+        controller.saveWorkspace(workspace);
     }
 
     /**
@@ -91,7 +91,7 @@ public class IHMController implements Initializable{
      */
     @FXML
     void loadWorkspace(ActionEvent event){
-
+        controller.loadWorkspace();
     }
 
     /**
