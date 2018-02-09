@@ -363,10 +363,15 @@ public class IHMController implements Initializable{
         out.setOnDragDone(de -> onDragDone(de, out));
 
         MenuItem itemSkin1 = new MenuItem();
-        itemSkin1.setText(SkinNames.skinMoche);
-        menuSkin.getItems().add(itemSkin1);
+        itemSkin1.setText(SkinNames.skinMocheName);
+        itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.skinMocheName));
 
-        itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.skinMoche));
+        MenuItem itemSkin2 = new MenuItem();
+        itemSkin2.setText(SkinNames.skinMetal);
+        itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.skinMetal));
+
+       menuSkin.getItems().addAll(itemSkin1,itemSkin2);
+
     }
 
     /**
