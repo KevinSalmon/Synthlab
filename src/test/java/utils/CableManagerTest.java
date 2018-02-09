@@ -6,6 +6,7 @@ import com.jsyn.JSyn;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import module.OutputModule;
 import module.VCA;
 import org.junit.Assert;
@@ -40,7 +41,7 @@ public class CableManagerTest extends  CableManager{
     }
 
     /**
-     * Test the creation of a line
+     * Test the creation of a curve
      * @throws OutputException must not happen
      */
     @Test
@@ -59,11 +60,11 @@ public class CableManagerTest extends  CableManager{
         Cable cableActual = this.currentCable;
         this.setInput(in, outputModule, PortType.INPUT.getType());
         assertEquals("Inputs are equals", in, cableActual.getInput());
-        Assert.assertNotNull(cableActual.getLine());
-        assertEquals("Start line and input  x coordinates are different", cableActual.getInput().getLayoutX(), cableActual.getLine().getStartX(), 0.1);
-        assertEquals("Start line and input  y coordinates are different", cableActual.getInput().getLayoutY(), cableActual.getLine().getStartY(), 0.1);
-        assertEquals("End line and output  x coordinates are different", cableActual.getOutput().getLayoutX(), cableActual.getLine().getEndX(), 0.1);
-        assertEquals("End line and output  y coordinates are different", cableActual.getOutput().getLayoutY(), cableActual.getLine().getEndY(), 0.1);
+        Assert.assertNotNull(cableActual.getCurve());
+        assertEquals("Start curve and input  x coordinates are different", cableActual.getInput().getLayoutX(), cableActual.getCurve().getStartX(), 0.1);
+        assertEquals("Start curve and input  y coordinates are different", cableActual.getInput().getLayoutY(), cableActual.getCurve().getStartY(), 0.1);
+        assertEquals("End curve and output  x coordinates are different", cableActual.getOutput().getLayoutX(), cableActual.getCurve().getEndX(), 0.1);
+        assertEquals("End curve and output  y coordinates are different", cableActual.getOutput().getLayoutY(), cableActual.getCurve().getEndY(), 0.1);
         assertEquals("size list is not 1", 1, this.cables.size());
     }
 
@@ -84,7 +85,14 @@ public class CableManagerTest extends  CableManager{
          Cable c = new Cable();
          c.setInput(in);
          c.setOutput(out);
-         c.setLine(new Line(in.getLayoutX(), in.getLayoutY(), out.getLayoutX(), out.getLayoutY()));
+         curve = new QuadCurve();
+         curve.setStartX(in.getLayoutX());
+         curve.setStartY(in.getLayoutY());
+         curve.setEndX(out.getLayoutX());
+         curve.setEndY(out.getLayoutY());
+         curve.setControlX((in.getLayoutX() + out.getLayoutX())/2);
+         curve.setControlY(in.getLayoutY() + out.getLayoutY());
+         c.setCurve(curve);
          this.cables.add(c);
 
          out.setLayoutY(1.0);

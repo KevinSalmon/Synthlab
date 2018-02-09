@@ -3,6 +3,7 @@ package utils;
 import exceptions.PortTypeException;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import module.Module;
 
 public class Cable {
@@ -14,7 +15,7 @@ public class Cable {
     
     private Circle input;
 
-    private Line line;
+    private QuadCurve curve;
 
     private Module moduleIn;
 
@@ -52,12 +53,12 @@ public class Cable {
         return input;
     }
 
-    public void setLine(Line line) {
-        this.line = line;
+    public void setCurve(QuadCurve curve) {
+        this.curve = curve;
     }
 
-    public Line getLine(){
-        return this.line;
+    public QuadCurve getCurve(){
+        return this.curve;
     }
 
     public Module getModuleIn() {

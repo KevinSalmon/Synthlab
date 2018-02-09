@@ -16,8 +16,12 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.stage.Screen;
+import utils.Cable;
+import utils.CableManager;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -383,7 +387,7 @@ public class IHMController implements Initializable{
              * Evite que le module se compare avec lui-meme et
              * verifie l'intersection de deux modules
              */
-            if (!(moduleToCheck instanceof Line) && moduleToCheck != module &&
+            if (!(moduleToCheck instanceof QuadCurve) && moduleToCheck != module &&
                     moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())) {
                 handleCollisionOnWorkspace(module, moduleToCheck);
                 return false;
