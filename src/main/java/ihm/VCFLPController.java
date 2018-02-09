@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectVCFLP;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPController extends SuperController implements Initializable, SubjectVCFLP{
+public class VCFLPController implements Initializable, SubjectVCFLP{
 
     @FXML
     Circle fm;
@@ -51,7 +52,7 @@ public class VCFLPController extends SuperController implements Initializable, S
         resonance.setOnMouseMoved(event -> notifyObseurveur());
 
         delete.setOnMouseClicked(eh -> {
-            removeWithConfirmPopup(vcflpObseurveur, pane);
+            Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane);
         });
     }
 

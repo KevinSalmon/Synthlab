@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectOscillo;
 import javafx.animation.Animation;
@@ -10,6 +11,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -20,6 +22,7 @@ import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.animation.Timeline;
 
 
@@ -44,6 +47,9 @@ public class OscilloController implements Initializable, SubjectOscillo{
     private NumberAxis yAxis;
 
     private Line line;
+
+    @FXML
+    private Button delete;
 
     /**
      * module observateur
@@ -73,6 +79,8 @@ public class OscilloController implements Initializable, SubjectOscillo{
         lineChart.setAxisSortingPolicy( LineChart.SortingPolicy.NONE);
 
         lineChart.setAnimated(false);
+
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(oscilloObseurveur, border));
     }
 
     @Override

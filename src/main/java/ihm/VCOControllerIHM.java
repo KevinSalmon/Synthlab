@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectVCO;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ import utils.OscillatorType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCOControllerIHM extends SuperController implements Initializable, SubjectVCO {
+public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @FXML
     private Pane border;
@@ -60,7 +61,7 @@ public class VCOControllerIHM extends SuperController implements Initializable, 
 
         LFO.setOnMouseClicked(eh -> obseuveurVCO.update(this));
 
-        delete.setOnMouseClicked(eh -> removeWithConfirmPopup(obseuveurVCO, border));
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurVCO, border));
     }
 
     private OscillatorType getOscillatorType(double index){
