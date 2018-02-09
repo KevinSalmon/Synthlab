@@ -5,9 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -15,15 +13,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-
-import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
-import javafx.stage.Screen;
-import utils.Cable;
-import utils.CableManager;
 import utils.FxmlFilesNames;
-
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -278,9 +270,6 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
-
-        // TODO: Corriger le décalage de la souris lorsque l'on ramènne un modules qui était en bas à droite
-        // Piste : Rajouter les valeurs de scrollPane.getViewportBounds() ci-dessous
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
@@ -341,10 +330,11 @@ public class IHMController implements Initializable{
         /**
          * Ajout par défaut d'un module de sortie au workspace
          */
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Pane out = controller.createModule(FxmlFilesNames.MODULE_OUT);
         workspace.getChildren().add(out);
-        out.setLayoutX(splitPane.getWidth()- 350);
-        out.setLayoutY(70);
+        out.setLayoutX(screenSize.getWidth() - 420);
+        out.setLayoutY(screenSize.getHeight() - 280);
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
     }
