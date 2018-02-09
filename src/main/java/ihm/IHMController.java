@@ -71,6 +71,24 @@ public class IHMController implements Initializable{
     }
 
     /**
+     * Fonction appelee lors du clic sur Workspace -> Save
+     * @param event
+     */
+    @FXML
+    void saveWorkspace(ActionEvent event){
+
+    }
+
+    /**
+     * Fonction appelee lors du clic sur Workspace -> Load
+     * @param event
+     */
+    @FXML
+    void loadWorkspace(ActionEvent event){
+
+    }
+
+    /**
      * Fonction appelee lors du clic sur Workspace -> Clean
      * @param event
      */

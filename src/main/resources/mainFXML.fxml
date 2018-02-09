@@ -19,6 +19,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Workspace">
                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#saveWorkspace" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadWorkspace" text="Load" />
                         <MenuItem mnemonicParsing="false" onAction="#cleanWorkspace" text="Clean" />
                     </items>
                 </Menu>
