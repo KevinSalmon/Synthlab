@@ -15,4 +15,14 @@ public interface SubjectOutput extends Subject {
      * @return
      */
     double getDecibelValue();
+
+    /**
+     * @return retourne la valeur de la checkbox record dans l'ihm
+     */
+    boolean getRecordEnabled();
+
+    /**
+     * @return retourne le nom du fichier spécifié pour l'enregistrement dans l'ihm
+     */
+    String getRecordFilename();
 }

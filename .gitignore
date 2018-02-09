@@ -128,3 +128,4 @@ fabric.properties
 .idea/
 Synthlab.iml
 
+*.wav
