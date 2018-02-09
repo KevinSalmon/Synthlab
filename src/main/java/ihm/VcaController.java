@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectVCA;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import utils.CableManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VcaController extends SuperController implements Initializable, SubjectVCA {
+public class VcaController implements Initializable, SubjectVCA {
 
     @FXML
     Pane pane;
@@ -56,7 +57,7 @@ public class VcaController extends SuperController implements Initializable, Sub
         gainSelector.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
 
         delete.setOnMouseClicked(eh -> {
-            removeWithConfirmPopup(vcaObseurveur, pane);
+            Controller.getInstance().removeWithConfirmPopup(vcaObseurveur, pane);
         });
     }
 

@@ -3,14 +3,22 @@ package controller;
 import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import module.*;
+import utils.Cable;
+import utils.CableManager;
 import utils.FxmlFilesNames;
+import utils.SkinNames;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintStream;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static com.jsyn.JSyn.createSynthesizer;
@@ -33,6 +41,8 @@ public class Controller {
     private static volatile Controller instance;
 
     private static final Logger Log = Logger.getLogger( Controller.class.getName() );
+
+    private Scene scene;
 
     /**
      *
@@ -109,7 +119,6 @@ public class Controller {
                 ((Subject) fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
                 break;
-
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();
                 ((Subject)fxmlLoader.getController()).register(osc);
@@ -177,7 +186,111 @@ public class Controller {
     }
 
     public void setScene(Scene scene) {
+        this.scene = scene;
+        scene.getRoot().setId("root_id");
         scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> ihmController.onRezize(newSceneWidth, null));
         scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> ihmController.onRezize(null, newSceneHeight));
+        setSkin(SkinNames.SKIN_MOCHE_NAME);
+    }
+
+    /**
+     * Suppression du module avec popup de confirmation
+     * @param observeur a supprimer
+     * @param pane lie a l'observeur
+     */
+    public void removeWithConfirmPopup(Obseurveur observeur, Pane pane){
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setHeaderText("Voulez-vous vraiment supprimer ce module ?");
+        confirm.setTitle("Suppression d'un module");
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                remove(observeur, pane);
+            }
+        });
+    }
+
+    /**
+     * Suppression du module sans popup de confirmation
+     * @param observeur a supprimer
+     * @param pane lie a l'observeur
+     */
+    private void remove(Obseurveur observeur, Pane pane) {
+        List<Cable> cables = CableManager.getInstance().getCables();
+
+        List<Node> workspaceChildren = ((Pane)pane.getParent()).getChildren();
+
+        for (int i=0; i < cables.size(); i++) {
+            Cable cable = cables.get(i);
+            if(cable.getModuleIn().equals(observeur) ||
+                    cable.getModuleOut().equals(observeur)){
+
+                cable.disconnect();
+
+                workspaceChildren.remove(cable.getCurve());
+                cables.remove(i);
+                i--;
+            }
+        }
+
+        Controller controller = Controller.getInstance();
+        controller.getSynth().remove(observeur.getReference());
+
+        workspaceChildren.remove(pane);
+    }
+
+    public void setSkin(String skinName){
+
+
+        String stylePath = "";
+        switch (skinName){
+            case SkinNames.SKIN_MOCHE_NAME:
+                stylePath = SkinNames.SKIN_MOCHE_FILE;
+                break;
+            case SkinNames.SKIN_METAL:
+                stylePath = SkinNames.SKIN_METAL_FILE;
+                break;
+            default:
+                break;
+        }
+
+        Logger.getGlobal().info(skinName+" "+stylePath);
+        scene.getStylesheets().clear();
+        scene.getStylesheets().addAll(this.getClass().getResource(stylePath).toExternalForm());
+    }
+
+    /**
+     * Sauvegarde du workspace
+     * @param workspace
+     */
+    public void saveWorkspace(Pane workspace){
+        CableManager cableManager = CableManager.getInstance();
+
+        Set<Module> modules = new HashSet<>();
+
+        for (Cable cable : cableManager.getCables() ) {
+
+            modules.add(cable.getModuleIn());
+            modules.add(cable.getModuleOut());
+        }
+
+        PrintStream out = null;
+        try {
+            out = new PrintStream(new FileOutputStream("HashSet.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Iterator hashSetIterator = modules.iterator();
+        if(out != null){
+            while(hashSetIterator.hasNext()){
+                out.println(hashSetIterator.next());
+            }
+        }
+    }
+
+    /**
+     * Chargement du workspace
+     */
+    public void loadWorkspace(){
+
     }
 }

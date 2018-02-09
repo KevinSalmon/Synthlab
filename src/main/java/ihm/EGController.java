@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectEG;
 import controller.SubjectVCO;
@@ -16,7 +17,7 @@ import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EGController extends SuperController implements Initializable, SubjectEG {
+public class EGController implements Initializable, SubjectEG {
 
     @FXML
     private Pane border;
@@ -62,7 +63,7 @@ public class EGController extends SuperController implements Initializable, Subj
         release.setOnMouseClicked(e -> notifyObseurveur());
         release.setOnMouseMoved(event -> notifyObseurveur());
 
-        delete.setOnMouseClicked(eh -> removeWithConfirmPopup(obseuveurEG, border));
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurEG, border));
     }
 
     @Override

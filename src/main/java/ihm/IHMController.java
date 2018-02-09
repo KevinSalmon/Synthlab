@@ -5,20 +5,19 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-
-import javafx.scene.shape.Line;
-import javafx.stage.Screen;
+import javafx.scene.shape.QuadCurve;
 import utils.FxmlFilesNames;
+import java.awt.*;
+
+import utils.SkinNames;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,6 +41,9 @@ public class IHMController implements Initializable{
 
     @FXML
     private Pane moduleMenu;
+
+    @FXML
+    private Menu menuSkin;
 
     /**
      * Constantes locales
@@ -72,6 +74,24 @@ public class IHMController implements Initializable{
     void closeApplication(ActionEvent event) {
         Platform.exit();
         controller.close();
+    }
+
+    /**
+     * Fonction appelee lors du clic sur Workspace -> Save
+     * @param event
+     */
+    @FXML
+    void saveWorkspace(ActionEvent event){
+        controller.saveWorkspace(workspace);
+    }
+
+    /**
+     * Fonction appelee lors du clic sur Workspace -> Load
+     * @param event
+     */
+    @FXML
+    void loadWorkspace(ActionEvent event){
+        controller.loadWorkspace();
     }
 
     /**
@@ -274,9 +294,6 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
-
-        // TODO: Corriger le décalage de la souris lorsque l'on ramènne un modules qui était en bas à droite
-        // Piste : Rajouter les valeurs de scrollPane.getViewportBounds() ci-dessous
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
@@ -337,12 +354,24 @@ public class IHMController implements Initializable{
         /**
          * Ajout par défaut d'un module de sortie au workspace
          */
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Pane out = controller.createModule(FxmlFilesNames.MODULE_OUT);
         workspace.getChildren().add(out);
-        out.setLayoutX(splitPane.getWidth()- 350);
-        out.setLayoutY(70);
+        out.setLayoutX(screenSize.getWidth() - 420);
+        out.setLayoutY(screenSize.getHeight() - 280);
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
+
+        MenuItem itemSkin1 = new MenuItem();
+        itemSkin1.setText(SkinNames.SKIN_MOCHE_NAME);
+        itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_MOCHE_NAME));
+
+        MenuItem itemSkin2 = new MenuItem();
+        itemSkin2.setText(SkinNames.SKIN_METAL);
+        itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_METAL));
+
+       menuSkin.getItems().addAll(itemSkin1,itemSkin2);
+
     }
 
     /**
@@ -383,7 +412,7 @@ public class IHMController implements Initializable{
              * Evite que le module se compare avec lui-meme et
              * verifie l'intersection de deux modules
              */
-            if (!(moduleToCheck instanceof Line) && moduleToCheck != module &&
+            if (!(moduleToCheck instanceof QuadCurve) && moduleToCheck != module &&
                     moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())) {
                 handleCollisionOnWorkspace(module, moduleToCheck);
                 return false;

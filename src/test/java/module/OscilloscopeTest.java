@@ -4,9 +4,22 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.ports.UnitPort;
+
+import controller.Obseurveur;
+import controller.SubjectEG;
+import controller.SubjectOscillo;
+import utils.PortType;
+import utils.Tuple;
+
+import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+
+
 
 public class OscilloscopeTest {
 
@@ -38,4 +51,84 @@ public class OscilloscopeTest {
             }
         }
     }
+
+    @Test
+    public void getPortTest(){
+        Tuple<UnitPort, PortType> proto = oscillo.getPort(PortType.OUTPUT.getType());
+        Tuple<UnitPort, PortType> protoin = oscillo.getPort(PortType.INPUT.getType());
+
+        Assert.assertEquals("Output is not an outputPort",PortType.OUTPUT, proto.getRight());
+        Assert.assertEquals("Input is not an input port ",PortType.INPUT, protoin.getRight());
+
+
+        Assert.assertNull("Should get null", oscillo.getPort("port_qui_n'existe_pas"));
+
+        //Reference
+        //    Assert.assertEquals("Should get the oscillo itself", oscillo, oscillo.getReference());
+    }
+
+
+
+    @Test
+    public void getReferenceTest(){
+        Assert.assertTrue("getReference does not return the object", oscillo.getReference().equals(oscillo));
+    }
+
+
+    @Test
+    public void OutputTest(){
+
+        UnitOutputPort output = oscillo.getOutput();
+
+        Assert.assertTrue("The name of the output is not 'output'", output.getName().equals(PortType.OUTPUT.getType()));
+        Assert.assertTrue("The output must have only one part", output.getNumParts() == 1);
+        Assert.assertTrue("The output should not have any connection from now", !output.isConnected());
+
+    }
+
+
+
+    @Test
+    public void UpdateTest() {
+
+        oscillo.getScreen();
+
+        SubjectOscillo subject = new SubjectOscillo() {
+            Obseurveur obs;
+
+            @Override
+            public void register(Obseurveur o) {
+                this.obs = o;
+
+            }
+
+            @Override
+            public void remove(Obseurveur o) {
+
+            }
+
+            @Override
+            public void notifyObseurveur() {
+                obs.update(this);
+            }
+
+            @Override
+            public void receiveSeries(double[] series) {
+
+
+            }
+
+
+        };
+
+    }
+
+
+
+
+
+
+
+
 }
+

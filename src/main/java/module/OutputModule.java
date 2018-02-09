@@ -6,21 +6,30 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.UnitSource;
+import com.jsyn.util.WaveRecorder;
 import controller.Obseurveur;
 import controller.SubjectOutput;
 import filter.AttenuationFilter;
 import utils.PortType;
 import utils.Tuple;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {
 
+    private Synthesizer synth;
     private UnitInputPort input;
     private UnitOutputPort output;
     private Boolean mute;
     private AttenuationFilter attenuationFilter;
     private LineOut lineOut;
+    private File waveFile = null;
+    private WaveRecorder recorder;
 
     public OutputModule(Synthesizer synth) {
+        this.synth = synth;
         this.input = new UnitInputPort(PortType.INPUT.getType());
         addPort(this.input, PortType.INPUT.getType());
         this.output = new UnitOutputPort(PortType.OUTPUT.getType());
@@ -95,6 +104,13 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     public void update(SubjectOutput o) {
         this.setMute(o.getMuteValue());
         this.setDecibelsAttenuation(o.getDecibelValue());
+
+        if(o.getRecordEnabled()) {
+            this.startRecording(o.getRecordFilename());
+        }
+        else {
+            this.stopRecording();
+        }
     }
 
     @Override
@@ -117,5 +133,35 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     public UnitOutputPort getOutputTest() {
         return this.output;
     }
-}
 
+    /**
+     * Lance l'enregistrement
+     * @param pathname Nom du fichier de sortie
+     */
+    private void startRecording(String pathname) {
+        if(this.waveFile == null) { // Si aucun enregistremnt est en cours
+            this.waveFile = new File(pathname);
+            try {
+                this.recorder = new WaveRecorder(this.synth, this.waveFile);
+                for (int i = 0; i < this.output.getNumParts(); i++) {
+                    this.output.connect(i, this.recorder.getInput(), i);
+                }
+                this.recorder.start();
+            } catch (FileNotFoundException e) {
+                Logger.getGlobal().warning(e.toString());
+            }
+        }
+    }
+
+    public void stopRecording() {
+        if (this.recorder != null) { // Si un enregistrement est en cours
+            this.recorder.stop();
+            try {
+                this.recorder.close();
+            } catch (IOException e) {
+                Logger.getGlobal().severe(e.toString());
+            }
+            this.waveFile = null;
+        }
+    }
+}

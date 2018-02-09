@@ -1,5 +1,6 @@
 package ihm;
 
+import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectReplicateur;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import utils.CableManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReplicateurController extends SuperController implements Initializable, SubjectReplicateur{
+public class ReplicateurController implements Initializable, SubjectReplicateur{
 
     @FXML
     private Pane pane;
@@ -62,7 +63,7 @@ public class ReplicateurController extends SuperController implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         delete.setOnMouseClicked(eh -> {
-            removeWithConfirmPopup(replicateurObseurveur, pane);
+            Controller.getInstance().removeWithConfirmPopup(replicateurObseurveur, pane);
         });
     }
 }

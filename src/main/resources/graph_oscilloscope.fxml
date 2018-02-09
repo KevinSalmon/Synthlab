@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #E68C33;" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.OscilloController">
-            <children>
+<Pane fx:id="border" styleClass="oscillo_module" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.OscilloController">
+    <children>
       <Circle id="out" fx:id="out" fill="Black" layoutX="225.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle id="in" fx:id="in" fill="Black" layoutX="48.0" layoutY="261.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="74.0" layoutY="253.0" text="in" />
@@ -20,5 +20,6 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
-            </children>
-       </Pane>
+        <Button fx:id="delete" layoutX="274.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED" />
+    </children>
+</Pane>

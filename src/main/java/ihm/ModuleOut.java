@@ -4,14 +4,13 @@ import controller.Obseurveur;
 import controller.SubjectOutput;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import utils.CableManager;
 import utils.PortType;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,15 @@ public class ModuleOut implements Initializable, SubjectOutput{
 
 	@FXML
 	Spinner<Integer> btnAttenuateur;
-	
+
 	@FXML
 	CheckBox checkboxMute;
+
+	@FXML
+	CheckBox checkbox_record;
+
+	@FXML
+	TextField filename_record;
 
 	@FXML
 	Circle drawInput;
@@ -39,20 +44,23 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	public void initialize(URL location, ResourceBundle resources) {
 		SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
 				new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
-				INITIAL_VALUE);
+						INITIAL_VALUE);
 
 		valueFactory.amountToStepByProperty().setValue(20);
 
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
-        obseurveurList = new ArrayList<>();
+		obseurveurList = new ArrayList<>();
 
 		checkboxMute.setSelected(false);
-        checkboxMute.setOnAction(event -> notifyObseurveur());
+		checkboxMute.setOnAction(event -> notifyObseurveur());
 
-        btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
-        btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
-        btnAttenuateur.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
+		checkbox_record.setSelected(false);
+		checkbox_record.setOnAction(event -> notifyRecordObseurveur());
+
+		btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
+		btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
+		btnAttenuateur.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
 
 	}
 
@@ -83,40 +91,76 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	}
 
 
-    private List<Obseurveur<SubjectOutput>> obseurveurList;
+	private List<Obseurveur<SubjectOutput>> obseurveurList;
 
-    @Override
-    public boolean getMuteValue() {
-        return checkboxMute.isSelected();
-    }
+	@Override
+	public boolean getMuteValue() {
+		return checkboxMute.isSelected();
+	}
 
-    @Override
-    public double getDecibelValue() {
-        return btnAttenuateur.getValue();
-    }
+	@Override
+	public double getDecibelValue() {
+		return btnAttenuateur.getValue();
+	}
 
-    @Override
-    public void register(Obseurveur o) {
-        if(o != null){
-            obseurveurList.add(o);
+	@Override
+	public boolean getRecordEnabled() {
+		return checkbox_record.isSelected();
+	}
+
+	@Override
+	public String getRecordFilename() {
+		return filename_record.getText();
+	}
+
+	@Override
+	public void register(Obseurveur o) {
+		if(o != null){
+			obseurveurList.add(o);
 			CableManager cableManager;
 			cableManager = CableManager.getInstance();
 			cableManager.addListener(drawInput, o.getReference(), PortType.INPUT, paneMain);
-            o.update(this);
-        }
-    }
+			o.update(this);
+		}
+	}
 
-    @Override
-    public void remove(Obseurveur o) {
+	@Override
+	public void remove(Obseurveur o) {
 		if(o != null){
 			obseurveurList.remove(o);
 		}
-    }
+	}
 
-    @Override
-    public void notifyObseurveur() {
-        for(Obseurveur<SubjectOutput> o : obseurveurList){
-            o.update(this);
-        }
-    }
+	@Override
+	public void notifyObseurveur() {
+		for(Obseurveur<SubjectOutput> o : obseurveurList){
+			o.update(this);
+		}
+	}
+
+	public void notifyRecordObseurveur() {
+		File fileExists = new File(this.getRecordFilename());
+
+		if (this.getRecordEnabled() && fileExists.exists()) { // Si on veux enregistrer, on vérifie qu'un fichier de sortie n'existe pas déjà
+			Alert confirm = new Alert(Alert.AlertType.WARNING);
+			confirm.setHeaderText("Le fichier de sortie \"" + this.filename_record.getText() + "\" existe déjà. Voulez-vous l'écraser ?");
+			confirm.getButtonTypes().add(ButtonType.CANCEL);
+			confirm.setTitle("Fichier de sortie existant");
+			confirm.showAndWait().ifPresent(response -> {
+				if (response == ButtonType.OK) {
+					for(Obseurveur<SubjectOutput> o : obseurveurList){
+						o.update(this);
+					}
+				}
+				else {
+					this.checkbox_record.setSelected(false);
+				}
+			});
+		}
+		else {
+			for(Obseurveur<SubjectOutput> o : obseurveurList){
+				o.update(this);
+			}
+		}
+	}
 }

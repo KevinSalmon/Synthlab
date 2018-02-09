@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
-
-<Pane fx:id="pane" centerShape="false" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" scaleShape="false" style="-fx-background-color: #ff00d4;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VCFLPController">
+<?import javafx.scene.control.Button?>
+<Pane fx:id="pane" styleClass="vcf_module" centerShape="false" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VCFLPController">
    <children>
       <Circle fx:id="fm" layoutX="26.0" layoutY="37.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="17.0" layoutY="9.0" text="fm" />
@@ -19,5 +19,6 @@
 
       <Slider fx:id="resonance" layoutX="45.0" layoutY="38.0" majorTickUnit="2" minorTickCount="0" max="10.0" prefHeight="15.0" prefWidth="217.0" value="1.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="94.0" layoutY="22.0" text="Résonance" />
+      <Button fx:id="delete" layoutX="274.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED" />
    </children>
 </Pane>

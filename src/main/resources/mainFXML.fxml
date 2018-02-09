@@ -19,8 +19,12 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Workspace">
                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#saveWorkspace" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadWorkspace" text="Load" />
                         <MenuItem mnemonicParsing="false" onAction="#cleanWorkspace" text="Clean" />
                     </items>
+                </Menu>
+                <Menu fx:id="menuSkin" mnemonicParsing="false" text="Skin">
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
@@ -32,7 +36,7 @@
     </top>
     <center>
         <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0">
-            <SplitPane fx:id="splitPane" dividerPositions="0.1" orientation="VERTICAL" prefHeight="720.0" prefWidth="1280.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.1" orientation="VERTICAL" prefWidth="480.0">
                 <items>
                     <Pane fx:id="moduleMenu" prefHeight="44.0" minHeight="44.0" maxHeight="44.0" />
 
