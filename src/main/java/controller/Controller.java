@@ -26,8 +26,6 @@ import static com.jsyn.JSyn.createSynthesizer;
  * Controlleur principal de l'application
  */
 public class Controller {
-
-    List<Module> modules;
     /**
      * controlleur de l'ihm principale
      */
@@ -37,10 +35,19 @@ public class Controller {
      */
     Synthesizer synth;
 
+    /**
+     * Instance unique du Controller
+     */
     private static volatile Controller instance;
 
+    /**
+     * Logger
+     */
     private static final Logger Log = Logger.getLogger( Controller.class.getName() );
 
+    /**
+     * Scene de l'application
+     */
     private Scene scene;
 
     /**
@@ -48,7 +55,6 @@ public class Controller {
      */
     protected Controller(){
         synth = createSynthesizer();
-        modules = new ArrayList<>();
         synth.start();
     }
 
@@ -58,7 +64,6 @@ public class Controller {
      */
     public Controller(IHMController ihmController){
         synth = createSynthesizer();
-        modules = new ArrayList<>();
         this.ihmController = ihmController;
 
         ihmController.setController(this);
@@ -66,15 +71,15 @@ public class Controller {
         synth.start();
     }
 
+    /**
+     *
+     * @return L'instance du singleton Controller
+     */
     public static Controller getInstance(){
         synchronized (Controller.class){
             if(instance == null) instance = new Controller();
             return instance;
         }
-    }
-
-    public void addModule(Module module){
-        modules.add(module);
     }
 
     /**
@@ -148,10 +153,20 @@ public class Controller {
         return m;
     }
 
+    /**
+     * Charge le Fxml d'une miniature de module
+     * @param fxmlMiniatureFileName nom du fichier fxml
+     * @return le Pane de la miniature
+     */
     public Pane createMiniature(String fxmlMiniatureFileName){
         return loadFxml(fxmlMiniatureFileName);
     }
 
+    /**
+     * Charge un Fxml et retourne le Pane instancié
+     * @param fileName nom du Fxml à instancier
+     * @return Pane du Fxml chargé
+     */
     private Pane loadFxml(String fileName){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(fileName));
@@ -164,18 +179,33 @@ public class Controller {
         return pane;
     }
 
+    /**
+     * Appelé quand on quitte l'application
+     */
     public void close() {
         synth.stop();
     }
 
+    /**
+     * Getter du Synthesizer de l'application
+     * @return Synthesizer
+     */
     public Synthesizer getSynth() {
         return synth;
     }
 
+    /**
+     * Getter de IHMController
+     * @return IHMController
+     */
     public IHMController getIhmController() {
         return ihmController;
     }
 
+    /**
+     * Setter de l'IHMController
+     * @param ihmController nouvel IHMController
+     */
     public void setIhmController(IHMController ihmController) {
         if(ihmController != null){
             this.ihmController = ihmController;
@@ -184,6 +214,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Setter de la scene root de l'application
+     * @param scene de l'application
+     */
     public void setScene(Scene scene) {
         this.scene = scene;
         scene.getRoot().setId("root_id");
@@ -237,9 +271,11 @@ public class Controller {
         workspaceChildren.remove(pane);
     }
 
+    /**
+     * Setter du skin de l'application
+     * @param skinName nom du skin
+     */
     public void setSkin(String skinName){
-
-
         String stylePath = "";
         switch (skinName){
             case SkinNames.SKIN_MOCHE_NAME:
