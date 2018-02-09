@@ -1,5 +1,8 @@
 package utils;
 
+/**
+ * Classe permettant de retourner les noms des fichier fxml utilisés par l'application
+ */
 public class FxmlFilesNames {
 
     /**
