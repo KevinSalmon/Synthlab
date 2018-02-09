@@ -55,9 +55,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         addPort(output);
         fm = new UnitInputPort(PortType.FM.getType());
         addPort(fm);
-        audioSignal = new AudioSignal(0.5, F0);
-        currentOsc.frequency.set(audioSignal.getFrequency());
-        currentOsc.amplitude.set(audioSignal.getAmplitude());
+        audioSignal = new AudioSignal(1.0/12.0, F0);
+        currentOsc.frequency.set(F0);
+        currentOsc.amplitude.set(5.0/12.0);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         //Calcul la fréquence
         for (int i = start; i < limit; i++) {
             if(lfo){
-                freq[i] = LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN);
+                freq[i] = LFO_MIN + ((reglageFin+1.0)/2.0) * (LFO_MAX-LFO_MIN);
             }
             else {freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*mod[i]));}
         }
@@ -224,9 +224,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)){
-            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(output,PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.FM);
+        else if(PortType.FM.getType().equals(name)) return new Tuple<>(fm,PortType.FM);
         return null;
     }
 
