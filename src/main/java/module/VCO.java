@@ -224,9 +224,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)){
-            return new Tuple<>(output,PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple<>(fm,PortType.FM);
+        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.FM);
         return null;
     }
 
