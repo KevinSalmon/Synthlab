@@ -1,6 +1,7 @@
 package utils;
 
 import exceptions.PortTypeException;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -24,7 +25,7 @@ public class Cable {
     private Module moduleIn;
 
     private Module moduleOut;
-    private final Color[] colors = {Color.BLACK, Color.PURPLE, Color.BLUE, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN};
+    private static final Color[] colors = {Color.BLACK, Color.PURPLE, Color.BLUE, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN};
     private int i = 1;
 
     public String getOutputName() {
@@ -91,19 +92,16 @@ public class Cable {
         moduleOut.connect(moduleIn, outputName, inputName);
         curve.setOnMousePressed(event ->
         {
-            switch (event.getButton()) {
-                case PRIMARY:
-                    curve.setStroke(colors[i % colors.length]);
-                    input.setFill(colors[i % colors.length]);
-                    output.setFill(colors[i % colors.length]);
-                    i++;
-                    break;
-                case SECONDARY:
-                    disconnect();
-                    CableManager.getInstance().getCables().remove(this);
-                    Pane node = (Pane) curve.getParent();
-                    node.getChildren().removeAll(curve);
-                    break;
+            if (event.getButton() == MouseButton.PRIMARY) {
+                curve.setStroke(colors[i % colors.length]);
+                input.setFill(colors[i % colors.length]);
+                output.setFill(colors[i % colors.length]);
+                i++;
+            }else if(event.getButton() == MouseButton.SECONDARY){
+                disconnect();
+                CableManager.getInstance().getCables().remove(this);
+                Pane node = (Pane) curve.getParent();
+                node.getChildren().removeAll(curve);
             }
         });
     }
