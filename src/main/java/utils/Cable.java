@@ -1,11 +1,15 @@
 package utils;
 
 import exceptions.PortTypeException;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import module.Module;
 
+/**
+ * Pojo for a cable
+ */
 public class Cable {
 
     private String outputName;
@@ -20,6 +24,8 @@ public class Cable {
     private Module moduleIn;
 
     private Module moduleOut;
+    private final Color[] colors = {Color.BLACK, Color.PURPLE, Color.BLUE, Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN};
+    private int i = 1;
 
     public String getOutputName() {
         return outputName;
@@ -77,10 +83,36 @@ public class Cable {
         this.moduleOut = moduleOut;
     }
 
+    /**
+     * Connect two cables and add a eventHandler
+     * @throws PortTypeException when the two ports ar not compatible
+     */
     public void connect() throws PortTypeException {
         moduleOut.connect(moduleIn, outputName, inputName);
+        curve.setOnMousePressed(event ->
+        {
+            switch (event.getButton()) {
+                case PRIMARY:
+                    curve.setStroke(colors[i % colors.length]);
+                    input.setFill(colors[i % colors.length]);
+                    output.setFill(colors[i % colors.length]);
+                    i++;
+                    break;
+                case SECONDARY:
+                    disconnect();
+                    CableManager.getInstance().getCables().remove(this);
+                    Pane node = (Pane) curve.getParent();
+                    node.getChildren().removeAll(curve);
+                    break;
+            }
+        });
     }
+
+    /**
+     * Disconnect the two modules
+     */
     public void disconnect() {
         moduleOut.disconnect(moduleIn, outputName, inputName);
     }
+
 }

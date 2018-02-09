@@ -3,10 +3,8 @@ package utils;
 import exceptions.OutputException;
 import exceptions.PortTypeException;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.QuadCurve;
 import module.Module;
@@ -86,6 +84,7 @@ public class CableManager {
             currentCable.setModuleIn(moduleIn);
             currentCable.connect();
             curve.toFront();
+
         } catch (PortTypeException e) {
             Logger.getGlobal().severe(e.getMessage()
             );
