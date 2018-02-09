@@ -218,7 +218,7 @@ public class Controller {
 
                 cable.disconnect();
 
-                workspaceChildren.remove(cable.getLine());
+                workspaceChildren.remove(cable.getCurve());
                 cables.remove(i);
                 i--;
             }
