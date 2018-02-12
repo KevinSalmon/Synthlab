@@ -12,7 +12,7 @@
       <CheckBox fx:id="checkboxMute" id="checkbox_mute" layoutX="103.0" layoutY="14.0" mnemonicParsing="false" text="Mute" />
       <Spinner id="btn_attenuateur" fx:id="btnAttenuateur" layoutX="103.0" layoutY="57.0" />
       <Label id="label_attenuateur" layoutX="286.0" layoutY="62.0" text="Atténuateur" />
-      <Circle fx:id="drawInput" fill="#030303" layoutX="49.0" layoutY="46.0" opacity="0.94" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="drawInput" layoutX="49.0" layoutY="46.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
       <CheckBox id="checkbox_record" fx:id="checkbox_record" layoutX="295.0" layoutY="14.0" mnemonicParsing="false" text="Record" />
       <TextField fx:id="filename_record" id="filename_record" text="Output.wav" layoutX="170.0" layoutY="10.0" prefHeight="26.0" prefWidth="115.0" />
    </children>
