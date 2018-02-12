@@ -143,6 +143,11 @@ public class Controller {
                 ((Subject) fxmlLoader.getController()).register(bruitBlancModule);
                 synth.add(bruitBlancModule);
                 break;
+            case FxmlFilesNames.SEQ:
+                Sequenceur sequenceur = new Sequenceur();
+                ((Subject) fxmlLoader.getController()).register(sequenceur);
+                synth.add(sequenceur);
+                break;
             default:
                 break;
         }

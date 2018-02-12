@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="306.0" prefWidth="452.0" styleClass="seq" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.SeqController">
+   <children>
+      <Slider fx:id="sld1" blockIncrement="0.1" layoutX="29.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld2" blockIncrement="0.1" layoutX="79.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld3" blockIncrement="0.1" layoutX="226.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld4" blockIncrement="0.1" layoutX="178.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld5" blockIncrement="0.1" layoutX="133.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld6" blockIncrement="0.1" layoutX="275.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld7" blockIncrement="0.1" layoutX="325.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld8" blockIncrement="0.2" layoutX="376.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Circle fx:id="in" layoutX="53.0" layoutY="238.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="out" layoutX="399.0" layoutY="238.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="42.0" layoutY="276.0" text="in" />
+      <Label layoutX="388.0" layoutY="276.0" text="out" />
+      <Button fx:id="delete" layoutX="425.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
+   </children>
+</Pane>

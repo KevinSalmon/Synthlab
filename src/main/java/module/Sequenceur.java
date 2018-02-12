@@ -11,12 +11,15 @@ import utils.Tuple;
 public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
     private UnitInputPort inputPort;
     private UnitOutputPort outputPort;
+    double [] values = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    private int actualValue;
 
     public Sequenceur(){
         inputPort = new UnitInputPort(PortType.INPUT.getType());
         outputPort = new UnitOutputPort(PortType.OUTPUT.getType());
         addPort(inputPort);
         addPort(outputPort);
+        actualValue = 0;
     }
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
@@ -27,6 +30,11 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
 
     @Override
     public void update(SubjectSeq o) {
+
+    }
+
+    @Override
+    public void generate(int start, int limit){
 
     }
 

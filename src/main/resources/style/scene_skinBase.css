@@ -50,3 +50,7 @@ SplitPane{
     -fx-border-style: solid;
 }
 
+.seq{
+    -fx-background-color: #810085;
+}
+
