@@ -117,9 +117,9 @@ public class ModuleTest {
     }
 
     private void waitABit() throws InterruptedException {
-        if(!synth.isRunning()){
+
             synth.start();
-        }
+
         synth.sleepFor(0.01);
     }
 
