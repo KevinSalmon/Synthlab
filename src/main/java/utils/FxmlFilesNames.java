@@ -27,6 +27,8 @@ public class FxmlFilesNames {
 
     public static final String MINIATURE_EG = "/eg_miniature.fxml";
 
+    public static final String MINIATURE_BRUITBLANC = "/bruitBlanc_miniature.fxml";
+
     /**
      * Modules
      */
@@ -45,6 +47,8 @@ public class FxmlFilesNames {
     public static final String VCFHP = "/graph_vcfhp.fxml";
 
     public static final String EG = "/graph_eg.fxml";
+
+    public static final String BRUITBLANC = "/graph_bruitBlanc.fxml";
 
     private FxmlFilesNames(){}
 }

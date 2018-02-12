@@ -133,11 +133,15 @@ public class Controller {
                 ((Subject)fxmlLoader.getController()).register(osc);
                 synth.add(osc);
                 break;
-
             case FxmlFilesNames.EG:
                 EG eg = new EG();
                 ((Subject) fxmlLoader.getController()).register(eg);
                 synth.add(eg);
+                break;
+            case FxmlFilesNames.BRUITBLANC:
+                BruitBlancModule bruitBlancModule = new BruitBlancModule();
+                ((Subject) fxmlLoader.getController()).register(bruitBlancModule);
+                synth.add(bruitBlancModule);
                 break;
             default:
                 break;

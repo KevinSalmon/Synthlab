@@ -1,0 +1,64 @@
+package module;
+
+import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.ports.UnitPort;
+import com.jsyn.unitgen.WhiteNoise;
+import controller.Obseurveur;
+import controller.SubjectBruitBlanc;
+import utils.PortType;
+import utils.Tuple;
+
+public class BruitBlancModule extends Module implements Obseurveur<SubjectBruitBlanc> {
+
+    private UnitOutputPort out;
+    private WhiteNoise whiteNoise;
+
+    public BruitBlancModule(){
+        this.out = new UnitOutputPort(PortType.OUTPUT.getType());
+        addPort(out, PortType.OUTPUT.getType());
+
+        whiteNoise = new WhiteNoise();
+    }
+
+    @Override
+    Tuple<UnitPort, PortType> getPort(String name) {
+        if(name.equals(PortType.OUTPUT.getType()))
+            return new Tuple(getPortByName(name),PortType.OUTPUT);
+        return null;
+    }
+
+    @Override
+    public void generate(int start, int limit) {
+
+        whiteNoise.generate(start, limit);
+
+        double[] outputs = whiteNoise.getOutput().getValues();
+        double[] outputsModule = this.out.getValues();
+
+        System.arraycopy(outputs, start, outputsModule, start, limit);
+    }
+
+    @Override
+    public void update(SubjectBruitBlanc o) { throw new UnsupportedOperationException("Methode inutilisee"); }
+
+    @Override
+    public Module getReference() {
+        return this;
+    }
+
+    public UnitOutputPort getOut() {
+        return out;
+    }
+
+    public void setOut(UnitOutputPort out) {
+        this.out = out;
+    }
+
+    public WhiteNoise getWhiteNoise() {
+        return whiteNoise;
+    }
+
+    public void setWhiteNoise(WhiteNoise whiteNoise) {
+        this.whiteNoise = whiteNoise;
+    }
+}
