@@ -8,13 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import module.VCFLP;
+import module.VCF;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class VCFLPController implements Initializable, SubjectVCF {
 
@@ -99,7 +98,7 @@ public class VCFLPController implements Initializable, SubjectVCF {
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
-        frequence.setText("fréquence "+ ((VCFLP)vcflpObseurveur.getReference()).getFrequency()+" Hz");
+        frequence.setText("fréquence "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
 
 
     }
