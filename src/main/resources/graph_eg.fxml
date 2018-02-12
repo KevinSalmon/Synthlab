@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="border" styleClass="eg_module" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="349.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.EGController">
+<Pane fx:id="border" id="module" styleClass="eg" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="314.0" prefWidth="349.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.EGController">
    <children>
       <Circle fx:id="in" layoutX="27.0" layoutY="289.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="out" layoutX="319.0" layoutY="289.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />

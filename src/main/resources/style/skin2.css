@@ -24,19 +24,12 @@ Label{
     -fx-text-fill: #ffffff;
 }
 
-
-/**
-    Modules
-*/
-.vca_module, .rep_module, .vcf_module, .vco_module, .out_module, .oscillo_module, .eg_module{
+#module{
     -fx-background-image: url("metal.jpg");
     -fx-border-color: #000000;
 }
 
-/**
-    Miniatures
-*/
-.vco_miniature, .vcf_miniature, .vca_miniature, .rep_miniature, .oscillo_miniature, .eg_miniature{
+#miniature{
     -fx-background-image: url("metal_miniature.jpg");
     -fx-border-color: #000000;
 }

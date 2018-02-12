@@ -10,61 +10,32 @@ SplitPane{
     -fx-background-color: #CCFF99;
 }
 
-/**
-    Modules
-*/
-.out_module{
-    -fx-background-color: #474ACE;
-}
 
-.vco_module{
+.vco{
     -fx-background-color: #99A6CC;
 }
 
-.vcf_module{
-    -fx-background-color: #ff01d4;
-}
-
-.vca_module{
-    -fx-background-color: #61F26E;
-}
-
-.rep_module{
-    -fx-background-color: #FFFF6B;
-}
-
-.oscillo_module{
-    -fx-background-color: #E68C33;
-}
-
-.eg_module{
-    -fx-background-color: #cc943c;
-}
-
-/**
-    Miniatures
-*/
-.vco_miniature{
-    -fx-background-color: #99A6CC;
-}
-
-.vcf_miniature{
+.vcf{
     -fx-background-color: #ff00d4;
 }
 
-.vca_miniature{
+.vca{
     -fx-background-color: #61F26E;
 }
 
-.rep_miniature{
+.rep{
     -fx-background-color: #FFFF6B;
 }
 
-.oscillo_miniature{
+.oscillo{
     -fx-background-color: #E68C33;
 }
 
-.eg_miniature{
+.eg{
     -fx-background-color: #cc943c;
+}
+
+.out{
+    -fx-background-color: #474ACE;
 }
 
