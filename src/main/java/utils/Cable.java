@@ -88,7 +88,7 @@ public class Cable {
      * Connect two cables and add a eventHandler
      * @throws PortTypeException when the two ports ar not compatible
      */
-    public void connect() throws PortTypeException {
+    public void connect() throws PortTypeException, InterruptedException {
         moduleOut.connect(moduleIn, outputName, inputName);
         curve.setOnMousePressed(event ->
         {

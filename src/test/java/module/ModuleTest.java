@@ -6,18 +6,27 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 
 import java.util.Arrays;
 
 public class ModuleTest {
-
+    
+    Synthesizer synth;
+    
+    @Before
+    public void inti(){
+        synth = JSyn.createSynthesizer();
+    }
+    
     @Test
-    public void connectModulesTest() throws PortTypeException {
+    public void connectModulesTest() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         Synthesizer synth = JSyn.createSynthesizer();
         OutputModule outputModule = new OutputModule(synth);
+        waitABit();
 
         vco1.setOutput(new UnitOutputPort("output"));
 
@@ -29,7 +38,7 @@ public class ModuleTest {
 
 
     @Test(expected = PortTypeException.class)
-    public void connectModuleExceptionTest() throws PortTypeException {
+    public void connectModuleExceptionTest() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
 
@@ -39,7 +48,7 @@ public class ModuleTest {
     }
 
     @Test(expected = PortTypeException.class)
-    public void connectModuleExceptionOtherTest() throws PortTypeException {
+    public void connectModuleExceptionOtherTest() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         VCA vca = new VCA();
 
@@ -48,10 +57,11 @@ public class ModuleTest {
     }
 
     @Test
-    public void disconnectModulesTest() throws PortTypeException {
+    public void disconnectModulesTest() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         Synthesizer synth = JSyn.createSynthesizer();
         OutputModule outputModule = new OutputModule(synth);
+        waitABit();
 
         vco1.setOutput(new UnitOutputPort("output"));
 
@@ -67,23 +77,15 @@ public class ModuleTest {
     }
 
     @Test
-    public void disconnectModulesOtherTest() throws PortTypeException {
+    public void disconnectModulesOtherTest() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
-        Synthesizer synth = JSyn.createSynthesizer();
         synth.start();
         OutputModule outputModule = new OutputModule(synth);
-        synth.add(vco1);
+        waitABit();
 
         vco1.setOutput(new UnitOutputPort("output"));
 
         vco1.connect(outputModule, PortType.OUTPUT.getType(), PortType.INPUT.getType());
-
-        vco1.getOutput().connect(outputModule.getInput());
-        for (int i = 0; i < 10000; i++) {
-
-            outputModule.generate();
-            System.out.println(Arrays.toString(vco1.getOutput().getValues()));
-        }
 
         Assert.assertTrue("UnitPort must be connected", ((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
         Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());
@@ -95,10 +97,11 @@ public class ModuleTest {
     }
 
     @Test
-    public void disconnectModulesOther2Test() throws PortTypeException {
+    public void disconnectModulesOther2Test() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         Synthesizer synth = JSyn.createSynthesizer();
         OutputModule outputModule = new OutputModule(synth);
+        waitABit();
 
         vco1.setOutput(new UnitOutputPort("output"));
 
@@ -113,11 +116,19 @@ public class ModuleTest {
         Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());
     }
 
+    private void waitABit() throws InterruptedException {
+        if(!synth.isRunning()){
+            synth.start();
+        }
+        synth.sleepFor(0.01);
+    }
+
     @Test
-    public void disconnectModulesOther3Test() throws PortTypeException {
+    public void disconnectModulesOther3Test() throws PortTypeException, InterruptedException {
         VCO vco1 = new VCO();
         Synthesizer synth = JSyn.createSynthesizer();
         OutputModule outputModule = new OutputModule(synth);
+        waitABit();
 
         vco1.setOutput(new UnitOutputPort("output"));
 

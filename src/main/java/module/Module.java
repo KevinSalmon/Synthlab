@@ -18,7 +18,7 @@ public abstract class Module extends Circuit {
      abstract Tuple<UnitPort, PortType> getPort(String name);
 
 
-    public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
+    public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException, InterruptedException {
 
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
         Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
@@ -29,6 +29,7 @@ public abstract class Module extends Circuit {
            ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());
 
         } else throw new PortTypeException("Incompatible ports type : "+namePortSource+" must be an output and "+namePortDest+" must be an input");
+
     }
 
     public void disconnect(Module dest, String namePortSource, String namePortDest) {

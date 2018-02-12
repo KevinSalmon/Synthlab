@@ -42,8 +42,6 @@ public class Example {
 
         myVco.getOutput().connect(outModule.getInput());
 
-        System.out.println(myVco.getOutput().isConnected());
-
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);
 

@@ -85,7 +85,7 @@ public class CableManager {
             currentCable.connect();
             curve.toFront();
 
-        } catch (PortTypeException e) {
+        } catch (PortTypeException | InterruptedException e) {
             Logger.getGlobal().severe(e.getMessage()
             );
         }

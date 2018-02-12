@@ -85,7 +85,6 @@ public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
     @Override
     public void generate(int start, int limit) {
         super.generate(start,limit);
-        System.out.println("test");
 
         double[] inputs = input.getValues();
         double[] lineInputs = lineOut.getInput().getValues();

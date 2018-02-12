@@ -1,5 +1,6 @@
 package utils;
 
+import com.jsyn.Synthesizer;
 import exceptions.OutputException;
 import exceptions.PortTypeException;
 import com.jsyn.JSyn;
@@ -47,8 +48,10 @@ public class CableManagerTest extends  CableManager{
      */
     @Test
     public void setOutputInputTest() throws OutputException, PortTypeException {
+        Synthesizer synth = JSyn.createSynthesizer();
         VCA vca = new VCA();
-        OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
+        OutputModule outputModule = new OutputModule(synth);
+        synth.add(vca);
         Pane pane = new Pane();
         out.setLayoutX(0.0);
         out.setLayoutY(0.0);
