@@ -3,6 +3,7 @@ package module;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitOutputPort;
+import com.jsyn.unitgen.WhiteNoise;
 import ihm.BruitBlancController;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,15 +45,30 @@ public class BruitBlancTest {
     public void getOutTest(){
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         bruitBlanc.setOut(newOut);
-        Assert.assertTrue("getOut1 does not return the out1", bruitBlanc.getOut().equals(newOut));
+        Assert.assertTrue("getOut does not return the out", bruitBlanc.getOut().equals(newOut));
     }
 
     @Test
-    public void setOut1Test(){
+    public void setOutTest(){
         UnitOutputPort previousOut = bruitBlanc.getOut();
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         bruitBlanc.setOut(newOut);
         Assert.assertTrue("setOut1 does not set the output1", !bruitBlanc.getOut().equals(previousOut));
+    }
+
+    @Test
+    public void getWhiteNoiseTest(){
+        WhiteNoise whiteNoise = new WhiteNoise();
+        bruitBlanc.setWhiteNoise(whiteNoise);
+        Assert.assertTrue("getWhiteNoise does not return the whitenoise", bruitBlanc.getWhiteNoise().equals(whiteNoise));
+    }
+
+    @Test
+    public void setWhiteNoiseTest(){
+        WhiteNoise previousWhiteNoise = bruitBlanc.getWhiteNoise();
+        WhiteNoise newWhiteNoise = new WhiteNoise();
+        bruitBlanc.setWhiteNoise(newWhiteNoise);
+        Assert.assertTrue("setWhiteNoise does not set the WhiteNoise", !bruitBlanc.getWhiteNoise().equals(previousWhiteNoise));
     }
 
     @Test
@@ -68,5 +84,11 @@ public class BruitBlancTest {
     public void updateTest(){
         BruitBlancController bruitBlancController = new BruitBlancController();
         bruitBlanc.update(bruitBlancController);
+    }
+
+    @Test
+    public void generateTest(){
+        bruitBlanc.generate();
+        Assert.assertNotNull("generate does not generate values", bruitBlanc.getOut().getValues());
     }
 }
