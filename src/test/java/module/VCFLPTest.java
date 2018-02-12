@@ -31,6 +31,8 @@ public class VCFLPTest {
         public double getResonance() {
             return resonance;
         }
+
+
         public void setResonance(Double res){
             this.resonance = res;
         }

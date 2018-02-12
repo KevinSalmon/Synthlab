@@ -6,16 +6,19 @@ import controller.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import module.VCO;
 import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO {
 
@@ -42,6 +45,9 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
 
     @FXML
     private RadioButton LFO;
+
+    @FXML
+    private Label frequency;
 
     private Obseurveur<SubjectVCO> obseuveurVCO;
 
@@ -102,6 +108,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.FM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
+            frequency.setText(frequency.getText() + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
         }
     }
 
@@ -113,5 +120,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     @Override
     public void notifyObseurveur() {
         obseuveurVCO.update(this);
+        frequency.setText("fréquence "+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
     }
 }

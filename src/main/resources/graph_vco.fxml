@@ -26,5 +26,6 @@
         <Button fx:id="delete" layoutX="274.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED" />
         <RadioButton fx:id="LFO" layoutX="135.0" layoutY="191.0" mnemonicParsing="false" />
         <Label layoutX="133.0" layoutY="214.0" text="LFO" />
+        <Label fx:id="frequency" layoutX="75.0" layoutY="18.0" prefHeight="16.0" prefWidth="150.0" text="fréquence :" />
     </children>
 </Pane>

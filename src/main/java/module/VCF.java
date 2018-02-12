@@ -3,49 +3,45 @@ package module;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import com.jsyn.unitgen.FilterHighPass;
 import com.jsyn.unitgen.FilterLowPass;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
-import controller.SubjectVCF;
+import controller.SubjectVCFLP;
 import signal.ModulationSignal;
 import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
-public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF> {
-    private com.jsyn.unitgen.FilterBiquadCommon filterPass;
+import java.util.logging.Logger;
+
+
+public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP>{
+
+    private FilterLowPass filterLowPass;
     private UnitInputPort fm;
     private UnitInputPort in;
     private UnitOutputPort out;
     private Signal signal;
     private double f0;
-    private boolean isLowPass;
 
 
-    public VCF(boolean initAsLowPass){
-        this.isLowPass = initAsLowPass;
-
-        if(isLowPass){
-            this.filterPass = new FilterLowPass();
-        }else{
-            this.filterPass = new FilterHighPass();
-        }
+    public VCFLP(){
 
         this.in = new UnitInputPort(PortType.INPUT.getType());
         this.out = new UnitOutputPort(PortType.OUTPUT.getType());
-
+        this.filterLowPass = new FilterLowPass();
         this.fm = new UnitInputPort(PortType.FM.getType());
-        this.filterPass.input = this.in;
-        this.filterPass.output = this.out;
+        this.filterLowPass.input = this.in;
+        this.filterLowPass.output = this.out;
         this.signal = new ModulationSignal();
-        this.filterPass.frequency.set(Math.pow(2, signal.getVolt()) * signal.getFrequency());
+        this.filterLowPass.frequency.set(Math.pow(2, signal.getVolt()) * signal.getFrequency());
         addPort(this.fm);
         addPort(this.in);
         addPort(this.out);
-        add(filterPass);
+        add(filterLowPass);
         f0 = 0;
     }
+
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
@@ -71,10 +67,10 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF> {
      * @param o le sujet
      */
     @Override
-    public void update(SubjectVCF o) {
+    public void update(SubjectVCFLP o) {
         f0 = o.getFrequency();
-        if(o.getResonance() != filterPass.Q.get()){
-            filterPass.Q.set(o.getResonance());
+        if(o.getResonance() != filterLowPass.Q.get()){
+            filterLowPass.Q.set(o.getResonance());
         }
     }
 
@@ -87,33 +83,38 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF> {
     @Override
     public void generate(int start, int limit){
         super.generate(start, limit);
-        double [] freqValues = filterPass.frequency.getValues();
+        double [] freqValues = filterLowPass.frequency.getValues();
         double [] fmValues = fm.getValues();
         for(int i = start; i < limit; i++){
             freqValues[i] = Math.pow(2, f0 + fmValues[i]) * signal.getFrequency();
         }
+
     }
+
 
     @Override
     public Module getReference() {
         return this;
     }
 
-    public com.jsyn.unitgen.FilterBiquadCommon getFilterPass() {
-        return filterPass;
+    public FilterLowPass getFilterLowPass() {
+        return filterLowPass;
     }
 
-    public boolean isLowPass(){ return isLowPass; }
 
     public Double getResonance(){
-        return filterPass.Q.get();
+        return filterLowPass.Q.get();
     }
 
     public double getFrequency() {
-        return filterPass.frequency.get();
+        return filterLowPass.frequency.getValues()[0];
     }
 
     public void setResonance(double resonance) {
-        this.filterPass.Q.set(resonance);
+        this.filterLowPass.Q.set(resonance);
+    }
+
+    public void setFrequency(Integer frequency) {
+        filterLowPass.frequency.set(frequency);
     }
 }
