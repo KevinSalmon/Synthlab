@@ -44,8 +44,6 @@ public class FxmlFilesNames {
 
     public static final String VCFHP = "/graph_vcfhp.fxml";
 
-    public static final String VCF = "/graph_vcflp.fxml";
-
     public static final String EG = "/graph_eg.fxml";
 
     private FxmlFilesNames(){}

@@ -119,10 +119,6 @@ public class Controller {
                 break;
 
             case FxmlFilesNames.VCFLP:
-                /*VCFLP vcflp = new VCFLP();
-                ((Subject) fxmlLoader.getController()).register(vcflp);
-                synth.add(vcflp);*/
-
                 VCF vcflp = new VCF(true);
                 ((Subject)fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
@@ -296,8 +292,6 @@ public class Controller {
             default:
                 break;
         }
-
-        Logger.getGlobal().info(skinName+" "+stylePath);
         scene.getStylesheets().clear();
         scene.getStylesheets().addAll(this.getClass().getResource(stylePath).toExternalForm());
     }
