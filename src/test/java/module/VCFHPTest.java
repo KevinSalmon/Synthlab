@@ -169,7 +169,7 @@ public class VCFHPTest {
 
     @Test
     public void frequencyTest(){
-        assertEquals(vcfhp.getFrequency(), vcfhp.getFilterPass().frequency.get());
+        assertEquals(vcfhp.getFilterPass().frequency.get(), vcfhp.getFrequency());
     }
 
 
