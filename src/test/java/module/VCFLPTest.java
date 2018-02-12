@@ -3,11 +3,10 @@ package module;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import controller.Obseurveur;
-import controller.SubjectVCFLP;
+import controller.SubjectVCF;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import signal.Signal;
 import utils.PortType;
 
 import static junit.framework.TestCase.assertEquals;
@@ -20,7 +19,7 @@ public class VCFLPTest {
     /**
      * Test class for the update function
      */
-    private class SubjectVCFLPTest implements SubjectVCFLP{
+    private class SubjectVCFLPTestLP implements SubjectVCF{
         private double frequency;
         private double resonance;
         @Override
@@ -57,14 +56,14 @@ public class VCFLPTest {
         }
     }
 
-    private VCFLP vcflp;
+    private VCF vcflp;
     private Synthesizer synth;
 
     @Before
     public void init(){
         synth = JSyn.createSynthesizer();
 
-        vcflp = new VCFLP();
+        vcflp = new VCF(true);
         synth.add(vcflp);
     }
 
@@ -73,7 +72,7 @@ public class VCFLPTest {
      */
     @Test
     public void VCFLPGenerationInfinityTest(){
-        vcflp.getFilterLowPass().frequency.set(Double.MAX_VALUE);
+        vcflp.getFilterPass().frequency.set(Double.MAX_VALUE);
         vcflp.generate();
 
         assertEquals(vcflp.getInput().getValues().length, vcflp.getOutput().getValues().length);
@@ -89,7 +88,7 @@ public class VCFLPTest {
      */
     @Test
     public void VCFLPGenerationFrequencyNullTest(){
-        vcflp.getFilterLowPass().frequency.set(0.0);
+        vcflp.getFilterPass().frequency.set(0.0);
         vcflp.generate();
 
         for(int i = 0; i < vcflp.getOutput().getValues().length; i++){
@@ -121,7 +120,7 @@ public class VCFLPTest {
         vco.getOutput().connect(vcflp.getInput());
         double [] outputVCF = vcflp.getOutput().getValues();
         double [] outputVCO = vco.getOutput().getValues();
-        SubjectVCFLPTest o = new SubjectVCFLPTest();
+        SubjectVCFLPTestLP o = new SubjectVCFLPTestLP();
         o.setFrequency(5.0);
         assertEquals(5.0, o.getFrequency());
         vcflp.update(o);
@@ -145,7 +144,7 @@ public class VCFLPTest {
      */
     @Test
     public void updateResonanceTest(){
-        SubjectVCFLPTest subjectVCFLPTest = new SubjectVCFLPTest();
+        SubjectVCFLPTestLP subjectVCFLPTest = new SubjectVCFLPTestLP();
         subjectVCFLPTest.setResonance(4.0);
         vcflp.update(subjectVCFLPTest);
 
@@ -157,7 +156,7 @@ public class VCFLPTest {
      */
     @Test
     public void updateResonanceWithoutChangesTest(){
-        SubjectVCFLPTest subjectVCFLPTest = new SubjectVCFLPTest();
+        SubjectVCFLPTestLP subjectVCFLPTest = new SubjectVCFLPTestLP();
         double res = 4.0;
         vcflp.setResonance(res);
         subjectVCFLPTest.setResonance(res);
@@ -168,7 +167,7 @@ public class VCFLPTest {
 
     @Test
     public void frequencyTest(){
-        assertEquals(vcflp.getFrequency(), vcflp.getFilterLowPass().frequency.get());
+        assertEquals(vcflp.getFrequency(), vcflp.getFilterPass().frequency.get());
     }
 
 

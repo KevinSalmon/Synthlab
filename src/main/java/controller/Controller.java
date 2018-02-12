@@ -119,9 +119,18 @@ public class Controller {
                 break;
 
             case FxmlFilesNames.VCFLP:
-                VCFLP vcflp = new VCFLP();
+                /*VCFLP vcflp = new VCFLP();
                 ((Subject) fxmlLoader.getController()).register(vcflp);
+                synth.add(vcflp);*/
+
+                VCF vcflp = new VCF(true);
+                ((Subject)fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
+                break;
+            case FxmlFilesNames.VCFHP:
+                VCF vcfhp = new VCF(false);
+                ((Subject)fxmlLoader.getController()).register(vcfhp);
+                synth.add(vcfhp);
                 break;
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();

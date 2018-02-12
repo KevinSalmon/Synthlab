@@ -2,7 +2,7 @@ package ihm;
 
 import controller.Controller;
 import controller.Obseurveur;
-import controller.SubjectVCFLP;
+import controller.SubjectVCF;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPController implements Initializable, SubjectVCFLP{
+public class VCFLPController implements Initializable, SubjectVCF {
 
     @FXML
     Circle fm;
@@ -38,7 +38,7 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
     @FXML
     Button delete;
 
-    private Obseurveur<SubjectVCFLP> vcflpObseurveur;
+    private Obseurveur<SubjectVCF> vcflpObseurveur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

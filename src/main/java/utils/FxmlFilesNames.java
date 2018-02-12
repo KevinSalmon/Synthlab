@@ -23,6 +23,8 @@ public class FxmlFilesNames {
 
     public static final String MINIATURE_VCFLP = "/vcf_miniature.fxml";
 
+    public static final String MINIATURE_VCFHP = "/vcfhp_miniature.fxml";
+
     public static final String MINIATURE_EG = "/eg_miniature.fxml";
 
     /**
@@ -38,7 +40,11 @@ public class FxmlFilesNames {
 
     public static final String OSCILLOSCOPE = "/graph_oscilloscope.fxml";
 
-    public static final String VCFLP = "/graph_vcf.fxml";
+    public static final String VCFLP = "/graph_vcflp.fxml";
+
+    public static final String VCFHP = "/graph_vcfhp.fxml";
+
+    public static final String VCF = "/graph_vcflp.fxml";
 
     public static final String EG = "/graph_eg.fxml";
 
