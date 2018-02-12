@@ -42,7 +42,7 @@ public class ConstantGenerator extends Module implements UnitSource, Obseurveur<
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(PortType.OUTPUT.getType().equals(name)) return new Tuple(getPortByName(name),PortType.OUTPUT);
+        if(PortType.OUTPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         return null;
     }
 

@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import utils.PortType;
 
+import java.util.Arrays;
+
 public class ModuleTest {
 
     @Test
@@ -68,11 +70,20 @@ public class ModuleTest {
     public void disconnectModulesOtherTest() throws PortTypeException {
         VCO vco1 = new VCO();
         Synthesizer synth = JSyn.createSynthesizer();
+        synth.start();
         OutputModule outputModule = new OutputModule(synth);
+        synth.add(vco1);
 
         vco1.setOutput(new UnitOutputPort("output"));
 
         vco1.connect(outputModule, PortType.OUTPUT.getType(), PortType.INPUT.getType());
+
+        vco1.getOutput().connect(outputModule.getInput());
+        for (int i = 0; i < 10000; i++) {
+
+            outputModule.generate();
+            System.out.println(Arrays.toString(vco1.getOutput().getValues()));
+        }
 
         Assert.assertTrue("UnitPort must be connected", ((UnitOutputPort) vco1.getPortByName(PortType.OUTPUT.getType())).isConnected());
         Assert.assertTrue("UnitPort must be connected", ((UnitInputPort) outputModule.getPortByName(PortType.INPUT.getType())).isConnected());

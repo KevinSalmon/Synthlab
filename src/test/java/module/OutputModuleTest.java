@@ -45,11 +45,6 @@ public class OutputModuleTest {
         assertNotNull(outputModule.getInput());
     }
 
-    @Test
-    public void defaultOutputTest() {
-        assertNull(outputModule.getOutput());
-    }
-
     // Mute
     @Test
     public void defaultMuteTest() {

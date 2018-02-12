@@ -6,7 +6,7 @@ import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCA;
-import filter.AttenuationFilter;
+import utils.Amplification;
 import utils.PortType;
 import utils.Tuple;
 
@@ -17,7 +17,8 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort am; // Entrée : Modulation d'amplitude
     private UnitOutputPort out; // Sortie de signal
     private Double a0 = 0.0; // Gain de base a0 réglé en façade obtenu lorsque am = 5V
-    private AttenuationFilter attenuationFilter;
+    private Amplification amAmplification;
+    private Amplification amplification;
     private Double initialVoltage = null;
 
     public VCA() {
@@ -28,9 +29,10 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         this.out = new UnitOutputPort();
         addPort(this.out, PortType.OUTPUT.getType());
 
-        this.attenuationFilter = new AttenuationFilter();
-        this.attenuationFilter.input = this.in;
-        this.attenuationFilter.output = this.out;
+        this.amplification = new Amplification();
+        this.amAmplification = new Amplification();
+//        this.amplification.input = this.in;
+//        this.amplification.output = this.out;
     }
 
     /**
@@ -65,58 +67,28 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         double[] inputs = in.getValues();
         double[] ams = am.getValues();
         double[] outputs = out.getValues();
-        double voltage = ams[0] * 12;
 
-//        if (this.initialVoltage == null) {
-//            this.initialVoltage = voltage;
-//        }
-//
-//        if (this.amIsEmpty(ams)) {
-//            // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
-//            for (int i = start; i < limit; i++) {
-//                outputs[i] = 0.0;
-//            }
-//        }
-//        else if (voltage == 5.0 && a0 == 0.0) {
-//            // lorsque am vaut 5 V et a0 vaut 0 dB le signal de sortie est identique au signal d’entrée
-//            System.arraycopy(inputs, start, outputs, start, limit);
-//            this.attenuationFilter.setDecibelsAttenuation(0.0);
-//        }
-//        else {
-//            // lorsque la tension d’entrée sur am augmente d’1 V, le gain augmente de 12 dB
-//            // lorsque la tension d’entrée sur am diminue d’1 V, le gain diminue de 12 dB
-//
-//            double decibels = (voltage - this.initialVoltage) * 12;
-//            if (voltage == 5.0) { // Réglage manuel en façade du gain de base a0, obtenu uniquement lorsque am = 5V
-//                decibels = decibels + a0;
-//            }
+        for (int i = start; i < limit; i++) {
+            double amin = ams[i];
 
-            this.attenuationFilter.setDecibelsAttenuation(voltage==0?-Infinity:(Math.abs(voltage)-5)*12);
-            this.attenuationFilter.generate(start, limit);
-//        }
-    }
+            amAmplification.setDecibelsAmplification(amin==0?-Infinity:(Math.abs(amin*12)-5)*12);//amin>=0?-(amin*12 - 5)*12:1000);
 
-    private boolean amIsEmpty(double[] amValues) {
-        for (double i : amValues) {
-            if (i != 0) {
-                return false;
-            }
+            outputs[i] = amplification.applyAmplification(amAmplification.applyAmplification(inputs[i]));
         }
-        return true;
     }
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(PortType.OUTPUT.getType().equals(name)) return new Tuple(getPortByName(name),PortType.OUTPUT);
-        if(PortType.INPUT.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
-        if(PortType.AM.getType().equals(name)) return new Tuple(getPortByName(name),PortType.INPUT);
+        if(PortType.OUTPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
+        if(PortType.INPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
+        if(PortType.AM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 
     @Override
     public void update(SubjectVCA o) {
         this.setA0(o.getDecibel());
-        this.attenuationFilter.setDecibelsAttenuation(o.getDecibel());
+        this.amplification.setDecibelsAmplification(o.getDecibel());
     }
 
     @Override
@@ -124,8 +96,12 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         return this;
     }
 
-    public double getDecibelsAttenuation() { // Pour le débug
-        return this.attenuationFilter.getDecibelsAttenuation();
+    public double getDecibelsAmplification() { // Pour le débug
+        return this.amplification.getDecibelsAmplification();
+    }
+
+    public double getAMDecibelsAmplification() { // Pour le débug
+        return this.amAmplification.getDecibelsAmplification();
     }
 }
 

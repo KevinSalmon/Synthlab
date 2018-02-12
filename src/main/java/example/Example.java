@@ -1,5 +1,8 @@
 package example;
 
+import com.jsyn.unitgen.EnvelopeDAHDSR;
+import com.softsynth.math.AudioMath;
+import utils.Amplification;
 import module.*;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
@@ -10,6 +13,7 @@ import java.util.Scanner;
 public class Example {
 
     public static void main(String[] args) {
+
         Synthesizer synth = JSyn.createSynthesizer();
         synth.start();
 
@@ -28,30 +32,17 @@ public class Example {
         EG eg = new EG();
         synth.add(eg);
 
-
-        vco2.setLFO(true);
-        vco2.setReglageFin(1/20.0);
-        vco2.changeCurrentOsc(OscillatorType.SAWTOOTH);
-        vco2.getOutput().connect(rep.getIn());
-        rep.getOut1().connect(myVco.getInput());
-        myVco.getOutput().connect(vca.getInput());
-        rep.getOut2().connect(eg.getInput());
-        eg.getOutput().connect(vca.getAm());
-        eg.setAttack(100);
-        eg.setDecay(100);
-        eg.setRelease(100);
-        eg.setSustain(100);
-
-//        vco2.switchLFO();
-//        vco2.getOutput().connect(vca.getAm());
-//        myVco.getOutput().connect(vca.getInput());
-//        vca.getOutput().connect(eg.getInput());
-
         OutputModule outModule = new OutputModule(synth);
-        vca.getOutput().connect(0, outModule.getInput() , 0);
-        //rep.getOut1().connect( 0, outModule.getInput(), 0 );
-        //rep.output2.connect( 0, outModule.getInput(), 0 );
-        //rep.output3.connect( 0, outModule.getInput(), 0 );
+
+
+        VCFLP vcflp = new VCFLP();
+        synth.add(vcflp);
+        EnvelopeDAHDSR env = new EnvelopeDAHDSR();
+        synth.add(env);
+
+        myVco.getOutput().connect(outModule.getInput());
+
+        System.out.println(myVco.getOutput().isConnected());
 
         // Start at least the LineOut
         Scanner c = new Scanner(System.in);

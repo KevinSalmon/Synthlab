@@ -19,8 +19,10 @@ public abstract class Module extends Circuit {
 
 
     public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
+
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
         Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
+
         if(portsSource.getRight().getType().contains(PortType.OUTPUT.getType())
                 && portsDest.getRight().getType().contains(PortType.INPUT.getType())){
 

@@ -30,13 +30,13 @@ public class Replicateur extends Module implements Obseurveur<SubjectReplicateur
     Tuple<UnitPort, PortType> getPort(String name) {
 
         if(PortType.INPUT.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT);
+            return new Tuple<>(getPortByName(name),PortType.INPUT);
         if(name.equals(PortType.OUTPUT1.getType()))
-            return new Tuple(getPortByName(name),PortType.OUTPUT1);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT1);
         if(name.equals(PortType.OUTPUT2.getType()))
-            return new Tuple(getPortByName(name),PortType.OUTPUT2);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT2);
         if(name.equals(PortType.OUTPUT3.getType()))
-            return new Tuple(getPortByName(name),PortType.OUTPUT3);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT3);
 
         return null;
     }

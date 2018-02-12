@@ -95,9 +95,9 @@ public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)){
-            return new Tuple<>(out,PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.INPUT.getType().equals(name)) return new Tuple<>(gate,PortType.INPUT);
+        else if(PortType.INPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 

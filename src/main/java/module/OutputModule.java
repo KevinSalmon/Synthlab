@@ -9,7 +9,7 @@ import com.jsyn.unitgen.UnitSource;
 import com.jsyn.util.WaveRecorder;
 import controller.Obseurveur;
 import controller.SubjectOutput;
-import filter.AttenuationFilter;
+import utils.Amplification;
 import utils.PortType;
 import utils.Tuple;
 import java.io.File;
@@ -17,34 +17,31 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {
+public class OutputModule extends Module implements Obseurveur<SubjectOutput> {
 
     private Synthesizer synth;
     private UnitInputPort input;
-    private UnitOutputPort output;
     private Boolean mute;
-    private AttenuationFilter attenuationFilter;
+    private Amplification amplification;
     private LineOut lineOut;
     private File waveFile = null;
     private WaveRecorder recorder;
     private Boolean lastUpdateFail = false;
+    private boolean record = false;
 
     public OutputModule(Synthesizer synth) {
         this.synth = synth;
-        this.input = new UnitInputPort(PortType.INPUT.getType());
-        addPort(this.input, PortType.INPUT.getType());
-        this.output = new UnitOutputPort(PortType.OUTPUT.getType());
-        addPort(this.output, PortType.OUTPUT.getType());
-        this.mute = false;
-
-        this.attenuationFilter = new AttenuationFilter();
-        this.attenuationFilter.input = this.input;
-        this.attenuationFilter.output = this.output;
 
         this.lineOut = new LineOut();
-        synth.add(this.lineOut);
-        this.output.connect(0, lineOut.input, 0);
-        this.lineOut.start();
+        add(this.lineOut);
+
+        this.amplification = new Amplification();
+
+        this.input = new UnitInputPort(PortType.INPUT.getType());
+        addPort(this.input, PortType.INPUT.getType());
+        this.mute = false;
+        synth.add(this);
+        this.start();
     }
 
     public UnitInputPort getInput() {
@@ -52,12 +49,12 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     }
 
     public double getDecibelsAttenuation() {
-        return this.attenuationFilter.getDecibelsAttenuation();
+        return this.amplification.getDecibelsAmplification();
     }
 
     public void setDecibelsAttenuation(double decibels) {
         if (decibels <= 12.0) {
-            this.attenuationFilter.setDecibelsAttenuation(decibels);
+            this.amplification.setDecibelsAmplification(decibels);
         }
     }
 
@@ -70,8 +67,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     }
 
     public void switchMute() {
-        lineOut.setEnabled(this.mute);
-        this.mute = !this.mute;
+        setMute(!this.mute);
     }
     public void setMute(boolean val){
         this.mute = val;
@@ -81,23 +77,32 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.INPUT.getType().equals(name)) {
-            return new Tuple(getPortByName(name),PortType.INPUT);
+            return new Tuple<>(getPortByName(name),PortType.INPUT);
         }
         return null;
     }
 
     @Override
     public void generate(int start, int limit) {
-        super.generate(start, limit);
+        super.generate(start,limit);
+        System.out.println("test");
+
+        double[] inputs = input.getValues();
+        double[] lineInputs = lineOut.getInput().getValues();
 
         if(this.mute) {
-            double[] outputs = output.getValues();
             for(int i = start; i < limit; i++) {
-                outputs[i] = 0.0;
+                lineInputs[i] = 0.0;
             }
         }
-        else {
-            this.attenuationFilter.generate(start, limit);
+        else{
+            for(int i = start; i < limit; i++) {
+                lineInputs[i] = amplification.applyAmplification(inputs[i]);
+            }
+        }
+        if(record) {
+            double[] recordInputs = this.recorder.getInput().getValues();
+            System.arraycopy(lineInputs, start, recordInputs, start, limit - start);
         }
     }
 
@@ -130,19 +135,11 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     }
 
     /**
-     * @return Null car pas de sortie
-     */
-    @Override
-    public UnitOutputPort getOutput() {
-        return null;
-    }
-
-    /**
      * Pour test uniquement
      * @return
      */
-    public UnitOutputPort getOutputTest() {
-        return this.output;
+    public UnitInputPort getOutputTest() {
+        return this.lineOut.getInput();
     }
 
     /**
@@ -162,9 +159,10 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
         if(this.waveFile == null) { // Si aucun enregistremnt est en cours
             this.waveFile = new File(pathname);
             this.recorder = new WaveRecorder(this.synth, this.waveFile);
-            for (int i = 0; i < this.output.getNumParts(); i++) {
-                this.output.connect(i, this.recorder.getInput(), i);
-            }
+            record=true;
+//            for (int i = 0; i < this.output.getNumParts(); i++) {
+//                this.output.connect(i, this.recorder.getInput(), i);
+//            }
             this.recorder.start();
         }
     }
@@ -178,6 +176,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
             this.recorder.stop();
             this.recorder.close();
             this.waveFile = null;
+            this.record = false;
         }
     }
 }
