@@ -14,11 +14,12 @@
       <Circle fx:id="out" layoutX="280.0" layoutY="70.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="269.0" layoutY="41.0" text="out" />
 
-      <Slider fx:id="f0" layoutX="45.0" layoutY="85.0" majorTickUnit="1" min="-5" max="5" prefHeight="38.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Slider fx:id="f0" layoutX="45.0" layoutY="85.0" majorTickUnit="1" min="-5" max="5" prefHeight="38.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="0.0" />
       <Label layoutX="123.0" layoutY="70.0" text="f0" />
 
       <Slider fx:id="resonance" layoutX="45.0" layoutY="38.0" majorTickUnit="2" minorTickCount="0" max="10.0" prefHeight="15.0" prefWidth="217.0" value="1.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="94.0" layoutY="22.0" text="Résonance" />
       <Button fx:id="delete" layoutX="274.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED" />
+      <Label fx:id="frequence" layoutX="79.0" layoutY="6.0" prefHeight="16.0" prefWidth="150.0" text="fréquence :" />
    </children>
 </Pane>

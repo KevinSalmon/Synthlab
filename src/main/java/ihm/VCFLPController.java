@@ -50,6 +50,7 @@ public class VCFLPController implements Initializable, SubjectVCF {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
         f0.setOnKeyReleased(e ->notifyObseurveur());
         f0.setOnMouseClicked(e -> notifyObseurveur());
         f0.setOnMouseMoved(event -> notifyObseurveur());
@@ -82,6 +83,7 @@ public class VCFLPController implements Initializable, SubjectVCF {
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
             cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.FM, pane);
+            frequence.setText("fréquence : 0 Hz");
 
         }
 
@@ -98,7 +100,7 @@ public class VCFLPController implements Initializable, SubjectVCF {
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
-        frequence.setText("fréquence "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
+        frequence.setText("fréquence : "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
 
 
     }
