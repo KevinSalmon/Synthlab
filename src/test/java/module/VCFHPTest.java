@@ -65,7 +65,7 @@ public class VCFHPTest {
     public void init(){
         synth = JSyn.createSynthesizer();
 
-        vcfhp = new VCF(true);
+        vcfhp = new VCF(false);
         synth.add(vcfhp);
     }
 
