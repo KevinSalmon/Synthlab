@@ -429,7 +429,7 @@ public class Controller {
 
         //(Circle point2D, Module moduleIn, String name) {
         for (SavedCable cable : savedFile.getSavedCables()){
-            CableManager.getInstance().setOutput(null, cable.get);
+            //CableManager.getInstance().setOutput(null, cable.get);
         }
     }
 }
