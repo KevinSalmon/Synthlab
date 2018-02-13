@@ -31,6 +31,8 @@ public class FxmlFilesNames {
 
     public static final String MINIATURE_SEQ = "/style/miniatures/seq_miniature.fxml";
 
+    public static final String MINIATURE_MIX = "/style/miniatures/mix_miniature.fxml";
+
     /**
      * Modules
      */
@@ -55,6 +57,8 @@ public class FxmlFilesNames {
     public static final String BRUITBLANC = "/style/modules/graph_bruitBlanc.fxml";
 
     public static final String SEQ = "/style/modules/graph_seq.fxml";
+
+    public static final String MIX = "/style/modules/graph_mix.fxml";
 
     private FxmlFilesNames(){}
 }

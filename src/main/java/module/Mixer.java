@@ -39,15 +39,15 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
     Tuple<UnitPort, PortType> getPort(String name) {
 
         if(PortType.INPUT1.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT1);
+            return new Tuple<>(getPortByName(name),PortType.INPUT1);
         if(PortType.INPUT2.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT2);
+            return new Tuple<>(getPortByName(name),PortType.INPUT2);
         if(PortType.INPUT3.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT3);
+            return new Tuple<>(getPortByName(name),PortType.INPUT3);
         if(PortType.INPUT4.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT4);
+            return new Tuple<>(getPortByName(name),PortType.INPUT4);
         if(PortType.OUTPUT.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
 
         return null;
     }
@@ -56,17 +56,22 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
     public void generate(int start, int limit) {
         super.generate(start, limit);
 
-        double[] in1 = this.in1.getValues();
-        double[] in2 = this.in2.getValues();
-        double[] in3 = this.in3.getValues();
-        double[] in4 = this.in4.getValues();
-        double[] out = this.out.getValues();
+        double[] in1Values = this.in1.getValues();
+        double[] in2Values = this.in2.getValues();
+        double[] in3Values = this.in3.getValues();
+        double[] in4Values = this.in4.getValues();
+        double[] outValues = this.out.getValues();
 
         for(int i = start; i < limit; i++) {
-            out[i] = (in1[i] * AudioMath.decibelsToAmplitude(in1dbAttenuation))
-                + (in2[i] * AudioMath.decibelsToAmplitude(in2dbAttenuation))
-                + (in3[i] * AudioMath.decibelsToAmplitude(in3dbAttenuation))
-                + (in4[i] * AudioMath.decibelsToAmplitude(in4dbAttenuation));
+            double in1amp = (in1dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in1dbAttenuation);
+            double in2amp = (in2dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in2dbAttenuation);
+            double in3amp = (in3dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in3dbAttenuation);
+            double in4amp = (in4dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in4dbAttenuation);
+
+            outValues[i] = (in1Values[i] * in1amp)
+                + (in2Values[i] * in2amp)
+                + (in3Values[i] * in3amp)
+                + (in4Values[i] * in4amp);
         }
     }
 

@@ -18,10 +18,14 @@ menu-bar{
 
 Label{
     -fx-text-fill: #ffffff;
+    -fx-font: Tahoma;
+    -fx-font-weight: bold;
 }
 
 .check-box{
     -fx-text-fill: #ffffff;
+    -fx-font: Tahoma;
+        -fx-font-weight: bold;
 }
 
 #module{
