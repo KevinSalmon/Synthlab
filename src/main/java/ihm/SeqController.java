@@ -57,28 +57,35 @@ public class SeqController implements Initializable, SubjectSeq {
 
         sld1.setOnMouseClicked(e -> {currentClicked = 1;notifyObseurveur();});
         sld1.setOnMouseReleased(e -> {currentClicked = 1;notifyObseurveur();});
+        sld1.setOnMouseDragged(e -> {currentClicked = 1;notifyObseurveur();});
 
         sld2.setOnMouseClicked(e -> {currentClicked = 2;notifyObseurveur();});
         sld2.setOnMouseReleased(e -> {currentClicked = 2;notifyObseurveur();});
+        sld2.setOnMouseDragged(e -> {currentClicked = 2;notifyObseurveur();});
 
         sld3.setOnMouseClicked(e -> {currentClicked = 3;notifyObseurveur();});
         sld3.setOnMouseReleased(e -> {currentClicked = 3;notifyObseurveur();});
+        sld3.setOnMouseDragged(e -> {currentClicked = 3;notifyObseurveur();});
 
         sld4.setOnMouseClicked(e -> {currentClicked = 4;notifyObseurveur();});
         sld4.setOnMouseReleased(e -> {currentClicked = 4;notifyObseurveur();});
+        sld4.setOnMouseDragged(e -> {currentClicked = 4;notifyObseurveur();});
 
         sld5.setOnMouseClicked(e -> {currentClicked = 5;notifyObseurveur();});
-
         sld5.setOnMouseReleased(e -> {currentClicked = 5;notifyObseurveur();});
+        sld5.setOnMouseDragged(e -> {currentClicked = 5;notifyObseurveur();});
 
         sld6.setOnMouseClicked(e -> { currentClicked = 6; notifyObseurveur();});
         sld6.setOnMouseReleased(e -> { currentClicked = 6;notifyObseurveur();});
+        sld6.setOnMouseDragged(e -> { currentClicked = 6;notifyObseurveur();});
 
         sld7.setOnMouseClicked(e -> {currentClicked = 7;notifyObseurveur();});
         sld7.setOnMouseReleased(e -> {currentClicked = 7;notifyObseurveur();});
+        sld7.setOnMouseDragged(e -> {currentClicked = 7;notifyObseurveur();});
 
         sld8.setOnMouseClicked(e -> {currentClicked = 8;notifyObseurveur();});
         sld8.setOnMouseReleased(e -> {currentClicked = 8;notifyObseurveur();});
+        sld8.setOnMouseDragged(e -> {currentClicked = 8;notifyObseurveur();});
 
         raz.setOnMouseClicked(e ->{
             sld1.setValue(0.0);
