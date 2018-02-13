@@ -37,6 +37,9 @@ public class IHMController implements Initializable{
     private ScrollPane scrollPane;
 
     @FXML
+    private ScrollPane moduleScrollPane;
+
+    @FXML
     private SplitPane splitPane;
 
     @FXML
@@ -48,7 +51,7 @@ public class IHMController implements Initializable{
     /**
      * Constantes locales
      */
-    private static final int PADDING = 44;
+    private static final int PADDING = 60;
 
     /**
      * Variables locales
@@ -216,6 +219,9 @@ public class IHMController implements Initializable{
          */
         hoverPanel.getChildren().remove(draggedModule);
 
+        // L'ajout de la scrollbar dans les modules créé un petit décalage du module lorsqu'il est ajouté au workspace
+        draggedModule.setLayoutX(draggedModule.getLayoutX() - 1);
+        draggedModule.setLayoutY(draggedModule.getLayoutY() - 15);
 
         /**
          * Instanciation du nouveau module si il est au dessus du workspace
@@ -358,7 +364,7 @@ public class IHMController implements Initializable{
         Pane out = controller.createModule(FxmlFilesNames.MODULE_OUT);
         workspace.getChildren().add(out);
         out.setLayoutX(screenSize.getWidth() - 420);
-        out.setLayoutY(screenSize.getHeight() - 280);
+        out.setLayoutY(screenSize.getHeight() - 330);
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
 

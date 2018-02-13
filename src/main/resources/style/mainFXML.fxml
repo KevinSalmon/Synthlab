@@ -38,7 +38,9 @@
         <Pane fx:id="hoverPanel" minHeight="0.0" minWidth="0.0">
             <SplitPane fx:id="splitPane" dividerPositions="0.1" orientation="VERTICAL" prefWidth="480.0">
                 <items>
-                    <Pane fx:id="moduleMenu" prefHeight="44.0" minHeight="44.0" maxHeight="44.0" />
+                    <ScrollPane fx:id="moduleScrollPane" minHeight="60.0" maxHeight="60.0">
+                        <Pane fx:id="moduleMenu" prefHeight="44.0" minHeight="44.0" maxHeight="44.0" />
+                    </ScrollPane>
 
                     <ScrollPane fx:id="scrollPane">
                         <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
