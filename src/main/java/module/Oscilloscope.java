@@ -56,6 +56,7 @@ public class Oscilloscope extends Module implements Obseurveur<SubjectOscillo> {
             if(t>=TMAX)t=0;
 
         }
+        
     }
 
     @Override

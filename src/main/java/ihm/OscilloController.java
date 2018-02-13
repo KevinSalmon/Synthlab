@@ -83,7 +83,6 @@ public class OscilloController implements Initializable, SubjectOscillo{
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactoryY =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 14);
 
-
         spinnerAxisX.setValueFactory(valueFactoryX);
         spinnerAxisY.setValueFactory(valueFactoryY);
 
