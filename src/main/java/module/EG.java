@@ -33,11 +33,12 @@ public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
         sustain = 0.5;
         release = 0.3;
 
-        out = envelope.output;
+        out = new UnitOutputPort();
         addPort(out, PortType.OUTPUT.getType());
 
         gate = envelope.input;
         addPort(gate, PortType.INPUT.getType());
+
     }
 
     public double getAttack() {
@@ -116,6 +117,17 @@ public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
         setDecay(o.getDecayValue());
         setSustain(o.getSustainValue());
         setRelease(o.getReleaseValue());
+    }
+
+    @Override
+    public void generate(int start, int limit) {
+        super.generate(start, limit);
+        double[] outputs = out.getValues();
+        double[] env = envelope.getOutput().getValues();
+
+        for (int i = start; i < limit; i++) {
+            outputs[i] = env[i]*(5.0/12.0);
+        }
     }
 
     @Override
