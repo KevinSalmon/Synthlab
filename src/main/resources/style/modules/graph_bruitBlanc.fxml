@@ -7,7 +7,7 @@
 
 
 <?import javafx.scene.control.Button?>
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="blanc" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.BruitBlancController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="blanc" id="module" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.BruitBlancController">
    <children>
       <Circle fx:id="out" layoutX="234.0" layoutY="110.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="219.0" layoutY="48.0" text="Out" />
