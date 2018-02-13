@@ -220,4 +220,20 @@ public class MixerTest {
             }
         }
     }
+
+    @Test
+    public void infiniteTest() {
+        mixer.update(new SubjectMixerTest(-100.0, -101.0, -999.8, -99999.9));
+        for (int i = 0; i < 1000; i++) {
+            vco1.generate();
+            vco3.generate();
+            mixer.generate();
+
+            double[] mixerValues = mixer.getOutput().getValues();
+
+            for (int j = 0; j < mixerValues.length; j++) {
+                assertEquals(0.0, mixerValues[j]);
+            }
+        }
+    }
 }
