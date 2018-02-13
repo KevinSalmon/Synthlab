@@ -14,11 +14,14 @@ import utils.OscillatorType;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.Arrays;
+
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private UnitOscillator sqrOsc;
     private UnitOscillator triOsc;
     private UnitOscillator sawOsc;
+    private UnitOscillator sinOsc;
     private UnitOscillator currentOsc;
     private UnitInputPort fm;
     private UnitOutputPort output;
@@ -41,10 +44,12 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         sqrOsc = OscillatorFactory.createOscillator(OscillatorType.SQUARE);
         triOsc = OscillatorFactory.createOscillator(OscillatorType.TRIANGLE);
         sawOsc = OscillatorFactory.createOscillator(OscillatorType.SAWTOOTH);
+        sinOsc = OscillatorFactory.createOscillator(OscillatorType.SINE);
 
         add(sqrOsc);
         add(triOsc);
         add(sawOsc);
+        add(sinOsc);
 
         currentOsc = triOsc;
 
@@ -195,7 +200,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             case TRIANGLE: currentOsc = triOsc;
             break;
             case SAWTOOTH: currentOsc = sawOsc;
-            break;
+                break;
+            case SINE: currentOsc = sinOsc;
+                break;
 
             default: throw new IllegalArgumentException("Oscillator not found");
         }

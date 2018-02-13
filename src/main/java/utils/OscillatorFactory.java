@@ -1,9 +1,6 @@
 package utils;
 
-import com.jsyn.unitgen.SawtoothOscillator;
-import com.jsyn.unitgen.SquareOscillator;
-import com.jsyn.unitgen.TriangleOscillator;
-import com.jsyn.unitgen.UnitOscillator;
+import com.jsyn.unitgen.*;
 
 /**
  * Factory qui créer un oscillateur
@@ -20,6 +17,7 @@ public class OscillatorFactory {
         switch (oscillatorType){
             case SQUARE: return new SquareOscillator();
             case SAWTOOTH: return new SawtoothOscillator();
+            case SINE: return new SineOscillator();
             case TRIANGLE:return new TriangleOscillator();
             default: throw new IllegalArgumentException("Oscillator not found");
         }

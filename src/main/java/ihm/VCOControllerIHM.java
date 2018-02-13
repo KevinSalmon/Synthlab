@@ -74,6 +74,9 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         if (index == 2.0){
             return OscillatorType.SAWTOOTH;
         }
+        if (index == 3.0){
+            return OscillatorType.SINE;
+        }
         return null;
     }
 
