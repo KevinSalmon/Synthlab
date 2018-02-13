@@ -141,7 +141,7 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	public void notifyRecordObseurveur() {
 		File fileExists = new File(this.getRecordFilename());
 
-		if (this.getRecordEnabled() && fileExists.exists()) { // Si on veux enregistrer, on vérifie qu'un fichier de sortie n'existe pas déjà
+		if (this.getRecordEnabled() && fileExists.exists()) { // SI on veux enregistrer, on vérifie qu'un fichier de sortie n'existe pas déjà
 			Alert confirm = new Alert(Alert.AlertType.WARNING);
 			confirm.setHeaderText("Le fichier de sortie \"" + this.filename_record.getText() + "\" existe déjà. Voulez-vous l'écraser ?");
 			confirm.getButtonTypes().add(ButtonType.CANCEL);

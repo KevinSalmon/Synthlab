@@ -10,13 +10,10 @@ import controller.SubjectVCA;
 import utils.PortType;
 import utils.Tuple;
 
-import java.util.Arrays;
-
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée
     private UnitInputPort am; // Entrée : Modulation d'amplitude
     private UnitOutputPort out; // Sortie de signal
-    private Double a0 = 0.0; // Gain de base a0 réglé en façade obtenu lorsque am = 5V
     private Amplification attenuationFilter;
 
     public VCA() {
@@ -72,15 +69,6 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         }
     }
 
-    private boolean amIsEmpty(double[] amValues) {
-        for (double i : amValues) {
-            if (i != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
@@ -101,7 +89,7 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
 
     public class Amplification {
 
-        private double amplification;
+        private double amplificationVal;
         private double decibels;
 
         public Amplification() {
@@ -111,24 +99,24 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
 
         public void setDecibelsAmplification(double db) {
             decibels = db;
-            this.amplification = AudioMath.decibelsToAmplitude(db);
+            this.amplificationVal = AudioMath.decibelsToAmplitude(db);
         }
 
-        public void setAmplification(double amp) {
+        public void setAmplificationVal(double amp) {
             decibels = AudioMath.amplitudeToDecibels(amp);
-            this.amplification = amp;
+            this.amplificationVal = amp;
         }
 
         public double getDecibelsAmplification() {
             return this.decibels;
         }
 
-        public double getAmplification() {
-            return this.amplification;
+        public double getAmplificationVal() {
+            return this.amplificationVal;
         }
 
         public double applyAmplification(double sig){
-            return sig * amplification;
+            return sig * amplificationVal;
         }
     }
 }

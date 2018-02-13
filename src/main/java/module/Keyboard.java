@@ -133,7 +133,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
                 break;
             case J: if(!keyPressed[6]){
                 keyPressed[6] = true;
-                note = Note.Si;
+                note = Note.SI;
                 lastKey = code;
             }
                 break;
@@ -221,7 +221,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         SOLD(415),
         LA(440.0),
         LAD(466),
-        Si(493.9),
+        SI(493.9),
         DOU(523.3),
         NONE(0.0);
 
