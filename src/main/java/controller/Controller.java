@@ -148,6 +148,11 @@ public class Controller {
                 ((Subject) fxmlLoader.getController()).register(sequenceur);
                 synth.add(sequenceur);
                 break;
+            case FxmlFilesNames.MIX:
+                Mixer mixer = new Mixer();
+                ((Subject) fxmlLoader.getController()).register(mixer);
+                synth.add(mixer);
+                break;
             default:
                 break;
         }

@@ -119,22 +119,22 @@ public class MixerTest {
     }
 
     class SubjectMixerTest implements SubjectMixer {
-        private Double in1db;
-        private Double in2db;
-        private Double in3db;
-        private Double in4db;
+        private double in1db;
+        private double in2db;
+        private double in3db;
+        private double in4db;
 
-        public SubjectMixerTest(Double in1db, Double in2db, Double in3db, Double in4db) {
+        public SubjectMixerTest(double in1db, double in2db, double in3db, double in4db) {
             this.in1db = in1db;
             this.in2db = in2db;
             this.in3db = in3db;
             this.in4db = in4db;
         }
 
-        @Override public Double getIn1DbAttenuation() { return in1db; }
-        @Override public Double getIn2DbAttenuation() { return in2db; }
-        @Override public Double getIn3DbAttenuation() { return in3db; }
-        @Override public Double getIn4DbAttenuation() { return in4db; }
+        @Override public double getIn1DbAttenuation() { return in1db; }
+        @Override public double getIn2DbAttenuation() { return in2db; }
+        @Override public double getIn3DbAttenuation() { return in3db; }
+        @Override public double getIn4DbAttenuation() { return in4db; }
         @Override public void register(Obseurveur o) { }
         @Override public void remove(Obseurveur o) { }
         @Override public void notifyObseurveur() { }

@@ -1,8 +1,8 @@
 package controller;
 
 public interface SubjectMixer extends Subject {
-    Double getIn1DbAttenuation();
-    Double getIn2DbAttenuation();
-    Double getIn3DbAttenuation();
-    Double getIn4DbAttenuation();
+    double getIn1DbAttenuation();
+    double getIn2DbAttenuation();
+    double getIn3DbAttenuation();
+    double getIn4DbAttenuation();
 }
