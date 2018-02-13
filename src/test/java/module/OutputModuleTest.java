@@ -7,9 +7,7 @@ import controller.SubjectOutput;
 import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
-
-import java.io.File;
-
+import java.io.*;
 import static junit.framework.TestCase.*;
 
 public class OutputModuleTest {
@@ -238,5 +236,12 @@ public class OutputModuleTest {
         wavFile1.delete();
         assertFalse(wavFile1.exists());
         assertFalse(wavFile2.exists());
+    }
+
+    @Test
+    public void updateRecordFileNotFoundExceptionTest() { // Se produit lorsque file est un dossier
+        SubjectOutput sub = new SubjectOutputTest(false, 0.0, true, "OutputTest-" + System.currentTimeMillis() + "/test.wav");
+        outputModule.update(sub);
+        assertTrue(outputModule.getLastUpdateFail());
     }
 }

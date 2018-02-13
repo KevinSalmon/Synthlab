@@ -1,6 +1,6 @@
 package controller;
 
-public interface SubjectVCFLP extends Subject{
+public interface SubjectVCF extends Subject{
     double getFrequency();
     double getResonance();
 }

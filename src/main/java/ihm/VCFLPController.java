@@ -2,20 +2,20 @@ package ihm;
 
 import controller.Controller;
 import controller.Obseurveur;
-import controller.SubjectVCFLP;
+import controller.SubjectVCF;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import module.VCF;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPController implements Initializable, SubjectVCFLP{
+public class VCFLPController implements Initializable, SubjectVCF {
 
     @FXML
     Circle fm;
@@ -38,10 +38,18 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
     @FXML
     Button delete;
 
-    private Obseurveur<SubjectVCFLP> vcflpObseurveur;
+    @FXML
+    Label frequence;
+
+    private int minValue = 0;
+    private int maxValue = 20000;
+    private static final int INITIAL_VALUE = 0;
+
+    private Obseurveur<SubjectVCF> vcflpObseurveur;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
         f0.setOnKeyReleased(e ->notifyObseurveur());
         f0.setOnMouseClicked(e -> notifyObseurveur());
@@ -75,6 +83,7 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
             cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.FM, pane);
+            frequence.setText("fréquence : 0 Hz");
 
         }
 
@@ -91,6 +100,8 @@ public class VCFLPController implements Initializable, SubjectVCFLP{
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
+        frequence.setText("fréquence : "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
+
 
     }
 }

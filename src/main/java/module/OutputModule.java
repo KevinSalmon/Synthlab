@@ -27,6 +27,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     private LineOut lineOut;
     private File waveFile = null;
     private WaveRecorder recorder;
+    private Boolean lastUpdateFail = false;
 
     public OutputModule(Synthesizer synth) {
         this.synth = synth;
@@ -106,10 +107,20 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
         this.setDecibelsAttenuation(o.getDecibelValue());
 
         if(o.getRecordEnabled()) {
-            this.startRecording(o.getRecordFilename());
+            try {
+                this.startRecording(o.getRecordFilename());
+                this.lastUpdateFail = false;
+            } catch (FileNotFoundException e) {
+                Logger.getGlobal().severe(e.toString());
+                this.lastUpdateFail = true;
+            }
         }
         else {
-            this.stopRecording();
+            try {
+                this.stopRecording();
+            } catch (IOException e) {
+                Logger.getGlobal().warning(e.toString());
+            }
         }
     }
 
@@ -135,32 +146,37 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     }
 
     /**
-     * Lance l'enregistrement
-     * @param pathname Nom du fichier de sortie
+     * Pour test uniquement
+     * @return
      */
-    private void startRecording(String pathname) {
+    public Boolean getLastUpdateFail() {
+        return this.lastUpdateFail;
+    }
+
+    /**
+     * Lance l'enregistreur s'il n'est pas déjà en train d'enregistrer
+     * @param pathname Nom du fichier de sortie
+     * @throws FileNotFoundException Le fichier pathname ne peut pas être écrit (ex: sous-dossier)
+     */
+    private void startRecording(String pathname) throws FileNotFoundException {
         if(this.waveFile == null) { // Si aucun enregistremnt est en cours
             this.waveFile = new File(pathname);
-            try {
-                this.recorder = new WaveRecorder(this.synth, this.waveFile);
-                for (int i = 0; i < this.output.getNumParts(); i++) {
-                    this.output.connect(i, this.recorder.getInput(), i);
-                }
-                this.recorder.start();
-            } catch (FileNotFoundException e) {
-                Logger.getGlobal().warning(e.toString());
+            this.recorder = new WaveRecorder(this.synth, this.waveFile);
+            for (int i = 0; i < this.output.getNumParts(); i++) {
+                this.output.connect(i, this.recorder.getInput(), i);
             }
+            this.recorder.start();
         }
     }
 
-    public void stopRecording() {
+    /**
+     * Arrête l'enregistreur s'il est activé
+     * @throws IOException Erreur lors de la fermeture de l'enregistreur
+     */
+    private void stopRecording() throws IOException {
         if (this.recorder != null) { // Si un enregistrement est en cours
             this.recorder.stop();
-            try {
-                this.recorder.close();
-            } catch (IOException e) {
-                Logger.getGlobal().severe(e.toString());
-            }
+            this.recorder.close();
             this.waveFile = null;
         }
     }

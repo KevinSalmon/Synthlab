@@ -15,8 +15,12 @@ SplitPane{
     -fx-background-color: #99A6CC;
 }
 
-.vcf{
+.vcflp{
     -fx-background-color: #ff00d4;
+}
+
+.vcfhp{
+    -fx-background-color: #9933ff;
 }
 
 .vca{
@@ -37,5 +41,16 @@ SplitPane{
 
 .out{
     -fx-background-color: #474ACE;
+}
+
+.blanc{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color:black;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+}
+
+.seq{
+    -fx-background-color: #810085;
 }
 

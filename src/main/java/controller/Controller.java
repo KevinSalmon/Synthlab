@@ -119,20 +119,34 @@ public class Controller {
                 break;
 
             case FxmlFilesNames.VCFLP:
-                VCFLP vcflp = new VCFLP();
-                ((Subject) fxmlLoader.getController()).register(vcflp);
+                VCF vcflp = new VCF(true);
+                ((Subject)fxmlLoader.getController()).register(vcflp);
                 synth.add(vcflp);
+                break;
+            case FxmlFilesNames.VCFHP:
+                VCF vcfhp = new VCF(false);
+                ((Subject)fxmlLoader.getController()).register(vcfhp);
+                synth.add(vcfhp);
                 break;
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();
                 ((Subject)fxmlLoader.getController()).register(osc);
                 synth.add(osc);
                 break;
-
             case FxmlFilesNames.EG:
                 EG eg = new EG();
                 ((Subject) fxmlLoader.getController()).register(eg);
                 synth.add(eg);
+                break;
+            case FxmlFilesNames.BRUITBLANC:
+                BruitBlancModule bruitBlancModule = new BruitBlancModule();
+                ((Subject) fxmlLoader.getController()).register(bruitBlancModule);
+                synth.add(bruitBlancModule);
+                break;
+            case FxmlFilesNames.SEQ:
+                Sequenceur sequenceur = new Sequenceur();
+                ((Subject) fxmlLoader.getController()).register(sequenceur);
+                synth.add(sequenceur);
                 break;
             default:
                 break;
@@ -287,8 +301,6 @@ public class Controller {
             default:
                 break;
         }
-
-        Logger.getGlobal().info(skinName+" "+stylePath);
         scene.getStylesheets().clear();
         scene.getStylesheets().addAll(this.getClass().getResource(stylePath).toExternalForm());
     }
