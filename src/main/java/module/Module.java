@@ -10,6 +10,8 @@ import sauvegarde.SavedModule;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.List;
+
 public abstract class Module extends Circuit {
 
     /**
@@ -41,4 +43,5 @@ public abstract class Module extends Circuit {
 
         }
     }
+    public abstract List<PortType> getAllPorts();
 }

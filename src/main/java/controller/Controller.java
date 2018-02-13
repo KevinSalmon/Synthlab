@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import module.*;
 import sauvegarde.*;
 import utils.*;
@@ -52,6 +53,10 @@ public class Controller {
     private Scene scene;
 
     private Map<Module, Tuple<String, SuperController>> toSave;
+
+    private Module loadedModule;
+
+    private SuperController tmpController;
 
     /**
      *
@@ -110,8 +115,10 @@ public class Controller {
         switch (fxmlModuleFileName){
             case FxmlFilesNames.MODULE_OUT:
                 OutputModule outputModule = new OutputModule(synth);
+                loadedModule = outputModule;
 
                 moduleController = fxmlLoader.getController();
+                tmpController = moduleController;
                 save = new Tuple<>(fxmlModuleFileName, moduleController);
                 toSave.put(outputModule, save);
 
@@ -134,6 +141,7 @@ public class Controller {
                 break;
             case FxmlFilesNames.VCO:
                 VCO vco = new VCO();
+                loadedModule = vco;
 
                 moduleController = fxmlLoader.getController();
                 save = new Tuple<>(fxmlModuleFileName, moduleController);
@@ -416,6 +424,8 @@ public class Controller {
         mapper.enableDefaultTyping();
         File file = new File("save.json");
         SavedFile savedFile = new SavedFile();
+        Map<Module, Map<PortType, Circle>>  modulesMap = new HashMap<>();
+        Map<PortType, Circle> ports;
 
         try {
             savedFile = mapper.readValue(file, SavedFile.class);
@@ -426,11 +436,18 @@ public class Controller {
         for (SavedModule module : savedFile.getSavedModules()){
 
             Pane newPane = createModuleWithoutEvent(module.getModuleFXMLFile(), module);
+            ports = new HashMap<>();
+            for (PortType port: loadedModule.getAllPorts()) {
+                ports.put(port, tmpController.getPort(port));
+
+            }
+            modulesMap.put(loadedModule, ports);
             ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
         }
 
         //(Circle point2D, Module moduleIn, String name) {
         for (SavedCable cable : savedFile.getSavedCables()){
+
             //CableManager.getInstance().setOutput(null, cable.get);
         }
     }
