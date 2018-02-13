@@ -209,7 +209,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         return this;
     }
 
-    private enum Note{
+    public enum Note{
         DO(261.6),
         DOD(277),
         RE(293.7),
