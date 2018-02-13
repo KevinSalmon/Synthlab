@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+<Pane id="mix" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="8.0" layoutY="6.0" text="MIX " />
+      <Circle id="in1" fx:id="fm" layoutX="48.0" layoutY="62.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in2" fx:id="fm1" layoutX="48.0" layoutY="139.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in3" fx:id="fm2" layoutX="48.0" layoutY="219.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in4" fx:id="fm3" layoutX="48.0" layoutY="277.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="out" fx:id="fm4" layoutX="443.0" layoutY="179.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="82.0" layoutY="74.0" text="-∞ " />
+      <Label layoutX="38.0" layoutY="107.0" text="in2" />
+      <Label layoutX="38.0" layoutY="192.0" text="in3" />
+      <Label layoutX="38.0" layoutY="250.0" text="in4" />
+      <Label layoutX="432.0" layoutY="143.0" text="out" />
+      <Slider id="gain1" layoutX="82.0" layoutY="50.0" max="4096.0" prefHeight="38.0" prefWidth="291.0" showTickMarks="true" snapToTicks="true" />
+      <Slider id="gain2" layoutX="82.0" layoutY="124.0" max="4096.0" prefHeight="38.0" prefWidth="291.0" showTickMarks="true" snapToTicks="true" />
+      <Slider id="gain3" layoutX="82.0" layoutY="200.0" max="4096.0" prefHeight="38.0" prefWidth="291.0" showTickMarks="true" snapToTicks="true" />
+      <Slider id="gain4" layoutX="82.0" layoutY="258.0" max="4096.0" prefHeight="38.0" prefWidth="291.0" showTickMarks="true" snapToTicks="true" />
+      <Label layoutX="82.0" layoutY="151.0" text="-∞ " />
+      <Label layoutX="82.0" layoutY="230.0" text="-∞ " />
+      <Label layoutX="82.0" layoutY="288.0" text="-∞ " />
+      <Label layoutX="356.0" layoutY="74.0" text="12" />
+      <Label layoutX="356.0" layoutY="151.0" text="12" />
+      <Label layoutX="356.0" layoutY="230.0" text="12" />
+      <Label layoutX="356.0" layoutY="288.0" text="12" />
+      <Label layoutX="38.0" layoutY="34.0" text="in1" />
+   </children>
+</Pane>
