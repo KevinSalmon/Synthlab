@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane id="mix" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="mix" styleClass="mix" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="8.0" layoutY="6.0" text="MIX " />
       <Circle id="in1" fx:id="fm" layoutX="48.0" layoutY="88.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />

@@ -43,6 +43,11 @@ SplitPane{
     -fx-background-color: #474ACE;
 }
 
+.mix{
+    -fx-background-color: #FF6347;
+}
+
+
 .blanc{
     -fx-background-color: #FFFFFF;
     -fx-border-color:black;

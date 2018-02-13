@@ -39,15 +39,15 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
     Tuple<UnitPort, PortType> getPort(String name) {
 
         if(PortType.INPUT1.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT1);
+            return new Tuple<>(getPortByName(name),PortType.INPUT1);
         if(PortType.INPUT2.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT2);
+            return new Tuple<>(getPortByName(name),PortType.INPUT2);
         if(PortType.INPUT3.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT3);
+            return new Tuple<>(getPortByName(name),PortType.INPUT3);
         if(PortType.INPUT4.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.INPUT4);
+            return new Tuple<>(getPortByName(name),PortType.INPUT4);
         if(PortType.OUTPUT.getType().equals(name))
-            return new Tuple(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
 
         return null;
     }
