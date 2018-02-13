@@ -106,6 +106,8 @@ public class Cable {
                 output.setFill(Color.BLACK);
             }
         });
+        curve.setOnMouseEntered(e -> curve.setOpacity(0.1));
+        curve.setOnMouseExited(e -> curve.setOpacity(1));
     }
 
     /**

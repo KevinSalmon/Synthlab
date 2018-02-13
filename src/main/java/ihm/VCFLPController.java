@@ -54,10 +54,12 @@ public class VCFLPController implements Initializable, SubjectVCF {
         f0.setOnKeyReleased(e ->notifyObseurveur());
         f0.setOnMouseClicked(e -> notifyObseurveur());
         f0.setOnMouseMoved(event -> notifyObseurveur());
+        f0.setOnMouseDragged(e -> notifyObseurveur());
 
         resonance.setOnKeyReleased(e ->notifyObseurveur());
         resonance.setOnMouseClicked(e -> notifyObseurveur());
         resonance.setOnMouseMoved(event -> notifyObseurveur());
+        resonance.setOnMouseDragged(e -> notifyObseurveur());
 
         delete.setOnMouseClicked(eh -> {
             Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane);

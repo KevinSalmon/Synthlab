@@ -220,8 +220,8 @@ public class IHMController implements Initializable{
         hoverPanel.getChildren().remove(draggedModule);
 
         // L'ajout de la scrollbar dans les modules créé un petit décalage du module lorsqu'il est ajouté au workspace
-        draggedModule.setLayoutX(draggedModule.getLayoutX() - 1);
-        draggedModule.setLayoutY(draggedModule.getLayoutY() - 15);
+        //draggedModule.setLayoutX(draggedModule.getLayoutX() - 1);
+        //draggedModule.setLayoutY(draggedModule.getLayoutY() - 15);
 
         /**
          * Instanciation du nouveau module si il est au dessus du workspace
