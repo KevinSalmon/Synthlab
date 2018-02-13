@@ -21,6 +21,7 @@
       <Label layoutX="42.0" layoutY="276.0" text="in" />
       <Label layoutX="388.0" layoutY="276.0" text="out" />
       <Button fx:id="delete" layoutX="425.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
-      <Button fx:id="raz" layoutX="144.0" layoutY="238.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Remise à zéro" />
+      <Button fx:id="raz" layoutX="105.0" layoutY="238.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Reset" />
+      <Button fx:id="remiseAUn" layoutX="203.0" layoutY="238.0" mnemonicParsing="false" text="Remise du pas à 1" />
    </children>
 </Pane>

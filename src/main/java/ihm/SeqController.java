@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import module.Sequenceur;
 import utils.CableManager;
 import utils.PortType;
 
@@ -43,6 +45,8 @@ public class SeqController implements Initializable, SubjectSeq {
     Button delete;
     @FXML
     Button raz;
+    @FXML
+    Button remiseAUn;
 
     private Obseurveur<SubjectSeq> obseurveurSequenceur;
     private int currentClicked =0;
@@ -85,6 +89,13 @@ public class SeqController implements Initializable, SubjectSeq {
             sld6.setValue(0.0);
             sld7.setValue(0.0);
             sld8.setValue(0.0);
+            for (int i =1; i <= 8; i++){
+                currentClicked=i;
+                notifyObseurveur();
+            }
+        });
+        remiseAUn.setOnMouseClicked((MouseEvent e) ->{currentClicked = 1;
+            ((Sequenceur) obseurveurSequenceur.getReference()).resetToOne(this);
         });
 
 

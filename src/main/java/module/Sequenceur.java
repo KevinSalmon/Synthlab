@@ -70,6 +70,11 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
         }
     }
 
+    public void resetToOne(SubjectSeq o){
+        update(o);
+        actualValue=0;
+
+    }
     @Override
     public Module getReference() {
         return this;

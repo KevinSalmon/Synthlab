@@ -86,6 +86,15 @@ public class SequenceurTest {
 
     }
 
+    @Test
+    public void resetToOneTest(){
+        SubjectSeqTest subjectSeqTest = new SubjectSeqTest();
+        sequenceur.update(subjectSeqTest);
+        Assert.assertEquals("Actual value must be equals to zero",0, sequenceur.getActualValue());
+        
+
+    }
+
     /**
      * Test the generate with a 0.0 voltage
      */
@@ -143,6 +152,8 @@ public class SequenceurTest {
     public void getActualValueTest(){
         Assert.assertEquals(sequenceur.getActualValue(), 0);
     }
+
+
 
 
 }
