@@ -55,6 +55,21 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
 
     }
 
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public int getOctave() {
+        return octave;
+    }
+
+    public void setOctave(int octave) {
+        this.octave = octave;
+    }
 
     @Override
     public void update(SubjectKeyboard o) {
@@ -65,7 +80,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         return this;
     }
 
-    private enum Note{
+    private enum Note{ //TODO Trouver la fréquence des dièses
         Do(261.6),
         Dod(261.6),
         Re(293.7),
