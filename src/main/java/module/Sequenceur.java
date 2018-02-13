@@ -8,9 +8,6 @@ import controller.SubjectSeq;
 import utils.PortType;
 import utils.Tuple;
 
-import java.util.Arrays;
-import java.util.logging.Logger;
-
 /**
  * Sequencer class
  */

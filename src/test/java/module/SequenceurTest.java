@@ -89,9 +89,9 @@ public class SequenceurTest {
     @Test
     public void resetToOneTest(){
         SubjectSeqTest subjectSeqTest = new SubjectSeqTest();
-        sequenceur.update(subjectSeqTest);
+        sequenceur.resetToOne(subjectSeqTest);
         Assert.assertEquals("Actual value must be equals to zero",0, sequenceur.getActualValue());
-        
+
 
     }
 
