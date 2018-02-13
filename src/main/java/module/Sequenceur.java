@@ -8,11 +8,18 @@ import controller.SubjectSeq;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.Arrays;
+import java.util.logging.Logger;
+
+/**
+ * Sequencer class
+ */
 public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
     private UnitInputPort inputPort;
     private UnitOutputPort outputPort;
-    double [] values = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    private double [] values = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     private int actualValue;
+    private boolean isCheck = false;
 
     public Sequenceur(){
         inputPort = new UnitInputPort(PortType.INPUT.getType());
@@ -28,14 +35,39 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
         return null;
     }
 
+    /**
+     * Met à jour le tableau des valeurs actuelles des sliders coté fonctionnel
+     * @param o
+     */
     @Override
     public void update(SubjectSeq o) {
+        values[o.getCurrentSlider()-1] = o.getSliderValue(o.getCurrentSlider());
 
     }
 
+    /**
+     * Generation de la séquence
+     * Si la valeur d'entrée est supérieur à 5V, le séquenceur passe au pas suivant
+     * @param start
+     * @param limit
+     */
     @Override
     public void generate(int start, int limit){
 
+        super.generate(start, limit);
+        double[] inValues = inputPort.getValues();
+        double[] outValues = outputPort.getValues();
+        for (int i = start; i < limit; i++){
+            if((inValues[i] *12)>= 5 && !isCheck){
+                actualValue = (actualValue+1) %values.length;
+                isCheck = true;
+            }
+            else if(inValues[i] <= 0){
+                isCheck = false;
+            }
+            outValues[i] = values[actualValue];
+
+        }
     }
 
     @Override
@@ -49,5 +81,16 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
 
     public UnitInputPort getInputPort() {
         return inputPort;
+    }
+
+    public double[] getValues() {
+        return values;
+    }
+    public int getActualValue(){
+        return  actualValue;
+    }
+
+    public boolean isCheck(){
+        return isCheck;
     }
 }

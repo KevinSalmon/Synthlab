@@ -41,46 +41,51 @@ public class SeqController implements Initializable, SubjectSeq {
     Circle out;
     @FXML
     Button delete;
+    @FXML
+    Button raz;
 
     private Obseurveur<SubjectSeq> obseurveurSequenceur;
-    private int currentClicked;
+    private int currentClicked =0;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        sld1.setOnMouseMoved(e -> {currentClicked = 1;notifyObseurveur();});
         sld1.setOnMouseClicked(e -> {currentClicked = 1;notifyObseurveur();});
-        sld1.setOnKeyReleased(e -> {currentClicked = 1;notifyObseurveur();});
+        sld1.setOnMouseReleased(e -> {currentClicked = 1;notifyObseurveur();});
 
-        sld2.setOnMouseMoved(e -> {currentClicked = 2;notifyObseurveur();});
         sld2.setOnMouseClicked(e -> {currentClicked = 2;notifyObseurveur();});
-        sld2.setOnKeyReleased(e -> {currentClicked = 2;notifyObseurveur();});
+        sld2.setOnMouseReleased(e -> {currentClicked = 2;notifyObseurveur();});
 
-        sld3.setOnMouseMoved(e -> {currentClicked = 3;notifyObseurveur();});
         sld3.setOnMouseClicked(e -> {currentClicked = 3;notifyObseurveur();});
-        sld3.setOnKeyReleased(e -> {currentClicked = 3;notifyObseurveur();});
+        sld3.setOnMouseReleased(e -> {currentClicked = 3;notifyObseurveur();});
 
-        sld4.setOnMouseMoved(e -> {currentClicked = 4;notifyObseurveur();});
         sld4.setOnMouseClicked(e -> {currentClicked = 4;notifyObseurveur();});
-        sld4.setOnKeyReleased(e -> {currentClicked = 4;notifyObseurveur();});
+        sld4.setOnMouseReleased(e -> {currentClicked = 4;notifyObseurveur();});
 
-        sld5.setOnMouseMoved(e -> {currentClicked = 5;notifyObseurveur();});
         sld5.setOnMouseClicked(e -> {currentClicked = 5;notifyObseurveur();});
 
-        sld5.setOnKeyReleased(e -> {currentClicked = 5;notifyObseurveur();});
+        sld5.setOnMouseReleased(e -> {currentClicked = 5;notifyObseurveur();});
 
-        sld6.setOnMouseMoved(e -> {currentClicked = 6;notifyObseurveur();});
         sld6.setOnMouseClicked(e -> { currentClicked = 6; notifyObseurveur();});
-        sld6.setOnKeyReleased(e -> { currentClicked = 6;notifyObseurveur();});
+        sld6.setOnMouseReleased(e -> { currentClicked = 6;notifyObseurveur();});
 
-        sld7.setOnMouseMoved(e -> {currentClicked = 7;notifyObseurveur();});
         sld7.setOnMouseClicked(e -> {currentClicked = 7;notifyObseurveur();});
-        sld7.setOnKeyReleased(e -> {currentClicked = 7;notifyObseurveur();});
+        sld7.setOnMouseReleased(e -> {currentClicked = 7;notifyObseurveur();});
 
-        sld8.setOnMouseMoved(e -> {currentClicked = 8;notifyObseurveur();});
         sld8.setOnMouseClicked(e -> {currentClicked = 8;notifyObseurveur();});
-        sld8.setOnKeyReleased(e -> {currentClicked = 8;notifyObseurveur();});
+        sld8.setOnMouseReleased(e -> {currentClicked = 8;notifyObseurveur();});
+
+        raz.setOnMouseClicked(e ->{
+            sld1.setValue(0.0);
+            sld2.setValue(0.0);
+            sld3.setValue(0.0);
+            sld4.setValue(0.0);
+            sld5.setValue(0.0);
+            sld6.setValue(0.0);
+            sld7.setValue(0.0);
+            sld8.setValue(0.0);
+        });
 
 
     }
@@ -115,5 +120,22 @@ public class SeqController implements Initializable, SubjectSeq {
     @Override
     public int getCurrentSlider() {
         return currentClicked;
+    }
+
+    @Override
+    public double getSliderValue(int i) {
+        switch (i){
+            case 1: return sld1.getValue();
+            case 2: return sld2.getValue();
+            case 3: return sld3.getValue();
+            case 4: return sld4.getValue();
+            case 5: return sld5.getValue();
+            case 6: return sld6.getValue();
+            case 7: return sld7.getValue();
+            case 8: return sld8.getValue();
+            default:return 0.0;
+
+
+        }
     }
 }

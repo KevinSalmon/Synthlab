@@ -10,9 +10,9 @@
    <children>
       <Slider fx:id="sld1" blockIncrement="0.1" layoutX="29.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld2" blockIncrement="0.1" layoutX="79.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld3" blockIncrement="0.1" layoutX="226.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld3" blockIncrement="0.1" layoutX="133.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld4" blockIncrement="0.1" layoutX="178.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld5" blockIncrement="0.1" layoutX="133.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld5" blockIncrement="0.1" layoutX="226.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld6" blockIncrement="0.1" layoutX="275.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld7" blockIncrement="0.1" layoutX="325.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld8" blockIncrement="0.2" layoutX="376.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
@@ -21,5 +21,6 @@
       <Label layoutX="42.0" layoutY="276.0" text="in" />
       <Label layoutX="388.0" layoutY="276.0" text="out" />
       <Button fx:id="delete" layoutX="425.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
+      <Button fx:id="raz" layoutX="144.0" layoutY="238.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Remise à zéro" />
    </children>
 </Pane>
