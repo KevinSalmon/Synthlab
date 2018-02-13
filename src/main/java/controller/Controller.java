@@ -104,13 +104,14 @@ public class Controller {
             Log.severe(e.toString());
         }
 
-        SuperController moduleController = fxmlLoader.getController();
+        SuperController moduleController;
         Tuple<String, SuperController> save;
 
         switch (fxmlModuleFileName){
             case FxmlFilesNames.MODULE_OUT:
                 OutputModule outputModule = new OutputModule(synth);
 
+                moduleController = fxmlLoader.getController();
                 save = new Tuple<>(fxmlModuleFileName, moduleController);
                 toSave.put(outputModule, save);
 
@@ -134,6 +135,7 @@ public class Controller {
             case FxmlFilesNames.VCO:
                 VCO vco = new VCO();
 
+                moduleController = fxmlLoader.getController();
                 save = new Tuple<>(fxmlModuleFileName, moduleController);
                 toSave.put(vco, save);
 
