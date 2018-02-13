@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import module.Keyboard;
 import utils.FxmlFilesNames;
 
 import java.net.URL;
@@ -32,6 +33,10 @@ public class IHMImpl extends Application {
          * Affichage de la fenetre
          */
         scene = new Scene(root);
+
+        scene.setOnKeyPressed(new Keyboard());
+        scene.setOnKeyReleased(new Keyboard());
+
         primaryStage.setScene(scene);
 
         primaryStage.setOnCloseRequest(eh -> System.exit(0));

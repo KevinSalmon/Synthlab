@@ -362,6 +362,16 @@ public class IHMController implements Initializable{
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
 
+        /**
+         * Ajout par défaut d'un module keyboard
+         */
+        Pane key = controller.createModule(FxmlFilesNames.KEYBOARD);
+        workspace.getChildren().add(key);
+        key.setLayoutX(20);
+        key.setLayoutY(screenSize.getHeight() - 280);
+        key.setOnDragDetected(de -> onDragDetected(de, key));
+        key.setOnDragDone(de -> onDragDone(de, key));
+
         MenuItem itemSkin1 = new MenuItem();
         itemSkin1.setText(SkinNames.SKIN_MOCHE_NAME);
         itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_MOCHE_NAME));

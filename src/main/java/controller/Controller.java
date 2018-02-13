@@ -102,6 +102,10 @@ public class Controller {
                 OutputModule outputModule = new OutputModule(synth);
                 ((Subject)fxmlLoader.getController()).register(outputModule);
                 break;
+            case FxmlFilesNames.KEYBOARD:
+                Keyboard keyboard = new Keyboard();
+                ((Subject)fxmlLoader.getController()).register(keyboard);
+                break;
             case FxmlFilesNames.VCA:
                 VCA vca = new VCA();
                 ((Subject)fxmlLoader.getController()).register(vca);

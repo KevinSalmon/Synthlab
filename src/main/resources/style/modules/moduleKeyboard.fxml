@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+
+<Pane id="module" fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="379.0" styleClass="out" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.ModuleKeyboard">
+   <children>
+      <Circle fx:id="drawOutput" layoutX="329.0" layoutY="46.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</Pane>
