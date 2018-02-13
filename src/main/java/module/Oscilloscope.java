@@ -9,6 +9,9 @@ import controller.SubjectOscillo;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Oscilloscope extends Module implements Obseurveur<SubjectOscillo> {
 
     public static final int TMAX = 100 * Synthesizer.FRAMES_PER_BLOCK; //combien de frames affichés en même temps sur l'oscillo
@@ -86,5 +89,13 @@ public class Oscilloscope extends Module implements Obseurveur<SubjectOscillo> {
     @Override
     public Module getReference() {
         return this;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

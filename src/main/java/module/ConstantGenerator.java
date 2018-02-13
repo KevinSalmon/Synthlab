@@ -8,6 +8,9 @@ import controller.SubjectConstantGenerator;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConstantGenerator extends Module implements UnitSource, Obseurveur<SubjectConstantGenerator> {
     private UnitOutputPort out;
     private double voltage = 0.0;
@@ -54,6 +57,13 @@ public class ConstantGenerator extends Module implements UnitSource, Obseurveur<
     @Override
     public Module getReference() {
         return this;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }
 

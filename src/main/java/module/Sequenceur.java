@@ -8,6 +8,9 @@ import controller.SubjectSeq;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Sequencer class
  */
@@ -94,5 +97,13 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
 
     public boolean isCheck(){
         return isCheck;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

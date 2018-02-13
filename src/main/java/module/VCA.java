@@ -10,7 +10,9 @@ import controller.SubjectVCA;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée
@@ -97,6 +99,15 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     @Override
     public Module getReference() {
         return this;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.AM);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 
     public class Amplification {

@@ -158,4 +158,15 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         setOscillatorType(savedVCO.getTypeOnde());
         notifyObseurveur();
     }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.FM)) {
+            return this.fm;
+        }
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        return null;
+    }
 }

@@ -126,6 +126,14 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 	}
 
 	@Override
+	public Circle getPort(PortType portType) {
+		if (portType.equals(PortType.INPUT)) {
+			return drawInput;
+		}
+		return null;
+	}
+
+	@Override
 	public void register(Obseurveur o) {
 		if(o != null){
 			obseurveurList.add(o);

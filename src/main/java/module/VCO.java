@@ -17,7 +17,9 @@ import utils.OscillatorType;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
@@ -308,5 +310,13 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     public void setOscillatorType(OscillatorType oscillatorType) {
         this.oscillatorType = oscillatorType;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.FM);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

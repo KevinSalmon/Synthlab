@@ -10,6 +10,9 @@ import javafx.scene.input.KeyEvent;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurveur<SubjectKeyboard> {
 
     UnitOutputPort cv;
@@ -92,5 +95,12 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         public double freqToOctave(){
             return Math.log(freq/440.0)/Math.log(2.0);
         }
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

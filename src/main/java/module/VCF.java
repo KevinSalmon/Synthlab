@@ -14,6 +14,9 @@ import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
 
@@ -124,5 +127,14 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
 
     public void setFrequency(Integer frequency) {
         filterPass.frequency.set(frequency);
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.FM);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }
