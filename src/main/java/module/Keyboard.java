@@ -27,10 +27,10 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         cv = new UnitOutputPort();
         gate = new UnitOutputPort();
 
-        keyPressed = new boolean[Note.size];
+        keyPressed = new boolean[Note.SIZE];
         Arrays.fill(keyPressed,false);
 
-        note = Note.None;
+        note = Note.NONE;
 
         addPort(cv,PortType.OUTPUT.getType());
         addPort(gate,PortType.GATE.getType());
@@ -74,20 +74,20 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             gate.setValueInternal(-5.0/12.0);
 
         switch (code){
-            case Q: keyPressed[0] = false;
-            case S: keyPressed[1] = false;
-            case D: keyPressed[2] = false;
-            case F: keyPressed[3] = false;
-            case G: keyPressed[4] = false;
-            case H: keyPressed[5] = false;
-            case J: keyPressed[6] = false;
-            case K: keyPressed[7] = false;
-            case Z: keyPressed[8] = false;
-            case E: keyPressed[9] = false;
-            case T: keyPressed[10] = false;
-            case Y: keyPressed[11] = false;
-            case U: keyPressed[12] = false;
-            default:
+            case Q: keyPressed[0] = false;break;
+            case S: keyPressed[1] = false;break;
+            case D: keyPressed[2] = false;break;
+            case F: keyPressed[3] = false;break;
+            case G: keyPressed[4] = false;break;
+            case H: keyPressed[5] = false;break;
+            case J: keyPressed[6] = false;break;
+            case K: keyPressed[7] = false;break;
+            case Z: keyPressed[8] = false;break;
+            case E: keyPressed[9] = false;break;
+            case T: keyPressed[10] = false;break;
+            case Y: keyPressed[11] = false;break;
+            case U: keyPressed[12] = false;break;
+            default: break;
         }
     }
 
@@ -97,37 +97,37 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             case Q:
                 if(!keyPressed[0]){
                     keyPressed[0] = true;
-                    note = Note.Do;
+                    note = Note.DO;
                     lastKey = code;
                 }
                 break;
             case S: if(!keyPressed[1]){
                 keyPressed[1] = true;
-                note = Note.Re;
+                note = Note.RE;
                 lastKey = code;
             }
                 break;
             case D: if(!keyPressed[2]){
                 keyPressed[2] = true;
-                note = Note.Mi;
+                note = Note.MI;
                 lastKey = code;
             }
                 break;
             case F: if(!keyPressed[3]){
                 keyPressed[3] = true;
-                note = Note.Fa;
+                note = Note.FA;
                 lastKey = code;
             }
                 break;
             case G: if(!keyPressed[4]){
                 keyPressed[4] = true;
-                note = Note.Sol;
+                note = Note.SOL;
                 lastKey = code;
             }
                 break;
             case H: if(!keyPressed[5]){
                 keyPressed[5] = true;
-                note = Note.La;
+                note = Note.LA;
                 lastKey = code;
             }
                 break;
@@ -139,37 +139,37 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
                 break;
             case K: if(!keyPressed[7]){
                 keyPressed[7] = true;
-                note = Note.Dou;
+                note = Note.DOU;
                 lastKey = code;
             }
                 break;
             case Z: if(!keyPressed[8]){
                 keyPressed[8] = true;
-                note = Note.Dod;
+                note = Note.DOD;
                 lastKey = code;
             }
                 break;
             case E: if(!keyPressed[9]){
                 keyPressed[9] = true;
-                note = Note.Red;
+                note = Note.RED;
                 lastKey = code;
             }
                 break;
             case T: if(!keyPressed[10]){
                 keyPressed[10] = true;
-                note = Note.Fad;
+                note = Note.FAD;
                 lastKey = code;
             }
                 break;
             case Y: if(!keyPressed[11]){
                 keyPressed[11] = true;
-                note = Note.Sold;
+                note = Note.SOLD;
                 lastKey = code;
             }
                 break;
             case U: if(!keyPressed[12]){
                 keyPressed[12] = true;
-                note = Note.Lad;
+                note = Note.LAD;
                 lastKey = code;
             }
                 break;
@@ -199,6 +199,9 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
 
     @Override
     public void update(SubjectKeyboard o) {
+        /**
+         * Appelé lorsque la partie graphique est mise à jour
+         */
     }
 
     @Override
@@ -207,22 +210,22 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
     }
 
     private enum Note{
-        Do(261.6),
-        Dod(277),
-        Re(293.7),
-        Red(311),
-        Mi(329.6),
-        Fa(349.2),
-        Fad(370),
-        Sol(392.0),
-        Sold(415),
-        La(440.0),
-        Lad(466),
+        DO(261.6),
+        DOD(277),
+        RE(293.7),
+        RED(311),
+        MI(329.6),
+        FA(349.2),
+        FAD(370),
+        SOL(392.0),
+        SOLD(415),
+        LA(440.0),
+        LAD(466),
         Si(493.9),
-        Dou(523.3),
-        None(0.0);
+        DOU(523.3),
+        NONE(0.0);
 
-        private static final int size = Note.values().length;
+        private static final int SIZE = Note.values().length;
 
         private double freq;
         Note(double v) {
