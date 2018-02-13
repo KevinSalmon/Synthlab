@@ -104,6 +104,8 @@ public class Controller {
                 break;
             case FxmlFilesNames.KEYBOARD:
                 Keyboard keyboard = new Keyboard();
+                scene.setOnKeyReleased(keyboard);
+                scene.setOnKeyPressed(keyboard);
                 ((Subject)fxmlLoader.getController()).register(keyboard);
                 break;
             case FxmlFilesNames.VCA:

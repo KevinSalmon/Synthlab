@@ -5,6 +5,7 @@ public enum PortType {
     OUTPUT1 ("output1"),
     OUTPUT2 ("output2"),
     OUTPUT3 ("output3"),
+    GATE ("outputgate"),
     INPUT ("input"),
     INPUT1 ("input1"),
     INPUT2 ("input2"),
