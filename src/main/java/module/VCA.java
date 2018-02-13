@@ -10,6 +10,8 @@ import controller.SubjectVCA;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.Arrays;
+
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée
     private UnitInputPort am; // Entrée : Modulation d'amplitude
@@ -41,11 +43,11 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     }
 
     public Double getA0() {
-        return a0;
+        return attenuationFilter.getDecibelsAmplification();
     }
 
     public void setA0(Double a0) {
-        this.a0 = a0;
+        this.attenuationFilter.setDecibelsAmplification(a0);
     }
 
     @Override
@@ -90,16 +92,11 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     @Override
     public void update(SubjectVCA o) {
         this.setA0(o.getDecibel());
-        this.attenuationFilter.setDecibelsAmplification(o.getDecibel());
     }
 
     @Override
     public Module getReference() {
         return this;
-    }
-
-    public double getDecibelsAttenuation() { // Pour le débug
-        return this.attenuationFilter.getDecibelsAmplification();
     }
 
     public class Amplification {

@@ -69,31 +69,31 @@ public class VCATest {
     @Test
     public void a05VOutputTest() {
         constGen.setVoltage(5.0);
-        vca.setA0(6.0);
+        vca.setA0(0.0);
 
         assertEquals(5.0, constGen.getVoltage());
-        assertEquals(6.0, vca.getA0());
+        assertEquals(0.0, vca.getA0());
 
         constGen.generate();
         vco.generate();
         vca.generate();
 
-        assertEquals(0.0, vca.getDecibelsAttenuation());
+        assertEquals(vco.getOutput().getValue() * (constGen.getOutput().getValue()*12/5), vca.getOutput().getValue(), 0.0);
     }
 
     @Test
     public void a04VOutputTest() {
         constGen.setVoltage(4.0);
-        vca.setA0(6.0);
+        vca.setA0(0.0);
 
         assertEquals(4.0, constGen.getVoltage());
-        assertEquals(6.0, vca.getA0());
+        assertEquals(0.0, vca.getA0());
 
         constGen.generate();
         vco.generate();
         vca.generate();
 
-        assertEquals(-12.0, vca.getDecibelsAttenuation());
+        assertEquals(vco.getOutput().getValue() * (constGen.getOutput().getValue()*12/5), vca.getOutput().getValue(), 0.0);
     }
 
     // lorsque que l’entrée am est déconnectée ou nulle, le gain du VCA est nul (pas de signal en sortie)
@@ -177,7 +177,7 @@ public class VCATest {
 
         assertEquals(5.0, constGen.getVoltage());
         assertEquals(0.0, vca.getA0());
-        assertEquals(0.0, vca.getDecibelsAttenuation());
+        assertEquals(0.0, vca.getA0());
     }
 
     @Test
@@ -192,7 +192,7 @@ public class VCATest {
             vco.generate();
             vca.generate();
 
-            assertEquals((12.0 * i), vca.getDecibelsAttenuation());
+            assertEquals(vco.getOutput().getValue() * (constGen.getOutput().getValue()*12/5), vca.getOutput().getValue(), 0.0);
 
             amplitude++;
         }
@@ -211,7 +211,7 @@ public class VCATest {
             vco.generate();
             vca.generate();
 
-            assertEquals((-12.0 * i), vca.getDecibelsAttenuation(), 0.0);
+            assertEquals(vco.getOutput().getValue() * (constGen.getOutput().getValue()*12/5), vca.getOutput().getValue(), 0.0);
 
             amplitude--;
         }
@@ -238,6 +238,6 @@ public class VCATest {
     public void updateTest() {
         SubjectVCA sub = new SubjectVCATest(-3.6);
         vca.update(sub);
-        assertEquals(-3.6, vca.getDecibelsAttenuation());
+        assertEquals(-3.6, vca.getA0());
     }
 }
