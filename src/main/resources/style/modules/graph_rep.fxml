@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="pane" id="module" styleClass="rep" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="191.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.ReplicateurController">
+<Pane id="module" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="144.0" prefWidth="136.0" styleClass="rep" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.ReplicateurController">
     <children>
-        <Label layoutX="37.0" layoutY="88.0" text="in" />
-        <Circle fx:id="in" layoutX="45.0" layoutY="132.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="125.0" layoutY="8.0" text="out1" />
-        <Circle fx:id="out1" layoutX="140.0" layoutY="56.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="125.0" layoutY="88.0" text="out2" />
-        <Circle fx:id="out2" layoutX="140.0" layoutY="132.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="125.0" layoutY="172.0" text="out3" />
-        <Circle fx:id="out3" layoutX="140.0" layoutY="216.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="17.0" layoutY="53.0" text="in" />
+        <Circle fx:id="in" layoutX="25.0" layoutY="80.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="68.0" layoutY="8.0" text="out1" />
+        <Circle fx:id="out1" layoutX="83.0" layoutY="39.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="68.0" layoutY="53.0" text="out2" />
+        <Circle fx:id="out2" layoutX="83.0" layoutY="80.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label layoutX="68.0" layoutY="101.0" text="out3" />
+        <Circle fx:id="out3" layoutX="83.0" layoutY="128.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
 
-        <Button fx:id="delete" layoutX="165.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED"/>
+        <Button fx:id="delete" layoutX="108.0" mnemonicParsing="false" text="X" textFill="RED" />
     </children>
 </Pane>

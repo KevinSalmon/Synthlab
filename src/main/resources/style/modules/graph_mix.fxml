@@ -6,31 +6,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="pane" id="module" styleClass="mix" fx:controller="ihm.MixController" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="module" fx:id="pane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="280.0" styleClass="mix" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.MixController">
    <children>
       <Label layoutX="8.0" layoutY="6.0" text="MIX " />
-      <Circle id="in1" fx:id="in1" layoutX="48.0" layoutY="62.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="in2" fx:id="in2" layoutX="48.0" layoutY="139.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="in3" fx:id="in3" layoutX="48.0" layoutY="219.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="in4" fx:id="in4" layoutX="48.0" layoutY="277.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="out" fx:id="out" layoutX="443.0" layoutY="179.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="82.0" layoutY="74.0" text="-∞ " />
-      <Label layoutX="38.0" layoutY="107.0" text="in2" />
-      <Label layoutX="38.0" layoutY="192.0" text="in3" />
-      <Label layoutX="38.0" layoutY="250.0" text="in4" />
-      <Label layoutX="432.0" layoutY="143.0" text="out" />
-      <Slider id="sldIn1" fx:id="sldIn1" blockIncrement="0.1" majorTickUnit="1.0" showTickMarks="true" max="12.0" min="-100.0"  layoutX="82.0" layoutY="50.0" prefHeight="38.0" prefWidth="291.0" />
-      <Slider id="sldIn2" fx:id="sldIn2" blockIncrement="0.1" majorTickUnit="1.0" showTickMarks="true" max="12.0" min="-100.0"  layoutX="82.0" layoutY="124.0" prefHeight="38.0" prefWidth="291.0" />
-      <Slider id="sldIn3" fx:id="sldIn3" blockIncrement="0.1" majorTickUnit="1.0" showTickMarks="true" max="12.0" min="-100.0"  layoutX="82.0" layoutY="200.0" prefHeight="38.0" prefWidth="291.0" />
-      <Slider id="sldIn4" fx:id="sldIn4" blockIncrement="0.1" majorTickUnit="1.0" showTickMarks="true" max="12.0" min="-100.0"  layoutX="82.0" layoutY="258.0" prefHeight="38.0" prefWidth="291.0" />
-      <Label layoutX="82.0" layoutY="151.0" text="-∞ " />
-      <Label layoutX="82.0" layoutY="230.0" text="-∞ " />
-      <Label layoutX="82.0" layoutY="288.0" text="-∞ " />
-      <Label layoutX="356.0" layoutY="74.0" text="12" />
-      <Label layoutX="356.0" layoutY="151.0" text="12" />
-      <Label layoutX="356.0" layoutY="230.0" text="12" />
-      <Label layoutX="356.0" layoutY="288.0" text="12" />
-      <Label layoutX="38.0" layoutY="34.0" text="in1" />
-      <Button fx:id="delete" layoutX="457.0" layoutY="0.0" mnemonicParsing="false" text="X" textFill="RED" />
+      <Circle id="in1" fx:id="in1" layoutX="20.0" layoutY="52.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in2" fx:id="in2" layoutX="20.0" layoutY="107.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in3" fx:id="in3" layoutX="19.0" layoutY="163.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="in4" fx:id="in4" layoutX="19.0" layoutY="221.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="out" fx:id="out" layoutX="261.0" layoutY="138.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="31.0" layoutY="58.0" text="-∞ " />
+      <Label layoutX="10.0" layoutY="75.0" text="in2" />
+      <Label layoutX="9.0" layoutY="136.0" text="in3" />
+      <Label layoutX="9.0" layoutY="194.0" text="in4" />
+      <Label layoutX="251.0" layoutY="102.0" text="out" />
+      <Slider id="sldIn1" fx:id="sldIn1" blockIncrement="0.1" layoutX="31.0" layoutY="34.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="38.0" prefWidth="207.0" showTickMarks="true" />
+      <Slider id="sldIn2" fx:id="sldIn2" blockIncrement="0.1" layoutX="35.0" layoutY="90.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="38.0" prefWidth="200.0" showTickMarks="true" />
+      <Slider id="sldIn3" fx:id="sldIn3" blockIncrement="0.1" layoutX="35.0" layoutY="140.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="38.0" prefWidth="200.0" showTickMarks="true" />
+      <Slider id="sldIn4" fx:id="sldIn4" blockIncrement="0.1" layoutX="30.0" layoutY="202.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="38.0" prefWidth="207.0" showTickMarks="true" />
+      <Label layoutX="35.0" layoutY="117.0" text="-∞ " />
+      <Label layoutX="35.0" layoutY="167.0" text="-∞ " />
+      <Label layoutX="30.0" layoutY="232.0" text="-∞ " />
+      <Label layoutX="224.0" layoutY="58.0" text="12" />
+      <Label layoutX="224.0" layoutY="117.0" text="12" />
+      <Label layoutX="224.0" layoutY="170.0" text="12" />
+      <Label layoutX="224.0" layoutY="227.0" text="12" />
+      <Label layoutX="10.0" layoutY="24.0" text="in1" />
+      <Button fx:id="delete" layoutX="253.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
    </children>
 </Pane>
