@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedModuleOut;
 import utils.CableManager;
 import utils.PortType;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ModuleOut implements Initializable, SubjectOutput{
+public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 
 	@FXML
 	Pane paneMain;
@@ -114,6 +116,16 @@ public class ModuleOut implements Initializable, SubjectOutput{
 	}
 
 	@Override
+	public void loadProperties(SavedModule module) {
+		SavedModuleOut savedModuleOut = (SavedModuleOut) module;
+		btnAttenuateur.getValueFactory().setValue(savedModuleOut.getAttenuateur().intValue());
+		checkboxMute.setSelected(savedModuleOut.isMute());
+		checkbox_record.setSelected(savedModuleOut.isRecording());
+		filename_record.setText(savedModuleOut.getRecordFileName());
+		notifyObseurveur();
+	}
+
+	@Override
 	public void register(Obseurveur o) {
 		if(o != null){
 			obseurveurList.add(o);
@@ -162,5 +174,12 @@ public class ModuleOut implements Initializable, SubjectOutput{
 				o.update(this);
 			}
 		}
+	}
+
+	@Override
+	public SavedModule createMemento() {
+		return new SavedModuleOut(paneMain.getLayoutX(), paneMain.getLayoutY(),
+				checkboxMute.isSelected(), filename_record.getText(),
+				checkbox_record.isSelected(), btnAttenuateur.getValue());
 	}
 }

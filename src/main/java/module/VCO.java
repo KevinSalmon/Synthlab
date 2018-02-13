@@ -7,6 +7,9 @@ import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCO;
+import sauvegarde.Memento;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedVCO;
 import signal.AudioSignal;
 import signal.Signal;
 import utils.OscillatorFactory;
@@ -37,6 +40,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private int octave;
     private double reglageFin;
+    private OscillatorType oscillatorType;
 
     public VCO() {
 
@@ -52,6 +56,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         add(sinOsc);
 
         currentOsc = triOsc;
+        oscillatorType = OscillatorType.TRIANGLE;
 
         lfo = false;
 
@@ -207,6 +212,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             default: throw new IllegalArgumentException("Oscillator not found");
         }
 
+        oscillatorType = type;
+
         //Met à jour fréquence et amplitude
         currentOsc.frequency.set(freq);
         currentOsc.amplitude.set(amp);
@@ -293,5 +300,13 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     public static double getLfoMin() {
         return LFO_MIN;
+    }
+
+    public OscillatorType getOscillatorType() {
+        return oscillatorType;
+    }
+
+    public void setOscillatorType(OscillatorType oscillatorType) {
+        this.oscillatorType = oscillatorType;
     }
 }

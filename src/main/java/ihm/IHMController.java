@@ -85,7 +85,7 @@ public class IHMController implements Initializable{
      */
     @FXML
     void saveWorkspace(ActionEvent event){
-        controller.saveWorkspace(workspace);
+        controller.saveWorkspace();
     }
 
     /**
@@ -94,6 +94,9 @@ public class IHMController implements Initializable{
      */
     @FXML
     void loadWorkspace(ActionEvent event){
+        controller.close();
+        workspace.getChildren().clear();
+        controller.getSynth().start();
         controller.loadWorkspace();
     }
 
@@ -511,5 +514,13 @@ public class IHMController implements Initializable{
         else if(height != null) {
             splitPane.setPrefHeight(Double.parseDouble(height.toString())-PADDING);
         }
+    }
+
+    public void addModuleToWorkspace(Pane pane, double xPos, double yPos){
+        workspace.getChildren().add(pane);
+        pane.setLayoutY(yPos);
+        pane.setLayoutX(xPos);
+        pane.setOnDragDetected(de -> onDragDetected(de, pane));
+        pane.setOnDragDone(de -> onDragDone(de, pane));
     }
 }

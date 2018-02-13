@@ -14,7 +14,6 @@ import utils.Tuple;
 public class BruitBlancTest {
 
     public static BruitBlancModule bruitBlanc;
-    public static VCO vco;
 
     @Before
     public void init(){
