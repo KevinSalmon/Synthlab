@@ -45,9 +45,9 @@ public class VCFLP extends Module implements UnitSource, Obseurveur<SubjectVCFLP
 
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
-        if(name.equals(PortType.OUTPUT.getType())) return new Tuple<>(out, PortType.OUTPUT);
-        if(name.equals(PortType.INPUT.getType())) return new Tuple<>(in, PortType.INPUT);
-        if(name.equals(PortType.FM.getType())) return new Tuple<>(fm, PortType.FM);
+        if(name.equals(PortType.OUTPUT.getType())) return new Tuple<>(getPortByName(name), PortType.OUTPUT);
+        if(name.equals(PortType.INPUT.getType())) return new Tuple<>(getPortByName(name), PortType.INPUT);
+        if(name.equals(PortType.FM.getType())) return new Tuple<>(getPortByName(name), PortType.FM);
         return null;
     }
 

@@ -80,7 +80,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
     @Override
     public Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.INPUT.getType().equals(name)) {
-            return new Tuple(getPortByName(name),PortType.INPUT);
+            return new Tuple<>(getPortByName(name),PortType.INPUT);
         }
         return null;
     }
