@@ -6,21 +6,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane id="module" fx:id="border" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="256.0" styleClass="eg" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.EGController">
+<Pane id="module" fx:id="border" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="256.0" styleClass="eg" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.EGController">
    <children>
-      <Circle fx:id="in" layoutX="31.0" layoutY="219.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="out" layoutX="231.0" layoutY="217.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="6.0" layoutY="211.0" text="in" />
-      <Label layoutX="186.0" layoutY="209.0" text="out" />
+      <Circle fx:id="in" layoutX="39.0" layoutY="216.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="out" layoutX="240.0" layoutY="216.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="9.0" layoutY="207.0" text="in" />
+      <Label layoutX="202.0" layoutY="207.0" text="out" />
       <Label layoutX="9.0" text="EG" />
-      <Slider fx:id="sustain" layoutY="130.0" majorTickUnit="5.0" max="1.0" prefHeight="38.0" prefWidth="239.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
-      <Slider fx:id="release" layoutX="4.0" layoutY="170.0" majorTickUnit="5.0" max="8.0" min="0.01" prefHeight="38.0" prefWidth="239.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
-      <Slider fx:id="decay" layoutX="1.0" layoutY="86.0" majorTickUnit="5.0" max="2.0" prefHeight="38.0" prefWidth="239.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
-      <Slider fx:id="attack" layoutX="4.0" layoutY="35.0" majorTickUnit="5.0" max="8.0" min="0.01" prefHeight="38.0" prefWidth="239.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
-      <Label layoutX="39.0" layoutY="18.0" text="Attack" />
-      <Label layoutX="30.0" layoutY="113.0" text="Sustain" />
-      <Label layoutX="34.0" layoutY="157.0" text="Release" />
-      <Label layoutX="39.0" layoutY="67.0" text="Decay" />
+      <Slider fx:id="sustain" layoutX="10.0" layoutY="121.0" majorTickUnit="5.0" max="1.0" prefHeight="38.0" prefWidth="232.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
+      <Slider fx:id="release" layoutX="10.0" layoutY="162.0" majorTickUnit="5.0" max="8.0" min="0.01" prefHeight="38.0" prefWidth="232.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
+      <Slider fx:id="decay" layoutX="10.0" layoutY="78.0" majorTickUnit="5.0" max="2.0" prefHeight="38.0" prefWidth="232.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
+      <Slider fx:id="attack" layoutX="10.0" layoutY="29.0" majorTickUnit="5.0" max="8.0" min="0.01" prefHeight="38.0" prefWidth="232.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" />
+      <Label layoutX="39.0" layoutY="14.0" text="Attack" />
+      <Label layoutX="38.0" layoutY="105.0" text="Sustain" />
+      <Label layoutX="38.0" layoutY="146.0" text="Release" />
+      <Label layoutX="38.0" layoutY="63.0" text="Decay" />
       <Button fx:id="delete" layoutX="231.0" mnemonicParsing="false" text="X" textFill="RED" />
    </children>
 </Pane>
