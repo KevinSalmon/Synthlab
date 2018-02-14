@@ -9,13 +9,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import module.VCF;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedVCF;
+import sauvegarde.SavedVCO;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
-public class VCFLPController implements Initializable, SubjectVCF {
+public class VCFLPController implements Initializable, SubjectVCF, SuperController {
 
     @FXML
     Circle fm;
@@ -46,6 +50,7 @@ public class VCFLPController implements Initializable, SubjectVCF {
     private static final int INITIAL_VALUE = 0;
 
     private Obseurveur<SubjectVCF> vcflpObseurveur;
+    private boolean isLp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -103,5 +108,42 @@ public class VCFLPController implements Initializable, SubjectVCF {
         frequence.setText("fréquence : "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
 
 
+    }
+    @Override
+    public SavedModule createMemento() {
+        return new SavedVCF(pane.getLayoutX(), pane.getLayoutY(),
+                f0.getValue(), resonance.getValue(),
+                isLp());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedVCF savedVCF = (SavedVCF)module;
+        f0.setValue(savedVCF.getF0());
+        resonance.setValue(savedVCF.getResonance());
+        isLp = savedVCF.isLP();
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.FM)) {
+            return this.fm;
+        }
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        if(portType.equals(PortType.INPUT)){
+            return  this.in;
+        }
+        return null;
+    }
+
+
+    public void setIsLp(boolean b){
+        this.isLp = b;
+    }
+    public boolean isLp(){
+        return isLp;
     }
 }

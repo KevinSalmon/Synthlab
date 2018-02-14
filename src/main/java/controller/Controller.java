@@ -1,11 +1,8 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ihm.IHMController;
+import ihm.*;
 import com.jsyn.Synthesizer;
-import ihm.ModuleOut;
-import ihm.SuperController;
-import ihm.VCOControllerIHM;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -147,12 +144,14 @@ public class Controller {
             case FxmlFilesNames.VCFLP:
                 VCF vcflp = new VCF(true);
                 moduleController = fxmlLoader.getController();
+                ((VCFLPController)moduleController).setIsLp(true);
                 saveModuleForLoading(vcflp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcflp);
                 break;
             case FxmlFilesNames.VCFHP:
                 VCF vcfhp = new VCF(false);
                 moduleController = fxmlLoader.getController();
+                ((VCFLPController)moduleController).setIsLp(false);
                 saveModuleForLoading(vcfhp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcfhp);
                 break;
