@@ -12,6 +12,9 @@ public class SavedVCF extends SavedModule{
         this.f0 = f0;
         this.isLP = isLP;
     }
+    public SavedVCF(){
+
+    }
 
     public double getResonance() {
         return resonance;
@@ -21,7 +24,20 @@ public class SavedVCF extends SavedModule{
         return f0;
     }
 
-    public boolean isLP() {
+
+    public void setResonance(double resonance) {
+        this.resonance = resonance;
+    }
+
+    public void setF0(double f0) {
+        this.f0 = f0;
+    }
+
+    public boolean getLP() {
         return isLP;
+    }
+
+    public void setLP(boolean LP) {
+        isLP = LP;
     }
 }

@@ -473,9 +473,8 @@ public class Controller {
         ((Subject)fxmlLoader.getController()).register((Obseurveur) module);
 
         if(savedModules != null && savedModules.length > 0){
-            SavedModuleOut savedModuleOut = (SavedModuleOut)savedModules[0];
-            ModuleOut moduleOut = fxmlLoader.getController();
-            moduleOut.loadProperties(savedModuleOut);
+            SavedModule savedModuleOut = savedModules[0];
+            moduleController.loadProperties(savedModuleOut);
         }
     }
 }

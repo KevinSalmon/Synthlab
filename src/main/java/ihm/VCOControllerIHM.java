@@ -127,7 +127,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         if(o != null){
             obseuveurVCO = o;
             CableManager cableManager = CableManager.getInstance();
-            cableManager.addListener(fm, o.getReference(), PortType.FM, border);
+            cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
             frequency.setText(frequency.getText() + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
         }
@@ -162,7 +162,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
 
     @Override
     public Circle getPort(PortType portType) {
-        if (portType.equals(PortType.FM)) {
+        if (portType.equals(PortType.INPUTFM)) {
             return this.fm;
         }
         if (portType.equals(PortType.OUTPUT)) {

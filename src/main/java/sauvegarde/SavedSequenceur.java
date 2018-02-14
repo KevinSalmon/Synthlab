@@ -24,6 +24,9 @@ public class SavedSequenceur extends SavedModule{
         this.sld7 = sld7;
         this.sld8 = sld8;
     }
+    public SavedSequenceur(){
+
+    }
 
     public double getSld1() {
         return sld1;

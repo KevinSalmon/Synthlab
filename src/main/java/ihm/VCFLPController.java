@@ -87,7 +87,7 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
-            cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.FM, pane);
+            cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.INPUTFM, pane);
             frequence.setText("fréquence : 0 Hz");
 
         }
@@ -121,13 +121,13 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
         SavedVCF savedVCF = (SavedVCF)module;
         f0.setValue(savedVCF.getF0());
         resonance.setValue(savedVCF.getResonance());
-        isLp = savedVCF.isLP();
+        isLp = savedVCF.getLP();
         notifyObseurveur();
     }
 
     @Override
     public Circle getPort(PortType portType) {
-        if (portType.equals(PortType.FM)) {
+        if (portType.equals(PortType.INPUTFM)) {
             return this.fm;
         }
         if (portType.equals(PortType.OUTPUT)) {

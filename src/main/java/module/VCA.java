@@ -24,8 +24,8 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     public VCA() {
         this.in = new UnitInputPort(PortType.INPUT.getType());
         addPort(this.in, PortType.INPUT.getType());
-        this.am = new UnitInputPort(PortType.AM.getType());
-        addPort(this.am, PortType.AM.getType());
+        this.am = new UnitInputPort(PortType.INPUTAM.getType());
+        addPort(this.am, PortType.INPUTAM.getType());
         this.out = new UnitOutputPort();
         addPort(this.out, PortType.OUTPUT.getType());
 
@@ -87,7 +87,7 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     Tuple<UnitPort, PortType> getPort(String name) {
         if(PortType.OUTPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         if(PortType.INPUT.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
-        if(PortType.AM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
+        if(PortType.INPUTAM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUT);
         return null;
     }
 
@@ -105,7 +105,7 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     public List<PortType> getAllPorts() {
         List<PortType> list = new ArrayList<>();
         list.add(PortType.INPUT);
-        list.add(PortType.AM);
+        list.add(PortType.INPUTAM);
         list.add(PortType.OUTPUT);
         return list;
     }

@@ -65,7 +65,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         //Crée le port de sortie
         output = new UnitOutputPort(PortType.OUTPUT.getType());
         addPort(output);
-        fm = new UnitInputPort(PortType.FM.getType());
+        fm = new UnitInputPort(PortType.INPUTFM.getType());
         addPort(fm);
         audioSignal = new AudioSignal(1.0/12.0, F0);
         currentOsc.frequency.set(F0);
@@ -242,7 +242,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         if(PortType.OUTPUT.getType().equals(name)){
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.FM);
+        else if(PortType.INPUTFM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUTFM);
         return null;
     }
 
@@ -315,7 +315,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     @Override
     public List<PortType> getAllPorts() {
         List<PortType> list = new ArrayList<>();
-        list.add(PortType.FM);
+        list.add(PortType.INPUTFM);
         list.add(PortType.OUTPUT);
         return list;
     }

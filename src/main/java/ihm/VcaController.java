@@ -79,7 +79,7 @@ public class VcaController implements Initializable, SubjectVCA, SuperController
         if( o != null){
             vcaObseurveur = o;
             cableManager.addListener(in, vcaObseurveur.getReference(), PortType.INPUT, pane);
-            cableManager.addListener(am, vcaObseurveur.getReference(), PortType.AM, pane);
+            cableManager.addListener(am, vcaObseurveur.getReference(), PortType.INPUTAM, pane);
             cableManager.addListener(out, vcaObseurveur.getReference(), PortType.OUTPUT, pane);
 
         }
@@ -113,7 +113,7 @@ public class VcaController implements Initializable, SubjectVCA, SuperController
 
     @Override
     public Circle getPort(PortType portType) {
-        if (portType.equals(PortType.AM)) {
+        if (portType.equals(PortType.INPUTAM)) {
             return this.am;
         }
         if (portType.equals(PortType.OUTPUT)) {

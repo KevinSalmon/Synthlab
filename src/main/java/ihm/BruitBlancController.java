@@ -63,7 +63,9 @@ public class BruitBlancController implements Initializable, SubjectBruitBlanc, S
 
     @Override
     public void loadProperties(SavedModule module) {
-        notifyObseurveur();
+        /*
+        Nothing to do
+         */
     }
 
     @Override

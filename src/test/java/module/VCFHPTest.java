@@ -107,7 +107,7 @@ public class VCFHPTest {
     public void getPortTest(){
         assertEquals("output port and returned port are not equals", vcfhp.getOutput(), vcfhp.getPort(PortType.OUTPUT.getType()).getLeft());
         assertEquals( "input port and returned port are not equals", vcfhp.getInput(), vcfhp.getPort(PortType.INPUT.getType()).getLeft());
-        assertEquals("fm port and returned port are not equals", vcfhp.getFm(), vcfhp.getPort(PortType.FM.getType()).getLeft());
+        assertEquals("fm port and returned port are not equals", vcfhp.getFm(), vcfhp.getPort(PortType.INPUTFM.getType()).getLeft());
         Assert.assertNull(vcfhp.getPort("NULL"));
     }
 

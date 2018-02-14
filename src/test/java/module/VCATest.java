@@ -41,7 +41,7 @@ public class VCATest {
     public void getInputPortTest() {
         assertNotNull(vca.getPort(PortType.INPUT.getType()));
         assertNotNull(vca.getPort(PortType.OUTPUT.getType()));
-        assertNotNull(vca.getPort(PortType.AM.getType()));
+        assertNotNull(vca.getPort(PortType.INPUTAM.getType()));
         assertNull(vca.getPort("FAKE"));
     }
 

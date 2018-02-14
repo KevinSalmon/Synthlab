@@ -76,7 +76,9 @@ public class ReplicateurController implements Initializable, SubjectReplicateur,
 
     @Override
     public void loadProperties(SavedModule module) {
-        notifyObseurveur();
+        /*
+        Nothing to do
+         */
     }
 
     @Override

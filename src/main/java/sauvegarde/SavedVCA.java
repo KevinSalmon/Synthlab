@@ -8,6 +8,9 @@ public class SavedVCA extends SavedModule{
         super(xPos, yPos);
         this.attenuateur = attenuateur;
     }
+    public SavedVCA(){
+
+    }
 
     public double getAttenuateur() {
         return attenuateur;
