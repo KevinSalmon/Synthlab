@@ -11,13 +11,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import module.Sequenceur;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedSequenceur;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SeqController implements Initializable, SubjectSeq {
+public class SeqController implements Initializable, SubjectSeq, SuperController {
 
     @FXML
     Pane pane;
@@ -49,7 +51,7 @@ public class SeqController implements Initializable, SubjectSeq {
     Button remiseAUn;
 
     private Obseurveur<SubjectSeq> obseurveurSequenceur;
-    private int currentClicked =0;
+    private int currentClicked =1;
 
 
     @Override
@@ -155,5 +157,48 @@ public class SeqController implements Initializable, SubjectSeq {
 
 
         }
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedSequenceur(pane.getLayoutX(), pane.getLayoutY(),
+                sld1.getValue(),
+                sld2.getValue(),
+                sld3.getValue(),
+                sld4.getValue(),
+                sld5.getValue(),
+                sld6.getValue(),
+                sld7.getValue(),
+                sld8.getValue());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedSequenceur savedSequenceur = (SavedSequenceur) module;
+        sld1.setValue(savedSequenceur.getSld1());
+        sld2.setValue(savedSequenceur.getSld2());
+        sld3.setValue(savedSequenceur.getSld3());
+        sld4.setValue(savedSequenceur.getSld4());
+        sld5.setValue(savedSequenceur.getSld5());
+        sld6.setValue(savedSequenceur.getSld6());
+        sld7.setValue(savedSequenceur.getSld7());
+        sld8.setValue(savedSequenceur.getSld8());
+        for(int i = currentClicked; i <= 8; i ++) {
+            notifyObseurveur();
+            currentClicked++;
+        }
+        currentClicked=1;
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        if(portType.equals(PortType.INPUT)){
+            return  this.in;
+        }
+        return null;
     }
 }

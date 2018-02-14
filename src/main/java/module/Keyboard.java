@@ -9,7 +9,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import utils.PortType;
 import utils.Tuple;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 
 public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurveur<SubjectKeyboard> {
@@ -66,7 +67,6 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         else if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
             keyReleaseHandle(event.getCode());
         }
-
     }
 
     private void keyReleaseHandle(KeyCode code) {
@@ -199,9 +199,8 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
 
     @Override
     public void update(SubjectKeyboard o) {
-        /**
-         * Appelé lorsque la partie graphique est mise à jour
-         */
+       o.receiveNote(getNote());
+       o.receiveOctave(getOctave());
     }
 
     @Override
@@ -239,5 +238,12 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         public double freqToOctave(){
             return Math.log(freq/440.0)/Math.log(2.0);
         }
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

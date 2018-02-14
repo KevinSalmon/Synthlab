@@ -8,6 +8,9 @@ import controller.SubjectReplicateur;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Replicateur extends Module implements Obseurveur<SubjectReplicateur> {
 
     private UnitInputPort in;
@@ -99,5 +102,15 @@ public class Replicateur extends Module implements Obseurveur<SubjectReplicateur
 
     public void setOut3(UnitOutputPort out3) {
         this.out3 = out3;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.OUTPUT1);
+        list.add(PortType.OUTPUT2);
+        list.add(PortType.OUTPUT3);
+        return list;
     }
 }

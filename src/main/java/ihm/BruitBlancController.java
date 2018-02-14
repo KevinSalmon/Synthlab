@@ -9,13 +9,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedModule;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
-public class BruitBlancController implements Initializable, SubjectBruitBlanc{
+public class BruitBlancController implements Initializable, SubjectBruitBlanc, SuperController {
 
     @FXML
     private Pane pane;
@@ -52,5 +54,25 @@ public class BruitBlancController implements Initializable, SubjectBruitBlanc{
         delete.setOnMouseClicked(eh -> {
             Controller.getInstance().removeWithConfirmPopup(bruitBlancObseurveur, pane);
         });
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedModule(pane.getLayoutX(), pane.getLayoutY());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        /*
+        Nothing to do
+         */
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        return null;
     }
 }

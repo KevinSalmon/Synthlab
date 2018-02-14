@@ -3,21 +3,20 @@ package ihm;
 import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectEG;
-import controller.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedEG;
+import sauvegarde.SavedModule;
 import utils.CableManager;
-import utils.OscillatorType;
 import utils.PortType;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EGController implements Initializable, SubjectEG {
+public class EGController implements Initializable, SubjectEG, SuperController {
 
     @FXML
     private Pane border;
@@ -108,5 +107,31 @@ public class EGController implements Initializable, SubjectEG {
     @Override
     public double getReleaseValue() {
         return release.getValue();
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedEG(border.getLayoutX(), border.getLayoutY(), getAttackValue(), getDecayValue(), getSustainValue(), getReleaseValue());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedEG saved = (SavedEG)module;
+        attack.setValue(saved.getAttack());
+        decay.setValue(saved.getDecay());
+        sustain.setValue(saved.getSustain());
+        release.setValue(saved.getRelease());
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.INPUT)) {
+            return this.in;
+        }
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        return null;
     }
 }

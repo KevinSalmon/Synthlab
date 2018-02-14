@@ -136,8 +136,8 @@ public class VCOTest {
     public void GetPortTest(){
         Assert.assertEquals("Should get the output port", vco.getOutput(), vco.getPort(PortType.OUTPUT.getType()).getLeft());
         Assert.assertEquals("Should be declare as output", PortType.OUTPUT, vco.getPort(PortType.OUTPUT.getType()).getRight());
-        Assert.assertEquals("Should get the input port", vco.getInput(), vco.getPort(PortType.FM.getType()).getLeft());
-        Assert.assertEquals("Should be declare as fm", PortType.FM, vco.getPort(PortType.FM.getType()).getRight());
+        Assert.assertEquals("Should get the input port", vco.getInput(), vco.getPort(PortType.INPUTFM.getType()).getLeft());
+        Assert.assertEquals("Should be declare as fm", PortType.INPUTFM, vco.getPort(PortType.INPUTFM.getType()).getRight());
 
         Assert.assertNull("Should get null", vco.getPort("port_qui_n'existe_pas"));
     }

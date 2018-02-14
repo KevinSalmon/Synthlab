@@ -60,15 +60,17 @@ public class CableManager {
      * @throws OutputException when the user chooses the input first
      */
     public void setInput(Circle point2D, Module moduleIn, String name) {
-            for(Cable c : cables){
+            for(Cable c : cables){http://www.eldarya.fr/minigames
                 if(c.getInput().equals(point2D)) return;
             }
             currentCable.setInput(point2D);
             currentCable.setInputName(name);
             curve = new QuadCurve();
+            Logger.getGlobal().info("in parent "+currentCable.getInput().getParent()+" out parent "+currentCable.getOutput().getParent());
             Point2D in = currentCable.getInput().getParent().localToParent(currentCable.getInput().getLayoutX(), currentCable.getInput().getLayoutY());
             Point2D out = currentCable.getOutput().getParent().localToParent(currentCable.getOutput().getLayoutX(), currentCable.getOutput().getLayoutY());
-            curve.setStartX(in.getX());
+        Logger.getGlobal().info("in : "+in +" out"+out);
+        curve.setStartX(in.getX());
             curve.setStartY(in.getY());
             curve.setEndX(out.getX());
             curve.setEndY(out.getY());
@@ -89,6 +91,7 @@ public class CableManager {
             Logger.getGlobal().severe(e.getMessage()
             );
         }
+        Logger.getGlobal().info(String.valueOf(curve));
         currentCable = null;
 
     }
@@ -188,4 +191,7 @@ public class CableManager {
         return cables;
     }
 
+    public QuadCurve getCurve() {
+        return curve;
+    }
 }

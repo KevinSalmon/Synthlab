@@ -1,8 +1,8 @@
 package controller;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ihm.IHMController;
+import exceptions.UnfoundModuleByIdException;
+import ihm.*;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,15 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import module.*;
-import utils.Cable;
-import utils.CableManager;
-import utils.FxmlFilesNames;
-import utils.SkinNames;
+import sauvegarde.*;
+import utils.*;
 
+import javax.naming.NoPermissionException;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static com.jsyn.JSyn.createSynthesizer;
 
@@ -50,10 +51,18 @@ public class Controller {
      */
     private Scene scene;
 
+    private Map<Module, Tuple<String, SuperController>> toSave;
+
+    private Module loadedModule;
+
+    private SuperController tmpController;
+
     /**
      *
      */
     protected Controller(){
+        toSave  = new HashMap<>();
+
         synth = createSynthesizer();
         synth.start();
     }
@@ -63,6 +72,8 @@ public class Controller {
      * @param ihmController principal de l'appli
      */
     public Controller(IHMController ihmController){
+        toSave  = new HashMap<>();
+
         synth = createSynthesizer();
         this.ihmController = ihmController;
 
@@ -87,7 +98,7 @@ public class Controller {
      * @param fxmlModuleFileName nom du fichier fxml à charger
      * @return Pane graphique du module
      */
-    private Pane createModuleWithoutEvent(String fxmlModuleFileName){
+    private Pane createModuleWithoutEvent(String fxmlModuleFileName, SavedModule... savedModules){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(fxmlModuleFileName));
         Pane modulePane = null;
@@ -97,66 +108,85 @@ public class Controller {
             Log.severe(e.toString());
         }
 
+        SuperController moduleController;
+        Tuple<String, SuperController> save;
+
         switch (fxmlModuleFileName){
             case FxmlFilesNames.MODULE_OUT:
                 OutputModule outputModule = new OutputModule(synth);
-                ((Subject)fxmlLoader.getController()).register(outputModule);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(outputModule, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 break;
             case FxmlFilesNames.KEYBOARD:
                 Keyboard keyboard = new Keyboard();
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(keyboard, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 scene.setOnKeyReleased(keyboard);
                 scene.setOnKeyPressed(keyboard);
-                ((Subject)fxmlLoader.getController()).register(keyboard);
                 break;
             case FxmlFilesNames.VCA:
                 VCA vca = new VCA();
-                ((Subject)fxmlLoader.getController()).register(vca);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(vca, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vca);
                 break;
             case FxmlFilesNames.VCO:
                 VCO vco = new VCO();
-                ((Subject)fxmlLoader.getController()).register(vco);
+                loadedModule = vco;
+
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(vco, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vco);
                 break;
             case FxmlFilesNames.REP:
                 Replicateur rep = new Replicateur();
-                ((Subject)fxmlLoader.getController()).register(rep);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(rep, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(rep);
                 break;
 
             case FxmlFilesNames.VCFLP:
                 VCF vcflp = new VCF(true);
-                ((Subject)fxmlLoader.getController()).register(vcflp);
+                moduleController = fxmlLoader.getController();
+                ((VCFLPController)moduleController).setIsLp(true);
+                saveModuleForLoading(vcflp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcflp);
                 break;
             case FxmlFilesNames.VCFHP:
                 VCF vcfhp = new VCF(false);
-                ((Subject)fxmlLoader.getController()).register(vcfhp);
+                moduleController = fxmlLoader.getController();
+                ((VCFLPController)moduleController).setIsLp(false);
+                saveModuleForLoading(vcfhp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcfhp);
                 break;
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();
-                ((Subject)fxmlLoader.getController()).register(osc);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(osc, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(osc);
                 break;
             case FxmlFilesNames.EG:
                 EG eg = new EG();
-                ((Subject) fxmlLoader.getController()).register(eg);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(eg, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(eg);
                 break;
             case FxmlFilesNames.BRUITBLANC:
                 BruitBlancModule bruitBlancModule = new BruitBlancModule();
-                ((Subject) fxmlLoader.getController()).register(bruitBlancModule);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(bruitBlancModule, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(bruitBlancModule);
                 break;
             case FxmlFilesNames.SEQ:
                 Sequenceur sequenceur = new Sequenceur();
-                ((Subject) fxmlLoader.getController()).register(sequenceur);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(sequenceur, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(sequenceur);
                 break;
             case FxmlFilesNames.MIX:
                 Mixer mixer = new Mixer();
-                ((Subject) fxmlLoader.getController()).register(mixer);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(mixer, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(mixer);
                 break;
             default:
@@ -290,6 +320,8 @@ public class Controller {
             }
         }
 
+        //TODO modules.remove(observeur.getReference());
+
         Controller controller = Controller.getInstance();
         controller.getSynth().remove(observeur.getReference());
 
@@ -318,28 +350,62 @@ public class Controller {
 
     /**
      * Sauvegarde du workspace
-     * @param workspace
      */
-    public void saveWorkspace(Pane workspace){
+    public void saveWorkspace(){
         CableManager cableManager = CableManager.getInstance();
 
-        Collection<Module> modulesToSave = new HashSet<>();
+        List<SavedCable> cablesToSave = new ArrayList<>();
 
-        for (Cable cable : cableManager.getCables() ) {
+        int idModule = 0;
 
-            modulesToSave.add(cable.getModuleIn());
-            modulesToSave.add(cable.getModuleOut());
+
+        Map<Module, SavedModule> saved = new HashMap<>();
+        SavedModule moduleIn;
+        SavedModule moduleOut;
+
+        for (Cable cable : cableManager.getCables()){
+            if(saved.containsKey(cable.getModuleIn())){
+                moduleIn = saved.get(cable.getModuleIn());
+            }else{
+                Tuple<String, SuperController> tuple = toSave.get(cable.getModuleIn());
+                moduleIn = tuple.getRight().createMemento();
+                moduleIn.setModuleFXMLFile(tuple.getLeft());
+                moduleIn.setIdModule(idModule);
+                idModule++;
+                saved.put(cable.getModuleIn(), moduleIn);
+            }
+
+            if(saved.containsKey(cable.getModuleOut())){
+                moduleOut = saved.get(cable.getModuleOut());
+            }else{
+                Tuple<String, SuperController> tuple = toSave.get(cable.getModuleOut());
+                moduleOut = tuple.getRight().createMemento();
+                moduleOut.setModuleFXMLFile(tuple.getLeft());
+                moduleOut.setIdModule(idModule);
+                idModule++;
+                saved.put(cable.getModuleOut(), moduleOut);
+            }
+
+            SavedCable cableToSave = new SavedCable(moduleIn.getIdModule(),
+                    moduleOut.getIdModule(), cable.getInputName(), cable.getOutputName());
+
+            cablesToSave.add(cableToSave);
         }
 
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enableDefaultTyping();
+        File file = new File("save.json");
+        if(file.exists())
+            if(!file.delete()) new NoPermissionException("Cannot delete file");
 
-        //TODO : Gerer l'enregistrement dans un fichier
-        /*ObjectMapper mapper = new ObjectMapper();
-
+        SavedFile savedFile = new SavedFile();
+        savedFile.setSavedCables(cablesToSave);
+        savedFile.setSavedModules(saved.values().stream().collect(Collectors.toList()));
         try {
-            mapper.writeValue(new File("result.json"), modulesToSave);
+            mapper.writeValue(file, savedFile);
         } catch (IOException e) {
             Logger.getGlobal().severe(e.getMessage());
-        }*/
+        }
     }
 
     /**
@@ -347,5 +413,77 @@ public class Controller {
      */
     public void loadWorkspace(){
 
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enableDefaultTyping();
+        File file = new File("save.json");
+        SavedFile savedFile = new SavedFile();
+        Map<Module, Map<PortType, Circle>>  modulesMap = new HashMap<>();
+        Map<PortType, Circle> ports;
+        Map<Module, Integer> moduleIntegerMap = new HashMap<>();
+
+        try {
+            savedFile = mapper.readValue(file, SavedFile.class);
+        } catch (IOException e) {
+            Logger.getGlobal().severe("Cannot load file : "+ e.getMessage());
+        }
+
+        for (SavedModule module : savedFile.getSavedModules()){
+
+            Pane newPane = createModuleWithoutEvent(module.getModuleFXMLFile(), module);
+            ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
+            ports = new HashMap<>();
+            for (PortType port: loadedModule.getAllPorts()) {
+                ports.put(port, tmpController.getPort(port));
+                Logger.getGlobal().info("loaded module"+ String.valueOf(loadedModule)+" port "+port.getType()+ " tmpController "+tmpController.toString()+" port retrieved "+tmpController.getPort(port));
+
+            }
+            modulesMap.put(loadedModule, ports);
+            moduleIntegerMap.put(loadedModule, module.getIdModule());
+        }
+
+        //(Circle point2D, Module moduleIn, String name) {
+        for (SavedCable cable : savedFile.getSavedCables()) {
+            try {
+                Tuple<Module, Map<PortType, Circle>> m2 = getModuleById(cable.getIdModuleIn(), modulesMap, moduleIntegerMap);
+                Tuple<Module, Map<PortType, Circle>> m1 = getModuleById(cable.getIdModuleOut(), modulesMap, moduleIntegerMap);
+                CableManager cableManager = CableManager.getInstance();
+                cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())), m1.getLeft(), cable.getOutputName());
+                cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
+
+                getIhmController().workspace.getChildren().add(cableManager.getCurve());
+            }catch (UnfoundModuleByIdException e) {
+                Logger.getGlobal().severe(e.getMessage());
+
+            }
+        }
+    }
+
+    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleByIdException {
+        Logger.getGlobal().info(modulesMap.values().toString());
+        for (Module module : moduleIntegerMap.keySet()){
+            if(moduleIntegerMap.get(module).intValue() == idModuleIn){
+                Tuple<Module, Map<PortType, Circle>> tuple = new Tuple(module, modulesMap.get(module));
+                return tuple;
+            }
+
+        }
+        throw new UnfoundModuleByIdException("Module with id "+idModuleIn+" not found");
+    }
+
+
+    private void saveModuleForLoading(Module module, SuperController moduleController, FXMLLoader fxmlLoader, String fxmlModuleFileName, SavedModule... savedModules){
+        loadedModule = module;
+        tmpController = moduleController;
+        moduleController = fxmlLoader.getController();
+        Tuple<String, SuperController> save = new Tuple<>(fxmlModuleFileName, moduleController);
+        toSave.put(module, save);
+
+        ((Subject)fxmlLoader.getController()).register((Obseurveur) module);
+
+        if(savedModules != null && savedModules.length > 0){
+            SavedModule savedModuleOut = savedModules[0];
+            moduleController.loadProperties(savedModuleOut);
+        }
     }
 }

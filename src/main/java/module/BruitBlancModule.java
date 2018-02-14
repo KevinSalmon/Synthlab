@@ -8,6 +8,9 @@ import controller.SubjectBruitBlanc;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BruitBlancModule extends Module implements Obseurveur<SubjectBruitBlanc> {
 
     private UnitOutputPort out;
@@ -25,6 +28,13 @@ public class BruitBlancModule extends Module implements Obseurveur<SubjectBruitB
         if(name.equals(PortType.OUTPUT.getType()))
             return new Tuple(getPortByName(name),PortType.OUTPUT);
         return null;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.OUTPUT);
+        return list;
     }
 
     @Override

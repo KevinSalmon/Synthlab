@@ -36,7 +36,7 @@ public class OutputModuleTest {
     public void getOnlyOneInputPortTest() {
         assertNotNull(outputModule.getPort(PortType.INPUT.getType()));
         assertNull(outputModule.getPort(PortType.OUTPUT.getType()));
-        assertNull(outputModule.getPort(PortType.AM.getType()));
+        assertNull(outputModule.getPort(PortType.INPUTAM.getType()));
     }
 
     // Input // Output

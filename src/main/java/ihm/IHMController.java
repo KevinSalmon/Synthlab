@@ -28,7 +28,7 @@ public class IHMController implements Initializable{
      * Variables FXML
      */
     @FXML
-    private Pane workspace;
+    public Pane workspace;
 
     @FXML
     private Pane hoverPanel;
@@ -85,7 +85,7 @@ public class IHMController implements Initializable{
      */
     @FXML
     void saveWorkspace(ActionEvent event){
-        controller.saveWorkspace(workspace);
+        controller.saveWorkspace();
     }
 
     /**
@@ -94,6 +94,9 @@ public class IHMController implements Initializable{
      */
     @FXML
     void loadWorkspace(ActionEvent event){
+        controller.close();
+        workspace.getChildren().clear();
+        controller.getSynth().start();
         controller.loadWorkspace();
     }
 
@@ -219,18 +222,14 @@ public class IHMController implements Initializable{
          */
         hoverPanel.getChildren().remove(draggedModule);
 
-        // L'ajout de la scrollbar dans les modules créé un petit décalage du module lorsqu'il est ajouté au workspace
-        //draggedModule.setLayoutX(draggedModule.getLayoutX() - 1);
-        //draggedModule.setLayoutY(draggedModule.getLayoutY() - 15);
-
         /**
          * Instanciation du nouveau module si il est au dessus du workspace
          */
 
         if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
             Pane module = draggedModule;
-            module.setLayoutX(draggedModule.getLayoutX());
-            module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() -10);
+            module.setLayoutX(draggedModule.getLayoutX() - 1);
+            module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() - 25);
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
             module.setStyle(currentModulesStyle);
@@ -300,6 +299,8 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
+        Point2D dragEventToWorkspace = workspace.sceneToLocal(dragEvent.getScreenX(), dragEvent.getSceneY());
+        //TODO: Gerer les decallages avec potentiellement ce point
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
@@ -511,5 +512,13 @@ public class IHMController implements Initializable{
         else if(height != null) {
             splitPane.setPrefHeight(Double.parseDouble(height.toString())-PADDING);
         }
+    }
+
+    public void addModuleToWorkspace(Pane pane, double xPos, double yPos){
+        workspace.getChildren().add(pane);
+        pane.setLayoutY(yPos);
+        pane.setLayoutX(xPos);
+        pane.setOnDragDetected(de -> onDragDetected(de, pane));
+        pane.setOnDragDone(de -> onDragDone(de, pane));
     }
 }

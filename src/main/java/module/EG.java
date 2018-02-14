@@ -10,6 +10,9 @@ import controller.SubjectEG;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
 
     private final EnvelopeDAHDSR envelope;
@@ -133,5 +136,13 @@ public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
     @Override
     public Module getReference() {
         return this;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

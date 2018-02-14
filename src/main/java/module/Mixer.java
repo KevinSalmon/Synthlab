@@ -9,6 +9,9 @@ import controller.SubjectMixer;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mixer extends Module implements Obseurveur<SubjectMixer> {
 
     private UnitInputPort in1;
@@ -68,10 +71,14 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
             double in3amp = (in3dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in3dbAttenuation);
             double in4amp = (in4dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in4dbAttenuation);
 
-            outValues[i] = (in1Values[i] * in1amp)
+            double outValue = (in1Values[i] * in1amp)
                 + (in2Values[i] * in2amp)
                 + (in3Values[i] * in3amp)
                 + (in4Values[i] * in4amp);
+
+            outValue = (outValue > 1.0) ? 1.0 : outValue;
+            outValue = (outValue < -1.0) ? -1.0 : outValue;
+            outValues[i] = outValue;
         }
     }
 
@@ -126,5 +133,16 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
 
     public UnitOutputPort getOutput() {
         return out;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT1);
+        list.add(PortType.INPUT2);
+        list.add(PortType.INPUT3);
+        list.add(PortType.INPUT4);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }
