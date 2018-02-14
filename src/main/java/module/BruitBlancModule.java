@@ -26,7 +26,7 @@ public class BruitBlancModule extends Module implements Obseurveur<SubjectBruitB
     @Override
     Tuple<UnitPort, PortType> getPort(String name) {
         if(name.equals(PortType.OUTPUT.getType()))
-            return new Tuple(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         return null;
     }
 
@@ -45,7 +45,10 @@ public class BruitBlancModule extends Module implements Obseurveur<SubjectBruitB
         double[] outputs = whiteNoise.getOutput().getValues();
         double[] outputsModule = this.out.getValues();
 
-        System.arraycopy(outputs, start, outputsModule, start, limit);
+        // Relie l'oscillateur courant à la sortie du VCO en copiant les données
+        for (int i = start; i < limit; i++) {
+            outputsModule[i] = outputs[i] * 5.0/12.0;
+        }
     }
 
     @Override
