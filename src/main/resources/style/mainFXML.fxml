@@ -43,7 +43,7 @@
                     </ScrollPane>
 
                     <ScrollPane fx:id="scrollPane">
-                        <Pane fx:id="workspace" minHeight="0.0" minWidth="0.0" />
+                        <Pane fx:id="workspace" minHeight="10000.0" minWidth="10000.0" />
                     </ScrollPane>
                 </items>
             </SplitPane>
