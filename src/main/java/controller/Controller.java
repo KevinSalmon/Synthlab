@@ -1,7 +1,6 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.PortTypeException;
 import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import ihm.ModuleOut;
@@ -116,28 +115,18 @@ public class Controller {
         switch (fxmlModuleFileName){
             case FxmlFilesNames.MODULE_OUT:
                 OutputModule outputModule = new OutputModule(synth);
-                loadedModule = outputModule;
-
                 moduleController = fxmlLoader.getController();
-                tmpController = moduleController;
-                save = new Tuple<>(fxmlModuleFileName, moduleController);
-                toSave.put(outputModule, save);
-
-                ((Subject)fxmlLoader.getController()).register(outputModule);
-
-                if(savedModules != null && savedModules.length > 0){
-                    SavedModuleOut savedModuleOut = (SavedModuleOut)savedModules[0];
-                    ModuleOut moduleOut = fxmlLoader.getController();
-                    moduleOut.loadProperties(savedModuleOut);
-                }
+                saveModuleForLoading(outputModule, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 break;
             case FxmlFilesNames.KEYBOARD:
                 Keyboard keyboard = new Keyboard();
-                ((Subject)fxmlLoader.getController()).register(keyboard);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(keyboard, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 break;
             case FxmlFilesNames.VCA:
                 VCA vca = new VCA();
-                ((Subject)fxmlLoader.getController()).register(vca);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(vca, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vca);
                 break;
             case FxmlFilesNames.VCO:
@@ -145,58 +134,56 @@ public class Controller {
                 loadedModule = vco;
 
                 moduleController = fxmlLoader.getController();
-                tmpController = moduleController;
-                save = new Tuple<>(fxmlModuleFileName, moduleController);
-                toSave.put(vco, save);
-
-                ((Subject)fxmlLoader.getController()).register(vco);
+                saveModuleForLoading(vco, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vco);
-
-                if(savedModules != null && savedModules.length > 0){
-                    SavedVCO savedModuleVCO = (SavedVCO)savedModules[0];
-                    VCOControllerIHM vcoController = fxmlLoader.getController();
-                    vcoController.loadProperties(savedModuleVCO);
-                }
                 break;
             case FxmlFilesNames.REP:
                 Replicateur rep = new Replicateur();
-                ((Subject)fxmlLoader.getController()).register(rep);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(rep, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(rep);
                 break;
 
             case FxmlFilesNames.VCFLP:
                 VCF vcflp = new VCF(true);
-                ((Subject)fxmlLoader.getController()).register(vcflp);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(vcflp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcflp);
                 break;
             case FxmlFilesNames.VCFHP:
                 VCF vcfhp = new VCF(false);
-                ((Subject)fxmlLoader.getController()).register(vcfhp);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(vcfhp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcfhp);
                 break;
             case FxmlFilesNames.OSCILLOSCOPE:
                 Oscilloscope osc = new Oscilloscope();
-                ((Subject)fxmlLoader.getController()).register(osc);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(osc, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(osc);
                 break;
             case FxmlFilesNames.EG:
                 EG eg = new EG();
-                ((Subject) fxmlLoader.getController()).register(eg);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(eg, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(eg);
                 break;
             case FxmlFilesNames.BRUITBLANC:
                 BruitBlancModule bruitBlancModule = new BruitBlancModule();
-                ((Subject) fxmlLoader.getController()).register(bruitBlancModule);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(bruitBlancModule, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(bruitBlancModule);
                 break;
             case FxmlFilesNames.SEQ:
                 Sequenceur sequenceur = new Sequenceur();
-                ((Subject) fxmlLoader.getController()).register(sequenceur);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(sequenceur, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(sequenceur);
                 break;
             case FxmlFilesNames.MIX:
                 Mixer mixer = new Mixer();
-                ((Subject) fxmlLoader.getController()).register(mixer);
+                moduleController = fxmlLoader.getController();
+                saveModuleForLoading(mixer, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(mixer);
                 break;
             default:
@@ -474,5 +461,22 @@ public class Controller {
 
         }
         return null;
+    }
+
+
+    private void saveModuleForLoading(Module module, SuperController moduleController, FXMLLoader fxmlLoader, String fxmlModuleFileName, SavedModule... savedModules){
+        loadedModule = module;
+        tmpController = moduleController;
+        moduleController = fxmlLoader.getController();
+        Tuple<String, SuperController> save = new Tuple<>(fxmlModuleFileName, moduleController);
+        toSave.put(module, save);
+
+        ((Subject)fxmlLoader.getController()).register((Obseurveur) module);
+
+        if(savedModules != null && savedModules.length > 0){
+            SavedModuleOut savedModuleOut = (SavedModuleOut)savedModules[0];
+            ModuleOut moduleOut = fxmlLoader.getController();
+            moduleOut.loadProperties(savedModuleOut);
+        }
     }
 }
