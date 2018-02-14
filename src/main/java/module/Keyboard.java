@@ -67,7 +67,6 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         else if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
             keyReleaseHandle(event.getCode());
         }
-
     }
 
     private void keyReleaseHandle(KeyCode code) {
@@ -200,9 +199,8 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
 
     @Override
     public void update(SubjectKeyboard o) {
-        /**
-         * Appelé lorsque la partie graphique est mise à jour
-         */
+       o.receiveNote(getNote());
+       o.receiveOctave(getOctave());
     }
 
     @Override

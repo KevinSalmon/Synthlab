@@ -60,7 +60,7 @@ public class CableManager {
      * @throws OutputException when the user chooses the input first
      */
     public void setInput(Circle point2D, Module moduleIn, String name) {
-            for(Cable c : cables){
+            for(Cable c : cables){http://www.eldarya.fr/minigames
                 if(c.getInput().equals(point2D)) return;
             }
             currentCable.setInput(point2D);
