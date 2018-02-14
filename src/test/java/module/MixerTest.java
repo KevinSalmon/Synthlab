@@ -216,7 +216,11 @@ public class MixerTest {
             double[] mixerValues = mixer.getOutput().getValues();
 
             for (int j = 0; j < mixerValues.length; j++) {
-                assertEquals((vco1Values[j] * AudioMath.decibelsToAmplitude(-5.0)) + (vco3Values[j] * AudioMath.decibelsToAmplitude(11.5)), mixerValues[j]);
+                double excepted = (vco1Values[j] * AudioMath.decibelsToAmplitude(-5.0)) + (vco3Values[j] * AudioMath.decibelsToAmplitude(11.5));
+                excepted = (excepted > 1.0) ? excepted = 1.0 : excepted;
+                excepted = (excepted < -1.0) ? excepted = -1.0 : excepted;
+
+                assertEquals(excepted, mixerValues[j]);
             }
         }
     }
