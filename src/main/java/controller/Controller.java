@@ -372,6 +372,9 @@ public class Controller {
 
 
         Map<Module, SavedModule> saved = new HashMap<>();
+        Map<Module, Tuple<String, SuperController>> modulesNotLinked = new HashMap();
+        modulesNotLinked.putAll(toSave);
+
         SavedModule moduleIn;
         SavedModule moduleOut;
 
@@ -385,8 +388,9 @@ public class Controller {
                 moduleIn.setIdModule(idModule);
                 idModule++;
                 saved.put(cable.getModuleIn(), moduleIn);
-            }
 
+            }
+            modulesNotLinked.remove(cable.getModuleIn());
             if(saved.containsKey(cable.getModuleOut())){
                 moduleOut = saved.get(cable.getModuleOut());
             }else{
@@ -396,17 +400,24 @@ public class Controller {
                 moduleOut.setIdModule(idModule);
                 idModule++;
                 saved.put(cable.getModuleOut(), moduleOut);
-            }
 
+            }
+            modulesNotLinked.remove(cable.getModuleOut());
             SavedCable cableToSave = new SavedCable(moduleIn.getIdModule(),
                     moduleOut.getIdModule(), cable.getInputName(), cable.getOutputName());
 
             cablesToSave.add(cableToSave);
         }
 
+        for(Map.Entry<Module, Tuple<String, SuperController>> module :modulesNotLinked.entrySet()){
+            Tuple<String, SuperController> myValues = module.getValue();
+            SavedModule savedModule = myValues.getRight().createMemento();
+            savedModule.setModuleFXMLFile(myValues.getLeft());
+            saved.put(module.getKey(), savedModule);
+        }
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-
         if(file.exists())
             if(!file.delete())
                 Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
@@ -438,7 +449,6 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-//        File file = new File("save.json");
         SavedFile savedFile = new SavedFile();
         Map<Module, Map<PortType, Circle>>  modulesMap = new HashMap<>();
         Map<PortType, Circle> ports;
@@ -464,7 +474,6 @@ public class Controller {
             moduleIntegerMap.put(loadedModule, module.getIdModule());
         }
 
-        //(Circle point2D, Module moduleIn, String name) {
         for (SavedCable cable : savedFile.getSavedCables()) {
             try {
                 Tuple<Module, Map<PortType, Circle>> m2 = getModuleById(cable.getIdModuleIn(), modulesMap, moduleIntegerMap);

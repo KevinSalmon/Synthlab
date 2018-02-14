@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import module.Keyboard;
+import sauvegarde.SavedKeyboard;
 import sauvegarde.SavedModule;
 import utils.CableManager;
 import utils.PortType;
@@ -88,7 +89,7 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperCont
 
 	@Override
 	public SavedModule createMemento() {
-		return new SavedModule(paneMain.getLayoutX(), paneMain.getLayoutY());
+		return new SavedKeyboard(paneMain.getLayoutX(), paneMain.getLayoutY(), Keyboard.Note.valueOf(labNote.getText()), Integer.parseInt(labOctave.getText()));
 	}
 
 	@Override

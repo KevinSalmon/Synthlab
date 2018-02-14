@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = SavedOscillo.class, name = "oscilloscope"),
         @JsonSubTypes.Type(value = SavedModule.class, name = "bruitblanc"),
         @JsonSubTypes.Type(value = SavedVCF.class, name = "vcf"),
-        @JsonSubTypes.Type(value = SavedModule.class, name = "keyboard"),
+        @JsonSubTypes.Type(value = SavedKeyboard.class, name ="keyboard")
+
 })
 public class SavedModule implements Memento{
 
