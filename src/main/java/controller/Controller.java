@@ -353,7 +353,7 @@ public class Controller {
     /**
      * Sauvegarde du workspace
      */
-    public void saveWorkspace() throws NoPermissionException {
+    public void saveWorkspace(){
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save workspace");
@@ -408,7 +408,8 @@ public class Controller {
         mapper.enableDefaultTyping();
 
         if(file.exists())
-            if(!file.delete()) throw new NoPermissionException("Cannot delete file");
+            if(!file.delete())
+                Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
