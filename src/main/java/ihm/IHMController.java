@@ -211,9 +211,8 @@ public class IHMController implements Initializable{
     /**
      * Fin du Drag&Drop depuis le menu des modules, ajout du nouveau module dans le plan de travail
      * @param dragEvent
-     * @param fxml nom du fxml du module à instancier
      */
-    private void onSpawnDragDone(DragEvent dragEvent, String fxml) {
+    private void onSpawnDragDone(DragEvent dragEvent) {
         dragEvent.getDragboard().clear();
         draggedModule.setStyle(currentModulesStyle);
 
@@ -299,7 +298,6 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
-        Point2D dragEventToWorkspace = workspace.sceneToLocal(dragEvent.getScreenX(), dragEvent.getSceneY());
         //TODO: Gerer les decallages avec potentiellement ce point
         if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
@@ -419,7 +417,7 @@ public class IHMController implements Initializable{
         miniaturePane.setLayoutX(x);
         miniaturePane.setLayoutY(y);
         miniaturePane.setOnDragDetected(de -> onSpawnDragDetected(de, miniaturePane, fxmlModuleFileName));
-        miniaturePane.setOnDragDone(de -> onSpawnDragDone(de, fxmlModuleFileName));
+        miniaturePane.setOnDragDone(de -> onSpawnDragDone(de));
     }
 
     /**

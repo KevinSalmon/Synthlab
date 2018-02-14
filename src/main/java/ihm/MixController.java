@@ -31,7 +31,6 @@ public class MixController implements Initializable, SubjectMixer, SuperControll
     @FXML Button delete;
 
     private Obseurveur<SubjectMixer> obseurveurs;
-    private CableManager cableManager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +61,7 @@ public class MixController implements Initializable, SubjectMixer, SuperControll
     public void register(Obseurveur o) {
         if(o != null){
             obseurveurs = o;
-            cableManager = CableManager.getInstance();
+            CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(in1, obseurveurs.getReference(), PortType.INPUT1, pane);
             cableManager.addListener(in2, obseurveurs.getReference(), PortType.INPUT2, pane);
             cableManager.addListener(in3, obseurveurs.getReference(), PortType.INPUT3, pane);

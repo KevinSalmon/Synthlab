@@ -10,7 +10,6 @@ import controller.SubjectVCA;
 import utils.PortType;
 import utils.Tuple;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
     private UnitInputPort in; // Signal d'entrée

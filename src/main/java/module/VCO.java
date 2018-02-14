@@ -7,9 +7,6 @@ import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCO;
-import sauvegarde.Memento;
-import sauvegarde.SavedModule;
-import sauvegarde.SavedVCO;
 import signal.AudioSignal;
 import signal.Signal;
 import utils.OscillatorFactory;
@@ -17,7 +14,6 @@ import utils.OscillatorType;
 import utils.PortType;
 import utils.Tuple;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 

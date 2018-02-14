@@ -1,7 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.UnfoundModuleByIdException;
+import exceptions.UnfoundModuleById;
 import ihm.*;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,6 @@ import org.apache.commons.io.FilenameUtils;
 import sauvegarde.*;
 import utils.*;
 
-import javax.naming.NoPermissionException;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -111,7 +110,6 @@ public class Controller {
         }
 
         SuperController moduleController;
-        Tuple<String, SuperController> save;
 
         switch (fxmlModuleFileName){
             case FxmlFilesNames.MODULE_OUT:
@@ -322,7 +320,7 @@ public class Controller {
             }
         }
 
-        //TODO modules.remove(observeur.getReference());
+        //TODO enlever de toSave le controlleur deu module
 
         Controller controller = Controller.getInstance();
         controller.getSynth().remove(observeur.getReference());
@@ -419,8 +417,9 @@ public class Controller {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         if(file.exists())
-            if(!file.delete())
+            if(!file.delete()){
                 Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
+            }
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
@@ -467,8 +466,6 @@ public class Controller {
             ports = new HashMap<>();
             for (PortType port: loadedModule.getAllPorts()) {
                 ports.put(port, tmpController.getPort(port));
-                Logger.getGlobal().info("loaded module"+ String.valueOf(loadedModule)+" port "+port.getType()+ " tmpController "+tmpController.toString()+" port retrieved "+tmpController.getPort(port));
-
             }
             modulesMap.put(loadedModule, ports);
             moduleIntegerMap.put(loadedModule, module.getIdModule());
@@ -483,23 +480,21 @@ public class Controller {
                 cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
 
                 getIhmController().workspace.getChildren().add(cableManager.getCurve());
-            }catch (UnfoundModuleByIdException e) {
+            }catch (UnfoundModuleById e) {
                 Logger.getGlobal().severe(e.getMessage());
 
             }
         }
     }
 
-    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleByIdException {
-        Logger.getGlobal().info(modulesMap.values().toString());
+    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleById {
         for (Module module : moduleIntegerMap.keySet()){
             if(moduleIntegerMap.get(module).intValue() == idModuleIn){
-                Tuple<Module, Map<PortType, Circle>> tuple = new Tuple(module, modulesMap.get(module));
-                return tuple;
+                return new Tuple(module, modulesMap.get(module));
             }
 
         }
-        throw new UnfoundModuleByIdException("Module with id "+idModuleIn+" not found");
+        throw new UnfoundModuleById("Module with id "+idModuleIn+" not found");
     }
 
 

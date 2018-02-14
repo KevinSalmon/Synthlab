@@ -3,7 +3,6 @@ package ihm;
 import controller.Controller;
 import controller.Obseurveur;
 import controller.SubjectBruitBlanc;
-import controller.SubjectReplicateur;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +14,6 @@ import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class BruitBlancController implements Initializable, SubjectBruitBlanc, SuperController {
 
@@ -29,13 +27,12 @@ public class BruitBlancController implements Initializable, SubjectBruitBlanc, S
     private Button delete;
 
     private Obseurveur<SubjectBruitBlanc> bruitBlancObseurveur;
-    private CableManager cableManager;
 
     @Override
     public void register(Obseurveur o) {
         if(o != null){
             bruitBlancObseurveur = o;
-            cableManager = CableManager.getInstance();
+            CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, pane);
         }
     }
@@ -51,9 +48,8 @@ public class BruitBlancController implements Initializable, SubjectBruitBlanc, S
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        delete.setOnMouseClicked(eh -> {
-            Controller.getInstance().removeWithConfirmPopup(bruitBlancObseurveur, pane);
-        });
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(bruitBlancObseurveur, pane)
+        );
     }
 
     @Override

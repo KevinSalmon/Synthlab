@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
-import module.Keyboard;
 import utils.FxmlFilesNames;
 
 import java.net.URL;

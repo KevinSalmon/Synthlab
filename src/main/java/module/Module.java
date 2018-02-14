@@ -5,13 +5,10 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.Circuit;
 import exceptions.PortTypeException;
-import sauvegarde.Memento;
-import sauvegarde.SavedModule;
 import utils.PortType;
 import utils.Tuple;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public abstract class Module extends Circuit {
 
