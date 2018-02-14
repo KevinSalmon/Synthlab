@@ -320,7 +320,7 @@ public class Controller {
             }
         }
 
-        //TODO enlever de toSave le controlleur deu module
+        toSave.remove(observeur.getReference());
 
         Controller controller = Controller.getInstance();
         controller.getSynth().remove(observeur.getReference());
