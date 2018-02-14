@@ -56,14 +56,17 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
         octaveSlider.setOnMouseMoved(e -> notifyObseurveur());
+        octaveSlider.setOnMouseDragged(e -> notifyObseurveur());
 
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
         reglageFinSlider.setOnMouseMoved(event -> notifyObseurveur());
+        reglageFinSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
+        typeOndeSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         LFO.setOnMouseClicked(eh -> obseuveurVCO.update(this));
 
@@ -71,6 +74,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     }
 
     private OscillatorType getOscillatorType(double index){
+        index = Math.round(index);
         if (index == 0.0){
             return OscillatorType.SQUARE;
         }
