@@ -101,7 +101,7 @@ public class VCOTest {
         for (int i = 0; i < 10000; i++) {
             vco.generate();
             for (int j = 0; j < output.getValues().length; j++) {
-                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j],output.getValues()[j],0.0);
+                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j]*5.0/12.0,output.getValues()[j],0.0);
             }
         }
 
@@ -110,7 +110,7 @@ public class VCOTest {
         for (int i = 0; i < 10000; i++) {
             vco.generate();
             for (int j = 0; j < output.getValues().length; j++) {
-                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j],output.getValues()[j],0.0);
+                Assert.assertEquals("The output is not equals to the current oscillator output",osc.getValues()[j]*5.0/12.0,output.getValues()[j],0.0);
             }
         }
     }
