@@ -17,10 +17,8 @@ import sauvegarde.SavedVCO;
 import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO, SuperController {
 
@@ -156,7 +154,8 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         SavedVCO savedVCO = (SavedVCO)module;
         octaveSlider.setValue(savedVCO.getOctave());
         reglageFinSlider.setValue(savedVCO.getReglageFin());
-        setOscillatorType(savedVCO.getTypeOnde());
+        Double sliderValue = setOscillatorType(savedVCO.getTypeOnde());
+        typeOndeSlider.setValue(sliderValue);
         LFO.setSelected(savedVCO.isLFO());
         notifyObseurveur();
     }
