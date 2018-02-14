@@ -454,15 +454,15 @@ public class Controller {
     }
 
     private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) {
-        Logger.getGlobal().info(modulesMap.values().toString());
+        Tuple<Module, Map<PortType, Circle>> tuple = null;
         for (Module module : moduleIntegerMap.keySet()){
             if(moduleIntegerMap.get(module).intValue() == idModuleIn){
-                Tuple<Module, Map<PortType, Circle>> tuple = new Tuple(module, modulesMap.get(module));
-                return tuple;
+                tuple = new Tuple(module, modulesMap.get(module));
+
             }
 
         }
-        return null;
+        return tuple;
     }
 
 
