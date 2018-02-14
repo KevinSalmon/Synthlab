@@ -62,7 +62,7 @@ public class EG extends Module implements UnitSource, Obseurveur<SubjectEG>{
         this.decay = decay;
 
         if(this.decay < 0.0) this.decay = 0.0;
-        else if(this.decay > 2) this.decay = 2;
+        else if(this.decay > 8) this.decay = 8;
 
         envelope.decay.set(this.decay);
     }
