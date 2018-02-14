@@ -78,7 +78,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             if(lfo){
                 freq[i] = LFO_MIN + ((reglageFin+1.0)/2.0) * (LFO_MAX-LFO_MIN);
             }
-            else {freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (3*mod[i]));}
+            else {freq[i] = 440.0 *Math.pow(2,octave + reglageFin + (12*mod[i]));}
         }
 
         super.generate(start, limit);
