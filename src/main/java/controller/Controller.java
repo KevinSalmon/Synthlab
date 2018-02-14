@@ -393,6 +393,7 @@ public class Controller {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         File file = new File("save.json");
+        if(file.exists()) file.delete();
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
