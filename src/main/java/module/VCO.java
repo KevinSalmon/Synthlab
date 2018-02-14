@@ -60,7 +60,6 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         addPort(fm);
         audioSignal = new AudioSignal(1.0/12.0, F0);
         currentOsc.frequency.set(F0);
-        currentOsc.amplitude.set(5.0/12.0);
     }
 
     @Override
@@ -84,7 +83,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         super.generate(start, limit);
 
         // Relie l'oscillateur courant à la sortie du VCO en copiant les données
-        System.arraycopy(osc, start, out, start, limit - start);
+        for (int i = start; i < limit; i++) {
+            out[i] = osc[i] * 5.0/12.0;
+        }
     }
 
     @Override
@@ -189,7 +190,6 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         //Récupère la valeur de fréquence et d'amplitude de l'oscillateur courant
         double freq = currentOsc.frequency.getValue();
-        double amp = currentOsc.amplitude.getValue();
 
         //Change l'oscillateur courant
         switch (type){
@@ -207,7 +207,6 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
         //Met à jour fréquence et amplitude
         currentOsc.frequency.set(freq);
-        currentOsc.amplitude.set(amp);
 
     }
 
