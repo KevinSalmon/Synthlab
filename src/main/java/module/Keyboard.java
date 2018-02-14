@@ -70,7 +70,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
     }
 
     private void keyReleaseHandle(KeyCode code) {
-        if(lastKey.equals(code))
+        if(lastKey != null && lastKey.equals(code))
             gate.setValueInternal(-5.0/12.0);
 
         switch (code){
