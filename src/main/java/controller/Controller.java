@@ -416,8 +416,7 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-        if(file.exists())
-            if(!file.delete()){
+        if(file.exists() && !file.delete()){
                 Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
             }
 

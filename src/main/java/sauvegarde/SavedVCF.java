@@ -13,7 +13,6 @@ public class SavedVCF extends SavedModule{
         this.resonance = resonance;
         this.f0 = f0;
         this.isLP = isLP;
-        Logger.getGlobal().info("resonance "+this.resonance+ "reso "+resonance);
     }
     public SavedVCF(){
 

@@ -45,10 +45,6 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     @FXML
     Label frequence;
 
-    private int minValue = 0;
-    private int maxValue = 20000;
-    private static final int INITIAL_VALUE = 0;
-
     private Obseurveur<SubjectVCF> vcflpObseurveur;
     private boolean isLp;
 
@@ -113,7 +109,6 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     }
     @Override
     public SavedModule createMemento() {
-        Logger.getGlobal().info("poijkbjiopuhcghjiohgjcjpojihkvj "+resonance.getValue());
         return new SavedVCF(pane.getLayoutX(), pane.getLayoutY(), resonance.getValue(), f0.getValue(),  isLp());
     }
 
@@ -122,7 +117,6 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
         SavedVCF savedVCF = (SavedVCF)module;
         f0.setValue(savedVCF.getF0());
         resonance.setValue(savedVCF.getResonance());
-        Logger.getGlobal().info(savedVCF.getResonance()+" "+resonance.getValue());
         isLp = savedVCF.getLP();
         notifyObseurveur();
     }
