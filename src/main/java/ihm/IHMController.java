@@ -174,7 +174,7 @@ public class IHMController implements Initializable{
 
         deltaX = mouseEventToWorkspace.getX() - draggedModule.getLayoutX();
         deltaY = mouseEventToWorkspace.getY() - draggedModule.getLayoutY();
-        
+
         /**
          * Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
          * la fenetre
@@ -312,12 +312,6 @@ public class IHMController implements Initializable{
             draggedModule.setLayoutY(dragEventToWorkspace.getY() - deltaY);
         }
 
-        /*if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
-            draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
-        }
-        if(dragEvent.getSceneY() - deltaY > 0 && dragEvent.getSceneY() - deltaY < workspace.getHeight()){
-            draggedModule.setLayoutY(dragEvent.getSceneY() - deltaY);
-        }*/
         dragEvent.consume();
     }
 

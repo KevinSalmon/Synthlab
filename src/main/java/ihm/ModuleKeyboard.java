@@ -94,7 +94,9 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperCont
 
 	@Override
 	public void loadProperties(SavedModule module) {
-
+		/*
+        Nothing to do
+         */
 	}
 
 	@Override
