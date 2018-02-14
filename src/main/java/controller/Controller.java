@@ -408,7 +408,7 @@ public class Controller {
         mapper.enableDefaultTyping();
 //        File saveFile = new File("save.json");
         if(file.exists())
-            if(!file.delete()) new NoPermissionException("Cannot delete file");
+            if(!file.delete()) throw new NoPermissionException("Cannot delete file");
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
