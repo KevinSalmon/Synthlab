@@ -1,6 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import exceptions.PortTypeException;
 import ihm.IHMController;
 import com.jsyn.Synthesizer;
 import ihm.ModuleOut;
@@ -144,6 +145,7 @@ public class Controller {
                 loadedModule = vco;
 
                 moduleController = fxmlLoader.getController();
+                tmpController = moduleController;
                 save = new Tuple<>(fxmlModuleFileName, moduleController);
                 toSave.put(vco, save);
 
@@ -426,6 +428,7 @@ public class Controller {
         SavedFile savedFile = new SavedFile();
         Map<Module, Map<PortType, Circle>>  modulesMap = new HashMap<>();
         Map<PortType, Circle> ports;
+        Map<Module, Integer> moduleIntegerMap = new HashMap<>();
 
         try {
             savedFile = mapper.readValue(file, SavedFile.class);
@@ -436,19 +439,40 @@ public class Controller {
         for (SavedModule module : savedFile.getSavedModules()){
 
             Pane newPane = createModuleWithoutEvent(module.getModuleFXMLFile(), module);
+            ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
             ports = new HashMap<>();
             for (PortType port: loadedModule.getAllPorts()) {
                 ports.put(port, tmpController.getPort(port));
+                Logger.getGlobal().info("loaded module"+ String.valueOf(loadedModule)+" port "+port.getType()+ " tmpController "+tmpController.toString()+" port retrieved "+tmpController.getPort(port));
 
             }
             modulesMap.put(loadedModule, ports);
-            ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
+            moduleIntegerMap.put(loadedModule, module.getIdModule());
         }
 
         //(Circle point2D, Module moduleIn, String name) {
         for (SavedCable cable : savedFile.getSavedCables()){
+            Tuple<Module, Map<PortType, Circle>> m2 = getModuleById(cable.getIdModuleIn(), modulesMap, moduleIntegerMap);
+            Tuple<Module, Map<PortType, Circle>> m1 = getModuleById(cable.getIdModuleOut(), modulesMap, moduleIntegerMap);
 
-            //CableManager.getInstance().setOutput(null, cable.get);
+            CableManager cableManager = CableManager.getInstance();
+            cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())) ,m1.getLeft(), cable.getOutputName());
+            cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
+
+            getIhmController().workspace.getChildren().add(cableManager.getCurve());
         }
+        Logger.getGlobal().info(String.valueOf(getIhmController().workspace.getChildren()));
+    }
+
+    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) {
+        Logger.getGlobal().info(modulesMap.values().toString());
+        for (Module module : moduleIntegerMap.keySet()){
+            if(moduleIntegerMap.get(module).intValue() == idModuleIn){
+                Tuple<Module, Map<PortType, Circle>> tuple = new Tuple(module, modulesMap.get(module));
+                return tuple;
+            }
+
+        }
+        return null;
     }
 }

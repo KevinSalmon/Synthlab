@@ -28,7 +28,7 @@ public class IHMController implements Initializable{
      * Variables FXML
      */
     @FXML
-    private Pane workspace;
+    public Pane workspace;
 
     @FXML
     private Pane hoverPanel;

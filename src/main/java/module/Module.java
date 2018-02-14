@@ -11,6 +11,7 @@ import utils.PortType;
 import utils.Tuple;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class Module extends Circuit {
 
@@ -25,7 +26,10 @@ public abstract class Module extends Circuit {
     public void connect(Module dest, String namePortSource, String namePortDest) throws PortTypeException {
         Tuple<UnitPort, PortType> portsSource = getPort(namePortSource);
         Tuple<UnitPort, PortType> portsDest = dest.getPort(namePortDest);
-        if(portsSource.getRight().getType().contains(PortType.OUTPUT.getType())
+        if(portsSource
+                .getRight()
+                .getType()
+                .contains(PortType.OUTPUT.getType())
                 && portsDest.getRight().getType().contains(PortType.INPUT.getType())){
 
            ((UnitOutputPort) portsSource.getLeft()).connect((UnitInputPort) portsDest.getLeft());

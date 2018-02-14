@@ -20,6 +20,7 @@ import utils.OscillatorType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO, SuperController {
 
@@ -161,6 +162,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
 
     @Override
     public Circle getPort(PortType portType) {
+        Logger.getGlobal().info("pouetPort "+portType);
         if (portType.equals(PortType.FM)) {
             return this.fm;
         }
