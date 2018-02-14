@@ -406,9 +406,10 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-//        File saveFile = new File("save.json");
+
         if(file.exists())
-            if(!file.delete()) new NoPermissionException("Cannot delete file");
+            if(!file.delete())
+                Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
