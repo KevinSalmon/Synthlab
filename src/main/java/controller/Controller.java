@@ -11,7 +11,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import module.*;
+import org.apache.commons.io.FilenameUtils;
 import sauvegarde.*;
 import utils.*;
 
@@ -352,6 +354,16 @@ public class Controller {
      * Sauvegarde du workspace
      */
     public void saveWorkspace(){
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save workspace");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("format save", "*.json"));
+        File file = fileChooser.showSaveDialog(scene.getWindow());
+
+        String fileExtension = FilenameUtils.getExtension(file.getName());
+        if(!"json".equals(fileExtension)){
+            file = new File(file.getPath()+".json");
+        }
         CableManager cableManager = CableManager.getInstance();
 
         List<SavedCable> cablesToSave = new ArrayList<>();
@@ -394,7 +406,7 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-        File file = new File("save.json");
+//        File saveFile = new File("save.json");
         if(file.exists())
             if(!file.delete()) new NoPermissionException("Cannot delete file");
 
@@ -413,10 +425,19 @@ public class Controller {
      */
     public void loadWorkspace(){
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load saved workspace");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("format save", "*.json"));
+        File file = fileChooser.showOpenDialog(scene.getWindow());
+
+        String fileExtension = FilenameUtils.getExtension(file.getName());
+        if(!"json".equals(fileExtension)){
+            file = new File(file.getPath()+".json");
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-        File file = new File("save.json");
+//        File file = new File("save.json");
         SavedFile savedFile = new SavedFile();
         Map<Module, Map<PortType, Circle>>  modulesMap = new HashMap<>();
         Map<PortType, Circle> ports;
