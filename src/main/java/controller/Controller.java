@@ -1,6 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import exceptions.UnfoundModuleByIdException;
 import ihm.*;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
@@ -440,29 +441,32 @@ public class Controller {
         }
 
         //(Circle point2D, Module moduleIn, String name) {
-        for (SavedCable cable : savedFile.getSavedCables()){
-            Tuple<Module, Map<PortType, Circle>> m2 = getModuleById(cable.getIdModuleIn(), modulesMap, moduleIntegerMap);
-            Tuple<Module, Map<PortType, Circle>> m1 = getModuleById(cable.getIdModuleOut(), modulesMap, moduleIntegerMap);
+        for (SavedCable cable : savedFile.getSavedCables()) {
+            try {
+                Tuple<Module, Map<PortType, Circle>> m2 = getModuleById(cable.getIdModuleIn(), modulesMap, moduleIntegerMap);
+                Tuple<Module, Map<PortType, Circle>> m1 = getModuleById(cable.getIdModuleOut(), modulesMap, moduleIntegerMap);
+                CableManager cableManager = CableManager.getInstance();
+                cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())), m1.getLeft(), cable.getOutputName());
+                cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
 
-            CableManager cableManager = CableManager.getInstance();
-            cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())) ,m1.getLeft(), cable.getOutputName());
-            cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
+                getIhmController().workspace.getChildren().add(cableManager.getCurve());
+            }catch (UnfoundModuleByIdException e) {
+                Logger.getGlobal().severe(e.getMessage());
 
-            getIhmController().workspace.getChildren().add(cableManager.getCurve());
+            }
         }
-        Logger.getGlobal().info(String.valueOf(getIhmController().workspace.getChildren()));
     }
 
-    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) {
-        Tuple<Module, Map<PortType, Circle>> tuple = null;
+    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleByIdException {
+        Logger.getGlobal().info(modulesMap.values().toString());
         for (Module module : moduleIntegerMap.keySet()){
             if(moduleIntegerMap.get(module).intValue() == idModuleIn){
-                tuple = new Tuple(module, modulesMap.get(module));
-
+                Tuple<Module, Map<PortType, Circle>> tuple = new Tuple(module, modulesMap.get(module));
+                return tuple;
             }
 
         }
-        return tuple;
+        throw new UnfoundModuleByIdException("Module with id "+idModuleIn+" not found");
     }
 
 
