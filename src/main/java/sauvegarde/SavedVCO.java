@@ -48,7 +48,7 @@ public class SavedVCO extends SavedModule{
         this.typeOnde = typeOnde;
     }
 
-    public void setLFO(boolean Lfo) {
-        isLFO = Lfo;
+    public void setLFO(boolean lfo) {
+        isLFO = lfo;
     }
 }

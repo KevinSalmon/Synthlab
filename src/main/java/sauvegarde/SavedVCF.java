@@ -37,7 +37,7 @@ public class SavedVCF extends SavedModule{
         return isLP;
     }
 
-    public void setLP(boolean Lp) {
-        isLP = Lp;
+    public void setLP(boolean lp) {
+        isLP = lp;
     }
 }
