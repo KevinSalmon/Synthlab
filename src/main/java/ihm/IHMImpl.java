@@ -34,9 +34,6 @@ public class IHMImpl extends Application {
          */
         scene = new Scene(root);
 
-        scene.setOnKeyPressed(new Keyboard());
-        scene.setOnKeyReleased(new Keyboard());
-
         primaryStage.setScene(scene);
 
         primaryStage.setOnCloseRequest(eh -> System.exit(0));

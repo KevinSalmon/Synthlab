@@ -119,6 +119,8 @@ public class Controller {
                 Keyboard keyboard = new Keyboard();
                 moduleController = fxmlLoader.getController();
                 saveModuleForLoading(keyboard, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
+                scene.setOnKeyReleased(keyboard);
+                scene.setOnKeyPressed(keyboard);
                 break;
             case FxmlFilesNames.VCA:
                 VCA vca = new VCA();

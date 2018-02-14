@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="pane" id="module" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="306.0" prefWidth="452.0" styleClass="seq" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.SeqController">
+<Pane id="module" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="416.0" styleClass="seq" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.SeqController">
    <children>
-      <Slider fx:id="sld1" blockIncrement="0.1" layoutX="29.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld2" blockIncrement="0.1" layoutX="79.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld3" blockIncrement="0.1" layoutX="133.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld4" blockIncrement="0.1" layoutX="178.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld5" blockIncrement="0.1" layoutX="226.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld6" blockIncrement="0.1" layoutX="275.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld7" blockIncrement="0.1" layoutX="325.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="sld8" blockIncrement="0.2" layoutX="376.0" layoutY="67.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
-      <Circle fx:id="in" layoutX="53.0" layoutY="238.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fx:id="out" layoutX="399.0" layoutY="238.0" radius="23.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="42.0" layoutY="276.0" text="in" />
-      <Label layoutX="388.0" layoutY="276.0" text="out" />
-      <Button fx:id="delete" layoutX="425.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
-      <Button fx:id="raz" layoutX="105.0" layoutY="238.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Reset" />
-      <Button fx:id="remiseAUn" layoutX="203.0" layoutY="238.0" mnemonicParsing="false" text="Remise du pas à 1" />
+      <Slider fx:id="sld1" blockIncrement="0.1" layoutX="14.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld2" blockIncrement="0.1" layoutX="64.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld3" blockIncrement="0.1" layoutX="118.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld4" blockIncrement="0.1" layoutX="163.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld5" blockIncrement="0.1" layoutX="211.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld6" blockIncrement="0.1" layoutX="260.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld7" blockIncrement="0.1" layoutX="310.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sld8" blockIncrement="0.2" layoutX="361.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
+      <Circle fx:id="in" layoutX="25.0" layoutY="188.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="out" layoutX="369.0" layoutY="188.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="19.0" layoutY="200.0" text="in" />
+      <Label layoutX="360.0" layoutY="200.0" text="out" />
+      <Button fx:id="delete" layoutX="389.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
+      <Button fx:id="raz" layoutX="77.0" layoutY="184.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Reset" />
+      <Button fx:id="remiseAUn" layoutX="175.0" layoutY="184.0" mnemonicParsing="false" text="Remise du pas à 1" />
    </children>
 </Pane>

@@ -44,11 +44,11 @@ public class EGTest {
 
         //Decay
         eg.setDecay(1);
-        Assert.assertEquals("Decay should be 1",1, eg.getDecay(),0);
+        Assert.assertEquals("Decay should be 1",1.0, eg.getDecay(),0);
         eg.setDecay(60);
-        Assert.assertEquals("Decay should be 2",2, eg.getDecay(),0);
+        Assert.assertEquals("Decay should be 8",8.0, eg.getDecay(),0);
         eg.setDecay(-10);
-        Assert.assertEquals("Decay should be 0",0, eg.getDecay(),0);
+        Assert.assertEquals("Decay should be 0",0.0, eg.getDecay(),0);
 
         //Sustain
         eg.setSustain(0.123456);
