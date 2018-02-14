@@ -9,7 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Classe de test for VCFHP
@@ -178,5 +181,11 @@ public class VCFHPTest {
         assertEquals(vcfhp.getFilterPass().frequency.get(), vcfhp.getFrequency());
     }
 
-
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = vcfhp.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.INPUTFM));
+        assertTrue(list.contains(PortType.OUTPUT));
+    }
 }

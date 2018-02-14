@@ -11,6 +11,10 @@ import org.junit.Test;
 import signal.AudioSignal;
 import utils.PortType;
 
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 public class EGTest {
     public static EG eg;
     Synthesizer synth;
@@ -146,5 +150,12 @@ public class EGTest {
         Assert.assertEquals("Sustain must be 0.123456", 0.123456, eg.getSustain(),0);
         Assert.assertEquals("Realease must be 4", 4, eg.getRelease(),0);
 
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = eg.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

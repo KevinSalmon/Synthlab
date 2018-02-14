@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test class for the sequencer
  */
@@ -154,6 +158,11 @@ public class SequenceurTest {
     }
 
 
-
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = sequenceur.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.OUTPUT));
+    }
 
 }

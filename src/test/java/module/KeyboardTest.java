@@ -13,9 +13,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import utils.FxmlFilesNames;
+import utils.PortType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class KeyboardTest {
     Keyboard keyboard;
@@ -154,5 +158,11 @@ public class KeyboardTest {
     @Test
     public void referenceTest(){
         Assert.assertEquals("The reference should be the keyboard itself", keyboard, keyboard.getReference());
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = keyboard.getAllPorts();
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

@@ -13,12 +13,13 @@ import utils.PortType;
 import utils.Tuple;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
+import java.util.List;
 
 
 public class OscilloscopeTest {
@@ -123,12 +124,11 @@ public class OscilloscopeTest {
 
     }
 
-
-
-
-
-
-
-
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = oscillo.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.OUTPUT));
+    }
 }
 

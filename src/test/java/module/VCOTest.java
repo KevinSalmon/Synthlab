@@ -16,6 +16,10 @@ import signal.AudioSignal;
 import utils.OscillatorType;
 import utils.PortType;
 
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 public class VCOTest {
     public static VCO vco;
 
@@ -243,5 +247,12 @@ public class VCOTest {
     @Test(expected = NullPointerException.class)
     public void OscillatorException(){
         vco.changeCurrentOsc(null);
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = vco.getAllPorts();
+        assertTrue(list.contains(PortType.INPUTFM));
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

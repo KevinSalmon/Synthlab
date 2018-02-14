@@ -12,7 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 import utils.Tuple;
+
+import java.util.List;
+
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertTrue;
 
 public class MixerTest {
 
@@ -239,5 +243,15 @@ public class MixerTest {
                 assertEquals(0.0, mixerValues[j]);
             }
         }
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = mixer.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT1));
+        assertTrue(list.contains(PortType.INPUT2));
+        assertTrue(list.contains(PortType.INPUT3));
+        assertTrue(list.contains(PortType.INPUT4));
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

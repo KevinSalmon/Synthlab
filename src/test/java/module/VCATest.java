@@ -9,7 +9,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
+
+import java.util.List;
+
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertTrue;
 
 public class VCATest {
     public static VCA vca;
@@ -239,5 +243,13 @@ public class VCATest {
         SubjectVCA sub = new SubjectVCATest(-3.6);
         vca.update(sub);
         assertEquals(-3.6, vca.getA0());
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = vca.getAllPorts();
+        assertTrue(list.contains(PortType.INPUTAM));
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

@@ -4,6 +4,8 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
+
+import java.util.List;
 import java.util.logging.Logger;
 import ihm.ReplicateurController;
 import org.junit.Assert;
@@ -12,6 +14,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import utils.PortType;
 import utils.Tuple;
+
+import static org.junit.Assert.assertTrue;
 
 public class ReplicateurTest {
 
@@ -189,5 +193,14 @@ public class ReplicateurTest {
     public void updateTest(){
         ReplicateurController replicateurController = new ReplicateurController();
         rep.update(replicateurController);
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = rep.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
+        assertTrue(list.contains(PortType.OUTPUT1));
+        assertTrue(list.contains(PortType.OUTPUT2));
+        assertTrue(list.contains(PortType.OUTPUT3));
     }
 }

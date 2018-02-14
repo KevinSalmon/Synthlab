@@ -8,7 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 
+import java.util.List;
+
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertTrue;
 
 public class ConstantGeneratorTest {
     private Synthesizer synth;
@@ -81,5 +84,11 @@ public class ConstantGeneratorTest {
         SubjectConstantGenerator sub = new SubjectConstantGeneratorTest(5.0);
         constGenerator.update(sub);
         assertEquals(5.0, constGenerator.getVoltage());
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = constGenerator.getAllPorts();
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }

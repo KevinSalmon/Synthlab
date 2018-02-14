@@ -8,7 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
 import java.io.*;
+import java.util.List;
+
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertTrue;
 
 public class OutputModuleTest {
     private Synthesizer synth;
@@ -243,5 +246,11 @@ public class OutputModuleTest {
         SubjectOutput sub = new SubjectOutputTest(false, 0.0, true, "OutputTest-" + System.currentTimeMillis() + "/test.wav");
         outputModule.update(sub);
         assertTrue(outputModule.getLastUpdateFail());
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = outputModule.getAllPorts();
+        assertTrue(list.contains(PortType.INPUT));
     }
 }

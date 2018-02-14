@@ -11,6 +11,11 @@ import org.junit.Test;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 public class BruitBlancTest {
 
     public static BruitBlancModule bruitBlanc;
@@ -29,14 +34,14 @@ public class BruitBlancTest {
     public void OutputTest(){
         UnitOutputPort output = bruitBlanc.getOut();
 
-        Assert.assertTrue("The name of the output is not 'output'",output.getName().equals(PortType.OUTPUT.getType()));
-        Assert.assertTrue("The output must have only one part",output.getNumParts() == 1);
-        Assert.assertTrue("The output should not have any connection from now", !output.isConnected());
+        assertTrue("The name of the output is not 'output'",output.getName().equals(PortType.OUTPUT.getType()));
+        assertTrue("The output must have only one part",output.getNumParts() == 1);
+        assertTrue("The output should not have any connection from now", !output.isConnected());
     }
 
     @Test
     public void getReferenceTest(){
-        Assert.assertTrue("getReference does not return the object", bruitBlanc.getReference().equals(bruitBlanc));
+        assertTrue("getReference does not return the object", bruitBlanc.getReference().equals(bruitBlanc));
     }
 
 
@@ -44,7 +49,7 @@ public class BruitBlancTest {
     public void getOutTest(){
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         bruitBlanc.setOut(newOut);
-        Assert.assertTrue("getOut does not return the out", bruitBlanc.getOut().equals(newOut));
+        assertTrue("getOut does not return the out", bruitBlanc.getOut().equals(newOut));
     }
 
     @Test
@@ -52,14 +57,14 @@ public class BruitBlancTest {
         UnitOutputPort previousOut = bruitBlanc.getOut();
         UnitOutputPort newOut = new UnitOutputPort("outTest");
         bruitBlanc.setOut(newOut);
-        Assert.assertTrue("setOut1 does not set the output1", !bruitBlanc.getOut().equals(previousOut));
+        assertTrue("setOut1 does not set the output1", !bruitBlanc.getOut().equals(previousOut));
     }
 
     @Test
     public void getWhiteNoiseTest(){
         WhiteNoise whiteNoise = new WhiteNoise();
         bruitBlanc.setWhiteNoise(whiteNoise);
-        Assert.assertTrue("getWhiteNoise does not return the whitenoise", bruitBlanc.getWhiteNoise().equals(whiteNoise));
+        assertTrue("getWhiteNoise does not return the whitenoise", bruitBlanc.getWhiteNoise().equals(whiteNoise));
     }
 
     @Test
@@ -67,12 +72,12 @@ public class BruitBlancTest {
         WhiteNoise previousWhiteNoise = bruitBlanc.getWhiteNoise();
         WhiteNoise newWhiteNoise = new WhiteNoise();
         bruitBlanc.setWhiteNoise(newWhiteNoise);
-        Assert.assertTrue("setWhiteNoise does not set the WhiteNoise", !bruitBlanc.getWhiteNoise().equals(previousWhiteNoise));
+        assertTrue("setWhiteNoise does not set the WhiteNoise", !bruitBlanc.getWhiteNoise().equals(previousWhiteNoise));
     }
 
     @Test
     public void getPortTest(){
-        Assert.assertTrue("getPort(output) does not return the output1",
+        assertTrue("getPort(output) does not return the output1",
                 bruitBlanc.getPort(PortType.OUTPUT.getType()).getLeft().getName().equals(
                         new Tuple<>(bruitBlanc.getOut(), PortType.OUTPUT).getLeft().getName()));
 
@@ -89,5 +94,11 @@ public class BruitBlancTest {
     public void generateTest(){
         bruitBlanc.generate();
         Assert.assertNotNull("generate does not generate values", bruitBlanc.getOut().getValues());
+    }
+
+    @Test
+    public void getAllPortsTest() {
+        List<PortType> list = bruitBlanc.getAllPorts();
+        assertTrue(list.contains(PortType.OUTPUT));
     }
 }
