@@ -169,9 +169,12 @@ public class IHMController implements Initializable{
         currentModulesStyle = draggedModule.getStyle();
         draggedModule.setStyle(defaultSelectionStyle);
 
-        deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
-        deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
 
+        Point2D mouseEventToWorkspace = workspace.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+
+        deltaX = mouseEventToWorkspace.getX() - draggedModule.getLayoutX();
+        deltaY = mouseEventToWorkspace.getY() - draggedModule.getLayoutY();
+        
         /**
          * Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
          * la fenetre
@@ -202,8 +205,10 @@ public class IHMController implements Initializable{
         draggedModule.setStyle(defaultSelectionStyle);
         draggedModule.toFront();
 
-        deltaX = mouseEvent.getSceneX() - draggedModule.getLayoutX();
-        deltaY = mouseEvent.getSceneY() - draggedModule.getLayoutY();
+        Point2D mouseEventToWorkspace = workspace.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+
+        deltaX = mouseEventToWorkspace.getX() - draggedModule.getLayoutX();
+        deltaY = mouseEventToWorkspace.getY() - draggedModule.getLayoutY();
 
         mouseEvent.consume();
     }
@@ -298,13 +303,21 @@ public class IHMController implements Initializable{
         /**
          * Deplacement du module
          */
-        //TODO: Gerer les decallages avec potentiellement ce point
-        if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
+        Point2D dragEventToWorkspace = workspace.sceneToLocal(dragEvent.getSceneX(), dragEvent.getSceneY());
+
+        if(dragEventToWorkspace.getX() - deltaX > 0 && dragEventToWorkspace.getX() - deltaX < workspace.getWidth()){
+            draggedModule.setLayoutX(dragEventToWorkspace.getX() - deltaX);
+        }
+        if(dragEventToWorkspace.getY() - deltaY > 0 && dragEventToWorkspace.getY() - deltaY < workspace.getHeight()){
+            draggedModule.setLayoutY(dragEventToWorkspace.getY() - deltaY);
+        }
+
+        /*if(dragEvent.getSceneX() - deltaX > 0 && dragEvent.getSceneX() - deltaX < workspace.getWidth()){
             draggedModule.setLayoutX(dragEvent.getSceneX() - deltaX);
         }
         if(dragEvent.getSceneY() - deltaY > 0 && dragEvent.getSceneY() - deltaY < workspace.getHeight()){
             draggedModule.setLayoutY(dragEvent.getSceneY() - deltaY);
-        }
+        }*/
         dragEvent.consume();
     }
 
