@@ -175,7 +175,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
                 break;
             case X: setOctave(octave+1);gateUpdate = false;break;
             case W: setOctave(octave-1);gateUpdate = false;break;
-            default:
+            default: gateUpdate = false;
         }
 
         if(gateUpdate)gate.setValueInternal(5.0/12.0);
