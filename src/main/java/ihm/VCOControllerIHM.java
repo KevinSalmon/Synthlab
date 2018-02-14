@@ -56,17 +56,14 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
         octaveSlider.setOnMouseMoved(e -> notifyObseurveur());
-        octaveSlider.setOnMouseDragged(e -> notifyObseurveur());
 
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
         reglageFinSlider.setOnMouseMoved(event -> notifyObseurveur());
-        reglageFinSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
-        typeOndeSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         LFO.setOnMouseClicked(eh -> obseuveurVCO.update(this));
 
