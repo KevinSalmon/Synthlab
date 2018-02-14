@@ -65,7 +65,7 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
             else if(inValues[i] <= 0){
                 isCheck = false;
             }
-            outValues[i] = values[actualValue];
+            outValues[i] = values[actualValue] / 12;
 
         }
     }

@@ -51,7 +51,7 @@ public class SeqController implements Initializable, SubjectSeq, SuperController
     Button remiseAUn;
 
     private Obseurveur<SubjectSeq> obseurveurSequenceur;
-    private int currentClicked =0;
+    private int currentClicked =1;
 
 
     @Override
@@ -183,7 +183,11 @@ public class SeqController implements Initializable, SubjectSeq, SuperController
         sld6.setValue(savedSequenceur.getSld6());
         sld7.setValue(savedSequenceur.getSld7());
         sld8.setValue(savedSequenceur.getSld8());
-        notifyObseurveur();
+        for(int i = currentClicked; i <= 8; i ++) {
+            notifyObseurveur();
+            currentClicked++;
+        }
+        currentClicked=1;
     }
 
     @Override
