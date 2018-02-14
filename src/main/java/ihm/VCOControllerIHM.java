@@ -162,7 +162,6 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
 
     @Override
     public Circle getPort(PortType portType) {
-        Logger.getGlobal().info("pouetPort "+portType);
         if (portType.equals(PortType.FM)) {
             return this.fm;
         }

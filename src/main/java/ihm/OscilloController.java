@@ -18,6 +18,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import module.Oscilloscope;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedOscillo;
 import utils.CableManager;
 import utils.PortType;
 
@@ -27,7 +29,7 @@ import java.util.*;
 import javafx.animation.Timeline;
 
 
-public class OscilloController implements Initializable, SubjectOscillo{
+public class OscilloController implements Initializable, SubjectOscillo, SuperController {
 
     @FXML
     Pane border;
@@ -181,4 +183,24 @@ public class OscilloController implements Initializable, SubjectOscillo{
         lineChart.getData().add(serie);
     }
 
+    @Override
+    public SavedModule createMemento() {
+        return new SavedOscillo(border.getLayoutX(), border.getLayoutY(), refresh.getValue(), spinnerAxisX.getValue(), spinnerAxisY.getValue());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedOscillo saved = (SavedOscillo)module;
+        refresh.getValueFactory().setValue(saved.getValue());
+        spinnerAxisX.getValueFactory().setValue(saved.getSpinnerAxisXValue());
+        spinnerAxisY.getValueFactory().setValue(saved.getSpinnerAxisYValue());
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.INPUT)) { return this.in; }
+        if (portType.equals(PortType.OUTPUT)) { return this.out; }
+        return null;
+    }
 }

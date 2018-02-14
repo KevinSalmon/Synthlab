@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedModule;
 import utils.CableManager;
 import utils.PortType;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ModuleKeyboard implements Initializable, SubjectKeyboard{
+public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperController {
 
 	@FXML
 	Pane paneMain;
@@ -67,4 +68,19 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard{
 		}
 	}
 
+	@Override
+	public SavedModule createMemento() {
+		return new SavedModule(paneMain.getLayoutX(), paneMain.getLayoutY());
+	}
+
+	@Override
+	public void loadProperties(SavedModule module) {
+
+	}
+
+	@Override
+	public Circle getPort(PortType portType) {
+		if (portType.equals(PortType.OUTPUT)) { return this.drawOutput; }
+		return null;
+	}
 }
