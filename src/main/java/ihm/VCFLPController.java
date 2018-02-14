@@ -5,19 +5,19 @@ import controller.Obseurveur;
 import controller.SubjectVCF;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import module.VCF;
 import sauvegarde.SavedModule;
 import sauvegarde.SavedVCF;
-import sauvegarde.SavedVCO;
 import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class VCFLPController implements Initializable, SubjectVCF, SuperController {
 
@@ -62,9 +62,7 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
         resonance.setOnMouseMoved(event -> notifyObseurveur());
         resonance.setOnMouseDragged(e -> notifyObseurveur());
 
-        delete.setOnMouseClicked(eh -> {
-            Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane);
-        });
+        delete.setOnMouseClicked(e -> Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane));
     }
 
 

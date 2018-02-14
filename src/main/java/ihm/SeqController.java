@@ -118,9 +118,7 @@ public class SeqController implements Initializable, SubjectSeq, SuperController
             cableManager.addListener(in, obseurveurSequenceur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, obseurveurSequenceur.getReference(), PortType.OUTPUT, pane);
         }
-        delete.setOnMouseClicked(eh -> {
-            Controller.getInstance().removeWithConfirmPopup(obseurveurSequenceur, pane);
-        });
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseurveurSequenceur, pane));
 
     }
 

@@ -30,10 +30,10 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 	CheckBox checkboxMute;
 
 	@FXML
-	CheckBox checkbox_record;
+	CheckBox checkboxRecord;
 
 	@FXML
-	TextField filename_record;
+	TextField filenameRecord;
 
 	@FXML
 	Circle drawInput;
@@ -57,8 +57,8 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 		checkboxMute.setSelected(false);
 		checkboxMute.setOnAction(event -> notifyObseurveur());
 
-		checkbox_record.setSelected(false);
-		checkbox_record.setOnAction(event -> notifyRecordObseurveur());
+		checkboxRecord.setSelected(false);
+		checkboxRecord.setOnAction(event -> notifyRecordObseurveur());
 
 		btnAttenuateur.setOnInputMethodTextChanged(event -> notifyObseurveur());
 		btnAttenuateur.setOnKeyReleased(e ->notifyObseurveur());
@@ -107,12 +107,12 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 
 	@Override
 	public boolean getRecordEnabled() {
-		return checkbox_record.isSelected();
+		return checkboxRecord.isSelected();
 	}
 
 	@Override
 	public String getRecordFilename() {
-		return filename_record.getText();
+		return filenameRecord.getText();
 	}
 
 	@Override
@@ -120,8 +120,8 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 		SavedModuleOut savedModuleOut = (SavedModuleOut) module;
 		btnAttenuateur.getValueFactory().setValue(savedModuleOut.getAttenuateur().intValue());
 		checkboxMute.setSelected(savedModuleOut.isMute());
-		checkbox_record.setSelected(savedModuleOut.isRecording());
-		filename_record.setText(savedModuleOut.getRecordFileName());
+		checkboxRecord.setSelected(savedModuleOut.isRecording());
+		filenameRecord.setText(savedModuleOut.getRecordFileName());
 		notifyObseurveur();
 	}
 
@@ -163,7 +163,7 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 
 		if (this.getRecordEnabled() && fileExists.exists()) { // SI on veux enregistrer, on vérifie qu'un fichier de sortie n'existe pas déjà
 			Alert confirm = new Alert(Alert.AlertType.WARNING);
-			confirm.setHeaderText("Le fichier de sortie \"" + this.filename_record.getText() + "\" existe déjà. Voulez-vous l'écraser ?");
+			confirm.setHeaderText("Le fichier de sortie \"" + this.filenameRecord.getText() + "\" existe déjà. Voulez-vous l'écraser ?");
 			confirm.getButtonTypes().add(ButtonType.CANCEL);
 			confirm.setTitle("Fichier de sortie existant");
 			confirm.showAndWait().ifPresent(response -> {
@@ -173,7 +173,7 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 					}
 				}
 				else {
-					this.checkbox_record.setSelected(false);
+					this.checkboxRecord.setSelected(false);
 				}
 			});
 		}
@@ -187,7 +187,7 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 	@Override
 	public SavedModule createMemento() {
 		return new SavedModuleOut(paneMain.getLayoutX(), paneMain.getLayoutY(),
-				checkboxMute.isSelected(), filename_record.getText(),
-				checkbox_record.isSelected(), btnAttenuateur.getValue());
+				checkboxMute.isSelected(), filenameRecord.getText(),
+				checkboxRecord.isSelected(), btnAttenuateur.getValue());
 	}
 }

@@ -44,7 +44,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     private Button delete;
 
     @FXML
-    private RadioButton LFO;
+    private RadioButton Lfo;
 
     @FXML
     private Label frequency;
@@ -68,7 +68,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
         typeOndeSlider.setOnMouseDragged(event -> notifyObseurveur());
 
-        LFO.setOnMouseClicked(eh -> obseuveurVCO.update(this));
+        Lfo.setOnMouseClicked(eh -> obseuveurVCO.update(this));
 
         delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurVCO, border));
     }
@@ -122,7 +122,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     }
 
     @Override
-    public boolean isLFOActive() { return LFO.isSelected(); }
+    public boolean isLFOActive() { return Lfo.isSelected(); }
 
     @Override
     public void register(Obseurveur o) {
@@ -160,7 +160,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         reglageFinSlider.setValue(savedVCO.getReglageFin());
         Double sliderValue = setOscillatorType(savedVCO.getTypeOnde());
         typeOndeSlider.setValue(sliderValue);
-        LFO.setSelected(savedVCO.isLFO());
+        Lfo.setSelected(savedVCO.isLFO());
         notifyObseurveur();
     }
 

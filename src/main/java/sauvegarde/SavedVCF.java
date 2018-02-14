@@ -1,7 +1,5 @@
 package sauvegarde;
 
-import java.util.logging.Logger;
-
 public class SavedVCF extends SavedModule{
 
     private double resonance;
@@ -39,7 +37,7 @@ public class SavedVCF extends SavedModule{
         return isLP;
     }
 
-    public void setLP(boolean LP) {
-        isLP = LP;
+    public void setLP(boolean Lp) {
+        isLP = Lp;
     }
 }

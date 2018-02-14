@@ -58,9 +58,7 @@ public class VcaController implements Initializable, SubjectVCA, SuperController
         gainSelector.setOnKeyReleased(e ->notifyObseurveur());
         gainSelector.setOnMouseClicked(e -> onClickAttenuateur(valueFactory));
 
-        delete.setOnMouseClicked(eh -> {
-            Controller.getInstance().removeWithConfirmPopup(vcaObseurveur, pane);
-        });
+        delete.setOnMouseClicked(e -> Controller.getInstance().removeWithConfirmPopup(vcaObseurveur, pane));
     }
 
     private void onClickAttenuateur(SpinnerValueFactory.DoubleSpinnerValueFactory f){

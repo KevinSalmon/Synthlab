@@ -1,7 +1,5 @@
 package sauvegarde;
 
-import module.Module;
-
 public class SavedSequenceur extends SavedModule{
 
     private double sld1;

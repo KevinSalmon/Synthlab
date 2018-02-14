@@ -19,7 +19,7 @@
       <Spinner id="btn_attenuateur" fx:id="btnAttenuateur" layoutX="205.0" layoutY="38.0" prefHeight="26.0" prefWidth="115.0" />
       <Label id="label_attenuateur" layoutX="118.0" layoutY="43.0" text="Atténuateur" />
       <Circle fx:id="drawInput" layoutX="23.0" layoutY="43.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <CheckBox id="checkbox_record" fx:id="checkbox_record" layoutX="127.0" layoutY="12.0" mnemonicParsing="false" text="Record" />
-      <TextField id="filename_record" fx:id="filename_record" layoutX="205.0" layoutY="8.0" prefHeight="20.0" prefWidth="115.0" text="Output.wav" />
+      <CheckBox id="checkbox_record" fx:id="checkboxRecord" layoutX="127.0" layoutY="12.0" mnemonicParsing="false" text="Record" />
+      <TextField id="filename_record" fx:id="filenameRecord" layoutX="205.0" layoutY="8.0" prefHeight="20.0" prefWidth="115.0" text="Output.wav" />
    </children>
 </Pane>

@@ -37,13 +37,13 @@ public class ReplicateurController implements Initializable, SubjectReplicateur,
     private Button delete;
 
     private Obseurveur<SubjectReplicateur> replicateurObseurveur;
-    private CableManager cableManager;
+
 
     @Override
     public void register(Obseurveur o) {
         if(o != null){
             replicateurObseurveur = o;
-            cableManager = CableManager.getInstance();
+            CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(in, o.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out1, o.getReference(), PortType.OUTPUT1, pane);
             cableManager.addListener(out2, o.getReference(), PortType.OUTPUT2, pane);
@@ -64,9 +64,7 @@ public class ReplicateurController implements Initializable, SubjectReplicateur,
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        delete.setOnMouseClicked(eh -> {
-            Controller.getInstance().removeWithConfirmPopup(replicateurObseurveur, pane);
-        });
+        delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(replicateurObseurveur, pane));
     }
 
     @Override
