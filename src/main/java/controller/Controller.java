@@ -15,6 +15,7 @@ import module.*;
 import sauvegarde.*;
 import utils.*;
 
+import javax.naming.NoPermissionException;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -394,7 +395,8 @@ public class Controller {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         File file = new File("save.json");
-        if(file.exists()) file.delete();
+        if(file.exists())
+            if(!file.delete()) new NoPermissionException("Cannot delete file");
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
