@@ -353,7 +353,7 @@ public class Controller {
     /**
      * Sauvegarde du workspace
      */
-    public void saveWorkspace(){
+    public void saveWorkspace() throws NoPermissionException {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save workspace");
@@ -406,7 +406,7 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-//        File saveFile = new File("save.json");
+
         if(file.exists())
             if(!file.delete()) throw new NoPermissionException("Cannot delete file");
 
