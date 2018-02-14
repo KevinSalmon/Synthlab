@@ -111,9 +111,8 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     }
     @Override
     public SavedModule createMemento() {
-        return new SavedVCF(pane.getLayoutX(), pane.getLayoutY(),
-                f0.getValue(), resonance.getValue(),
-                isLp());
+        Logger.getGlobal().info("poijkbjiopuhcghjiohgjcjpojihkvj "+resonance.getValue());
+        return new SavedVCF(pane.getLayoutX(), pane.getLayoutY(), resonance.getValue(), f0.getValue(),  isLp());
     }
 
     @Override
@@ -121,6 +120,7 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
         SavedVCF savedVCF = (SavedVCF)module;
         f0.setValue(savedVCF.getF0());
         resonance.setValue(savedVCF.getResonance());
+        Logger.getGlobal().info(savedVCF.getResonance()+" "+resonance.getValue());
         isLp = savedVCF.getLP();
         notifyObseurveur();
     }

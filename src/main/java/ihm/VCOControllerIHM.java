@@ -157,6 +157,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
         octaveSlider.setValue(savedVCO.getOctave());
         reglageFinSlider.setValue(savedVCO.getReglageFin());
         setOscillatorType(savedVCO.getTypeOnde());
+        LFO.setSelected(savedVCO.isLFO());
         notifyObseurveur();
     }
 
