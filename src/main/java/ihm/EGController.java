@@ -49,18 +49,22 @@ public class EGController implements Initializable, SubjectEG, SuperController {
         attack.setOnKeyReleased(e ->notifyObseurveur());
         attack.setOnMouseClicked(e -> notifyObseurveur());
         attack.setOnMouseMoved(e -> notifyObseurveur());
+        attack.setOnMouseDragged(e -> notifyObseurveur());
 
         decay.setOnKeyReleased(e ->notifyObseurveur());
         decay.setOnMouseClicked(e -> notifyObseurveur());
         decay.setOnMouseMoved(event -> notifyObseurveur());
+        decay.setOnMouseDragged(event -> notifyObseurveur());
 
         sustain.setOnKeyReleased(e ->notifyObseurveur());
         sustain.setOnMouseClicked(e -> notifyObseurveur());
         sustain.setOnMouseMoved(event -> notifyObseurveur());
+        sustain.setOnMouseDragged(event -> notifyObseurveur());
 
         release.setOnKeyReleased(e ->notifyObseurveur());
         release.setOnMouseClicked(e -> notifyObseurveur());
         release.setOnMouseMoved(event -> notifyObseurveur());
+        release.setOnMouseDragged(event -> notifyObseurveur());
 
         delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurEG, border));
     }
