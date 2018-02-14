@@ -107,7 +107,7 @@ public class SequenceurTest {
         sequenceur.generate(0, inputValues.length);
         double[] outValues = sequenceur.getOutputPort().getValues();
         for(int i =0; i < inputValues.length; i ++){
-            Assert.assertEquals(outValues[i], sequenceur.getValues()[0], 0.1);
+            Assert.assertEquals(outValues[i], sequenceur.getValues()[0]/12.0, 0.1);
         }
 
 
