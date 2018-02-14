@@ -12,6 +12,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import module.VCO;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedVCO;
 import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
@@ -20,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class VCOControllerIHM implements Initializable, SubjectVCO {
+public class VCOControllerIHM implements Initializable, SubjectVCO, SuperController {
 
     @FXML
     private Pane border;
@@ -86,6 +88,22 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         return null;
     }
 
+    private Double setOscillatorType(OscillatorType type){
+        if (type == OscillatorType.SQUARE){
+            return 0.0;
+        }
+        if (type == OscillatorType.TRIANGLE){
+            return 1.0;
+        }
+        if (type == OscillatorType.SAWTOOTH){
+            return 2.0;
+        }
+        if (type == OscillatorType.SINE){
+            return 3.0;
+        }
+        return null;
+    }
+
     @Override
     public int getOctaveValue() {
         return new Double(octaveSlider.getValue()).intValue();
@@ -109,7 +127,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
         if(o != null){
             obseuveurVCO = o;
             CableManager cableManager = CableManager.getInstance();
-            cableManager.addListener(fm, o.getReference(), PortType.FM, border);
+            cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
             frequency.setText(frequency.getText() + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
         }
@@ -124,5 +142,33 @@ public class VCOControllerIHM implements Initializable, SubjectVCO {
     public void notifyObseurveur() {
         obseuveurVCO.update(this);
         frequency.setText("fréquence "+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedVCO(border.getLayoutX(), border.getLayoutY(),
+                octaveSlider.getValue(), reglageFinSlider.getValue(),
+                getOscillatorType(typeOndeSlider.getValue()), isLFOActive());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedVCO savedVCO = (SavedVCO)module;
+        octaveSlider.setValue(savedVCO.getOctave());
+        reglageFinSlider.setValue(savedVCO.getReglageFin());
+        setOscillatorType(savedVCO.getTypeOnde());
+        LFO.setSelected(savedVCO.isLFO());
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.INPUTFM)) {
+            return this.fm;
+        }
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        return null;
     }
 }

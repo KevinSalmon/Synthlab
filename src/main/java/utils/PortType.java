@@ -11,8 +11,8 @@ public enum PortType {
     INPUT2 ("input2"),
     INPUT3 ("input3"),
     INPUT4 ("input4"),
-    AM ("inputam"),
-    FM ("inputfm");
+    INPUTAM ("inputam"),
+    INPUTFM ("inputfm");
 
 
     private String type = "";
@@ -24,4 +24,5 @@ public enum PortType {
     public String getType() {
         return type;
     }
+
 }

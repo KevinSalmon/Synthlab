@@ -14,6 +14,9 @@ import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
 
@@ -38,7 +41,7 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
         this.in = new UnitInputPort(PortType.INPUT.getType());
         this.out = new UnitOutputPort(PortType.OUTPUT.getType());
 
-        this.fm = new UnitInputPort(PortType.FM.getType());
+        this.fm = new UnitInputPort(PortType.INPUTFM.getType());
         this.filterPass.input = this.in;
         this.filterPass.frequency.set(440);
         this.filterPass.output = this.out;
@@ -55,7 +58,7 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
     Tuple<UnitPort, PortType> getPort(String name) {
         if(name.equals(PortType.OUTPUT.getType())) return new Tuple<>(getPortByName(name), PortType.OUTPUT);
         if(name.equals(PortType.INPUT.getType())) return new Tuple<>(getPortByName(name), PortType.INPUT);
-        if(name.equals(PortType.FM.getType())) return new Tuple<>(getPortByName(name), PortType.FM);
+        if(name.equals(PortType.INPUTFM.getType())) return new Tuple<>(getPortByName(name), PortType.INPUTFM);
         return null;
     }
 
@@ -124,5 +127,14 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
 
     public void setFrequency(Integer frequency) {
         filterPass.frequency.set(frequency);
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        list.add(PortType.INPUTFM);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

@@ -9,12 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedMix;
+import sauvegarde.SavedModule;
 import utils.CableManager;
 import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MixController implements Initializable, SubjectMixer {
+public class MixController implements Initializable, SubjectMixer, SuperController {
 
     @FXML Pane pane;
     @FXML Circle in1;
@@ -99,5 +101,30 @@ public class MixController implements Initializable, SubjectMixer {
     @Override
     public double getIn4DbAttenuation() {
         return sldIn4.getValue();
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedMix(pane.getLayoutX(), pane.getLayoutY(), getIn1DbAttenuation(), getIn2DbAttenuation(), getIn3DbAttenuation(), getIn4DbAttenuation());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedMix saved = (SavedMix)module;
+        sldIn1.setValue(saved.getIn1dbAttenuation());
+        sldIn2.setValue(saved.getIn2dbAttenuation());
+        sldIn3.setValue(saved.getIn3dbAttenuation());
+        sldIn4.setValue(saved.getIn4dbAttenuation());
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.INPUT1)) { return this.in1; }
+        if (portType.equals(PortType.INPUT2)) { return this.in2; }
+        if (portType.equals(PortType.INPUT3)) { return this.in3; }
+        if (portType.equals(PortType.INPUT4)) { return this.in4; }
+        if (portType.equals(PortType.OUTPUT)) { return this.out; }
+        return null;
     }
 }

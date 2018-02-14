@@ -10,13 +10,15 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedVCA;
 import utils.PortType;
 import utils.CableManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VcaController implements Initializable, SubjectVCA {
+public class VcaController implements Initializable, SubjectVCA, SuperController {
 
     @FXML
     Pane pane;
@@ -77,7 +79,7 @@ public class VcaController implements Initializable, SubjectVCA {
         if( o != null){
             vcaObseurveur = o;
             cableManager.addListener(in, vcaObseurveur.getReference(), PortType.INPUT, pane);
-            cableManager.addListener(am, vcaObseurveur.getReference(), PortType.AM, pane);
+            cableManager.addListener(am, vcaObseurveur.getReference(), PortType.INPUTAM, pane);
             cableManager.addListener(out, vcaObseurveur.getReference(), PortType.OUTPUT, pane);
 
         }
@@ -94,5 +96,32 @@ public class VcaController implements Initializable, SubjectVCA {
     @Override
     public void notifyObseurveur() {
         vcaObseurveur.update(this);
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedVCA(pane.getLayoutX(), pane.getLayoutY(),
+                gainSelector.getValue());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        SavedVCA savedVCF = (SavedVCA) module;
+        gainSelector.getValueFactory().setValue(savedVCF.getAttenuateur());
+        notifyObseurveur();
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+        if (portType.equals(PortType.INPUTAM)) {
+            return this.am;
+        }
+        if (portType.equals(PortType.OUTPUT)) {
+            return this.out;
+        }
+        if(portType.equals(PortType.INPUT)){
+            return  this.in;
+        }
+        return null;
     }
 }

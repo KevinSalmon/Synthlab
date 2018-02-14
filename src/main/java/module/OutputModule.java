@@ -15,6 +15,8 @@ import utils.Tuple;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class OutputModule extends Module implements UnitSource, Obseurveur<SubjectOutput> {
@@ -84,6 +86,13 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
             return new Tuple<>(getPortByName(name),PortType.INPUT);
         }
         return null;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUT);
+        return list;
     }
 
     @Override

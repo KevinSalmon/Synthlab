@@ -7,13 +7,18 @@ import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import controller.Obseurveur;
 import controller.SubjectVCO;
+import sauvegarde.Memento;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedVCO;
 import signal.AudioSignal;
 import signal.Signal;
 import utils.OscillatorFactory;
 import utils.OscillatorType;
 import utils.PortType;
 import utils.Tuple;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private UnitOscillator sqrOsc;
@@ -35,6 +40,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     private int octave;
     private double reglageFin;
+    private OscillatorType oscillatorType;
 
     public VCO() {
 
@@ -50,13 +56,14 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         add(sinOsc);
 
         currentOsc = triOsc;
+        oscillatorType = OscillatorType.TRIANGLE;
 
         lfo = false;
 
         //Crée le port de sortie
         output = new UnitOutputPort(PortType.OUTPUT.getType());
         addPort(output);
-        fm = new UnitInputPort(PortType.FM.getType());
+        fm = new UnitInputPort(PortType.INPUTFM.getType());
         addPort(fm);
         audioSignal = new AudioSignal(1.0/12.0, F0);
         currentOsc.frequency.set(F0);
@@ -205,6 +212,8 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
             default: throw new IllegalArgumentException("Oscillator not found");
         }
 
+        oscillatorType = type;
+
         //Met à jour fréquence et amplitude
         currentOsc.frequency.set(freq);
         currentOsc.amplitude.set(amp);
@@ -231,7 +240,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         if(PortType.OUTPUT.getType().equals(name)){
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
-        else if(PortType.FM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.FM);
+        else if(PortType.INPUTFM.getType().equals(name)) return new Tuple<>(getPortByName(name),PortType.INPUTFM);
         return null;
     }
 
@@ -291,5 +300,21 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     public static double getLfoMin() {
         return LFO_MIN;
+    }
+
+    public OscillatorType getOscillatorType() {
+        return oscillatorType;
+    }
+
+    public void setOscillatorType(OscillatorType oscillatorType) {
+        this.oscillatorType = oscillatorType;
+    }
+
+    @Override
+    public List<PortType> getAllPorts() {
+        List<PortType> list = new ArrayList<>();
+        list.add(PortType.INPUTFM);
+        list.add(PortType.OUTPUT);
+        return list;
     }
 }

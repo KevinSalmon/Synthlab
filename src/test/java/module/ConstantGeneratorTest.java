@@ -32,7 +32,7 @@ public class ConstantGeneratorTest {
     public void getPortTest() {
         assertNull(constGenerator.getPort(PortType.INPUT.getType()));
         assertNotNull(constGenerator.getPort(PortType.OUTPUT.getType()));
-        assertNull(constGenerator.getPort(PortType.AM.getType()));
+        assertNull(constGenerator.getPort(PortType.INPUTAM.getType()));
     }
 
     @Test

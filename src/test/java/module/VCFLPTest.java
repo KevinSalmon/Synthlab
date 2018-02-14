@@ -107,7 +107,7 @@ public class VCFLPTest {
     public void getPortTest(){
         assertEquals("output port and returned port are not equals", vcflp.getOutput(), vcflp.getPort(PortType.OUTPUT.getType()).getLeft());
         assertEquals( "input port and returned port are not equals", vcflp.getInput(), vcflp.getPort(PortType.INPUT.getType()).getLeft());
-        assertEquals("fm port and returned port are not equals", vcflp.getFm(), vcflp.getPort(PortType.FM.getType()).getLeft());
+        assertEquals("fm port and returned port are not equals", vcflp.getFm(), vcflp.getPort(PortType.INPUTFM.getType()).getLeft());
         Assert.assertNull(vcflp.getPort("NULL"));
     }
 

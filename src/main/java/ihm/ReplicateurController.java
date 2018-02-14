@@ -8,13 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import sauvegarde.SavedModule;
+import sauvegarde.SavedReplicateur;
 import utils.PortType;
 import utils.CableManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReplicateurController implements Initializable, SubjectReplicateur{
+public class ReplicateurController implements Initializable, SubjectReplicateur, SuperController{
 
     @FXML
     private Pane pane;
@@ -65,5 +67,35 @@ public class ReplicateurController implements Initializable, SubjectReplicateur{
         delete.setOnMouseClicked(eh -> {
             Controller.getInstance().removeWithConfirmPopup(replicateurObseurveur, pane);
         });
+    }
+
+    @Override
+    public SavedModule createMemento() {
+        return new SavedReplicateur(pane.getLayoutX(), pane.getLayoutY());
+    }
+
+    @Override
+    public void loadProperties(SavedModule module) {
+        /*
+        Nothing to do
+         */
+    }
+
+    @Override
+    public Circle getPort(PortType portType) {
+
+        if (portType.equals(PortType.OUTPUT1)) {
+            return this.out1;
+        }
+        if (portType.equals(PortType.OUTPUT2)) {
+            return this.out2;
+        }
+        if (portType.equals(PortType.OUTPUT3)) {
+            return this.out3;
+        }
+        if(portType.equals(PortType.INPUT)){
+            return  this.in;
+        }
+        return null;
     }
 }
