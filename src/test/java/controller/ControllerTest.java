@@ -27,7 +27,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void initTest(){
+    public void AinitTest(){
         Assert.assertNotNull("The controller should have a synthetizer", controller.synth);
         Assert.assertTrue("The synthetizer should be running", controller.synth.isRunning());
         Assert.assertNull("The controller should not have a ihmController", controller.ihmController);
