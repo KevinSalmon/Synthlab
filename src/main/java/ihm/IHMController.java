@@ -424,7 +424,7 @@ public class IHMController implements Initializable{
         miniaturePane.setLayoutX(x);
         miniaturePane.setLayoutY(y);
         miniaturePane.setOnDragDetected(de -> onSpawnDragDetected(de, miniaturePane, fxmlModuleFileName));
-        miniaturePane.setOnDragDone(de -> onSpawnDragDone(de));
+        miniaturePane.setOnDragDone(this::onSpawnDragDone);
     }
 
     /**

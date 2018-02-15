@@ -462,7 +462,7 @@ public class Controller {
 
             Pane newPane = createModuleWithoutEvent(module.getModuleFXMLFile(), module);
             ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
-            ports = new HashMap<>();
+            ports = new EnumMap<PortType, Circle>(PortType.class);
             for (PortType port: loadedModule.getAllPorts()) {
                 ports.put(port, tmpController.getPort(port));
             }
