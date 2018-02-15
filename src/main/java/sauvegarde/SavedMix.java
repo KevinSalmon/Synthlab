@@ -2,51 +2,51 @@ package sauvegarde;
 
 public class SavedMix extends SavedModule{
 
-    private double in1attenuation;
-    private double in2attenuation;
-    private double in3attenuation;
-    private double in4attenuation;
+    private double in1dbAttenuation;
+    private double in2dbAttenuation;
+    private double in3dbAttenuation;
+    private double in4dbAttenuation;
 
     public SavedMix() {
     }
 
-    public SavedMix(double xPos, double yPos, double in1attenuation, double in2attenuation, double in3attenuation, double in4attenuation) {
+    public SavedMix(double xPos, double yPos, double in1dbAttenuation, double in2dbAttenuation, double in3dbAttenuation, double in4dbAttenuation) {
         super(xPos, yPos);
-        this.in1attenuation = in1attenuation;
-        this.in2attenuation = in2attenuation;
-        this.in3attenuation = in3attenuation;
-        this.in4attenuation = in4attenuation;
+        this.in1dbAttenuation = in1dbAttenuation;
+        this.in2dbAttenuation = in2dbAttenuation;
+        this.in3dbAttenuation = in3dbAttenuation;
+        this.in4dbAttenuation = in4dbAttenuation;
     }
 
-    public double getIn1attenuation() {
-        return in1attenuation;
+    public double getIn1dbAttenuation() {
+        return in1dbAttenuation;
     }
 
-    public void setIn1attenuation(double in1attenuation) {
-        this.in1attenuation = in1attenuation;
+    public void setIn1dbAttenuation(double in1dbAttenuation) {
+        this.in1dbAttenuation = in1dbAttenuation;
     }
 
-    public double getIn2attenuation() {
-        return in2attenuation;
+    public double getIn2dbAttenuation() {
+        return in2dbAttenuation;
     }
 
-    public void setIn2attenuation(double in2attenuation) {
-        this.in2attenuation = in2attenuation;
+    public void setIn2dbAttenuation(double in2dbAttenuation) {
+        this.in2dbAttenuation = in2dbAttenuation;
     }
 
-    public double getIn3attenuation() {
-        return in3attenuation;
+    public double getIn3dbAttenuation() {
+        return in3dbAttenuation;
     }
 
-    public void setIn3attenuation(double in3attenuation) {
-        this.in3attenuation = in3attenuation;
+    public void setIn3dbAttenuation(double in3dbAttenuation) {
+        this.in3dbAttenuation = in3dbAttenuation;
     }
 
-    public double getIn4attenuation() {
-        return in4attenuation;
+    public double getIn4dbAttenuation() {
+        return in4dbAttenuation;
     }
 
-    public void setIn4attenuation(double in4attenuation) {
-        this.in4attenuation = in4attenuation;
+    public void setIn4dbAttenuation(double in4dbAttenuation) {
+        this.in4dbAttenuation = in4dbAttenuation;
     }
 }
