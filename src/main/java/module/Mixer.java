@@ -4,8 +4,8 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.softsynth.math.AudioMath;
-import controller.Obseurveur;
-import controller.SubjectMixer;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectMixer;
 import utils.PortType;
 import utils.Tuple;
 

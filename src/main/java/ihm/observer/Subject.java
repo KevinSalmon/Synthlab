@@ -1,4 +1,4 @@
-package controller;
+package ihm.observer;
 
 /**
  * Subject entre la partie graphique d'un module et son implémentation

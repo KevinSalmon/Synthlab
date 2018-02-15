@@ -1,7 +1,7 @@
 package ihm;
 
-import controller.Obseurveur;
-import controller.SubjectKeyboard;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectKeyboard;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

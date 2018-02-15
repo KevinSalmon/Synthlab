@@ -5,8 +5,8 @@ import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.EnvelopeDAHDSR;
 import com.jsyn.unitgen.UnitSource;
-import controller.Obseurveur;
-import controller.SubjectEG;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectEG;
 import utils.PortType;
 import utils.Tuple;
 

@@ -2,8 +2,8 @@ package module;
 
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import controller.Obseurveur;
-import controller.SubjectKeyboard;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectKeyboard;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

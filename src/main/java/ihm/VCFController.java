@@ -1,8 +1,8 @@
 package ihm;
 
 import controller.Controller;
-import controller.Obseurveur;
-import controller.SubjectVCF;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectVCF;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

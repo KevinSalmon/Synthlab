@@ -1,8 +1,8 @@
 package ihm;
 
 import controller.Controller;
-import controller.Obseurveur;
-import controller.SubjectOscillo;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectOscillo;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.fxml.FXML;

@@ -1,7 +1,7 @@
 package ihm;
 
-import controller.Obseurveur;
-import controller.SubjectOutput;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectOutput;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

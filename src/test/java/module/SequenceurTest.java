@@ -1,7 +1,7 @@
 package module;
 
-import controller.Obseurveur;
-import controller.SubjectSeq;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectSeq;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

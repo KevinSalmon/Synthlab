@@ -2,8 +2,8 @@ package module;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import controller.Obseurveur;
-import controller.SubjectOutput;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectOutput;
 import org.junit.Before;
 import org.junit.Test;
 import utils.PortType;
