@@ -3,8 +3,8 @@ package module;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.jsyn.unitgen.WhiteNoise;
-import controller.Obseurveur;
-import controller.SubjectBruitBlanc;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectBruitBlanc;
 import utils.PortType;
 import utils.Tuple;
 

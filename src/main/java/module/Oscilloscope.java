@@ -4,8 +4,8 @@ import com.jsyn.Synthesizer;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import controller.Obseurveur;
-import controller.SubjectOscillo;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectOscillo;
 import utils.PortType;
 import utils.Tuple;
 

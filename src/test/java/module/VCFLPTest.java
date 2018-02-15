@@ -2,8 +2,8 @@ package module;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import controller.Obseurveur;
-import controller.SubjectVCF;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectVCF;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

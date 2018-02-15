@@ -1,4 +1,4 @@
-package controller;
+package ihm.observer;
 
 public interface SubjectMixer extends Subject {
     double getIn1DbAttenuation();

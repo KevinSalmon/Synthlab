@@ -3,8 +3,8 @@ package module;
 import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
-import controller.Obseurveur;
-import controller.SubjectReplicateur;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectReplicateur;
 import utils.PortType;
 import utils.Tuple;
 

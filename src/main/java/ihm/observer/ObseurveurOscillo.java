@@ -1,4 +1,4 @@
-package controller;
+package ihm.observer;
 
 public interface ObseurveurOscillo {
 

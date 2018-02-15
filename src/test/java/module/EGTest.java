@@ -2,13 +2,11 @@ package module;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
-import com.jsyn.ports.UnitOutputPort;
-import controller.Obseurveur;
-import controller.SubjectEG;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectEG;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import signal.AudioSignal;
 import utils.PortType;
 
 import java.util.List;

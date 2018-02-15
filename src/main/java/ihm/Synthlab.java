@@ -9,7 +9,7 @@ import utils.FxmlFilesNames;
 
 import java.net.URL;
 
-public class IHMImpl extends Application {
+public class Synthlab extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         Scene scene;

@@ -1,8 +1,8 @@
 package ihm;
 
 import controller.Controller;
-import controller.Obseurveur;
-import controller.SubjectVCO;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectVCO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +18,7 @@ import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO, SuperController {
@@ -55,20 +56,20 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     public void initialize(URL location, ResourceBundle resources) {
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
-        octaveSlider.setOnMouseMoved(e -> notifyObseurveur());
         octaveSlider.setOnMouseDragged(e -> notifyObseurveur());
 
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
-        reglageFinSlider.setOnMouseMoved(event -> notifyObseurveur());
         reglageFinSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
-        typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
         typeOndeSlider.setOnMouseDragged(event -> notifyObseurveur());
 
-        lfo.setOnMouseClicked(eh -> obseuveurVCO.update(this));
+        lfo.setOnMouseClicked(eh -> {
+            obseuveurVCO.update(this);
+            frequency.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
+        });
 
         delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurVCO, border));
     }
@@ -131,7 +132,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
-            frequency.setText("fréquence" + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+            frequency.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
         }
     }
 
@@ -143,7 +144,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     @Override
     public void notifyObseurveur() {
         obseuveurVCO.update(this);
-        frequency.setText("fréquence "+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
+        frequency.setText("Fréquence :"+ getFrequencyToDisplay() +" Hz");
     }
 
     @Override
@@ -173,5 +174,10 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             return this.out;
         }
         return null;
+    }
+
+    private String getFrequencyToDisplay() {
+        DecimalFormat f = new DecimalFormat("##.00");
+        return f.format(((VCO)obseuveurVCO.getReference()).getFrequency());
     }
 }

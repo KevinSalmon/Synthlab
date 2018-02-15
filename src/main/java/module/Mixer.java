@@ -4,8 +4,8 @@ import com.jsyn.ports.UnitInputPort;
 import com.jsyn.ports.UnitOutputPort;
 import com.jsyn.ports.UnitPort;
 import com.softsynth.math.AudioMath;
-import controller.Obseurveur;
-import controller.SubjectMixer;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectMixer;
 import utils.PortType;
 import utils.Tuple;
 
@@ -70,13 +70,6 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
             double in2amp = (in2dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in2dbAttenuation);
             double in3amp = (in3dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in3dbAttenuation);
             double in4amp = (in4dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in4dbAttenuation);
-
-            /*
-            double outValue = in1Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in1SldAttenuation) / Math.log(2))
-                + in2Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in2SldAttenuation) / Math.log(2))
-                + in3Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in3SldAttenuation) / Math.log(2))
-                + in4Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in4SldAttenuation) / Math.log(2));
-             */
 
             double outValue = (in1Values[i] * in1amp)
                 + (in2Values[i] * in2amp)

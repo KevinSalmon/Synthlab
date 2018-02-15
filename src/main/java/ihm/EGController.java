@@ -1,8 +1,8 @@
 package ihm;
 
 import controller.Controller;
-import controller.Obseurveur;
-import controller.SubjectEG;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectEG;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -34,7 +34,7 @@ public class EGController implements Initializable, SubjectEG, SuperController {
     private Slider release;
 
     @FXML
-    private Circle in;
+    private Circle gate;
 
     @FXML
     private Circle out;
@@ -74,7 +74,7 @@ public class EGController implements Initializable, SubjectEG, SuperController {
         if(o != null){
             obseuveurEG = o;
             CableManager cableManager = CableManager.getInstance();
-            cableManager.addListener(in, o.getReference(), PortType.INPUT, border);
+            cableManager.addListener(gate, o.getReference(), PortType.INPUT, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
         }
     }
@@ -127,7 +127,7 @@ public class EGController implements Initializable, SubjectEG, SuperController {
     @Override
     public Circle getPort(PortType portType) {
         if (portType.equals(PortType.INPUT)) {
-            return this.in;
+            return this.gate;
         }
         if (portType.equals(PortType.OUTPUT)) {
             return this.out;

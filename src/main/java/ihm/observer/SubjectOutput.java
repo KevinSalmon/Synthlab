@@ -1,4 +1,4 @@
-package controller;
+package ihm.observer;
 
 /**
  * Subject pour le module de sortie

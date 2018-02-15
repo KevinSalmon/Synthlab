@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.UnfoundModuleByIdException;
 import ihm.*;
 import com.jsyn.Synthesizer;
+import ihm.observer.Obseurveur;
+import ihm.observer.Subject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
