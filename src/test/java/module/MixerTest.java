@@ -135,10 +135,10 @@ public class MixerTest {
             this.in4db = in4db;
         }
 
-        @Override public double getIn1DbAttenuation() { return in1db; }
-        @Override public double getIn2DbAttenuation() { return in2db; }
-        @Override public double getIn3DbAttenuation() { return in3db; }
-        @Override public double getIn4DbAttenuation() { return in4db; }
+        @Override public double getIn1attenuation() { return in1db; }
+        @Override public double getIn2attenuation() { return in2db; }
+        @Override public double getIn3attenuation() { return in3db; }
+        @Override public double getIn4attenuation() { return in4db; }
         @Override public void register(Obseurveur o) { }
         @Override public void remove(Obseurveur o) { }
         @Override public void notifyObseurveur() { }
@@ -147,19 +147,19 @@ public class MixerTest {
     @Test
     public void updateTest() {
         mixer.update(new SubjectMixerTest(0.12, 5.3, -37.9, -0.0));
-        assertEquals(0.12, mixer.getIn1dbAttenuation());
-        assertEquals(5.3, mixer.getIn2dbAttenuation());
-        assertEquals(-37.9, mixer.getIn3dbAttenuation());
-        assertEquals(0.0, mixer.getIn4dbAttenuation(), 0.0);
+        assertEquals(0.12, mixer.getIn1SldAttenuation());
+        assertEquals(5.3, mixer.getIn2SldAttenuation());
+        assertEquals(-37.9, mixer.getIn3SldAttenuation());
+        assertEquals(0.0, mixer.getIn4SldAttenuation(), 0.0);
     }
 
     @Test
     public void updateWrongTest() {
         mixer.update(new SubjectMixerTest(12.1, 20.3, 99.9, 999999.99));
-        assertEquals(0.0, mixer.getIn1dbAttenuation());
-        assertEquals(0.0, mixer.getIn2dbAttenuation());
-        assertEquals(0.0, mixer.getIn3dbAttenuation());
-        assertEquals(0.0, mixer.getIn4dbAttenuation());
+        assertEquals(0.0, mixer.getIn1SldAttenuation());
+        assertEquals(0.0, mixer.getIn2SldAttenuation());
+        assertEquals(0.0, mixer.getIn3SldAttenuation());
+        assertEquals(0.0, mixer.getIn4SldAttenuation());
     }
 
     @Test
