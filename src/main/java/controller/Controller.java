@@ -238,6 +238,7 @@ public class Controller {
      * Appelé quand on quitte l'application
      */
     public void close() {
+        toSave.clear();
         synth.stop();
     }
 
