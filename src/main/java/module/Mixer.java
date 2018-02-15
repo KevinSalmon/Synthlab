@@ -71,11 +71,6 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
             double in3amp = (in3dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in3dbAttenuation);
             double in4amp = (in4dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in4dbAttenuation);
 
-            double outValue = (in1Values[i] * in1amp)
-                    + (in2Values[i] * in2amp)
-                    + (in3Values[i] * in3amp)
-                    + (in4Values[i] * in4amp);
-
             /*
             double outValue = in1Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in1SldAttenuation) / Math.log(2))
                 + in2Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in2SldAttenuation) / Math.log(2))
