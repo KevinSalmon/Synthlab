@@ -1,6 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import exceptions.OutputException;
 import exceptions.UnfoundModuleByIdException;
 import ihm.*;
 import com.jsyn.Synthesizer;
@@ -314,6 +315,7 @@ public class Controller {
         }
 
         toSave.remove(observeur.getReference());
+        CableManager.getInstance().reset(observeur.getReference());
 
         Controller controller = Controller.getInstance();
         controller.getSynth().remove(observeur.getReference());

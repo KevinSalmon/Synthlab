@@ -57,9 +57,8 @@ public class CableManager {
      * Set the input of a cable and creates a curve
      * @param point2D the input
      * @return the curve created
-     * @throws OutputException when the user chooses the input first
      */
-    public void setInput(Circle point2D, Module moduleIn, String name) {
+    public void setInput(Circle point2D, Module moduleIn, String name){
             for(Cable c : cables){
                 if(c.getInput().equals(point2D)) return;
             }
@@ -86,8 +85,7 @@ public class CableManager {
             curve.toFront();
 
         } catch (PortTypeException e) {
-            Logger.getGlobal().severe(e.getMessage()
-            );
+            Logger.getGlobal().severe(e.getMessage());
         }
         currentCable = null;
 
@@ -190,5 +188,9 @@ public class CableManager {
 
     public QuadCurve getCurve() {
         return curve;
+    }
+
+    public void reset(Module reference) {
+        if(currentCable.getModuleOut().equals(reference)) currentCable = null;
     }
 }
