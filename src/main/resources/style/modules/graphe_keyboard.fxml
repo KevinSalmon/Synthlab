@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-
-<Pane id="keyb" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="keyb" fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle id="gate" fx:id="out" layoutX="304.0" layoutY="165.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="cv" fx:id="out1" layoutX="304.0" layoutY="34.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="297.0" layoutY="6.0" text="cv" />
-      <Label layoutX="289.0" layoutY="137.0" text="gate" />
-      <Label layoutY="-2.0" text="Keyboard" />
+      <Circle fx:id="drawOutput" layoutX="304.0" layoutY="34.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="labNote" layoutX="289.0" layoutY="6.0" text="Note" />
+
+       <Label fx:id="labOctave" layoutX="281.0" layoutY="137.0" text="Octave" />
+
+       <Label layoutY="-2.0" text="Keyboard" />
+      <Label layoutX="165.0" layoutY="26.0" />
+      <TextField id="filename_record" layoutX="154.0" layoutY="69.0" prefHeight="20.0" prefWidth="115.0" />
+      <Circle fx:id="gate" layoutX="304.0" layoutY="165.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </Pane>
