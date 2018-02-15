@@ -1,11 +1,9 @@
 package utils;
 
-import exceptions.OutputException;
-import exceptions.PortTypeException;
 import com.jsyn.JSyn;
+import exceptions.PortTypeException;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import module.OutputModule;
 import module.VCA;
@@ -43,10 +41,9 @@ public class CableManagerTest extends  CableManager{
 
     /**
      * Test the creation of a curve
-     * @throws OutputException must not happen
      */
     @Test
-    public void setOutputInputTest() throws OutputException, PortTypeException {
+    public void setOutputInputTest() throws PortTypeException {
         VCA vca = new VCA();
         OutputModule outputModule = new OutputModule(JSyn.createSynthesizer());
         Pane pane = new Pane();

@@ -1,10 +1,11 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.OutputException;
-import exceptions.UnfoundModuleByIdException;
-import ihm.*;
 import com.jsyn.Synthesizer;
+import exceptions.UnfoundModuleByIdException;
+import ihm.IHMController;
+import ihm.SuperController;
+import ihm.VCFController;
 import ihm.observer.Obseurveur;
 import ihm.observer.Subject;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +18,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import module.*;
 import org.apache.commons.io.FilenameUtils;
-import sauvegarde.*;
+import sauvegarde.SavedCable;
+import sauvegarde.SavedFile;
+import sauvegarde.SavedModule;
 import utils.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

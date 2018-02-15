@@ -1,6 +1,5 @@
 package utils;
 
-import exceptions.OutputException;
 import exceptions.PortTypeException;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
