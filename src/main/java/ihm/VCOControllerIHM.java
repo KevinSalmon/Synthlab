@@ -131,7 +131,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
-            frequency.setText(frequency.getText() + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+            frequency.setText("fréquence" + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
         }
     }
 

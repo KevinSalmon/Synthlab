@@ -19,7 +19,7 @@ import utils.PortType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VCFLPController implements Initializable, SubjectVCF, SuperController {
+public class VCFController implements Initializable, SubjectVCF, SuperController {
 
     @FXML
     Circle fm;
@@ -54,12 +54,10 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
 
         f0.setOnKeyReleased(e ->notifyObseurveur());
         f0.setOnMouseClicked(e -> notifyObseurveur());
-//        f0.setOnMouseMoved(event -> notifyObseurveur());
         f0.setOnMouseDragged(e -> notifyObseurveur());
 
         resonance.setOnKeyReleased(e ->notifyObseurveur());
         resonance.setOnMouseClicked(e -> notifyObseurveur());
-//        resonance.setOnMouseMoved(event -> notifyObseurveur());
         resonance.setOnMouseDragged(e -> notifyObseurveur());
 
         delete.setOnMouseClicked(e -> Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane));
@@ -75,10 +73,6 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
         return resonance.getValue();
     }
 
-    @Override
-    public void receiveFrequency(double frequency) {
-        frequence.setText("fréquence : "+ frequency+" Hz");
-    }
 
     @Override
     public void register(Obseurveur o) {
@@ -88,7 +82,7 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
             cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.INPUTFM, pane);
-            frequence.setText("fréquence : 0 Hz");
+            frequence.setText("fréquence" + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
 
         }
 
@@ -105,6 +99,8 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
+        frequence.setText("fréquence" + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
+
     }
 
     @Override

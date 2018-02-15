@@ -148,14 +148,14 @@ public class Controller {
             case FxmlFilesNames.VCFLP:
                 VCF vcflp = new VCF(true);
                 moduleController = fxmlLoader.getController();
-                ((VCFLPController)moduleController).setIsLp(true);
+                ((VCFController)moduleController).setIsLp(true);
                 saveModuleForLoading(vcflp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcflp);
                 break;
             case FxmlFilesNames.VCFHP:
                 VCF vcfhp = new VCF(false);
                 moduleController = fxmlLoader.getController();
-                ((VCFLPController)moduleController).setIsLp(false);
+                ((VCFController)moduleController).setIsLp(false);
                 saveModuleForLoading(vcfhp, moduleController, fxmlLoader, fxmlModuleFileName, savedModules);
                 synth.add(vcfhp);
                 break;
