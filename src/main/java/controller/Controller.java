@@ -61,25 +61,10 @@ public class Controller {
     /**
      *
      */
-    protected Controller(){
+    private Controller(){
         toSave  = new HashMap<>();
 
         synth = createSynthesizer();
-        synth.start();
-    }
-
-    /**
-     *
-     * @param ihmController principal de l'appli
-     */
-    public Controller(IHMController ihmController){
-        toSave  = new HashMap<>();
-
-        synth = createSynthesizer();
-        this.ihmController = ihmController;
-
-        ihmController.setController(this);
-        ihmController.init(true);
         synth.start();
     }
 
