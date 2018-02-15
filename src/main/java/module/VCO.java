@@ -117,6 +117,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private void updateFrequency() {
         if(lfo){
             audioSignal = LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN);
+            if (audioSignal < 0.0) {
+                audioSignal = 0.0;
+            }
         }
         else { audioSignal = 440.0 *Math.pow(2,octave + reglageFin );}
 
