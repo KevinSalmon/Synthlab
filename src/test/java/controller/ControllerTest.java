@@ -1,30 +1,16 @@
 package controller;
 
 import com.jsyn.Synthesizer;
-import com.sun.org.apache.bcel.internal.classfile.Unknown;
 import ihm.IHMController;
-import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import module.Module;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.omg.CORBA.portable.UnknownException;
 import rule.JavaFXThreadingRule;
 import utils.FxmlFilesNames;
-
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.URL;
-import java.rmi.UnexpectedException;
 
 public class ControllerTest {
 
