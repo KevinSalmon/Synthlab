@@ -232,8 +232,11 @@ public class IHMController implements Initializable{
 
         if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
             Pane module = draggedModule;
-            module.setLayoutX(draggedModule.getLayoutX() - 1);
-            module.setLayoutY(draggedModule.getLayoutY() - moduleMenu.getHeight() - 25);
+
+            Point2D draggedModuleToWorkspace = workspace.sceneToLocal(draggedModule.getLayoutX(),
+                    draggedModule.getLayoutY());
+            module.setLayoutX(draggedModuleToWorkspace.getX());
+            module.setLayoutY(draggedModuleToWorkspace.getY() + 30);
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
             module.setStyle(currentModulesStyle);
