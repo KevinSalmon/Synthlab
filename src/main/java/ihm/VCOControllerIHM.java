@@ -177,7 +177,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     }
 
     private String getFrequencyToDisplay() {
-        DecimalFormat f = new DecimalFormat("##.00");
+        DecimalFormat f = new DecimalFormat("#0.00");
         return f.format(((VCO)obseuveurVCO.getReference()).getFrequency());
     }
 }
