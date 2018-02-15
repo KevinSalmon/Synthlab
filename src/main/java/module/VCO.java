@@ -7,8 +7,6 @@ import com.jsyn.unitgen.UnitOscillator;
 import com.jsyn.unitgen.UnitSource;
 import ihm.observer.Obseurveur;
 import ihm.observer.SubjectVCO;
-import signal.AudioSignal;
-import signal.Signal;
 import utils.OscillatorFactory;
 import utils.OscillatorType;
 import utils.PortType;
@@ -24,7 +22,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     private UnitOscillator currentOsc;
     private UnitInputPort fm;
     private UnitOutputPort output;
-    private Signal audioSignal;
+    private double audioSignal = 440.0;
 
     private static final int F0 = 440;
     private static final int OCTAVE_MAX = 3;
@@ -61,7 +59,6 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         addPort(output);
         fm = new UnitInputPort(PortType.INPUTFM.getType());
         addPort(fm);
-        audioSignal = new AudioSignal(1.0/12.0, F0);
         currentOsc.frequency.set(F0);
     }
 
@@ -119,11 +116,11 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
      */
     private void updateFrequency() {
         if(lfo){
-            audioSignal.setFrequency(LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN));
+            audioSignal = LFO_MIN + reglageFin * (LFO_MAX-LFO_MIN);
         }
-        else {audioSignal.setFrequency(440.0 *Math.pow(2,octave + reglageFin ));}
+        else { audioSignal = 440.0 *Math.pow(2,octave + reglageFin );}
 
-        currentOsc.frequency.set(audioSignal.getFrequency()); //Actualise l'oscillateur courant
+        currentOsc.frequency.set(audioSignal); //Actualise l'oscillateur courant
     }
 
     /**
@@ -221,12 +218,12 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
     }
 
 
-    public Signal getAudioSignal() {
+    public double getAudioSignal() {
         return audioSignal;
     }
 
     
-    public void setAudioSignal(Signal audioSignal) {
+    public void setAudioSignal(double audioSignal) {
         this.audioSignal = audioSignal;
     }
 

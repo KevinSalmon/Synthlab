@@ -12,12 +12,11 @@ import ihm.observer.SubjectVCO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import signal.AudioSignal;
 import utils.OscillatorType;
 import utils.PortType;
 
 import java.util.List;
-
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class VCOTest {
@@ -173,9 +172,9 @@ public class VCOTest {
         Assert.assertEquals("The output we get should be the output we set", to, vco.getOutput());
 
         //AudioSignal
-        AudioSignal as = new AudioSignal();
+        double as = 440.0;
         vco.setAudioSignal(as);
-        Assert.assertEquals("The signal we get should be the signal we set", as, vco.getAudioSignal());
+        assertEquals("The signal we get should be the signal we set", as, vco.getAudioSignal());
 
         //LFO
         Assert.assertFalse("LFO should not be activate", vco.isLFO());

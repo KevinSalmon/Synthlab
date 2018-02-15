@@ -9,8 +9,6 @@ import com.jsyn.unitgen.FilterLowPass;
 import com.jsyn.unitgen.UnitSource;
 import ihm.observer.Obseurveur;
 import ihm.observer.SubjectVCF;
-import signal.ModulationSignal;
-import signal.Signal;
 import utils.PortType;
 import utils.Tuple;
 
@@ -25,7 +23,7 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
     private UnitInputPort fm;
     private UnitInputPort in;
     private UnitOutputPort out;
-    private Signal signal;
+    private double signal;
     private double f0;
 
 
@@ -45,7 +43,6 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
         this.filterPass.input = this.in;
         this.filterPass.frequency.set(440);
         this.filterPass.output = this.out;
-        this.signal = new ModulationSignal();
         addPort(this.fm);
         addPort(this.in);
         addPort(this.out);
@@ -97,7 +94,7 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
         double [] freqValues = filterPass.frequency.getValues();
         double [] fmValues = fm.getValues();
         for(int i = start; i < limit; i++){
-            freqValues[i] = Math.pow(2, f0 + fmValues[i]) * signal.getFrequency();
+            freqValues[i] = Math.pow(2, f0 + fmValues[i]) * signal;
         }
 
     }
