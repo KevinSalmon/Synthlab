@@ -62,14 +62,14 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
     @Override
     public void handle(KeyEvent event) {
         if(event.getEventType().equals(KeyEvent.KEY_PRESSED)){
-            keyPressedHandle(event.getCode());
+            keyPressed(event.getCode());
         }
         else if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
-            keyReleaseHandle(event.getCode());
+            keyRelease(event.getCode());
         }
     }
 
-    private void keyReleaseHandle(KeyCode code) {
+    private void keyRelease(KeyCode code) {
         if(lastKey != null && lastKey.equals(code))
             gate.setValueInternal(-5.0/12.0);
 
@@ -91,7 +91,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         }
     }
 
-    private void keyPressedHandle(KeyCode code) {
+    private void keyPressed(KeyCode code) {
         boolean gateUpdate = true;
         switch (code) {
             case Q:
