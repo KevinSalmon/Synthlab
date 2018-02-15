@@ -83,6 +83,7 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
         if(o.getResonance() != filterPass.Q.get()){
             filterPass.Q.set(o.getResonance());
         }
+//        o.receiveFrequency(getFrequency());
     }
 
     /**

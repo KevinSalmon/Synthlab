@@ -54,17 +54,16 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
 
         f0.setOnKeyReleased(e ->notifyObseurveur());
         f0.setOnMouseClicked(e -> notifyObseurveur());
-        f0.setOnMouseMoved(event -> notifyObseurveur());
+//        f0.setOnMouseMoved(event -> notifyObseurveur());
         f0.setOnMouseDragged(e -> notifyObseurveur());
 
         resonance.setOnKeyReleased(e ->notifyObseurveur());
         resonance.setOnMouseClicked(e -> notifyObseurveur());
-        resonance.setOnMouseMoved(event -> notifyObseurveur());
+//        resonance.setOnMouseMoved(event -> notifyObseurveur());
         resonance.setOnMouseDragged(e -> notifyObseurveur());
 
         delete.setOnMouseClicked(e -> Controller.getInstance().removeWithConfirmPopup(vcflpObseurveur, pane));
     }
-
 
     @Override
     public double getFrequency() {
@@ -74,6 +73,11 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     @Override
     public double getResonance() {
         return resonance.getValue();
+    }
+
+    @Override
+    public void receiveFrequency(double frequency) {
+        frequence.setText("fréquence : "+ frequency+" Hz");
     }
 
     @Override
@@ -101,10 +105,8 @@ public class VCFLPController implements Initializable, SubjectVCF, SuperControll
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
-        frequence.setText("fréquence : "+ ((VCF)vcflpObseurveur.getReference()).getFrequency()+" Hz");
-
-
     }
+
     @Override
     public SavedModule createMemento() {
         return new SavedVCF(pane.getLayoutX(), pane.getLayoutY(), resonance.getValue(), f0.getValue(),  isLp());
