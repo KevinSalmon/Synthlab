@@ -1,7 +1,7 @@
 package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.UnfoundModuleById;
+import exceptions.UnfoundModuleByIdException;
 import ihm.*;
 import com.jsyn.Synthesizer;
 import javafx.fxml.FXMLLoader;
@@ -480,21 +480,21 @@ public class Controller {
                 cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
 
                 getIhmController().workspace.getChildren().add(cableManager.getCurve());
-            }catch (UnfoundModuleById e) {
+            }catch (UnfoundModuleByIdException e) {
                 Logger.getGlobal().severe(e.getMessage());
 
             }
         }
     }
 
-    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleById {
+    private Tuple<Module,Map<PortType,Circle>> getModuleById(int idModuleIn, Map<Module, Map<PortType, Circle>> modulesMap, Map<Module, Integer> moduleIntegerMap) throws UnfoundModuleByIdException {
         for (Module module : moduleIntegerMap.keySet()){
             if(moduleIntegerMap.get(module).intValue() == idModuleIn){
                 return new Tuple(module, modulesMap.get(module));
             }
 
         }
-        throw new UnfoundModuleById("Module with id "+idModuleIn+" not found");
+        throw new UnfoundModuleByIdException("Module with id "+idModuleIn+" not found");
     }
 
 
