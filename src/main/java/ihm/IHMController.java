@@ -28,7 +28,7 @@ public class IHMController implements Initializable{
      * Variables FXML
      */
     @FXML
-    public Pane workspace;
+    private Pane workspace;
 
     @FXML
     private Pane hoverPanel;
@@ -395,8 +395,7 @@ public class IHMController implements Initializable{
         itemSkin2.setText(SkinNames.SKIN_METAL);
         itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_METAL));
 
-       menuSkin.getItems().addAll(itemSkin1,itemSkin2);
-
+        menuSkin.getItems().addAll(itemSkin1,itemSkin2);
     }
 
     /**
@@ -511,6 +510,10 @@ public class IHMController implements Initializable{
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public Pane getWorkspace() {
+        return workspace;
     }
 
     public void onRezize(Number width, Number height) {
