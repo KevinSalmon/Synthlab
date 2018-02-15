@@ -28,7 +28,7 @@ public class IHMController implements Initializable{
      * Variables FXML
      */
     @FXML
-    public Pane workspace;
+    private Pane workspace;
 
     @FXML
     private Pane hoverPanel;
@@ -94,9 +94,6 @@ public class IHMController implements Initializable{
      */
     @FXML
     void loadWorkspace(ActionEvent event){
-        controller.close();
-        workspace.getChildren().clear();
-        controller.getSynth().start();
         controller.loadWorkspace();
     }
 
@@ -520,6 +517,10 @@ public class IHMController implements Initializable{
         else if(height != null) {
             splitPane.setPrefHeight(Double.parseDouble(height.toString())-PADDING);
         }
+    }
+
+    public Pane getWorkspace() {
+        return workspace;
     }
 
     public void addModuleToWorkspace(Pane pane, double xPos, double yPos){

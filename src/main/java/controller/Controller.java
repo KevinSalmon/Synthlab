@@ -364,6 +364,8 @@ public class Controller {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("format save", "*.json"));
         File file = fileChooser.showSaveDialog(scene.getWindow());
 
+        if(file == null) return;
+
         String fileExtension = FilenameUtils.getExtension(file.getName());
         if(!"json".equals(fileExtension)){
             file = new File(file.getPath()+".json");
@@ -445,7 +447,13 @@ public class Controller {
         fileChooser.setTitle("Load saved workspace");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("format save", "*.json"));
         File file = fileChooser.showOpenDialog(scene.getWindow());
+
         if(file == null) return;
+
+        this.close();
+        ihmController.getWorkspace().getChildren().clear();
+        this.getSynth().start();
+
         String fileExtension = FilenameUtils.getExtension(file.getName());
         if(!"json".equals(fileExtension)){
             file = new File(file.getPath()+".json");
@@ -484,7 +492,7 @@ public class Controller {
                 cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())), m1.getLeft(), cable.getOutputName());
                 cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
 
-                getIhmController().workspace.getChildren().add(cableManager.getCurve());
+                getIhmController().getWorkspace().getChildren().add(cableManager.getCurve());
             }catch (UnfoundModuleByIdException e) {
                 Logger.getGlobal().severe(e.getMessage());
 
