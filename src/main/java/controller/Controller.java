@@ -479,7 +479,7 @@ public class Controller {
                 cableManager.setOutput(m1.getRight().get(PortType.valueOf(cable.getOutputName().toUpperCase())), m1.getLeft(), cable.getOutputName());
                 cableManager.setInput(m2.getRight().get(PortType.valueOf(cable.getInputName().toUpperCase())), m2.getLeft(), cable.getInputName());
 
-                getIhmController().workspace.getChildren().add(cableManager.getCurve());
+                getIhmController().getWorkspace().getChildren().add(cableManager.getCurve());
             }catch (UnfoundModuleByIdException e) {
                 Logger.getGlobal().severe(e.getMessage());
 
