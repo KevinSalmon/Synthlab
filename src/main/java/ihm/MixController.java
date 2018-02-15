@@ -83,37 +83,37 @@ public class MixController implements Initializable, SubjectMixer, SuperControll
     }
 
     @Override
-    public double getIn1attenuation() {
+    public double getIn1DbAttenuation() {
         return sldIn1.getValue();
     }
 
     @Override
-    public double getIn2attenuation() {
+    public double getIn2DbAttenuation() {
         return sldIn2.getValue();
     }
 
     @Override
-    public double getIn3attenuation() {
+    public double getIn3DbAttenuation() {
         return sldIn3.getValue();
     }
 
     @Override
-    public double getIn4attenuation() {
+    public double getIn4DbAttenuation() {
         return sldIn4.getValue();
     }
 
     @Override
     public SavedModule createMemento() {
-        return new SavedMix(pane.getLayoutX(), pane.getLayoutY(), getIn1attenuation(), getIn2attenuation(), getIn3attenuation(), getIn4attenuation());
+        return new SavedMix(pane.getLayoutX(), pane.getLayoutY(), getIn1DbAttenuation(), getIn2DbAttenuation(), getIn3DbAttenuation(), getIn4DbAttenuation());
     }
 
     @Override
     public void loadProperties(SavedModule module) {
         SavedMix saved = (SavedMix)module;
-        sldIn1.setValue(saved.getIn1attenuation());
-        sldIn2.setValue(saved.getIn2attenuation());
-        sldIn3.setValue(saved.getIn3attenuation());
-        sldIn4.setValue(saved.getIn4attenuation());
+        sldIn1.setValue(saved.getIn1dbAttenuation());
+        sldIn2.setValue(saved.getIn2dbAttenuation());
+        sldIn3.setValue(saved.getIn3dbAttenuation());
+        sldIn4.setValue(saved.getIn4dbAttenuation());
         notifyObseurveur();
     }
 

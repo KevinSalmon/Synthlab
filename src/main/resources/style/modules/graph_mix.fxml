@@ -19,10 +19,10 @@
       <Label layoutX="11.0" layoutY="100.0" text="in3" />
       <Label layoutX="12.0" layoutY="143.0" text="in4" />
       <Label layoutX="254.0" layoutY="79.0" text="out" />
-      <Slider id="sldIn1" fx:id="sldIn1" blockIncrement="0.01" layoutX="40.0" layoutY="36.0" majorTickUnit="1.0" max="4096.0" min="0.0" prefHeight="16.0" prefWidth="207.0" />
-      <Slider id="sldIn2" fx:id="sldIn2" blockIncrement="0.01" layoutX="40.0" layoutY="77.0" majorTickUnit="1.0" max="4096.0" min="0.0" prefHeight="16.0" prefWidth="207.0" />
-      <Slider id="sldIn3" fx:id="sldIn3" blockIncrement="0.01" layoutX="40.0" layoutY="120.0" majorTickUnit="1.0" max="4096.0" min="0.0" prefHeight="15.0" prefWidth="207.0" />
-      <Slider id="sldIn4" fx:id="sldIn4" blockIncrement="0.01" layoutX="40.0" layoutY="161.0" majorTickUnit="1.0" max="4096.0" min="0.0" prefHeight="7.0" prefWidth="207.0" />
+      <Slider id="sldIn1" fx:id="sldIn1" blockIncrement="0.1" layoutX="39.0" layoutY="36.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="16.0" prefWidth="207.0" />
+      <Slider id="sldIn2" fx:id="sldIn2" blockIncrement="0.1" layoutX="41.0" layoutY="77.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="16.0" prefWidth="207.0" />
+      <Slider id="sldIn3" fx:id="sldIn3" blockIncrement="0.1" layoutX="40.0" layoutY="120.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="15.0" prefWidth="207.0" />
+      <Slider id="sldIn4" fx:id="sldIn4" blockIncrement="0.1" layoutX="36.0" layoutY="161.0" majorTickUnit="1.0" max="12.0" min="-100.0" prefHeight="7.0" prefWidth="207.0" />
       <Label layoutX="41.0" layoutY="89.0" text="-∞ " />
       <Label layoutX="41.0" layoutY="132.0" text="-∞ " />
       <Label layoutX="37.0" layoutY="173.0" text="-∞ " />

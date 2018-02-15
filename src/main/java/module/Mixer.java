@@ -15,13 +15,13 @@ import java.util.List;
 public class Mixer extends Module implements Obseurveur<SubjectMixer> {
 
     private UnitInputPort in1;
-    private Double in1SldAttenuation = 0.0;
+    private Double in1dbAttenuation = 0.0;
     private UnitInputPort in2;
-    private Double in2SldAttenuation = 0.0;
+    private Double in2dbAttenuation = 0.0;
     private UnitInputPort in3;
-    private Double in3SldAttenuation = 0.0;
+    private Double in3dbAttenuation = 0.0;
     private UnitInputPort in4;
-    private Double in4SldAttenuation = 0.0;
+    private Double in4dbAttenuation = 0.0;
     private UnitOutputPort out;
 
     public Mixer() {
@@ -66,30 +66,32 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
         double[] outValues = this.out.getValues();
 
         for(int i = start; i < limit; i++) {
-            // TODO: Corriger la formule
-            double outValue = in1Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in1SldAttenuation) / Math.log(2))
-                + in2Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in2SldAttenuation) / Math.log(2))
-                + in3Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in3SldAttenuation) / Math.log(2))
-                + in4Values[i] * AudioMath.decibelsToAmplitude(Math.log(this.in4SldAttenuation) / Math.log(2));
+            double in1amp = (in1dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in1dbAttenuation);
+            double in2amp = (in2dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in2dbAttenuation);
+            double in3amp = (in3dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in3dbAttenuation);
+            double in4amp = (in4dbAttenuation <= -100) ? 0.0 : AudioMath.decibelsToAmplitude(in4dbAttenuation);
+
+            double outValue = (in1Values[i] * in1amp)
+                + (in2Values[i] * in2amp)
+                + (in3Values[i] * in3amp)
+                + (in4Values[i] * in4amp);
 
             outValue = (outValue > 1.0) ? 1.0 : outValue;
             outValue = (outValue < -1.0) ? -1.0 : outValue;
             outValues[i] = outValue;
-
-            // System.out.println("Sld1: " + (Math.log(this.in1SldAttenuation) / Math.log(2)) + " sld1: " + this.in1SldAttenuation + " out:" + outValue);
         }
     }
 
     @Override
     public void update(SubjectMixer o) {
-        //if (o.getIn1DbAttenuation() <= 12.0)
-            this.in1SldAttenuation = o.getIn1attenuation();
-        //if (o.getIn2DbAttenuation() <= 12.0)
-            this.in2SldAttenuation = o.getIn2attenuation();
-        //if (o.getIn3DbAttenuation() <= 12.0)
-            this.in3SldAttenuation = o.getIn3attenuation();
-        //if (o.getIn4DbAttenuation() <= 12.0)
-            this.in4SldAttenuation = o.getIn4attenuation();
+        if (o.getIn1DbAttenuation() <= 12.0)
+            this.in1dbAttenuation = o.getIn1DbAttenuation();
+        if (o.getIn2DbAttenuation() <= 12.0)
+            this.in2dbAttenuation = o.getIn2DbAttenuation();
+        if (o.getIn3DbAttenuation() <= 12.0)
+            this.in3dbAttenuation = o.getIn3DbAttenuation();
+        if (o.getIn4DbAttenuation() <= 12.0)
+            this.in4dbAttenuation = o.getIn4DbAttenuation();
     }
 
     @Override
@@ -101,48 +103,32 @@ public class Mixer extends Module implements Obseurveur<SubjectMixer> {
         return in1;
     }
 
-    public Double getIn1SldAttenuation() {
-        return in1SldAttenuation;
-    }
-
-    public void setIn1SldAttenuation(Double in1SldAttenuation) {
-        this.in1SldAttenuation = in1SldAttenuation;
+    public Double getIn1dbAttenuation() {
+        return in1dbAttenuation;
     }
 
     public UnitInputPort getIn2() {
         return in2;
     }
 
-    public Double getIn2SldAttenuation() {
-        return in2SldAttenuation;
-    }
-
-    public void setIn2SldAttenuation(Double in2SldAttenuation) {
-        this.in2SldAttenuation = in2SldAttenuation;
+    public Double getIn2dbAttenuation() {
+        return in2dbAttenuation;
     }
 
     public UnitInputPort getIn3() {
         return in3;
     }
 
-    public Double getIn3SldAttenuation() {
-        return in3SldAttenuation;
-    }
-
-    public void setIn3SldAttenuation(Double in3SldAttenuation) {
-        this.in3SldAttenuation = in3SldAttenuation;
+    public Double getIn3dbAttenuation() {
+        return in3dbAttenuation;
     }
 
     public UnitInputPort getIn4() {
         return in4;
     }
 
-    public Double getIn4SldAttenuation() {
-        return in4SldAttenuation;
-    }
-
-    public void setIn4SldAttenuation(Double in4SldAttenuation) {
-        this.in4SldAttenuation = in4SldAttenuation;
+    public Double getIn4dbAttenuation() {
+        return in4dbAttenuation;
     }
 
     public UnitOutputPort getOutput() {

@@ -1,6 +1,5 @@
 package ihm;
 
-import com.sun.javafx.sg.prism.NGNode;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

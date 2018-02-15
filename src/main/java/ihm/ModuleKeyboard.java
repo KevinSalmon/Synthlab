@@ -65,7 +65,6 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperCont
 			CableManager cableManager;
 			cableManager = CableManager.getInstance();
 			cableManager.addListener(drawOutput, o.getReference(), PortType.OUTPUT, paneMain);
-			cableManager.addListener(gate, o.getReference(), PortType.GATE, paneMain);
 			o.update(this);
 
 			timeline.stop();
