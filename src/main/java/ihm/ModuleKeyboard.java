@@ -31,10 +31,10 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperCont
 	Circle drawOutput;
 
 	@FXML
-	Label labNote;
+	TextField labNote;
 
 	@FXML
-	Label labOctave;
+	TextField labOctave;
 
 	@FXML
 	Circle gate;

@@ -38,7 +38,7 @@ public class FxmlFilesNames {
      */
     public static final String MODULE_OUT = "/style/modules/moduleOut.fxml";
 
-    public static final String KEYBOARD = "/style/modules/moduleKeyboard.fxml";
+    public static final String KEYBOARD = "/style/modules/graphe_keyboard.fxml";
 
     public static final String VCO = "/style/modules/graph_vco.fxml";
 
