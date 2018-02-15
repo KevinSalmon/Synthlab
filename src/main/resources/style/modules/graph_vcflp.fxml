@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.control.Button?>
 
-<Pane fx:id="pane" id="module" styleClass="vcflp" centerShape="false" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="255.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VCFLPController">
+<Pane fx:id="pane" id="module" styleClass="vcflp" centerShape="false" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="255.0" scaleShape="false" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.VCFController">
    <children>
       <Circle fx:id="fm" layoutX="21.0" layoutY="50.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="12.0" layoutY="20.0" text="fm" />

@@ -35,10 +35,6 @@ public class VCFLPTest {
             return resonance;
         }
 
-        @Override
-        public void receiveFrequency(double frequency) {
-
-        }
 
 
         public void setResonance(Double res){
