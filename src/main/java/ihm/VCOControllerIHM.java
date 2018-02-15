@@ -55,20 +55,20 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     public void initialize(URL location, ResourceBundle resources) {
         octaveSlider.setOnKeyReleased(e ->notifyObseurveur());
         octaveSlider.setOnMouseClicked(e -> notifyObseurveur());
-        octaveSlider.setOnMouseMoved(e -> notifyObseurveur());
         octaveSlider.setOnMouseDragged(e -> notifyObseurveur());
 
         reglageFinSlider.setOnKeyReleased(e ->notifyObseurveur());
         reglageFinSlider.setOnMouseClicked(e -> notifyObseurveur());
-        reglageFinSlider.setOnMouseMoved(event -> notifyObseurveur());
         reglageFinSlider.setOnMouseDragged(event -> notifyObseurveur());
 
         typeOndeSlider.setOnKeyReleased(e ->notifyObseurveur());
         typeOndeSlider.setOnMouseClicked(e -> notifyObseurveur());
-        typeOndeSlider.setOnMouseMoved(event -> notifyObseurveur());
         typeOndeSlider.setOnMouseDragged(event -> notifyObseurveur());
 
-        lfo.setOnMouseClicked(eh -> obseuveurVCO.update(this));
+        lfo.setOnMouseClicked(eh -> {
+            obseuveurVCO.update(this);
+            frequency.setText("Fréquence : " + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+        });
 
         delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurVCO, border));
     }
@@ -131,7 +131,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
-            frequency.setText("fréquence" + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+            frequency.setText("Fréquence : " + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
         }
     }
 
@@ -143,7 +143,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     @Override
     public void notifyObseurveur() {
         obseuveurVCO.update(this);
-        frequency.setText("fréquence "+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
+        frequency.setText("Fréquence :"+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
     }
 
     @Override

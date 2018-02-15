@@ -82,8 +82,7 @@ public class VCFController implements Initializable, SubjectVCF, SuperController
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
             cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.INPUTFM, pane);
-            frequence.setText("fréquence" + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
-
+            frequence.setText("Fréquence : " + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
         }
 
     }
@@ -93,13 +92,12 @@ public class VCFController implements Initializable, SubjectVCF, SuperController
         if(o.equals(vcflpObseurveur)){
             vcflpObseurveur = null;
         }
-
     }
 
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
-        frequence.setText("fréquence" + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
+        frequence.setText("Fréquence : " + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
 
     }
 
