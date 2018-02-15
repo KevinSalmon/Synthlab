@@ -18,6 +18,7 @@ import utils.PortType;
 import utils.CableManager;
 import utils.OscillatorType;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class VCOControllerIHM implements Initializable, SubjectVCO, SuperController {
@@ -67,7 +68,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
 
         lfo.setOnMouseClicked(eh -> {
             obseuveurVCO.update(this);
-            frequency.setText("Fréquence : " + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+            frequency.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
         });
 
         delete.setOnMouseClicked(eh -> Controller.getInstance().removeWithConfirmPopup(obseuveurVCO, border));
@@ -131,7 +132,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             CableManager cableManager = CableManager.getInstance();
             cableManager.addListener(fm, o.getReference(), PortType.INPUTFM, border);
             cableManager.addListener(out, o.getReference(), PortType.OUTPUT, border);
-            frequency.setText("Fréquence : " + String.valueOf(((VCO)obseuveurVCO.getReference()).getFrequency())+ " Hz");
+            frequency.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
         }
     }
 
@@ -143,7 +144,7 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
     @Override
     public void notifyObseurveur() {
         obseuveurVCO.update(this);
-        frequency.setText("Fréquence :"+ ((VCO)obseuveurVCO.getReference()).getFrequency()+" Hz");
+        frequency.setText("Fréquence :"+ getFrequencyToDisplay() +" Hz");
     }
 
     @Override
@@ -173,5 +174,10 @@ public class VCOControllerIHM implements Initializable, SubjectVCO, SuperControl
             return this.out;
         }
         return null;
+    }
+
+    private String getFrequencyToDisplay() {
+        DecimalFormat f = new DecimalFormat("##.00");
+        return f.format(((VCO)obseuveurVCO.getReference()).getFrequency());
     }
 }

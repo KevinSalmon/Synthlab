@@ -8,9 +8,9 @@
 
 <Pane id="module" fx:id="border" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="231.0" prefWidth="256.0" styleClass="eg" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.EGController">
    <children>
-      <Circle fx:id="in" layoutX="39.0" layoutY="216.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="gate" layoutX="39.0" layoutY="216.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="out" layoutX="240.0" layoutY="216.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="9.0" layoutY="207.0" text="in" />
+      <Label layoutX="55.0" layoutY="207.0" text="gate" />
       <Label layoutX="202.0" layoutY="207.0" text="out" />
       <Label layoutX="9.0" text="EG" />
       <Slider fx:id="sustain" layoutX="10.0" layoutY="121.0" majorTickUnit="5.0" max="1.0" prefHeight="38.0" prefWidth="232.0" showTickLabels="true" showTickMarks="true" snapToTicks="false" value="0.5"/>

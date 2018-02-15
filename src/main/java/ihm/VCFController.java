@@ -17,6 +17,7 @@ import utils.CableManager;
 import utils.PortType;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class VCFController implements Initializable, SubjectVCF, SuperController {
@@ -82,7 +83,7 @@ public class VCFController implements Initializable, SubjectVCF, SuperController
             cableManager.addListener(in, vcflpObseurveur.getReference(), PortType.INPUT, pane);
             cableManager.addListener(out, vcflpObseurveur.getReference(), PortType.OUTPUT, pane);
             cableManager.addListener(fm, vcflpObseurveur.getReference(), PortType.INPUTFM, pane);
-            frequence.setText("Fréquence : " + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
+            frequence.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
         }
 
     }
@@ -97,7 +98,7 @@ public class VCFController implements Initializable, SubjectVCF, SuperController
     @Override
     public void notifyObseurveur() {
         vcflpObseurveur.update(this);
-        frequence.setText("Fréquence : " + String.valueOf(((VCF)vcflpObseurveur.getReference()).getFrequency())+ " Hz");
+        frequence.setText("Fréquence : " + getFrequencyToDisplay() + " Hz");
 
     }
 
@@ -129,6 +130,10 @@ public class VCFController implements Initializable, SubjectVCF, SuperController
         return null;
     }
 
+    private String getFrequencyToDisplay() {
+        DecimalFormat f = new DecimalFormat("##.00");
+        return f.format(((VCF)vcflpObseurveur.getReference()).getFrequency());
+    }
 
     public void setIsLp(boolean b){
         this.isLp = b;
