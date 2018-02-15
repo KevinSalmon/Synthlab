@@ -306,8 +306,8 @@ public class Controller {
         List<Cable> cables = CableManager.getInstance().getCables();
 
         List<Node> workspaceChildren = ((Pane)pane.getParent()).getChildren();
-
-        for (int i=0; i < cables.size(); i++) {
+        int i=0;
+        while(i < cables.size()){
             Cable cable = cables.get(i);
             if(cable.getModuleIn().equals(observeur) ||
                     cable.getModuleOut().equals(observeur)){
@@ -318,6 +318,7 @@ public class Controller {
                 cables.remove(i);
                 i--;
             }
+            i++;
         }
 
         toSave.remove(observeur.getReference());
@@ -462,7 +463,7 @@ public class Controller {
 
             Pane newPane = createModuleWithoutEvent(module.getModuleFXMLFile(), module);
             ihmController.addModuleToWorkspace(newPane, module.getxPos(), module.getyPos());
-            ports = new EnumMap<PortType, Circle>(PortType.class);
+            ports = new EnumMap<>(PortType.class);
             for (PortType port: loadedModule.getAllPorts()) {
                 ports.put(port, tmpController.getPort(port));
             }
