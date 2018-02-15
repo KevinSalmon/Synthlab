@@ -249,6 +249,10 @@ public class Controller {
         return synth;
     }
 
+    public void setSynth(Synthesizer synth){
+        this.synth = synth;
+    }
+
     /**
      * Getter de IHMController
      * @return IHMController
@@ -440,7 +444,7 @@ public class Controller {
         fileChooser.setTitle("Load saved workspace");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("format save", "*.json"));
         File file = fileChooser.showOpenDialog(scene.getWindow());
-
+        if(file == null) return;
         String fileExtension = FilenameUtils.getExtension(file.getName());
         if(!"json".equals(fileExtension)){
             file = new File(file.getPath()+".json");
