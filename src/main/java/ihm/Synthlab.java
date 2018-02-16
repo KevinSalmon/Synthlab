@@ -62,13 +62,11 @@ public class Synthlab extends Application {
                     FadeTransition fadeSplash = new FadeTransition(Duration.seconds(1.2), splashLayout);
                     fadeSplash.setFromValue(1.0);
                     fadeSplash.setToValue(0.0);
-                    fadeSplash.setOnFinished(new EventHandler<ActionEvent>() {
-                        @Override public void handle(ActionEvent actionEvent) {
-                            initStage.hide();
+                    fadeSplash.setOnFinished(actionEvent -> {
+                        initStage.hide();
 
-                            mainStage.show();
+                        mainStage.show();
 
-                        }
                     });
                     fadeSplash.play();
                 }
