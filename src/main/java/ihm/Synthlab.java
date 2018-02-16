@@ -28,6 +28,7 @@ import utils.FxmlFilesNames;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public class Synthlab extends Application {
     private Pane splashLayout;
@@ -119,7 +120,7 @@ public class Synthlab extends Application {
         try {
             root = loader.load(location.openStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().severe(e.getMessage());
         }
 
         /**
