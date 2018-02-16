@@ -62,14 +62,14 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
     @Override
     public void handle(KeyEvent event) {
         if(event.getEventType().equals(KeyEvent.KEY_PRESSED)){
-            keyPressed(event.getCode());
+            keyPressedHandle(event.getCode());
         }
         else if(event.getEventType().equals(KeyEvent.KEY_RELEASED)){
-            keyRelease(event.getCode());
+            keyReleaseHandle(event.getCode());
         }
     }
 
-    private void keyRelease(KeyCode code) {
+    private void keyReleaseHandle(KeyCode code) {
         if(lastKey != null && lastKey.equals(code))
             gate.setValueInternal(-5.0/12.0);
 
@@ -91,87 +91,35 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         }
     }
 
-    private void keyPressed(KeyCode code) {
+    private void keyPressedHandle(KeyCode code) {
         boolean gateUpdate = true;
         switch (code) {
             case Q:
-                if(!keyPressed[0]){
-                    keyPressed[0] = true;
-                    note = Note.DO;
-                    lastKey = code;
-                }
+                updateNote(code, 0, Note.DO);
                 break;
-            case S: if(!keyPressed[1]){
-                keyPressed[1] = true;
-                note = Note.RE;
-                lastKey = code;
-            }
+            case S: updateNote(code, 1, Note.RE);
                 break;
-            case D: if(!keyPressed[2]){
-                keyPressed[2] = true;
-                note = Note.MI;
-                lastKey = code;
-            }
+            case D: updateNote(code, 2, Note.MI);
                 break;
-            case F: if(!keyPressed[3]){
-                keyPressed[3] = true;
-                note = Note.FA;
-                lastKey = code;
-            }
+            case F: updateNote(code, 3, Note.FA);
                 break;
-            case G: if(!keyPressed[4]){
-                keyPressed[4] = true;
-                note = Note.SOL;
-                lastKey = code;
-            }
+            case G: updateNote(code, 4, Note.SOL);
                 break;
-            case H: if(!keyPressed[5]){
-                keyPressed[5] = true;
-                note = Note.LA;
-                lastKey = code;
-            }
+            case H: updateNote(code, 5, Note.LA);
                 break;
-            case J: if(!keyPressed[6]){
-                keyPressed[6] = true;
-                note = Note.SI;
-                lastKey = code;
-            }
+            case J: updateNote(code, 6, Note.SI);
                 break;
-            case K: if(!keyPressed[7]){
-                keyPressed[7] = true;
-                note = Note.DOU;
-                lastKey = code;
-            }
+            case K: updateNote(code, 7, Note.DOU);
                 break;
-            case Z: if(!keyPressed[8]){
-                keyPressed[8] = true;
-                note = Note.DOD;
-                lastKey = code;
-            }
+            case Z: updateNote(code, 8, Note.DOD);
                 break;
-            case E: if(!keyPressed[9]){
-                keyPressed[9] = true;
-                note = Note.RED;
-                lastKey = code;
-            }
+            case E: updateNote(code, 9, Note.RED);
                 break;
-            case T: if(!keyPressed[10]){
-                keyPressed[10] = true;
-                note = Note.FAD;
-                lastKey = code;
-            }
+            case T: updateNote(code, 10, Note.FAD);
                 break;
-            case Y: if(!keyPressed[11]){
-                keyPressed[11] = true;
-                note = Note.SOLD;
-                lastKey = code;
-            }
+            case Y: updateNote(code, 11, Note.SOLD);
                 break;
-            case U: if(!keyPressed[12]){
-                keyPressed[12] = true;
-                note = Note.LAD;
-                lastKey = code;
-            }
+            case U: updateNote(code, 12, Note.LAD);
                 break;
             case X: setOctave(octave+1);gateUpdate = false;break;
             case W: setOctave(octave-1);gateUpdate = false;break;
@@ -179,6 +127,14 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         }
 
         if(gateUpdate)gate.setValueInternal(5.0/12.0);
+    }
+
+    private void updateNote(KeyCode code, int nb, Note n) {
+        if(!keyPressed[nb]){
+            keyPressed[nb] = true;
+            note = n;
+            lastKey = code;
+        }
     }
 
     public Note getNote() {
