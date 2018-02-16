@@ -25,6 +25,7 @@ import utils.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -417,9 +418,13 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
-        if(file.exists() && !file.delete()){
+        if(file.exists()){
+            try {
+                Files.delete(file.toPath());
+            } catch (IOException e) {
                 Logger.getGlobal().warning("Cannot delete already existing file : " + file.getName());
             }
+        }
 
         SavedFile savedFile = new SavedFile();
         savedFile.setSavedCables(cablesToSave);
