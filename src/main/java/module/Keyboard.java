@@ -43,7 +43,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
         if(PortType.GATE.getType().equals(name)){
-            return new Tuple<>(getPortByName(name),PortType.OUTPUT);
+            return new Tuple<>(getPortByName(name),PortType.GATE);
         }
         return null;
     }
@@ -121,8 +121,8 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
                 break;
             case U: updateNote(code, 12, Note.LAD);
                 break;
-            case X: setOctave(octave+1);gateUpdate = false;break;
-            case W: setOctave(octave-1);gateUpdate = false;break;
+            case X: octave+=1;gateUpdate = false;break;
+            case W: octave-=1;gateUpdate = false;break;
             default: gateUpdate = false;
         }
 
@@ -141,16 +141,8 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
         return note;
     }
 
-    public void setNote(Note note) {
-        this.note = note;
-    }
-
     public int getOctave() {
         return octave;
-    }
-
-    public void setOctave(int octave) {
-        this.octave = octave;
     }
 
     @Override
@@ -187,19 +179,24 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             freq = v;
         }
 
-        public double getFreq(){
-            return freq;
-        }
-
         public double freqToOctave(){
             return Math.log(freq/440.0)/Math.log(2.0);
         }
+    }
+
+    public UnitOutputPort getOutput() {
+        return cv;
+    }
+
+    public UnitOutputPort getGate() {
+        return gate;
     }
 
     @Override
     public List<PortType> getAllPorts() {
         List<PortType> list = new ArrayList<>();
         list.add(PortType.OUTPUT);
+        list.add(PortType.GATE);
         return list;
     }
 }

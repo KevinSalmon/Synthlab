@@ -1,63 +1,54 @@
 package module;
 
-import javafx.application.Application;
-import javafx.event.Event;
-import javafx.event.EventTarget;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import ihm.observer.Obseurveur;
+import ihm.observer.SubjectKeyboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import utils.FxmlFilesNames;
 import utils.PortType;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class KeyboardTest {
-    Keyboard keyboard;
+    private Keyboard keyboard;
 
     //Key Events
     //Key Pressed
-    KeyEvent QPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Q.toString(), KeyCode.Q.toString(), KeyCode.Q, false, false, false, false);
-    KeyEvent SPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.S.toString(), KeyCode.S.toString(), KeyCode.S, false, false, false, false);
-    KeyEvent DPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.D.toString(), KeyCode.D.toString(), KeyCode.D, false, false, false, false);
-    KeyEvent FPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.F.toString(), KeyCode.F.toString(), KeyCode.F, false, false, false, false);
-    KeyEvent GPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.G.toString(), KeyCode.G.toString(), KeyCode.G, false, false, false, false);
-    KeyEvent HPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.H.toString(), KeyCode.H.toString(), KeyCode.H, false, false, false, false);
-    KeyEvent JPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.J.toString(), KeyCode.J.toString(), KeyCode.J, false, false, false, false);
-    KeyEvent KPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.K.toString(), KeyCode.K.toString(), KeyCode.K, false, false, false, false);
-    KeyEvent ZPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Z.toString(), KeyCode.Z.toString(), KeyCode.Z, false, false, false, false);
-    KeyEvent EPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.E.toString(), KeyCode.E.toString(), KeyCode.E, false, false, false, false);
-    KeyEvent TPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.T.toString(), KeyCode.T.toString(), KeyCode.T, false, false, false, false);
-    KeyEvent YPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Y.toString(), KeyCode.Y.toString(), KeyCode.Y, false, false, false, false);
-    KeyEvent UPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.U.toString(), KeyCode.U.toString(), KeyCode.U, false, false, false, false);
-    KeyEvent WPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.W.toString(), KeyCode.W.toString(), KeyCode.W, false, false, false, false);
-    KeyEvent XPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.X.toString(), KeyCode.X.toString(), KeyCode.X, false, false, false, false);
+    private KeyEvent APressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.A.toString(), KeyCode.A.toString(), KeyCode.A, false, false, false, false);
+    private KeyEvent QPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Q.toString(), KeyCode.Q.toString(), KeyCode.Q, false, false, false, false);
+    private KeyEvent SPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.S.toString(), KeyCode.S.toString(), KeyCode.S, false, false, false, false);
+    private KeyEvent DPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.D.toString(), KeyCode.D.toString(), KeyCode.D, false, false, false, false);
+    private KeyEvent FPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.F.toString(), KeyCode.F.toString(), KeyCode.F, false, false, false, false);
+    private KeyEvent GPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.G.toString(), KeyCode.G.toString(), KeyCode.G, false, false, false, false);
+    private KeyEvent HPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.H.toString(), KeyCode.H.toString(), KeyCode.H, false, false, false, false);
+    private KeyEvent JPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.J.toString(), KeyCode.J.toString(), KeyCode.J, false, false, false, false);
+    private KeyEvent KPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.K.toString(), KeyCode.K.toString(), KeyCode.K, false, false, false, false);
+    private KeyEvent ZPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Z.toString(), KeyCode.Z.toString(), KeyCode.Z, false, false, false, false);
+    private KeyEvent EPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.E.toString(), KeyCode.E.toString(), KeyCode.E, false, false, false, false);
+    private KeyEvent TPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.T.toString(), KeyCode.T.toString(), KeyCode.T, false, false, false, false);
+    private KeyEvent YPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.Y.toString(), KeyCode.Y.toString(), KeyCode.Y, false, false, false, false);
+    private KeyEvent UPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.U.toString(), KeyCode.U.toString(), KeyCode.U, false, false, false, false);
+    private KeyEvent WPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.W.toString(), KeyCode.W.toString(), KeyCode.W, false, false, false, false);
+    private KeyEvent XPressed = new KeyEvent(KeyEvent.KEY_PRESSED, KeyCode.X.toString(), KeyCode.X.toString(), KeyCode.X, false, false, false, false);
 
     //Key Released
-    KeyEvent QReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Q.toString(), KeyCode.Q.toString(), KeyCode.Q, false, false, false, false);
-    KeyEvent SReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.S.toString(), KeyCode.S.toString(), KeyCode.S, false, false, false, false);
-    KeyEvent DReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.D.toString(), KeyCode.D.toString(), KeyCode.D, false, false, false, false);
-    KeyEvent FReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.F.toString(), KeyCode.F.toString(), KeyCode.F, false, false, false, false);
-    KeyEvent GReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.G.toString(), KeyCode.G.toString(), KeyCode.G, false, false, false, false);
-    KeyEvent HReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.H.toString(), KeyCode.H.toString(), KeyCode.H, false, false, false, false);
-    KeyEvent JReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.J.toString(), KeyCode.J.toString(), KeyCode.J, false, false, false, false);
-    KeyEvent KReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.K.toString(), KeyCode.K.toString(), KeyCode.K, false, false, false, false);
-    KeyEvent ZReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Z.toString(), KeyCode.Z.toString(), KeyCode.Z, false, false, false, false);
-    KeyEvent EReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.E.toString(), KeyCode.E.toString(), KeyCode.E, false, false, false, false);
-    KeyEvent TReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.T.toString(), KeyCode.T.toString(), KeyCode.T, false, false, false, false);
-    KeyEvent YReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Y.toString(), KeyCode.Y.toString(), KeyCode.Y, false, false, false, false);
-    KeyEvent UReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.U.toString(), KeyCode.U.toString(), KeyCode.U, false, false, false, false);
-    KeyEvent WReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.W.toString(), KeyCode.W.toString(), KeyCode.W, false, false, false, false);
-    KeyEvent XReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.X.toString(), KeyCode.X.toString(), KeyCode.X, false, false, false, false);
+    private KeyEvent QReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Q.toString(), KeyCode.Q.toString(), KeyCode.Q, false, false, false, false);
+    private KeyEvent SReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.S.toString(), KeyCode.S.toString(), KeyCode.S, false, false, false, false);
+    private KeyEvent DReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.D.toString(), KeyCode.D.toString(), KeyCode.D, false, false, false, false);
+    private KeyEvent FReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.F.toString(), KeyCode.F.toString(), KeyCode.F, false, false, false, false);
+    private KeyEvent GReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.G.toString(), KeyCode.G.toString(), KeyCode.G, false, false, false, false);
+    private KeyEvent HReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.H.toString(), KeyCode.H.toString(), KeyCode.H, false, false, false, false);
+    private KeyEvent JReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.J.toString(), KeyCode.J.toString(), KeyCode.J, false, false, false, false);
+    private KeyEvent KReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.K.toString(), KeyCode.K.toString(), KeyCode.K, false, false, false, false);
+    private KeyEvent ZReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Z.toString(), KeyCode.Z.toString(), KeyCode.Z, false, false, false, false);
+    private KeyEvent EReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.E.toString(), KeyCode.E.toString(), KeyCode.E, false, false, false, false);
+    private KeyEvent TReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.T.toString(), KeyCode.T.toString(), KeyCode.T, false, false, false, false);
+    private KeyEvent YReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.Y.toString(), KeyCode.Y.toString(), KeyCode.Y, false, false, false, false);
+    private KeyEvent UReleased = new KeyEvent(KeyEvent.KEY_RELEASED, KeyCode.U.toString(), KeyCode.U.toString(), KeyCode.U, false, false, false, false);
 
     @Before
     public void init(){
@@ -75,6 +66,8 @@ public class KeyboardTest {
         Assert.assertEquals("The note should be Do", Keyboard.Note.DO, keyboard.getNote());
         keyboard.handle(SPressed);
         Assert.assertEquals("The note should be Re", Keyboard.Note.RE, keyboard.getNote());
+        keyboard.handle(QPressed);
+        Assert.assertEquals("The note should still be Re", Keyboard.Note.RE, keyboard.getNote());
         keyboard.handle(DPressed);
         Assert.assertEquals("The note should be Mi", Keyboard.Note.MI, keyboard.getNote());
         keyboard.handle(FPressed);
@@ -97,6 +90,13 @@ public class KeyboardTest {
         Assert.assertEquals("The note should be Sold", Keyboard.Note.SOLD, keyboard.getNote());
         keyboard.handle(UPressed);
         Assert.assertEquals("The note should be Lad", Keyboard.Note.LAD, keyboard.getNote());
+        Assert.assertEquals("The octave should be 0", 0, keyboard.getOctave(),0);
+        keyboard.handle(XPressed);
+        Assert.assertEquals("The note should be Lad", Keyboard.Note.LAD, keyboard.getNote());
+        Assert.assertEquals("The octave should be 1", 1, keyboard.getOctave(),0);
+        keyboard.handle(WPressed);
+        Assert.assertEquals("The note should be Lad", Keyboard.Note.LAD, keyboard.getNote());
+        Assert.assertEquals("The octave should be 0", 0, keyboard.getOctave(),0);
     }
 
     @Test
@@ -153,6 +153,12 @@ public class KeyboardTest {
         Assert.assertEquals("The gate should be at 5V",5/12.0,keyboard.gate.get(),0.0);
         keyboard.handle(UReleased);
         Assert.assertEquals("The gate should be at -5V",-5/12.0,keyboard.gate.get(),0.0);
+        keyboard.handle(XPressed);
+        Assert.assertEquals("The gate should be at -5V",-5/12.0,keyboard.gate.get(),0.0);
+        keyboard.handle(WPressed);
+        Assert.assertEquals("The gate should be at -5V",-5/12.0,keyboard.gate.get(),0.0);
+        keyboard.handle(APressed);
+        Assert.assertEquals("The gate should be at -5V",-5/12.0,keyboard.gate.get(),0.0);
     }
 
     @Test
@@ -161,8 +167,61 @@ public class KeyboardTest {
     }
 
     @Test
+    public void generateTest(){
+        keyboard.handle(QPressed);
+        keyboard.generate();
+        double[] values = keyboard.getOutput().getValues();
+
+        for (double value : values) {
+            Assert.assertEquals("Value should correspond to DO", Keyboard.Note.DO.freqToOctave() / 12.0, value, 0);
+        }
+    }
+
+    @Test
     public void getAllPortsTest() {
         List<PortType> list = keyboard.getAllPorts();
         assertTrue(list.contains(PortType.OUTPUT));
+    }
+
+    @Test
+    public void GetPortTest(){
+        Assert.assertEquals("Should get the output port", keyboard.getOutput(), keyboard.getPort(PortType.OUTPUT.getType()).getLeft());
+        Assert.assertEquals("Should be declare as output", PortType.OUTPUT, keyboard.getPort(PortType.OUTPUT.getType()).getRight());
+        Assert.assertEquals("Should get the output port", keyboard.getGate(), keyboard.getPort(PortType.GATE.getType()).getLeft());
+        Assert.assertEquals("Should be declare as gate", PortType.GATE, keyboard.getPort(PortType.GATE.getType()).getRight());
+
+        Assert.assertNull("Should get null", keyboard.getPort("port_qui_n'existe_pas"));
+    }
+
+    @Test
+    public void updateTest(){
+        SubjectKeyboard subjectKeyboard = new SubjectKeyboard() {
+            @Override
+            public void register(Obseurveur o) {
+
+            }
+
+            @Override
+            public void remove(Obseurveur o) {
+
+            }
+
+            @Override
+            public void notifyObseurveur() {
+
+            }
+
+            @Override
+            public void receiveNote(Keyboard.Note note) {
+                Assert.assertEquals("There should be no note", Keyboard.Note.NONE, note);
+            }
+
+            @Override
+            public void receiveOctave(int octave) {
+                Assert.assertEquals("The octave should be 0", 0, octave,0);
+            }
+        };
+
+        keyboard.update(subjectKeyboard);
     }
 }
