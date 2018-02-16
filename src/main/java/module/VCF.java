@@ -39,6 +39,8 @@ public class VCF extends Module implements UnitSource, Obseurveur<SubjectVCF>{
         this.in = new UnitInputPort(PortType.INPUT.getType());
         this.out = new UnitOutputPort(PortType.OUTPUT.getType());
 
+        this.signal = 440.0;
+
         this.fm = new UnitInputPort(PortType.INPUTFM.getType());
         this.filterPass.input = this.in;
         this.filterPass.frequency.set(440);

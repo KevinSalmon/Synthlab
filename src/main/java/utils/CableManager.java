@@ -190,6 +190,6 @@ public class CableManager {
     }
 
     public void reset(Module reference) {
-        if(currentCable.getModuleOut().equals(reference)) currentCable = null;
+        if(currentCable != null && currentCable.getModuleOut().equals(reference)) currentCable = null;
     }
 }
