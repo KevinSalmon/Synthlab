@@ -158,8 +158,10 @@ public class IHMController implements Initializable{
         /**
          * Instanciantion du nouveau module
          */
+        Point2D mouseEventToModuleMenu = moduleScrollPane.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+
         draggedModule = controller.createModule(fxml);
-        draggedModule.setLayoutX(source.getLayoutX());
+        draggedModule.setLayoutX(mouseEventToModuleMenu.getX() - PADDING);
         draggedModule.setLayoutY(source.getLayoutY());
         draggedModule.setOnDragDetected(de -> onDragDetected(de, draggedModule));
         draggedModule.setOnDragDone(de -> onDragDone(de, draggedModule));
