@@ -25,7 +25,6 @@ import utils.FxmlFilesNames;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 public class Synthlab extends Application {
