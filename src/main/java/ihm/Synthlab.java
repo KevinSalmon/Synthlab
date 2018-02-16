@@ -11,15 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebView;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -136,9 +128,9 @@ public class Synthlab extends Application {
 
         initStage.setScene(scene);
 
-        initStage.setOnCloseRequest(eh -> System.exit(0));
-
-        initStage.show();
+        primaryStage.setOnCloseRequest(eh -> System.exit(0));
+        primaryStage.getIcons().add(new Image("Synthlab.ico"));
+        primaryStage.show();
 
         Controller controller = Controller.getInstance();
         controller.setScene(scene);
