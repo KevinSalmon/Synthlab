@@ -52,11 +52,8 @@ public class Synthlab extends Application {
 
     @Override public void start(final Stage initStage) throws Exception {
         showSplash(initStage);
-        Thread t = new Thread(() -> new Runnable(){
-            @Override
-            public void run() {
+        Thread t = new Thread(() -> {
                 load();
-
                 if (initStage.isShowing()) {
                     loadProgress.progressProperty().unbind();
                     loadProgress.setProgress(1);
@@ -76,7 +73,7 @@ public class Synthlab extends Application {
                     });
                     fadeSplash.play();
                 }
-            }
+
         });
         Platform.runLater(t);
     }
