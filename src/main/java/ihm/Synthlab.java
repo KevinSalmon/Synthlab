@@ -25,6 +25,7 @@ import utils.FxmlFilesNames;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 public class Synthlab extends Application {
@@ -51,7 +52,7 @@ public class Synthlab extends Application {
 
     @Override public void start(final Stage initStage) throws Exception {
         showSplash(initStage);
-        Thread t = new Thread(new Runnable() {
+        Thread t = new Thread(() -> new Runnable(){
             @Override
             public void run() {
                 load();
