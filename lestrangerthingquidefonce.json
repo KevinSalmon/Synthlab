@@ -8,7 +8,7 @@
 		{"type":"eg","xPos":1150.0,"yPos":78.0,"moduleFXMLFile":"/style/modules/graph_eg.fxml","idModule":8,"attack":0.01,"decay":0.8194444444444444,"sustain":0.0,"release":4.300925925925926},
 		{"type":"rep","xPos":1521.0,"yPos":83.0,"moduleFXMLFile":"/style/modules/graph_rep.fxml","idModule":9},
 		{"type":"out","xPos":222.0,"yPos":371.0,"moduleFXMLFile":"/style/modules/moduleOut.fxml","idModule":10,"recordFileName":"Output.wav","attenuateur":0.0,"mute":false,"recording":false},
-		{"type":"keyboard","xPos":20.0,"yPos":488.0,"moduleFXMLFile":"/style/modules/moduleKeyboard.fxml","idModule":-1,"note":"NONE","octave":0},{"type":"rep","xPos":1094.0,"yPos":353.0,"moduleFXMLFile":"/style/modules/graph_rep.fxml","idModule":4},
+		{"type":"keyboard","xPos":20.0,"yPos":488.0,"moduleFXMLFile":"/style/modules/graphe_keyboard.fxml","idModule":-1,"note":"NONE","octave":0},{"type":"rep","xPos":1094.0,"yPos":353.0,"moduleFXMLFile":"/style/modules/graph_rep.fxml","idModule":4},
 		{"type":"vcf","xPos":783.0,"yPos":591.0,"moduleFXMLFile":"/style/modules/graph_vcflp.fxml","idModule":5,"resonance":9.938650306748468,"f0":1.0,"lp":true}]],
 
 "savedCables":["java.util.ArrayList",[{"idModuleIn":0,"idModuleOut":1,"inputName":"input","outputName":"output"},
