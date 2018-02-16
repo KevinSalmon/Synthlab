@@ -137,7 +137,7 @@ public class Synthlab extends Application {
         initStage.setScene(scene);
 
         initStage.setOnCloseRequest(eh -> System.exit(0));
-
+        initStage.getIcons().add(new Image("Synthlab.ico"));
         initStage.show();
 
         Controller controller = Controller.getInstance();
