@@ -14,7 +14,7 @@ public class SavedEG extends SavedModule{
         super(xPos, yPos);
         this.attack = attack;
         this.decay = decay;
-        this.decay = sustain;
+        this.sustain = sustain;
         this.release = release;
     }
 
