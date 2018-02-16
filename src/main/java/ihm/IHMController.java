@@ -332,7 +332,8 @@ public class IHMController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Initialisation non-nécessaire
+        scrollPane.setHvalue(-500.0);
+        scrollPane.setVvalue(-500.0);
     }
 
     /**
@@ -392,8 +393,7 @@ public class IHMController implements Initializable{
         itemSkin2.setText(SkinNames.SKIN_METAL);
         itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_METAL));
 
-       menuSkin.getItems().addAll(itemSkin1,itemSkin2);
-
+        menuSkin.getItems().addAll(itemSkin1,itemSkin2);
     }
 
     /**
