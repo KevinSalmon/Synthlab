@@ -383,7 +383,7 @@ public class IHMController implements Initializable{
         Pane key = controller.createModule(FxmlFilesNames.KEYBOARD);
         workspace.getChildren().add(key);
         key.setLayoutX(20);
-        key.setLayoutY(screenSize.getHeight() - 280);
+        key.setLayoutY(screenSize.getHeight() - 330);
         key.setOnDragDetected(de -> onDragDetected(de, key));
         key.setOnDragDone(de -> onDragDone(de, key));
 

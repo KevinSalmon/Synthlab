@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:controller="ihm.ModuleKeyboard" id="module" fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="330.0" styleClass="keyboard" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="module" fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="176.0" styleClass="keyboard" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.ModuleKeyboard">
    <children>
-      <Circle fx:id="drawOutput" layoutX="304.0" layoutY="34.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="drawOutput" layoutX="149.0" layoutY="44.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
 
-       <Label layoutY="-2.0" text="Keyboard" />
-      <TextField id="filename_record" fx:id="labNote" layoutX="19.0" layoutY="50.0" prefHeight="20.0" prefWidth="115.0" />
-      <Circle fx:id="gate" layoutX="304.0" layoutY="165.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="23.0" layoutY="116.0" text="Octave" />
-      <Label layoutX="23.0" layoutY="34.0" text="Note" />
-      <TextField id="filename_record" fx:id="labOctave" layoutX="19.0" layoutY="132.0" prefHeight="20.0" prefWidth="115.0" />
-      <Label layoutX="293.0" layoutY="6.0" text="out" />
-      <Label layoutX="289.0" layoutY="137.0" text="gate" />
+       <Label layoutX="4.0" layoutY="3.0" text="Keyboard" />
+      <TextField id="filename_record" fx:id="labNote" layoutX="11.0" layoutY="40.0" prefHeight="20.0" prefWidth="115.0" />
+      <Circle fx:id="gate" layoutX="150.0" layoutY="97.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="12.0" layoutY="77.0" text="Octave" />
+      <Label layoutX="12.0" layoutY="24.0" text="Note" />
+      <TextField id="filename_record" fx:id="labOctave" layoutX="11.0" layoutY="93.0" prefHeight="20.0" prefWidth="115.0" />
+      <Label layoutX="138.0" layoutY="15.0" text="out" />
+      <Label layoutX="134.0" layoutY="68.0" text="gate" />
    </children>
 </Pane>
