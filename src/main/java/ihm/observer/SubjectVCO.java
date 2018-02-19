@@ -8,13 +8,13 @@ import utils.OscillatorType;
 public interface SubjectVCO extends Subject {
     /**
      * retourne la valeur de l'octave dans l'ihm
-     * @return
+     * @return la valeur d'octave
      */
     int getOctaveValue();
 
     /**
      * retourne la valeur du réglage fin dans l'ihm
-     * @return
+     * @return la valeur de réglage fin
      */
     double getReglageFinValue();
 

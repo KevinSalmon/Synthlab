@@ -71,7 +71,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fonction appelee lors du clic sur File -> Close
-     * @param event
+     * @param event l'event à l'origine de l'appel
      */
     @FXML
     void closeApplication(ActionEvent event) {
@@ -81,7 +81,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fonction appelee lors du clic sur Workspace -> Save
-     * @param event
+     * @param event l'event à l'origine de l'appel
      */
     @FXML
     void saveWorkspace(ActionEvent event){
@@ -90,7 +90,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fonction appelee lors du clic sur Workspace -> Load
-     * @param event
+     * @param event l'event à l'origine de l'appel
      */
     @FXML
     void loadWorkspace(ActionEvent event){
@@ -99,7 +99,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fonction appelee lors du clic sur Workspace -> Clean
-     * @param event
+     * @param event l'event à l'origine de l'appel
      */
     @FXML
     void cleanWorkspace(ActionEvent event){
@@ -118,7 +118,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fonction appelee lors du clic sur Help -> About
-     * @param event
+     * @param event l'event à l'origine de l'appel
      */
     @FXML
     void showAboutScene(ActionEvent event) {
@@ -142,22 +142,23 @@ public class IHMController implements Initializable{
     /**
      * Debut du Drag&Drop depuis le menu des modules, creation d'une nouvelle instance du module
      * selectionne
-     * @param mouseEvent
+     * @param mouseEvent l'event à l'origine de l'appel
      * @param source, module a instancier sur le plan de travail
      * @param fxml nom du fxml du module à instancier
      */
     private void onSpawnDragDetected(MouseEvent mouseEvent, Pane source, String fxml) {
-        /**
-         * Variables indispensables pour le Drag&Drop
-         */
+
+
+        // Variables indispensables pour le Drag&Drop
+
         Dragboard dragBoard = source.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
         content.putString("Creation du module");
         dragBoard.setContent(content);
 
-        /**
-         * Instanciantion du nouveau module
-         */
+
+        // Instanciantion du nouveau module
+
         Point2D mouseEventToModuleMenu = moduleScrollPane.sceneToLocal(mouseEvent.getSceneX(), mouseEvent.getSceneY());
 
         draggedModule = controller.createModule(fxml);
@@ -174,31 +175,31 @@ public class IHMController implements Initializable{
         deltaX = mouseEventToWorkspace.getX() - draggedModule.getLayoutX();
         deltaY = mouseEventToWorkspace.getY() - draggedModule.getLayoutY();
 
-        /**
-         * Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
-         * la fenetre
-         */
+
+        /* Ajout du nouveau module sur le hoverPanel, pour pouvoir le deplacer sur toute
+        la fenetre*/
+
         hoverPanel.getChildren().add(draggedModule);
         mouseEvent.consume();
     }
 
     /**
-     * Debut du Drag&Drop depuis le plan de travail, debut du deplacement d'un module
-     * @param mouseEvent
-     * @param source, module a deplacer
+     * Debut du DragAndDrop depuis le plan de travail, debut du déplacement d'un module
+     * @param mouseEvent l'event à l'origine de l'appel
+     * @param source module a déplacer
      */
     public void onDragDetected(MouseEvent mouseEvent, Pane source) {
-        /**
-         * Variables indispensables pour le Drag&Drop
-         */
+
+        //Variables indispensables pour le Drag&Drop
+
         Dragboard dragBoard = source.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
         content.putString("Deplacement du rectangle");
         dragBoard.setContent(content);
 
-        /**
-         * Le module est deja sur le plan de travail, on deplace donc l'instance
-         */
+
+        // Le module est deja sur le plan de travail, on deplace donc l'instance
+
         draggedModule = source;
         currentModulesStyle = draggedModule.getStyle();
         draggedModule.setStyle(defaultSelectionStyle);
@@ -213,21 +214,20 @@ public class IHMController implements Initializable{
     }
 
     /**
-     * Fin du Drag&Drop depuis le menu des modules, ajout du nouveau module dans le plan de travail
-     * @param dragEvent
+     * Fin du DragAndDrop depuis le menu des modules, ajout du nouveau module dans le plan de travail
+     * @param dragEvent l'event à l'origine de l'appel
      */
     private void onSpawnDragDone(DragEvent dragEvent) {
         dragEvent.getDragboard().clear();
         draggedModule.setStyle(currentModulesStyle);
 
-        /**
-         * Suppression du module sur le panel de Drag&drop
-         */
+
+        // Suppression du module sur le panel de Drag&drop
+
         hoverPanel.getChildren().remove(draggedModule);
 
-        /**
-         * Instanciation du nouveau module si il est au dessus du workspace
-         */
+
+        // Instanciation du nouveau module si il est au dessus du workspace
 
         if(draggedModule.getLayoutY() > moduleMenu.getHeight()){
             Pane module = draggedModule;
@@ -239,9 +239,9 @@ public class IHMController implements Initializable{
             module.setOnDragDetected(de -> onDragDetected(de, module));
             module.setOnDragDone(de -> onDragDone(de, module));
             module.setStyle(currentModulesStyle);
-            /**
-             * Ajout du nouveau module sur le workspace
-             */
+
+            // Ajout du nouveau module sur le workspace
+
             workspace.getChildren().add(module);
 
             boolean collision = true;
@@ -256,9 +256,9 @@ public class IHMController implements Initializable{
     }
 
     /**
-     * Fin du Drag&Drop depuis le plan de travail, fin du deplacement d'un module
-     * @param dragEvent
-     * @param source
+     * Fin du DragAndDrop depuis le plan de travail, fin du deplacement d'un module
+     * @param dragEvent l'event à l'origine de l'appel
+     * @param source le pane qui à été déplacé
      */
     public void onDragDone(DragEvent dragEvent, Pane source) {
         dragEvent.getDragboard().clear();
@@ -278,7 +278,7 @@ public class IHMController implements Initializable{
 
     /**
      * Entree dans le plan de travail (zone de depot des modules) lors du Drag&Drop
-     * @param dragEvent
+     * @param dragEvent l'event à l'origine de l'appel
      */
     private void onDragEntered(DragEvent dragEvent) {
         dragEvent.consume();
@@ -286,7 +286,7 @@ public class IHMController implements Initializable{
 
     /**
      * Sortie du plan de travail (zone de depot des modules) lors du Drag&Drop
-     * @param dragEvent
+     * @param dragEvent l'event à l'origine de l'appel
      */
     private void onDragExited(DragEvent dragEvent) {
         dragEvent.consume();
@@ -294,17 +294,16 @@ public class IHMController implements Initializable{
 
     /**
      * Deplacement du module au lors du survol du plan de travail pendant le Drag&Drop
-     * @param dragEvent
+     * @param dragEvent l'event à l'origine de l'appel
      */
     private void onDragOver(DragEvent dragEvent) {
-        /**
-         * Indique que le Drop est possible
-         */
+
+        //Indique que le Drop est possible
+
         dragEvent.acceptTransferModes(TransferMode.MOVE);
 
-        /**
-         * Deplacement du module
-         */
+        // Deplacement du module
+
         Point2D dragEventToWorkspace = workspace.sceneToLocal(dragEvent.getSceneX(), dragEvent.getSceneY());
 
         if(dragEventToWorkspace.getX() - deltaX > 0 && dragEventToWorkspace.getX() - deltaX < workspace.getWidth()){
@@ -319,7 +318,7 @@ public class IHMController implements Initializable{
 
     /**
      * Fin du Drag&Drop
-     * @param dragEvent
+     * @param dragEvent l'event à l'origine de l'appel
      */
     private void onDragDropped(DragEvent dragEvent) {
         dragEvent.setDropCompleted(true);
@@ -329,8 +328,8 @@ public class IHMController implements Initializable{
     /**
      * Implémentation de l'interface Initializable
      * Ne fait rien, l'initialisation se fait avec init() qui est appelée depuis le Controller
-     * @param location
-     * @param resources
+     * @param location inutilisé
+     * @param resources inutilisé
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -340,6 +339,7 @@ public class IHMController implements Initializable{
 
     /**
      * Initialisation du controller
+     * @param initModuleMenu indique si le menu est à initialiser
      */
     public void init(boolean initModuleMenu) {
         if (initModuleMenu) {
@@ -347,9 +347,9 @@ public class IHMController implements Initializable{
             scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
             scrollPane.setPannable(true);
 
-            /**
-             * Ajout des fonctions de Drag&Drop du plan de travail
-             */
+
+            // Ajout des fonctions de Drag&Drop du plan de travail
+
             workspace.setOnDragEntered(this::onDragEntered);
             workspace.setOnDragExited(this::onDragExited);
 
@@ -357,18 +357,17 @@ public class IHMController implements Initializable{
             workspace.setOnDragDropped(this::onDragDropped);
 
 
-            /**
-             * Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
-             * depuis le menu
+            /*
+              Fonction de Drag&Drop sur l'hoverPanel, utilise lors de l'instanciation des modules
+              depuis le menu
              */
             hoverPanel.setOnDragOver(this::onDragOver);
 
             initModulesInModuleMenu();
         }
 
-        /**
-         * Ajout par défaut d'un module de sortie au workspace
-         */
+        // Ajout par défaut d'un module de sortie au workspace
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Pane out = controller.createModule(FxmlFilesNames.MODULE_OUT);
         workspace.getChildren().add(out);
@@ -377,9 +376,8 @@ public class IHMController implements Initializable{
         out.setOnDragDetected(de -> onDragDetected(de, out));
         out.setOnDragDone(de -> onDragDone(de, out));
 
-        /**
-         * Ajout par défaut d'un module keyboard
-         */
+        // Ajout par défaut d'un module keyboard
+
         Pane key = controller.createModule(FxmlFilesNames.KEYBOARD);
         workspace.getChildren().add(key);
         key.setLayoutX(20);
@@ -417,8 +415,9 @@ public class IHMController implements Initializable{
     /**
      * Ajouter un module dans le Pane du menu et ajout des event drag&drop au module
      * @param fxmlModuleFileName nom du fxml du module à ajouter
-     * @param x
-     * @param y
+     * @param miniature le nom de la miniature associée au module
+     * @param x la position x de la miniature
+     * @param y la position y de la miniature
      */
     private void addModuleToMenu(String fxmlModuleFileName, String miniature, double x , double y){
         Pane miniaturePane = controller.createMiniature(miniature);
@@ -436,9 +435,9 @@ public class IHMController implements Initializable{
      */
     private boolean checkNoCollisionInWorkspace(Pane module) {
         for (Node moduleToCheck : workspace.getChildren()) {
-            /**
-             * Evite que le module se compare avec lui-meme et
-             * verifie l'intersection de deux modules
+            /*
+              Evite que le module se compare avec lui-meme et
+              verifie l'intersection de deux modules
              */
             if (!(moduleToCheck instanceof QuadCurve) && moduleToCheck != module &&
                     moduleToCheck.getBoundsInParent().intersects(module.getBoundsInParent())) {
@@ -451,17 +450,17 @@ public class IHMController implements Initializable{
 
     /**
      * Deplace le module en dehors du module en collision
-     * @param module
-     * @param moduleInCollision
+     * @param module le pane déplacé
+     * @param moduleInCollision le pane avec lequel il y a collision
      */
     private void handleCollisionOnWorkspace(Pane module, Node moduleInCollision) {
         boolean goRight;
         double rightDelta;
         double bottomDelta;
 
-        /**
-         * Recuperation des centres des deux modules qui se chevauchent
-         */
+
+        // Recuperation des centres des deux modules qui se chevauchent
+
         Point2D moduleCenter = new Point2D(
                 module.getLayoutX() + module.getWidth() / 2,
                 module.getLayoutY() + module.getHeight() / 2);
@@ -471,31 +470,31 @@ public class IHMController implements Initializable{
                 moduleInCollisionCenter.getLayoutX() + moduleInCollisionCenter.getWidth() / 2,
                 moduleInCollisionCenter.getLayoutY() + (moduleInCollisionCenter.getHeight() / 2));
 
-        /**
-         * Reinitialisation des variables
-         */
+
+        // Reinitialisation des variables
+
         goRight = false;
 
-        /**
-         * Calcule la position relative en X
-         */
+
+        // Calcule la position relative en X
+
         rightDelta = moduleCenter.getX() - moduleToCheckCenter.getX();
 
-        /**
-         * Calcule la position relative en Y
-         */
+
+        // Calcule la position relative en Y
+
         bottomDelta = moduleCenter.getY() - moduleToCheckCenter.getY();
 
-        /**
-         * Choix de la direction parmi les deux restantes selon l'ecart en X et Y
-         */
+
+        // Choix de la direction parmi les deux restantes selon l'ecart en X et Y
+
         if (Math.abs(rightDelta) > Math.abs(bottomDelta)) {
             goRight = true;
         }
 
-        /**
-         * Deplacement du module vers le bon cote
-         */
+
+        // Deplacement du module vers le bon cote
+
         if (goRight) {
             module.setLayoutX(moduleInCollisionCenter.getLayoutX() + moduleInCollisionCenter.getWidth() + 2);
         } else { //goBottom

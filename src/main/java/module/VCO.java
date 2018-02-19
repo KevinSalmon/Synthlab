@@ -95,7 +95,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Modifie la valeur de l'octave de o
-     * @param o
+     * @param o la valeur de modification de l'octave
      */
     public void modifyOctave(int o) {
         setOctave(octave + o);
@@ -128,7 +128,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Augmente l'octave de o
-     * @param o
+     * @param o la valeur à ajouter à l'octave
      */
     public void increaseOctave(int o) {
         modifyOctave(o);
@@ -136,7 +136,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Diminue l'octave de o
-     * @param o
+     * @param o la valeur à soustraire à l'octave
      */
     public void decreaseOctave(int o) {
         modifyOctave(-o);
@@ -144,7 +144,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Modifie la valeur du réglage fin de r
-     * @param r
+     * @param r la valeur de modification du réglage fin
      */
     private void modifyReglageFin(double r) {
         setReglageFin(reglageFin + r);
@@ -162,7 +162,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Augmente le réglage fin de r
-     * @param r
+     * @param r la valeur à ajouter au réglage fin
      */
     public void increaseReglageFin(double r) {
         modifyReglageFin(r);
@@ -171,7 +171,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Diminue le réglage fin de r
-     * @param r
+     * @param r la valeur à soustraire au réglage fin
      */
     public void decreaseReglageFin(double r) {
         modifyReglageFin(-r);
@@ -179,7 +179,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Récupère l'oscillateur actuellement utilisé
-     * @return
+     * @return l'oscillateur utilisé
      */
     public UnitOscillator getCurrentOsc() {
         return currentOsc;
@@ -187,7 +187,7 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
 
     /**
      * Change l'oscillateur utilisé
-     * @param type
+     * @param type le type su nouvel oscillateur
      */
     public void changeCurrentOsc(OscillatorType type) {
 

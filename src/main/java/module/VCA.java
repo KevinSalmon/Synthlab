@@ -28,10 +28,6 @@ public class VCA extends Module implements UnitSource, Obseurveur<SubjectVCA> {
         this.attenuationFilter = new Amplification();
     }
 
-    /**
-     * Getters et Setters
-     */
-
     public UnitInputPort getInput() {
         return in;
     }

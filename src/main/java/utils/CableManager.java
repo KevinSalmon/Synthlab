@@ -39,8 +39,10 @@ public class CableManager {
 
 
     /**
-     * Set the output point of the cable
-     * @param point2D the output
+     * Enregistre le port de sortie du câble
+     * @param point2D le point de sortie à relier
+     * @param moduleOut le module du port de sortie
+     * @param name le nom du port de sortie
      */
     public void setOutput(Circle point2D, Module moduleOut, String name){
         for(Cable c : cables){
@@ -53,28 +55,29 @@ public class CableManager {
     }
 
     /**
-     * Set the input of a cable and creates a curve
-     * @param point2D the input
-     * @return the curve created
+     * Enregistre le port d'entrée et dessine la courbe
+     * @param point2D le point d'entrée à relier
+     * @param moduleIn le module du port d'entrée
+     * @param name le nom du port d'entrée
      */
     public void setInput(Circle point2D, Module moduleIn, String name){
-            for(Cable c : cables){
-                if(c.getInput().equals(point2D)) return;
-            }
-            currentCable.setInput(point2D);
-            currentCable.setInputName(name);
-            curve = new QuadCurve();
-            Point2D in = currentCable.getInput().getParent().localToParent(currentCable.getInput().getLayoutX(), currentCable.getInput().getLayoutY());
-            Point2D out = currentCable.getOutput().getParent().localToParent(currentCable.getOutput().getLayoutX(), currentCable.getOutput().getLayoutY());
+        for(Cable c : cables){
+            if(c.getInput().equals(point2D)) return;
+        }
+        currentCable.setInput(point2D);
+        currentCable.setInputName(name);
+        curve = new QuadCurve();
+        Point2D in = currentCable.getInput().getParent().localToParent(currentCable.getInput().getLayoutX(), currentCable.getInput().getLayoutY());
+        Point2D out = currentCable.getOutput().getParent().localToParent(currentCable.getOutput().getLayoutX(), currentCable.getOutput().getLayoutY());
         curve.setStartX(in.getX());
-            curve.setStartY(in.getY());
-            curve.setEndX(out.getX());
-            curve.setEndY(out.getY());
-            curve.setControlX((in.getX() + out.getX())/2);
-            curve.setControlY(in.getY() + out.getY());
-            curve.setStroke(Color.BLACK);
-            curve.setStrokeWidth(10);
-            curve.setFill( null);
+        curve.setStartY(in.getY());
+        curve.setEndX(out.getX());
+        curve.setEndY(out.getY());
+        curve.setControlX((in.getX() + out.getX())/2);
+        curve.setControlY(in.getY() + out.getY());
+        curve.setStroke(Color.BLACK);
+        curve.setStrokeWidth(10);
+        curve.setFill( null);
 
         try {
             currentCable.setCurve(curve);
@@ -92,8 +95,8 @@ public class CableManager {
 
 
     /**
-     * Update the  x output
-     * @param output the output
+     * Met à jour la coordonnées X du point de sortie
+     * @param output le port de sortie
      */
     public void updateOutputX(Circle output) {
         for(Cable c : cables){
@@ -108,8 +111,8 @@ public class CableManager {
     }
 
     /**
-     * Update the y output
-     * @param output the output
+     * Met à jour la coordonnées Y du point de sortie
+     * @param output le port de sortie
      */
     public void updateOutputY(Circle output) {
         for(Cable c : cables){
@@ -123,8 +126,8 @@ public class CableManager {
     }
 
     /**
-     * Update the x input
-     * @param in the input
+     * Met à jour la coordonnées X du point d'entrée
+     * @param in le port d'entrée
      */
     public void updateInputX(Circle in) {
         for(Cable c : cables){
@@ -138,8 +141,8 @@ public class CableManager {
     }
 
     /**
-     * Update the y input
-     * @param in the input
+     * Met à jour la coordonnées Y du point d'entrée
+     * @param in le port d'entrée
      */
     public void updateInputY(Circle in) {
         for(Cable c : cables){
@@ -153,10 +156,11 @@ public class CableManager {
     }
 
     /**
-     * Add a listener to a module
-     * @param port the port to listen
-     * @param type the type of the port
-     * @param pane the pane
+     * Ajoute un listener au module
+     * @param port le port à écouter
+     * @param module le module à écouter
+     * @param type le type du port
+     * @param pane le pane du module
      */
     public void addListener(Circle port, Module module, PortType type, Pane pane){
 

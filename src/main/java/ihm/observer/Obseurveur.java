@@ -9,7 +9,7 @@ import module.Module;
 public interface Obseurveur<T> {
     /**
      * Méthode appelée pour mettre à jour l'obseurveur
-     * @param o
+     * @param o l'obseurveur à mettre à jour
      */
     void update(T o);
 

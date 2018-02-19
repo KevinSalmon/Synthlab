@@ -148,7 +148,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
 
     /**
      * Pour test uniquement
-     * @return
+     * @return le port de sortie
      */
     public UnitOutputPort getOutputTest() {
         return this.output;
@@ -156,7 +156,7 @@ public class OutputModule extends Module implements UnitSource, Obseurveur<Subje
 
     /**
      * Pour test uniquement
-     * @return
+     * @return la dernière fois que ça à fail
      */
     public Boolean getLastUpdateFail() {
         return this.lastUpdateFail;

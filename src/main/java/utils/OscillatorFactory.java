@@ -9,7 +9,7 @@ public class OscillatorFactory {
 
     /**
      * Change le type de l'oscillateur
-     * @param oscillatorType
+     * @param oscillatorType le type de l'oscillateur à créer
      * @return le nouvel oscillateur
      */
     public static UnitOscillator createOscillator(OscillatorType oscillatorType){

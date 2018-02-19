@@ -37,7 +37,7 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
 
     /**
      * Met à jour le tableau des valeurs actuelles des sliders coté fonctionnel
-     * @param o
+     * @param o le controller du sequenceur à mettre à jour
      */
     @Override
     public void update(SubjectSeq o) {
@@ -45,12 +45,6 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
 
     }
 
-    /**
-     * Generation de la séquence
-     * Si la valeur d'entrée est supérieur à 5V, le séquenceur passe au pas suivant
-     * @param start
-     * @param limit
-     */
     @Override
     public void generate(int start, int limit){
 
@@ -75,6 +69,7 @@ public class Sequenceur extends Module implements Obseurveur<SubjectSeq>{
         actualValue=0;
 
     }
+
     @Override
     public Module getReference() {
         return this;

@@ -6,13 +6,13 @@ package ihm.observer;
 public interface Subject {
     /**
      * Permet à l'obseurveur o de s'abonner à ce Subject
-     * @param o
+     * @param o l'obseurveur à enregistrer
      */
     void register(Obseurveur o);
 
     /**
      * Permet à l'obseurveur o de se désabonner de ce Subject
-     * @param o
+     * @param o l'obseurveur à retirer
      */
     void remove(Obseurveur o);
 
