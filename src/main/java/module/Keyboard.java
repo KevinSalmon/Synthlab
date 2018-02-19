@@ -128,6 +128,9 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             default: gateUpdate = false;
         }
 
+        if(octave > 10) octave = 10;
+        else if(octave < -10) octave = -10;
+
         if(gateUpdate)gate.setValueInternal(5.0/12.0);
     }
 
