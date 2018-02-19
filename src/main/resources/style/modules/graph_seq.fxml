@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane id="module" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="416.0" styleClass="seq" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.SeqController">
+<Pane id="module" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="416.0" styleClass="seq" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ihm.SeqController">
    <children>
       <Slider fx:id="sld1" blockIncrement="0.1" layoutX="14.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sld2" blockIncrement="0.1" layoutX="64.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
@@ -18,7 +18,7 @@
       <Slider fx:id="sld8" blockIncrement="0.2" layoutX="361.0" layoutY="25.0" majorTickUnit="0.2" max="1.0" min="-1.0" minorTickCount="1" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" />
       <Circle fx:id="in" layoutX="25.0" layoutY="188.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="out" layoutX="369.0" layoutY="188.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="19.0" layoutY="200.0" text="in" />
+      <Label layoutX="10.0" layoutY="200.0" text="gate" />
       <Label layoutX="360.0" layoutY="200.0" text="out" />
       <Button fx:id="delete" layoutX="389.0" layoutY="-1.0" mnemonicParsing="false" text="X" textFill="RED" />
       <Button fx:id="raz" layoutX="77.0" layoutY="184.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Reset" />

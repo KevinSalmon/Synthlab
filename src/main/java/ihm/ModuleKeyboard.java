@@ -102,6 +102,7 @@ public class ModuleKeyboard implements Initializable, SubjectKeyboard, SuperCont
 	@Override
 	public Circle getPort(PortType portType) {
 		if (portType.equals(PortType.OUTPUT)) { return this.drawOutput; }
+		if(portType.equals(PortType.GATE)) { return this.gate; }
 		return null;
 	}
 
