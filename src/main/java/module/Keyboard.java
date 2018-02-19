@@ -12,6 +12,7 @@ import utils.Tuple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurveur<SubjectKeyboard> {
 
@@ -43,6 +44,7 @@ public class Keyboard extends Module implements EventHandler<KeyEvent>, Obseurve
             return new Tuple<>(getPortByName(name),PortType.OUTPUT);
         }
         if(PortType.GATE.getType().equals(name)){
+            Logger.getGlobal().severe("pouet");
             return new Tuple<>(getPortByName(name),PortType.GATE);
         }
         return null;
