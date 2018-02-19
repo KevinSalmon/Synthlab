@@ -15,7 +15,7 @@
         <Label layoutX="12.0" layoutY="30.0" prefHeight="18.0" prefWidth="90.0" text="Octave" />
         <Label layoutX="12.0" layoutY="61.0" prefHeight="18.0" prefWidth="91.0" text="Réglage fin" />
         <Label layoutX="12.0" layoutY="97.0" text="Type onde " />
-        <Slider fx:id="typeOndeSlider" blockIncrement="1.0" layoutX="11.0" layoutY="115.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="25.0" prefWidth="277.0" showTickMarks="true" snapToTicks="true" />
+        <Slider fx:id="typeOndeSlider" blockIncrement="1.0" layoutX="11.0" layoutY="115.0" majorTickUnit="1.0" max="3.0" minorTickCount="0" prefHeight="25.0" prefWidth="277.0" showTickMarks="true" snapToTicks="true" value="1"/>
         <Label layoutX="6.0" layoutY="140.0" text="carrée">
          <font>
             <Font size="12.0" />

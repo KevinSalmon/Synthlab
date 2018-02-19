@@ -197,9 +197,9 @@ public class VCO extends Module implements UnitSource, Obseurveur<SubjectVCO> {
         //Change l'oscillateur courant
         switch (type){
             case SQUARE: currentOsc = sqrOsc;
-            break;
+                break;
             case TRIANGLE: currentOsc = triOsc;
-            break;
+                break;
             case SAWTOOTH: currentOsc = sawOsc;
                 break;
             case SINE: currentOsc = sinOsc;
