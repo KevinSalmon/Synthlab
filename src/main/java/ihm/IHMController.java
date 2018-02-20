@@ -364,6 +364,16 @@ public class IHMController implements Initializable{
             hoverPanel.setOnDragOver(this::onDragOver);
 
             initModulesInModuleMenu();
+
+            MenuItem itemSkin1 = new MenuItem();
+            itemSkin1.setText(SkinNames.SKIN_MOCHE_NAME);
+            itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_MOCHE_NAME));
+
+            MenuItem itemSkin2 = new MenuItem();
+            itemSkin2.setText(SkinNames.SKIN_METAL);
+            itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_METAL));
+
+            menuSkin.getItems().addAll(itemSkin1,itemSkin2);
         }
 
         // Ajout par défaut d'un module de sortie au workspace
@@ -384,16 +394,6 @@ public class IHMController implements Initializable{
         key.setLayoutY(screenSize.getHeight() - 330);
         key.setOnDragDetected(de -> onDragDetected(de, key));
         key.setOnDragDone(de -> onDragDone(de, key));
-
-        MenuItem itemSkin1 = new MenuItem();
-        itemSkin1.setText(SkinNames.SKIN_MOCHE_NAME);
-        itemSkin1.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_MOCHE_NAME));
-
-        MenuItem itemSkin2 = new MenuItem();
-        itemSkin2.setText(SkinNames.SKIN_METAL);
-        itemSkin2.setOnAction(event -> Controller.getInstance().setSkin(SkinNames.SKIN_METAL));
-
-        menuSkin.getItems().addAll(itemSkin1,itemSkin2);
     }
 
     /**
