@@ -48,8 +48,6 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 				new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue,
 						INITIAL_VALUE);
 
-		valueFactory.amountToStepByProperty().setValue(20);
-
 		btnAttenuateur.setValueFactory(valueFactory);
 		btnAttenuateur.setEditable(true);
 		obseurveurList = new ArrayList<>();
@@ -67,8 +65,12 @@ public class ModuleOut implements Initializable, SubjectOutput, SuperController{
 	}
 
 	private void onClickAttenuateur(SpinnerValueFactory.IntegerSpinnerValueFactory f){
-		int newStep = (Math.abs(f.getValue())/10)+1;
-		f.amountToStepByProperty().setValue(newStep);
+		if (f.getValue() > 0) {
+			f.amountToStepByProperty().setValue(1);
+		}
+		else {
+			f.amountToStepByProperty().setValue((Math.abs(f.getValue()) / 10) + 1);
+		}
 		notifyObseurveur();
 	}
 
